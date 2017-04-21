@@ -1,0 +1,23 @@
+{
+  "name": "wc3maptranslator",
+  "version": "0.1.0",
+  "description": "Module to translate JSON map format to WC3 (war3map) files for .w3x",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://chiefofgxbxl@github.com/ChiefOfGxBxL/WC3MapTranslator.git"
+  },
+  "author": "ChiefOfGxBxL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChiefOfGxBxL/WC3MapTranslator/issues"
+  },
+  "homepage": "https://github.com/ChiefOfGxBxL/WC3MapTranslator#readme",
+  "dependencies": {
+    "fs-extra": "^2.1.2",
+    "ieee754": "^1.1.8"
+  }
+}
