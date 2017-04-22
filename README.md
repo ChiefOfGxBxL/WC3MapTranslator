@@ -5,7 +5,7 @@
   Module to translate JSON map format to WC3 (war3map) files for .w3x<br/><br/>
   
   <a href='https://www.npmjs.com/package/wc3maptranslator'>
-    <img src='https://img.shields.io/npm/dt/express.svg?style=flat-square'/>
+    <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
   </a>
   
   <a href='https://opensource.org/licenses/MIT'>
