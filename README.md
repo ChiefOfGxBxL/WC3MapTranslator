@@ -2,9 +2,17 @@
   <b>WC3MapTranslator</b>
 </p>
 <p align='center'>
-  Module to translate JSON map format to WC3 (war3map) files for .w3x
+  Module to translate JSON map format to WC3 (war3map) files for .w3x<br/><br/>
+  
+  <a href='https://www.npmjs.com/package/wc3maptranslator'>
+    <img src='https://img.shields.io/npm/dt/express.svg?style=flat-square'/>
+  </a>
+  
+  <a href='https://opensource.org/licenses/MIT'>
+    <img src='https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square'/>
+  </a>
 </p>
-
+  
 <hr/>
 <p align='center'>
   <a href="#why"><strong>Why?</strong></a> &middot;
@@ -34,16 +42,11 @@ var Translator = require('wc3maptranslator'),
         ...
     };
 
-// Translate the entire map, creating all files that it can
-// from the given JSON. No path is specified (2nd param), so
-// files are written to the current working directory.
-Translator.fromJson(mapJson);
-
-// We can also translate individual sections of JSON
-// by using a single translator, available at Translator.XYZ,
-// where XYZ is the name of the translator.
+// Using individual translators, we may convert JSON
+// representation to generate a WC3 .w3x map file.
+// See the Wiki for more information.
 var unitsTranslator = new Translator.Units(mapJson.units);
-unitsTranslator.write(); // output the specified file from our input JSON
+unitsTranslator.write(); // write output file (in this case, war3mapUnits.doo)
 ```
 
 <br/>
@@ -114,4 +117,4 @@ The underlying WarCraft map files (e.g. war3map.doo) have been documented [on ou
 <br/>
 
 ### Special Thanks
-We owe a lot of thanks to *Chocobo* on [TheHelper.net](thehelper.net) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
+We owe a lot of thanks to *Chocobo* on [TheHelper](http://www.thehelper.net/) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
