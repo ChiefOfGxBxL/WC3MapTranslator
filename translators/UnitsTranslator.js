@@ -19,27 +19,27 @@ var UnitsTranslator = function(unitsJson, outputPath) {
      */
     unitsJson.forEach(function(unit) {
         outBuffer.addString(unit.type); // type
-        outBuffer.addInt(unit.variation); // variation
+        outBuffer.addInt(unit.variation || 0); // variation
         outBuffer.addFloat(unit.position[0]); // position x
         outBuffer.addFloat(unit.position[1]); // position y
         outBuffer.addFloat(unit.position[2]); // position z
-        outBuffer.addFloat(unit.rotation); // rotation angle
+        outBuffer.addFloat(unit.rotation || 0); // rotation angle
         outBuffer.addFloat(unit.scale[0]); // scale x
         outBuffer.addFloat(unit.scale[1]); // scale y
         outBuffer.addFloat(unit.scale[2]); // scale z
-        outBuffer.addByte(unit.flags); // flags
+        outBuffer.addByte(unit.flags || 0); // flags
         outBuffer.addInt(unit.player); // player #
         outBuffer.addByte(0); // (byte unknown - 0)
         outBuffer.addByte(0); // (byte unknown - 0)
         outBuffer.addInt(unit.hitpoints); // hitpoints
         outBuffer.addInt(unit.mana); // mana
         
-        if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
-            outBuffer.addInt(-1);
-        }
-        else {
-            outBuffer.addInt(unit.droppedItemSets.length); // # item sets
-        }
+        //if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
+        outBuffer.addInt(-1);
+        //}
+        //else {
+        //    outBuffer.addInt(unit.droppedItemSets.length); // # item sets
+        //}
         // UNSUPPORTED: dropped items
         outBuffer.addInt(0); // dropped item sets
         
@@ -69,7 +69,7 @@ var UnitsTranslator = function(unitsJson, outputPath) {
         outBuffer.addInt(1);
         
         outBuffer.addInt(unit.color); // custom color
-        outBuffer.addInt(unit.waygate); // waygate
+        outBuffer.addInt(0); //outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
         outBuffer.addInt(unit.id); // id
     });
     
