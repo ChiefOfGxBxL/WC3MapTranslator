@@ -9,10 +9,10 @@
 <p align='center'>
   <a href="#why"><strong>Why?</strong></a> &middot;
   <a href="#usage"><strong>Usage</strong></a> &middot;
-  <a href="#support"><strong>Support</strong></a> &middot;
+  <a href="#file-support"><strong>File Support</strong></a> &middot;
   <a href="#specification"><strong>Specification</strong></a> &middot;
-  <a href="#documentation"><strong>Documentation</strong></a> &middot;
-  <a href="#contributing"><strong>Contributing</strong></a>
+  <a href="#contributing"><strong>Contributing</strong></a> &middot;
+  <a href="#special-thanks"><strong>Special Thanks</strong></a>
 </p>
 <hr/>
 
@@ -24,18 +24,22 @@ WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.
 ### Usage
 ```js
 var Translator = require('wc3maptranslator'),
-    mapJSON = { // Refer to "Specification"
+    mapJson = { // Refer to "Specification"
         units: [...],
         doodads: [...],
         ...
     };
 
 // Translate the above map JSON to output files
-var unitsTranslator = new Translator.Units("war3mapUnits.doo", mapJSON.units);
+var unitsTranslator = new Translator.Units("war3mapUnits.doo", mapJson.units);
 unitsTranslator.write(); // output the specified file from our input JSON
+
+// Or we can translate everything in the map at once
+// Saving to the current directory
+Translator.fromJson(mapJson, '.');
 ```
 
-### Support
+### File Support
 
 | Type            | Status      | File          |
 |-----------------|:-----------:|---------------|
@@ -58,11 +62,10 @@ unitsTranslator.write(); // output the specified file from our input JSON
 | Upgrades - Objects      | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | war3map.w3q   |
 
 ### Specification
-(Section pending)
-(Format of mapJSON = {})
-
-### Documentation
-(Section pending)
+We have an extensive [specification doc on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki/Specification) to explain how to format a map in JSON. It explains everything from the high-level map object, all the way down to creating individual units, tiles, or custom objects.
 
 ### Contributing
 (Section pending)
+
+### Special Thanks
+We owe a lot of thanks to *Chocobo* on [TheHelper.net](thehelper.net) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
