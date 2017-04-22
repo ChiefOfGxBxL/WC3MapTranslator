@@ -30,13 +30,16 @@ var Translator = require('wc3maptranslator'),
         ...
     };
 
+// Translate the entire map, creating all files that it can
+// from the given JSON. No path is specified (2nd param), so
+// files are written to the current working directory.
+Translator.fromJson(mapJson);
+
 // Translate the above map JSON to output files
-var unitsTranslator = new Translator.Units("war3mapUnits.doo", mapJson.units);
+var unitsTranslator = new Translator.Units(mapJson.units);
 unitsTranslator.write(); // output the specified file from our input JSON
 
-// Or we can translate everything in the map at once
-// Saving to the current directory
-Translator.fromJson(mapJson, '.');
+
 ```
 
 ### File Support
