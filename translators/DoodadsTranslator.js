@@ -1,8 +1,8 @@
 var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer;
 
-var DoodadsTranslator = function(outputPath, doodadsJson) {
-    outBuffer = new BufferedHexFileWriter(outputPath/*'war3map.doo'*/);
+var DoodadsTranslator = function(doodadsJson, outputPath) {
+    outBuffer = new BufferedHexFileWriter(outputPath || 'war3map.doo');
     
     /* 
      * Header

@@ -1,8 +1,8 @@
 var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer;
 
-var TerrainTranslator = function(outputPath, terrainJson) {
-    outBuffer = new BufferedHexFileWriter(outputPath/*'war3map.w3e'*/);
+var TerrainTranslator = function(terrainJson, outputPath) {
+    outBuffer = new BufferedHexFileWriter(outputPath || 'war3map.w3e');
     
     /*
      * Header
