@@ -64,8 +64,8 @@ var Translator = require('../index.js'),
             ]
         },
         strings: {
-            0: "Joueur 0",
-            1: "Joueur 1"
+            1: "Joueur 0",
+            2: "Joueur 1"
         }
     };
 
