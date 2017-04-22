@@ -47,4 +47,4 @@ var Translator = require('../index.js'),
         }
     };
 
-Translator.fromJson(mapJson);
+Translator.fromJson(mapJson, './test_output');
