@@ -1,8 +1,10 @@
 var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
-    outBuffer;
+    outBuffer,
+    Path = require('path');
 
 var StringsTranslator = function(stringsJson, outputPath) {
-    outBuffer = new BufferedHexFileWriter(outputPath || 'war3map.wts');
+    var path = (outputPath) ? Path.join(outputPath, 'war3map.wts') : 'war3map.wts';
+    outBuffer = new BufferedHexFileWriter(path);
     
     /*
      * Strings
