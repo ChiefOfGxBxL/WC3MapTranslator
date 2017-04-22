@@ -19,11 +19,11 @@ var DoodadsTranslator = function(doodadsJson, outputPath) {
      */
     doodadsJson.forEach(function(tree) {
         outBuffer.addString(tree.type);
-        outBuffer.addInt(tree.variation);
+        outBuffer.addInt(tree.variation || 0); // optional - default value 0
         outBuffer.addFloat(tree.position[0]);
         outBuffer.addFloat(tree.position[1]);
         outBuffer.addFloat(tree.position[2]);
-        outBuffer.addFloat(tree.angle);
+        outBuffer.addFloat(tree.angle || 0); // optional - default value 0
         outBuffer.addFloat(tree.scale[0]);
         outBuffer.addFloat(tree.scale[1]);
         outBuffer.addFloat(tree.scale[2]);
