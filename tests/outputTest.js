@@ -40,7 +40,29 @@ var Translator = require('../index.js'),
             life: 77,
             id: 0
         }],
-        //terrain: [],
+        terrain: {
+            tileset: 'wxyz',
+            customtileset: true,
+            tilepalette: ['abcd', 'efgh', 'ijkl'],
+            clifftilepalette: ['mnop', 'qrst'],
+            map: {
+                width: 64,
+                height: 64,
+                offset: { // Unsupported - leave blank or set to 0,0
+                    x: 0,
+                    y: 0
+                }
+            },
+            tiles: [
+                [
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [1, 0, 0, 0, 0, 0, 0],
+                    [2, 0, 0, 0, 0, 0, 0],
+                    [3, 0, 0, 0, 0, 0, 0],
+                    [4, 0, 0, 0, 0, 0, 0]
+                ]
+            ]
+        },
         strings: {
             player0: "Joueur 0",
             player1: "Joueur 1"
