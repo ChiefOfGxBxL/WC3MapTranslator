@@ -4,6 +4,7 @@ var Translator = require('../index.js'),
     terrainData = require('./test_input/terrain.json'),
     stringData = require('./test_input/strings.json'),
     regionData = require('./test_input/regions.json'),
+    cameraData = require('./test_input/cameras.json'),
     _outDir = './test_output';
 
 
@@ -29,3 +30,7 @@ unitsTranslator.write();
 // Regions - >war3map.w3r
 var regionsTranslator = new Translator.Regions(regionData, _outDir);
 regionsTranslator.write();
+
+// Cameras - >war3map.w3c
+var camerasTranslator = new Translator.Cameras(cameraData, _outDir);
+camerasTranslator.write();
