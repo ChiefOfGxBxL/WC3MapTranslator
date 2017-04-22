@@ -57,7 +57,7 @@ unitsTranslator.write(); // output the specified file from our input JSON
 | war3map.w3e       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Terrain                 |
 | war3mapUnits.doo  |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Units                   |
 | war3map.doo       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Doodads                 |
-| war3map.w3r       |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Regions                 |
+| war3map.w3r       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Regions                 |
 | war3map.w3c       |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Cameras                 |
 | war3map.w3s       |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Sounds (definitions)    |
 

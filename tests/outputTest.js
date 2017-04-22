@@ -1,14 +1,14 @@
 var Translator = require('../index.js'),
-    _outDir = './test_output',
     unitData = require('./test_input/units.json'),
     doodadData = require('./test_input/doodads.json'),
     terrainData = require('./test_input/terrain.json'),
-    stringData = require('./test_input/strings.json');
+    stringData = require('./test_input/strings.json'),
+    regionData = require('./test_input/regions.json'),
+    _outDir = './test_output';
 
 
 /* Test the translators by creating 
- * each one and writing output
- */
+ * each one and writing output */
  
 // Doodads -> war3map.doo
 var doodadsTranslator = new Translator.Doodads(doodadData, _outDir);
@@ -25,3 +25,7 @@ terrainTranslator.write();
 // Units/items -> war3mapUnits.doo
 var unitsTranslator = new Translator.Units(unitData, _outDir);
 unitsTranslator.write();
+
+// Regions - >war3map.w3r
+var regionsTranslator = new Translator.Regions(regionData, _outDir);
+regionsTranslator.write();
