@@ -16,10 +16,14 @@
 </p>
 <hr/>
 
+<br/>
+
 ### Why?
 WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.w3x) data to their `war3map` files. This module was created for use by Ice Sickle, the new-gen WC3 world editor. You are welcome to use this module for other projects.
 
 *But still... why?* - You may wish to familiarize yourself with the Ice Sickle project. JSON is much easier for humans to read, compared to the byte format used by WC3 files. Of course, this does come with a trade-off: increased file size. But with increased storage today and cloud-hosting, this is no problem.
+
+<br/>
 
 ### Usage
 ```js
@@ -35,12 +39,14 @@ var Translator = require('wc3maptranslator'),
 // files are written to the current working directory.
 Translator.fromJson(mapJson);
 
-// Translate the above map JSON to output files
+// We can also translate individual sections of JSON
+// by using a single translator, available at Translator.XYZ,
+// where XYZ is the name of the translator.
 var unitsTranslator = new Translator.Units(mapJson.units);
 unitsTranslator.write(); // output the specified file from our input JSON
-
-
 ```
+
+<br/>
 
 ### File Support
 
@@ -64,11 +70,19 @@ unitsTranslator.write(); // output the specified file from our input JSON
 | Buffs - Objects         | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | war3map.w3h   |
 | Upgrades - Objects      | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | war3map.w3q   |
 
+<br/>
+
 ### Specification
-We have an extensive [specification doc on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki/Specification) to explain how to format a map in JSON. It explains everything from the high-level map object, all the way down to creating individual units, tiles, or custom objects.
+We have an extensive [specification on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki/Specification) explaining how to format a map in JSON. It explains everything from the high-level map object, all the way down to creating individual units, tiles, or custom objects.
+
+The underlying WarCraft map files (e.g. war3map.doo) have been documented [on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki) as well. If you are curious about how a .w3x file is composed, this is the place to learn!
+
+<br/>
 
 ### Contributing
 (Section pending)
+
+<br/>
 
 ### Special Thanks
 We owe a lot of thanks to *Chocobo* on [TheHelper.net](thehelper.net) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
