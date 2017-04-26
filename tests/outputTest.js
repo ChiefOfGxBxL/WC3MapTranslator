@@ -5,6 +5,7 @@ var Translator = require('../index.js'),
     stringData = require('./test_input/strings.json'),
     regionData = require('./test_input/regions.json'),
     cameraData = require('./test_input/cameras.json'),
+    soundData = require('./test_input/sounds.json'),
     _outDir = './test_output';
 
 
@@ -34,3 +35,7 @@ regionsTranslator.write();
 // Cameras - >war3map.w3c
 var camerasTranslator = new Translator.Cameras(cameraData, _outDir);
 camerasTranslator.write();
+
+// Sounds - >war3map.w3s
+var soundsTranslator = new Translator.Sounds(soundData, _outDir);
+soundsTranslator.write();
