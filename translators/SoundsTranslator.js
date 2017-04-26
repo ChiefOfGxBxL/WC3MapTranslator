@@ -30,11 +30,11 @@ var SoundsTranslator = function(soundsJson, outputPath) {
         
         // Flags, if present (optional)
         var flags = 0;
-        if(sounds.flags) {
-            if(sounds.flags.looping) flags |= 0x1;
-            if(sounds.flags['3dSound']) flags |= 0x2;
-            if(sounds.flags.stopOutOfRange) flags |= 0x4;
-            if(sounds.flags.music) flags |= 0x8;
+        if(sound.flags) {
+            if(sound.flags.looping) flags |= 0x1;
+            if(sound.flags['3dSound']) flags |= 0x2;
+            if(sound.flags.stopOutOfRange) flags |= 0x4;
+            if(sound.flags.music) flags |= 0x8;
         }
         outBuffer.addInt(flags);
         
@@ -93,4 +93,4 @@ var SoundsTranslator = function(soundsJson, outputPath) {
     };
 }
 
-module.exports = RegionsTranslator;
+module.exports = SoundsTranslator;
