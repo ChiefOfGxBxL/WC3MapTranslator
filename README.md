@@ -62,7 +62,7 @@ unitsTranslator.write(); // write output file (in this case, war3mapUnits.doo)
 | war3map.doo       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Doodads                 |
 | war3map.w3r       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Regions                 |
 | war3map.w3c       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Cameras                 |
-| war3map.w3s       |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Sounds (definitions)    |
+| war3map.w3s       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Sounds (definitions)    |
 
 #### Trigger files
 
