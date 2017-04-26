@@ -25,7 +25,16 @@ var SoundsTranslator = function(soundsJson, outputPath) {
         outBuffer.addNullTerminator();
         
         // EAX effects enum (e.g. missiles, speech, etc)
-        outBuffer.addString(sound.eax);
+        /*
+            default = DefaultEAXON
+            combat = CombatSoundsEAX
+            drums = KotoDrumsEAX
+            spells = SpellsEAX
+            missiles = MissilesEAX
+            hero speech = HeroAcksEAX
+            doodads = DoodadsEAX
+        */
+        outBuffer.addString(sound.eax || 'DefaultEAXON'); // defaults to "DefaultEAXON"
         outBuffer.addNullTerminator();
         
         // Flags, if present (optional)
@@ -39,8 +48,8 @@ var SoundsTranslator = function(soundsJson, outputPath) {
         outBuffer.addInt(flags);
         
         // Fade in and out rate (optional)
-        outBuffer.addInt((sound.fadeRate) ? sound.fadeRate.in : 1); // default to 1
-        outBuffer.addInt((sound.fadeRate) ? sound.fadeRate.out : 1); // default to 1
+        outBuffer.addInt((sound.fadeRate) ? (sound.fadeRate.in || 10): 10); // default to 10
+        outBuffer.addInt((sound.fadeRate) ? (sound.fadeRate.out || 10) : 10); // default to 10
         
         // Volume (optional)
         outBuffer.addInt(sound.volume || -1); // default to -1 (for normal volume)
@@ -70,7 +79,7 @@ var SoundsTranslator = function(soundsJson, outputPath) {
             13=Birth
             14=Fire
         */
-        outBuffer.addInt(sound.channel || 0); // default to 1
+        outBuffer.addInt(sound.channel || 0); // default to 0
         
         // Distance fields
         outBuffer.addFloat(sound.distance.min);
