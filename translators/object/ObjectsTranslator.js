@@ -6,10 +6,19 @@ var BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
         real: 1,
         unreal: 2,
         string: 3
+    },
+    fileTypeExt = {
+        units: 'w3u',
+        items: 'w3t',
+        destructables: 'w3b',
+        doodads: 'w3d',
+        abilities: 'w3a',
+        buffs: 'w3h',
+        upgrades: 'w3q'
     };
 
-var UnitsObjTranslator = function(json, outputPath) {
-    var path = (outputPath) ? Path.join(outputPath, 'war3map.w3u') : 'war3map.w3u';
+var ObjectsTranslator = function(type, json, outputPath) {
+    var path = (outputPath) ? Path.join(outputPath, 'war3map.' + fileTypeExt[type]) : 'war3map.' + fileTypeExt[type];
     outBuffer = new BufferedHexFileWriter(path);
     
     /*
@@ -108,6 +117,6 @@ var UnitsObjTranslator = function(json, outputPath) {
             outBuffer.writeFile();
         }
     };
-}
+};
 
-module.exports = UnitsObjTranslator;
+module.exports = ObjectsTranslator;

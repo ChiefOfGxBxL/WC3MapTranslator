@@ -8,9 +8,7 @@ var Translator = {
     Cameras: require('./translators/CamerasTranslator.js'),
     Sounds: require('./translators/SoundsTranslator.js'),
     
-    Object: {
-        Units: require('./translators/object/UnitsObjTranslator.js')
-    },
+    Objects: require('./translators/object/ObjectsTranslator.js')
 };
 
 module.exports = Translator;

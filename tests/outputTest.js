@@ -11,6 +11,7 @@ var Translator = require('../index.js'),
     
     // Object data
     unitObjData = require('./test_input/object/units.json'),
+    itemObjData = require('./test_input/object/items.json'),
     
     _outDir = './test_output';
 
@@ -26,7 +27,8 @@ var translators = [
     //new Translator.Cameras(cameraData, _outDir), // Cameras -> war3map.w3c
     //new Translator.Sounds(soundData, _outDir), // Sounds -> war3map.w3s
     
-    new Translator.Object.Units(unitObjData, _outDir), // Custom units -> war3map.w3u
+    new Translator.Objects('units', unitObjData, _outDir), // Custom units -> war3map.w3u
+    new Translator.Objects('items', itemObjData, _outDir), // Custom items -> war3map.w3t
 ];
 
 translators.forEach((t) => {
