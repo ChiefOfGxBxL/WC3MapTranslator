@@ -21,14 +21,16 @@ var UnitsObjTranslator = function(json, outputPath) {
     /*
      * Original table
      */
-    outBuffer.addInt(json.original.length);
+    outBuffer.addInt(Object.keys(json.original).length);
     
-    json.original.forEach(function(def) {
-        outBuffer.addString(def.baseId);
-        outBuffer.addByte(0);outBuffer.addByte(0);outBuffer.addByte(0);outBuffer.addByte(0);
-        outBuffer.addInt(def.changes.length);
+    Object.keys(json.original).forEach(function(defKey) {
+        var obj = json.original[defKey];
         
-        def.changes.forEach(function(mod) {
+        outBuffer.addString(defKey);
+        outBuffer.addByte(0);outBuffer.addByte(0);outBuffer.addByte(0);outBuffer.addByte(0);
+        outBuffer.addInt(obj.length);
+        
+        obj.forEach(function(mod) {
             var modType;
             
             // Modification id (e.g. unam = name; reference MetaData lookups)
@@ -67,8 +69,7 @@ var UnitsObjTranslator = function(json, outputPath) {
                 outBuffer.addNullTerminator();
             }
             
-            //outBuffer.addInt(0); // End of mod struct
-            outBuffer.addString(def.baseId); // the base id of an original object (e.g. hfoo) ends each modification to the original object
+            outBuffer.addString(defKey); // End of struct: the base id of an original object (e.g. hfoo) ends each modification to the original object
         });
     });
     
@@ -76,14 +77,16 @@ var UnitsObjTranslator = function(json, outputPath) {
     /*
      * Custom table
      */
-    outBuffer.addInt(json.custom.length); // # entry modifications
+    outBuffer.addInt(Object.keys(json.custom).length); // # entry modifications
     
-    json.custom.forEach(function(def) {
-        outBuffer.addString(def.baseId);
-        outBuffer.addString(def.newId);
-        outBuffer.addInt(def.changes.length);
+    Object.keys(json.custom).forEach(function(defKey) {
+        var obj = json.custom[defKey];
         
-        def.changes.forEach(function(mod) {
+        outBuffer.addString(defKey.split(':')[1]); // original base Id
+        outBuffer.addString(defKey.split(':')[0]); // custom new Id
+        outBuffer.addInt(obj.length);
+        
+        obj.forEach(function(mod) {
             var modType;
             
             // Modification id (e.g. unam = name; reference MetaData lookups)
