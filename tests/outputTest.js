@@ -11,31 +11,16 @@ var Translator = require('../index.js'),
 
 /* Test the translators by creating 
  * each one and writing output */
- 
-// Doodads -> war3map.doo
-var doodadsTranslator = new Translator.Doodads(doodadData, _outDir);
-doodadsTranslator.write();
+var translators = [
+    //new Translator.Doodads(doodadData, _outDir), // Doodads -> war3map.doo
+    //new Translator.Strings(stringData, _outDir), // Strings -> war3map.wts
+    //new Translator.Terrain(terrainData, _outDir), // Terrain -> war3map.w3e
+    //new Translator.Units(unitData, _outDir), // Units/items -> war3mapUnits.doo
+    new Translator.Regions(regionData, _outDir), // Regions - >war3map.w3r
+    new Translator.Cameras(cameraData, _outDir), // Cameras - >war3map.w3c
+    new Translator.Sounds(soundData, _outDir), // Sounds - >war3map.w3s
+];
 
-// Strings -> war3map.wts
-var stringsTranslator = new Translator.Strings(stringData, _outDir);
-stringsTranslator.write();
-
-// Terrain -> war3map.w3e
-var terrainTranslator = new Translator.Terrain(terrainData, _outDir);
-terrainTranslator.write();
-
-// Units/items -> war3mapUnits.doo
-var unitsTranslator = new Translator.Units(unitData, _outDir);
-unitsTranslator.write();
-
-// Regions - >war3map.w3r
-var regionsTranslator = new Translator.Regions(regionData, _outDir);
-regionsTranslator.write();
-
-// Cameras - >war3map.w3c
-var camerasTranslator = new Translator.Cameras(cameraData, _outDir);
-camerasTranslator.write();
-
-// Sounds - >war3map.w3s
-var soundsTranslator = new Translator.Sounds(soundData, _outDir);
-soundsTranslator.write();
+translators.forEach((t) => {
+    t.write(); // Output each file
+});
