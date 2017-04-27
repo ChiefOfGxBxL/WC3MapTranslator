@@ -19,8 +19,8 @@ var RegionsTranslator = function(regionsJson, outputPath) {
         // Position
         outBuffer.addFloat(region.position.left);
         outBuffer.addFloat(region.position.right);
-        outBuffer.addFloat(region.position.bottom);
         outBuffer.addFloat(region.position.top);
+        outBuffer.addFloat(region.position.bottom);
         
         // Region name - must be null terminated
         outBuffer.addString(region.name);
@@ -30,10 +30,19 @@ var RegionsTranslator = function(regionsJson, outputPath) {
         outBuffer.addInt(region.id);
         
         // Weather effect name - lookup necessary: char[4]
-        outBuffer.addString(region.weatherEffect || '0000'); // Weather effect is optional - defaults to 0000 for "none"
+        if(region.weatherEffect) {
+            outBuffer.addString(region.weatherEffect); // Weather effect is optional - defaults to 0000 for "none"
+        }
+        else {
+            // We can't put a string "0000", because ASCII 0's differ from 0x0 bytes
+            outBuffer.addByte(0);
+            outBuffer.addByte(0);
+            outBuffer.addByte(0);
+            outBuffer.addByte(0);
+        }
         
         // Ambient sound - refer to names defined in .w3s file
-        outBuffer.addString(region.ambientSound); // May be empty string
+        outBuffer.addString(region.ambientSound || ""); // May be empty string
         outBuffer.addNullTerminator();
         
         // Color of region used by editor
@@ -43,8 +52,8 @@ var RegionsTranslator = function(regionsJson, outputPath) {
         outBuffer.addByte(region.color[0]);
         
         // End of structure - for some reason the .w3r needs this here;
-        // Value is just left at 0, but not sure if it could be something else
-        outBuffer.addByte(0);
+        // Value is set to 0xff based on observing the .w3r file, but not sure if it could be something else
+        outBuffer.addByte(0xff);
     });
     
     return {
