@@ -7,6 +7,10 @@ var Translator = {
     Regions: require('./translators/RegionsTranslator.js'),
     Cameras: require('./translators/CamerasTranslator.js'),
     Sounds: require('./translators/SoundsTranslator.js'),
+    
+    Object: {
+        Units: require('./translators/object/UnitsObjTranslator.js')
+    },
 };
 
 module.exports = Translator;
