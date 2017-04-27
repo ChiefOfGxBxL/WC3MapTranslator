@@ -17,10 +17,11 @@ var RegionsTranslator = function(regionsJson, outputPath) {
      */
     regionsJson.forEach(function(region) {
         // Position
+        // Note that the .w3x guide has these coords wrong - the guide swaps bottom and right, but this is incorrect; bottom should be written before right
         outBuffer.addFloat(region.position.left);
+        outBuffer.addFloat(region.position.bottom);
         outBuffer.addFloat(region.position.right);
         outBuffer.addFloat(region.position.top);
-        outBuffer.addFloat(region.position.bottom);
         
         // Region name - must be null terminated
         outBuffer.addString(region.name);
