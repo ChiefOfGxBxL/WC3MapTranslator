@@ -73,7 +73,7 @@ var ObjectsTranslator = function(type, json, outputPath) {
                 // Required for: doodads, abilities, upgrades
                 if(type === 'doodads' || type === 'abilities' || type === 'upgrades') {
                     outBuffer.addInt(mod.level || mod.variation || 1); // Level or variation - defaults to 1
-                    outBuffer.addInt(mod.column); // E.g DataA1 is 0 because of col A; refer to the xyzData.slk files for Data fields
+                    outBuffer.addInt(mod.column); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
                 }
                 
                 // Write mod value
