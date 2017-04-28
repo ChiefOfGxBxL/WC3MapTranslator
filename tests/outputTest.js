@@ -13,6 +13,7 @@ var Translator = require('../index.js'),
     unitObjData = require('./test_input/object/units.json'),
     itemObjData = require('./test_input/object/items.json'),
     buffObjData = require('./test_input/object/buffs.json'),
+    destObjData = require('./test_input/object/destructables.json'),
     
     _outDir = './test_output';
 
@@ -31,6 +32,7 @@ var translators = [
     new Translator.Objects('units', unitObjData, _outDir), // Custom units -> war3map.w3u
     new Translator.Objects('items', itemObjData, _outDir), // Custom items -> war3map.w3t
     new Translator.Objects('buffs', buffObjData, _outDir), // Custom buffs -> war3map.w3h
+    new Translator.Objects('destructables', destObjData, _outDir), // Custom destructables -> war3map.w3b
 ];
 
 translators.forEach((t) => {
