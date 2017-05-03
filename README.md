@@ -64,6 +64,18 @@ unitsTranslator.write(); // write output file (in this case, war3mapUnits.doo)
 | war3map.w3c       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Cameras                 |
 | war3map.w3s       |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Sounds (definitions)    |
 
+#### Object data files
+
+| File            | Status      | Type          |
+|-----------------|:-----------:|---------------|
+| war3map.w3u     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Units - Objects         |
+| war3map.w3t     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Items - Objects         |
+| war3map.w3a     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Abilities - Objects     |
+| war3map.w3b     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Destructables - Objects |
+| war3map.w3d     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Doodads - Objects       |
+| war3map.w3q     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Upgrades - Objects      |
+| war3map.w3h     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Buffs - Objects         |
+
 #### Trigger files
 
 | File            | Status      | Type          |
@@ -87,20 +99,6 @@ unitsTranslator.write(); // write output file (in this case, war3mapUnits.doo)
 | war3mapMap.b00     |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Minimap Image (2)       |
 | war3mapMap.tga     |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Minimap Image (3)       |
 | war3mapPreview.tga |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Map Preview Image       |
-
-
-#### Object data files
-
-| File            | Status      | Type          |
-|-----------------|:-----------:|---------------|
-| war3map.w3u     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Units - Objects         |
-| war3map.w3t     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Items - Objects         |
-| war3map.w3a     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Abilities - Objects     |
-| war3map.w3b     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Destructables - Objects |
-| war3map.w3d     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Doodads - Objects       |
-| war3map.w3q     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Upgrades - Objects      |
-| war3map.w3h     |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Buffs - Objects         |
-
 
 <br/>
 
