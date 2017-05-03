@@ -8,6 +8,10 @@
     <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
   </a>
   
+  <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
+    <img src='https://img.shields.io/codeclimate/github/ChiefOfGxBxL/WC3MapTranslator.svg?style=flat-square'/>
+  </a>
+  
   <a href='https://opensource.org/licenses/MIT'>
     <img src='https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square'/>
   </a>
