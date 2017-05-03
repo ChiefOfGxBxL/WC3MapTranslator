@@ -85,7 +85,7 @@ var ObjectsTranslator = function(type, json) {
                     outBuffer.addInt(mod.value);
                 }
                 else if(modType === varTypes.real || modType === varTypes.unreal) {
-                    // TODO: check if unreal values are same hex format as real
+                    // Follow-up: check if unreal values are same hex format as real
                     outBuffer.addFloat(mod.value);
                 }
                 else if(modType === varTypes.string) {
