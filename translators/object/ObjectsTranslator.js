@@ -72,8 +72,26 @@ var ObjectsTranslator = function(type, json, outputPath) {
                 // Addl integers
                 // Required for: doodads, abilities, upgrades
                 if(type === 'doodads' || type === 'abilities' || type === 'upgrades') {
-                    outBuffer.addInt(mod.level || mod.variation || 1); // Level or variation - defaults to 1
-                    outBuffer.addInt(mod.column); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
+                    
+                    // Level or variation
+                    // We need to check if hasOwnProperty because these could be explititly
+                    // set to 0, but JavaScript's truthiness evaluates to false to it was defaulting
+                    if(mod.hasOwnProperty('level')) {
+                        outBuffer.addInt(mod.level);
+                    }
+                    else if(mod.hasOwnProperty('variation')) {
+                        outBuffer.addInt(mod.variation);
+                    }
+                    else {
+                        if(type === 'abilities' || type === 'upgrades') {
+                            outBuffer.addInt(1);
+                        }
+                        else {
+                            outBuffer.addInt(0); // doodads defaults to 0
+                        }
+                    }
+                    
+                    outBuffer.addInt(mod.column || 0); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
                 }
                 
                 // Write mod value
