@@ -18,9 +18,8 @@ var BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
         upgrades:       'w3q', // (*)
     };
 
-var ObjectsTranslator = function(type, json, outputPath) {
-    var path = (outputPath) ? Path.join(outputPath, 'war3map.' + fileTypeExt[type]) : 'war3map.' + fileTypeExt[type];
-    outBuffer = new BufferedHexFileWriter(path);
+var ObjectsTranslator = function(type, json) {
+    outBuffer = new BufferedHexFileWriter();
     
     /*
      * Header
@@ -126,8 +125,9 @@ var ObjectsTranslator = function(type, json, outputPath) {
     generateTableFromJson('custom', json.custom);
     
     return {
-        write: function() {
-            outBuffer.writeFile();
+        write: function(outputPath) {
+            var path = (outputPath) ? Path.join(outputPath, 'war3map.' + fileTypeExt[type]) : 'war3map.' + fileTypeExt[type];
+            outBuffer.writeFile(path);
         }
     };
 };

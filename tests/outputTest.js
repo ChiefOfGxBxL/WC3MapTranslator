@@ -24,23 +24,23 @@ var Translator = require('../index.js'),
 /* Test the translators by creating 
  * each one and writing output */
 var translators = [
-    //new Translator.Doodads(doodadData, _outDir), // Doodads -> war3map.doo
-    //new Translator.Strings(stringData, _outDir), // Strings -> war3map.wts
-    //new Translator.Terrain(terrainData, _outDir), // Terrain -> war3map.w3e
-    //new Translator.Units(unitData, _outDir), // Units/items -> war3mapUnits.doo
-    //new Translator.Regions(regionData, _outDir), // Regions -> war3map.w3r
-    //new Translator.Cameras(cameraData, _outDir), // Cameras -> war3map.w3c
-    //new Translator.Sounds(soundData, _outDir), // Sounds -> war3map.w3s
+    //new Translator.Doodads(doodadData), // Doodads -> war3map.doo
+    //new Translator.Strings(stringData), // Strings -> war3map.wts
+    //new Translator.Terrain(terrainData), // Terrain -> war3map.w3e
+    //new Translator.Units(unitData), // Units/items -> war3mapUnits.doo
+    //new Translator.Regions(regionData), // Regions -> war3map.w3r
+    //new Translator.Cameras(cameraData), // Cameras -> war3map.w3c
+    //new Translator.Sounds(soundData), // Sounds -> war3map.w3s
     
-    //new Translator.Objects('units', unitObjData, _outDir), // Custom units -> war3map.w3u
-    //new Translator.Objects('items', itemObjData, _outDir), // Custom items -> war3map.w3t
-    //new Translator.Objects('buffs', buffObjData, _outDir), // Custom buffs -> war3map.w3h
-    //new Translator.Objects('destructables', destObjData, _outDir), // Custom destructables -> war3map.w3b
-    //new Translator.Objects('abilities', abilObjData, _outDir), // Custom abilities -> war3map.w3a
-    //new Translator.Objects('upgrades', upgrObjData, _outDir), // Custom upgrades -> war3map.w3q
-    new Translator.Objects('doodads', doodObjData, _outDir), // Custom doodads -> war3map.w3d
+    //new Translator.Objects('units', unitObjData), // Custom units -> war3map.w3u
+    //new Translator.Objects('items', itemObjData), // Custom items -> war3map.w3t
+    //new Translator.Objects('buffs', buffObjData), // Custom buffs -> war3map.w3h
+    //new Translator.Objects('destructables', destObjData), // Custom destructables -> war3map.w3b
+    //new Translator.Objects('abilities', abilObjData), // Custom abilities -> war3map.w3a
+    //new Translator.Objects('upgrades', upgrObjData), // Custom upgrades -> war3map.w3q
+    new Translator.Objects('doodads', doodObjData), // Custom doodads -> war3map.w3d
 ];
 
 translators.forEach((t) => {
-    t.write(); // Output each file
+    t.write(_outDir); // Output each file
 });

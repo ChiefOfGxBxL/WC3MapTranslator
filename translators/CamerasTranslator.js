@@ -2,9 +2,8 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
-var CamerasTranslator = function(cameras, outputPath) {
-    var path = (outputPath) ? Path.join(outputPath, 'war3map.w3c') : 'war3map.w3c';
-    outBuffer = new BufferedHexFileWriter(path);
+var CamerasTranslator = function(cameras) {
+    outBuffer = new BufferedHexFileWriter();
     
     /* 
      * Header
@@ -33,8 +32,9 @@ var CamerasTranslator = function(cameras, outputPath) {
     });
     
     return {
-        write: function() {
-            outBuffer.writeFile();
+        write: function(outputPath) {
+            var path = (outputPath) ? Path.join(outputPath, 'war3map.w3c') : 'war3map.w3c';
+            outBuffer.writeFile(path);
         }
     };
 }

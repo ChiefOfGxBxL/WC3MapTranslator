@@ -2,9 +2,8 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
-var RegionsTranslator = function(regionsJson, outputPath) {
-    var path = (outputPath) ? Path.join(outputPath, 'war3map.w3r') : 'war3map.w3r';
-    outBuffer = new BufferedHexFileWriter(path);
+var RegionsTranslator = function(regionsJson) {
+    outBuffer = new BufferedHexFileWriter();
     
     /* 
      * Header
@@ -58,8 +57,9 @@ var RegionsTranslator = function(regionsJson, outputPath) {
     });
     
     return {
-        write: function() {
-            outBuffer.writeFile();
+        write: function(outputPath) {
+            var path = (outputPath) ? Path.join(outputPath, 'war3map.w3r') : 'war3map.w3r';
+            outBuffer.writeFile(path);
         }
     };
 }

@@ -2,9 +2,8 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
-var SoundsTranslator = function(soundsJson, outputPath) {
-    var path = (outputPath) ? Path.join(outputPath, 'war3map.w3s') : 'war3map.w3s';
-    outBuffer = new BufferedHexFileWriter(path);
+var SoundsTranslator = function(soundsJson) {
+    outBuffer = new BufferedHexFileWriter();
     
     /* 
      * Header
@@ -96,8 +95,9 @@ var SoundsTranslator = function(soundsJson, outputPath) {
     });
     
     return {
-        write: function() {
-            outBuffer.writeFile();
+        write: function(outputPath) {
+            var path = (outputPath) ? Path.join(outputPath, 'war3map.w3s') : 'war3map.w3s';
+            outBuffer.writeFile(path);
         }
     };
 }

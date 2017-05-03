@@ -2,9 +2,8 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
-var DoodadsTranslator = function(doodadsJson, outputPath) {
-    var path = (outputPath) ? Path.join(outputPath, 'war3map.doo') : 'war3map.doo';
-    outBuffer = new BufferedHexFileWriter(path);
+var DoodadsTranslator = function(doodadsJson) {
+    outBuffer = new BufferedHexFileWriter();
     
     /* 
      * Header
@@ -41,8 +40,9 @@ var DoodadsTranslator = function(doodadsJson, outputPath) {
     outBuffer.addInt(0); // NOT SUPPORTED: number of special doodads
     
     return {
-        write: function() {
-            outBuffer.writeFile();
+        write: function(outputPath) {
+            var path = (outputPath) ? Path.join(outputPath, 'war3map.doo') : 'war3map.doo';
+            outBuffer.writeFile(path);
         }
     };
 }

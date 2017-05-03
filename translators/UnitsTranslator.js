@@ -2,9 +2,8 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
-var UnitsTranslator = function(unitsJson, outputPath) {
-    var path = (outputPath) ? Path.join(outputPath, 'war3mapUnits.doo') : 'war3mapUnits.doo';
-    outBuffer = new BufferedHexFileWriter(path);
+var UnitsTranslator = function(unitsJson) {
+    outBuffer = new BufferedHexFileWriter();
     
     /*
      * Header
@@ -74,8 +73,9 @@ var UnitsTranslator = function(unitsJson, outputPath) {
     });
     
     return {
-        write: function() {
-            outBuffer.writeFile();
+        write: function(outputPath) {
+            var path = (outputPath) ? Path.join(outputPath, 'war3mapUnits.doo') : 'war3mapUnits.doo';
+            outBuffer.writeFile(path);
         }
     };
 }
