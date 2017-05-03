@@ -5,7 +5,7 @@ var BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
         int:    0,
         real:   1,
         unreal: 2,
-        string: 3,
+        string: 3
     },
     // (*) - uses the two optional ints after variable type
     fileTypeExt = {
@@ -15,7 +15,7 @@ var BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
         doodads:        'w3d', // (*)
         abilities:      'w3a', // (*)
         buffs:          'w3h',
-        upgrades:       'w3q', // (*)
+        upgrades:       'w3q' // (*)
     };
 
 var ObjectsTranslator = function(type, json) {
