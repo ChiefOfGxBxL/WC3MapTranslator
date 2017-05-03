@@ -15,6 +15,8 @@ var Translator = require('../index.js'),
     buffObjData = require('./test_input/object/buffs.json'),
     destObjData = require('./test_input/object/destructables.json'),
     abilObjData = require('./test_input/object/abilities.json'),
+    upgrObjData = require('./test_input/object/upgrades.json'),
+    doodObjData = require('./test_input/object/doodads.json'),
     
     _outDir = './test_output';
 
@@ -34,7 +36,9 @@ var translators = [
     //new Translator.Objects('items', itemObjData, _outDir), // Custom items -> war3map.w3t
     //new Translator.Objects('buffs', buffObjData, _outDir), // Custom buffs -> war3map.w3h
     //new Translator.Objects('destructables', destObjData, _outDir), // Custom destructables -> war3map.w3b
-    new Translator.Objects('abilities', abilObjData, _outDir), // Custom abilities -> war3map.w3a
+    //new Translator.Objects('abilities', abilObjData, _outDir), // Custom abilities -> war3map.w3a
+    //new Translator.Objects('upgrades', upgrObjData, _outDir), // Custom upgrades -> war3map.w3q
+    new Translator.Objects('doodads', doodObjData, _outDir), // Custom doodads -> war3map.w3d
 ];
 
 translators.forEach((t) => {
