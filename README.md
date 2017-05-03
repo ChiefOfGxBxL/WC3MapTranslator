@@ -95,7 +95,7 @@ unitsTranslator.write(); // write output file (in this case, war3mapUnits.doo)
 | File               | Status      | Type          |
 |--------------------|:-----------:|---------------|
 | war3map.w3i        |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Info File               |
-| war3map.imp        |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Imported Files          |
+| war3map.imp        |  ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png)   | Imported Files          |
 | war3map.wpm        |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Pathing                 |
 | war3map.shd        |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Shadow map              |
 | war3map.mmp        |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Menu Minimap            |
