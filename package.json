@@ -4,7 +4,7 @@
   "description": "Module to translate JSON map format to WC3 (war3map) files for .w3x",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./tests/outputTest.js"
   },
   "repository": {
     "type": "git",
