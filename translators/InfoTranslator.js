@@ -4,31 +4,31 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
 
 var InfoTranslator = function(infoJson) {
     outBuffer = new BufferedHexFileWriter();
-    
-    outBuffer.addInt(19); // file version
+
+    outBuffer.addInt(25); // file version, 0x19
     outBuffer.addInt(infoJson.saves);
     outBuffer.addInt(infoJson.editorVersion);
-    
+
     // Map information
     outBuffer.addString(infoJson.map.name, true);
     outBuffer.addString(infoJson.map.author, true);
     outBuffer.addString(infoJson.map.description, true);
     outBuffer.addString(infoJson.map.recommendedPlayers, true);
-    
+
     // Camera bounds (8 floats total)
     for(var i = 0; i < 8; i++) {
         outBuffer.addFloat(infoJson.camera.bounds[i]);
     }
-    
+
     // Camera complements (4 floats total)
     for(var j = 0; j < 4; j++) {
-        outBuffer.addFloat(infoJson.camera.complements[j]);
+        outBuffer.addInt(infoJson.camera.complements[j]);
     }
-    
+
     // Playable area
     outBuffer.addInt(infoJson.map.playableArea.width);
     outBuffer.addInt(infoJson.map.playableArea.height);
-    
+
     /*
      * Flags
      */
@@ -46,28 +46,33 @@ var InfoTranslator = function(infoJson) {
     // 0x0400 - unknown;                                                 // map properties menu opened at least once since map creation (?)
     if(infoJson.map.flags.waterWavesOnCliffShores)      flags |= 0x0800; // show water waves on cliff shores
     if(infoJson.map.flags.waterWavesOnRollingShores)    flags |= 0x1000; // show water waves on rolling shores
-    
+
+    // Unknown, but these seem to always be on, at least for default maps
+    flags |= 0x8000;
+    flags |= 0x4000;
+    flags |= 0x0400;
+
     outBuffer.addInt(flags); // Add flags
-    
+
     // Map main ground type
     outBuffer.addChar(infoJson.map.mainTileType);
-    
+
     // Loading screen
     outBuffer.addInt(infoJson.loadingScreen.background);
     outBuffer.addString(infoJson.loadingScreen.path, true);
     outBuffer.addString(infoJson.loadingScreen.text, true);
     outBuffer.addString(infoJson.loadingScreen.title, true);
     outBuffer.addString(infoJson.loadingScreen.subtitle, true);
-    
+
     // Use game data set (Unsupported)
     outBuffer.addInt(0);
-    
+
     // Prologue
     outBuffer.addString(infoJson.prologue.path, true);
     outBuffer.addString(infoJson.prologue.text, true);
     outBuffer.addString(infoJson.prologue.title, true);
     outBuffer.addString(infoJson.prologue.subtitle, true);
-    
+
     // Fog
     outBuffer.addInt(infoJson.fog.type);
     outBuffer.addFloat(infoJson.fog.startHeight);
@@ -77,36 +82,68 @@ var InfoTranslator = function(infoJson) {
     outBuffer.addByte(infoJson.fog.color[1]);
     outBuffer.addByte(infoJson.fog.color[2]);
     outBuffer.addByte(255); // Fog alpha - unsupported
-    
+
     // Misc.
-    outBuffer.addInt(infoJson.globalWeather);
+    if(infoJson.globalWeather.toLowerCase() === 'none') {
+        outBuffer.addInt(0);
+    }
+    else {
+        outBuffer.addString(infoJson.globalWeather, false); // char[4] - lookup table
+    }
     outBuffer.addString(infoJson.customSoundEnvironment, true);
     outBuffer.addChar(infoJson.customLightEnv);
-    
+
     // Custom water tinting
     outBuffer.addByte(infoJson.water[0]);
     outBuffer.addByte(infoJson.water[1]);
     outBuffer.addByte(infoJson.water[2]);
     outBuffer.addByte(255); // Water alpha - unsupported
-    
-    // Players - unsupported
-    outBuffer.addInt(0);
-    
-    // Forces - unsupported
-    outBuffer.addInt(0);
-    
+
+    // Players
+    outBuffer.addInt(infoJson.players.length);
+    infoJson.players.forEach((player) => {
+        outBuffer.addInt(player.playerNum);
+        outBuffer.addInt(player.type);
+        outBuffer.addInt(player.race);
+        outBuffer.addInt(player.startingPos.fixed ? 1 : 0);
+        outBuffer.addString(player.name, true);
+        outBuffer.addFloat(player.startingPos.x);
+        outBuffer.addFloat(player.startingPos.y);
+        outBuffer.addInt(0); // ally low prio flags - unsupported
+        outBuffer.addInt(0); // ally high prio flags - unsupported
+    });
+
+    // Forces
+    outBuffer.addInt(infoJson.forces.length);
+    infoJson.forces.forEach((force) => {
+        // Calculate flags
+        var forceFlags = 0;
+        if(force.flags.allied)              forceFlags |= 0x0001;
+        if(force.flags.alliedVictory)       forceFlags |= 0x0002;
+        if(force.flags.shareVision)         forceFlags |= 0x0004;
+        if(force.flags.shareUnitControl)    forceFlags |= 0x0010;
+        if(force.flags.shareAdvUnitControl) forceFlags |= 0x0020;
+
+        outBuffer.addInt(forceFlags);
+        outBuffer.addByte(255); // force players - unsupported
+        outBuffer.addByte(255); // force players - unsupported
+        outBuffer.addByte(255); // force players - unsupported
+        outBuffer.addByte(255); // force players - unsupported
+        outBuffer.addString(force.name, true);
+    });
+
     // Upgrades - unsupported
     outBuffer.addInt(0);
-    
+
     // Tech availability - unsupported
     outBuffer.addInt(0);
-    
+
     // Unit table (random) - unsupported
     outBuffer.addInt(0);
-    
+
     // Item table (random) - unsupported
     outBuffer.addInt(0);
-    
+
     return {
         write: function(outputPath) {
             var path = (outputPath) ? Path.join(outputPath, 'war3map.w3i') : 'war3map.w3i';

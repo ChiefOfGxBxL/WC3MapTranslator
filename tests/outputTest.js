@@ -8,7 +8,7 @@ var Translator = require('../index.js'),
     regionData = require('./test_input/regions.json'),
     cameraData = require('./test_input/cameras.json'),
     soundData = require('./test_input/sounds.json'),
-    
+
     // Object data
     unitObjData = require('./test_input/object/units.json'),
     itemObjData = require('./test_input/object/items.json'),
@@ -17,14 +17,15 @@ var Translator = require('../index.js'),
     abilObjData = require('./test_input/object/abilities.json'),
     upgrObjData = require('./test_input/object/upgrades.json'),
     doodObjData = require('./test_input/object/doodads.json'),
-    
+
     // Map data
     mapData = require('./test_input/imports.json'),
-    
-    _outDir = './test_output';
+    infoData = require('./test_input/info.json'),
+
+    _outDir = './tests/test_output';
 
 
-/* Test the translators by creating 
+/* Test the translators by creating
  * each one and writing output */
 var translators = [
     //new Translator.Doodads(doodadData), // Doodads -> war3map.doo
@@ -34,7 +35,7 @@ var translators = [
     //new Translator.Regions(regionData), // Regions -> war3map.w3r
     //new Translator.Cameras(cameraData), // Cameras -> war3map.w3c
     //new Translator.Sounds(soundData), // Sounds -> war3map.w3s
-    
+
     //new Translator.Objects('units', unitObjData), // Custom units -> war3map.w3u
     //new Translator.Objects('items', itemObjData), // Custom items -> war3map.w3t
     //new Translator.Objects('buffs', buffObjData), // Custom buffs -> war3map.w3h
@@ -42,8 +43,9 @@ var translators = [
     //new Translator.Objects('abilities', abilObjData), // Custom abilities -> war3map.w3a
     //new Translator.Objects('upgrades', upgrObjData), // Custom upgrades -> war3map.w3q
     //new Translator.Objects('doodads', doodObjData), // Custom doodads -> war3map.w3d
-    
-    new Translator.Imports(mapData), // Imports -> war3map.imp
+
+    //new Translator.Imports(mapData), // Imports -> war3map.imp
+    new Translator.Info(infoData), // Info file -> war3map.w3i
 ];
 
 translators.forEach((t) => {
