@@ -1,6 +1,6 @@
 {
   "name": "wc3maptranslator",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Module to translate JSON map format to WC3 (war3map) files for .w3x",
   "main": "index.js",
   "scripts": {
