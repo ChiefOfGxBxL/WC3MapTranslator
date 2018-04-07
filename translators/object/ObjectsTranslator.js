@@ -37,8 +37,8 @@ var ObjectsTranslator = function(type, json) {
             }
             else {
                 // e.g. "h000:hfoo"
-                outBuffer.addString(defKey.split(':')[1]); // original id
-                outBuffer.addString(defKey.split(':')[0]); // custom id
+                outBuffer.addString(defKey.substring(5, 9)); // original id
+                outBuffer.addString(defKey.substring(0, 4)); // custom id
             }
             
             // Number of modifications made to this object
