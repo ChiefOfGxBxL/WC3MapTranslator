@@ -99,7 +99,7 @@ unitsTranslator.write(); // write output file (in this case, war3mapUnits.doo)
 | war3mapPreview.tga |  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png)   | Map Preview Image       |
 
 ## Specification
-We have an extensive [specification on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki/Specification) explaining how to format a map in JSON. It explains everything from the high-level map object, all the way down to creating individual units, tiles, or custom objects.
+We have a detailed [specification on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki) explaining how to format a map in JSON. It explains everything from the high-level map object, all the way down to creating individual units, tiles, or custom objects.
 
 The underlying WarCraft map files (e.g. war3map.doo) have been documented [on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki) as well. If you are curious about how a .w3x file is composed, this is the place to learn!
 
