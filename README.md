@@ -9,7 +9,7 @@
   </a>
   
   <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
-    <img src='https://img.shields.io/codeclimate/github/ChiefOfGxBxL/WC3MapTranslator.svg?style=flat-square'/>
+    <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability'/>
   </a>
   
   <a href='https://opensource.org/licenses/MIT'>
@@ -29,9 +29,9 @@
 <hr/>
 
 ## Why?
-WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.w3x) data to their `war3map` files. This module was created for use by Ice Sickle, the new-gen WC3 world editor. You are welcome to use this module for other projects.
+WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.w3x) data to their `war3map` files. This makes the map data readable and easily modifiable.
 
-*But still... why?* - You may wish to familiarize yourself with the Ice Sickle project. JSON is much easier for humans to read, compared to the byte format used by WC3 files. Of course, this does come with a trade-off: increased file size. But with increased storage today and cloud-hosting, this is no problem.
+This API is a core component of [Ice Sickle](https://github.com/ChiefOfGxBxL/Ice-Sickle), the next-generation world editor. This editor stores data in a JSON format, and then generates all the necessary files to assemble a .w3x MPQ archive to build a map.
 
 ## Usage
 ```js
@@ -104,7 +104,14 @@ We have an extensive [specification on our Wiki](https://github.com/ChiefOfGxBxL
 The underlying WarCraft map files (e.g. war3map.doo) have been documented [on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki) as well. If you are curious about how a .w3x file is composed, this is the place to learn!
 
 ## Contributing
-(Section pending)
+We encourage contributions! Generally, the process of making a change is:
+1. Fork this repo
+2. Make a single change on your end
+3. Submit a pull request to `master`
+
+Since this module is simple and small, you can just submit your PR into `master`. This is risky and may be modified in the future to include a development branch with automated tests as the module is depended on more. In the meantime, please make sure to test your changes before submitting your PR.
+
+A project member will get back to you within one week. If you haven't heard from someone regarding your PR, feel free to ping @chiefofgxbxl.
 
 ## Special Thanks
 We owe a lot of thanks to *Chocobo* on [TheHelper](http://www.thehelper.net/) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
