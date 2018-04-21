@@ -19,3 +19,4 @@ ratings:
   - "**.module"
 exclude_paths:
   - tests/
+  - examples/

@@ -3,20 +3,20 @@
 </p>
 <p align='center'>
   Module to translate JSON map format to WC3 (war3map) files for .w3x<br/><br/>
-  
+
   <a href='https://www.npmjs.com/package/wc3maptranslator'>
     <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
   </a>
-  
+
   <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
     <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability'/>
   </a>
-  
+
   <a href='https://opensource.org/licenses/MIT'>
     <img src='https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square'/>
   </a>
 </p>
-  
+
 <hr/>
 <p align='center'>
   <a href="#overview"><strong>Overview</strong></a> &middot;
@@ -48,6 +48,17 @@ var Translator = require('wc3maptranslator'),
 var unitsTranslator = new Translator.Units(mapJson.units);
 unitsTranslator.write(); // write output file (in this case, war3mapUnits.doo)
 ```
+
+## Examples
+There is an `/examples` directory that demonstrates how to use *each* translator. This is a great starting point to learn how to use any translator. The directory has `jsonToWar`, a sample project that is capable of creating each file to build a .w3x archive.
+
+To get started, `cd` into `/examples/jsonToWar` and run `npm install` to automatically install all the dependencies. Run `npm start` under `/examples/jsonToWar` to display a list of each command to run an example:
+
+![image](https://user-images.githubusercontent.com/4079034/39087050-a4b26b96-4568-11e8-9387-2fd1ee012736.png)
+
+For example, to run the "Cameras" translator, your working directory should be `/examples/jsonToWar`, and then you'll run the command `node entity/cameras.js`. Take a look at the source code under `jsonToWar/entity`, `jsonToWar/object`, or `jsonToWar/other` to see how to use each translator.
+
+All output files are placed in the `output` directory.
 
 ## File Support
 
