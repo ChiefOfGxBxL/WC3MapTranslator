@@ -2,7 +2,7 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
-var InfoTranslator = function(infoJson) {
+const InfoTranslator = function(infoJson) {
     outBuffer = new BufferedHexFileWriter();
 
     outBuffer.addInt(25); // file version, 0x19
@@ -16,13 +16,13 @@ var InfoTranslator = function(infoJson) {
     outBuffer.addString(infoJson.map.recommendedPlayers, true);
 
     // Camera bounds (8 floats total)
-    for(var i = 0; i < 8; i++) {
-        outBuffer.addFloat(infoJson.camera.bounds[i]);
+    for(var cbIndex = 0; cbIndex < 8; cbIndex++) {
+        outBuffer.addFloat(infoJson.camera.bounds[cbIndex]);
     }
 
     // Camera complements (4 floats total)
-    for(var j = 0; j < 4; j++) {
-        outBuffer.addInt(infoJson.camera.complements[j]);
+    for(var ccIndex = 0; ccIndex < 4; ccIndex++) {
+        outBuffer.addInt(infoJson.camera.complements[ccIndex]);
     }
 
     // Playable area
@@ -146,10 +146,10 @@ var InfoTranslator = function(infoJson) {
 
     return {
         write: function(outputPath) {
-            var path = (outputPath) ? Path.join(outputPath, 'war3map.w3i') : 'war3map.w3i';
+            const path = outputPath ? Path.join(outputPath, 'war3map.w3i') : 'war3map.w3i';
             outBuffer.writeFile(path);
         }
     };
-}
+};
 
 module.exports = InfoTranslator;

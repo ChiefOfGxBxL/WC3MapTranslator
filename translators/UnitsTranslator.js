@@ -2,9 +2,9 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
-var UnitsTranslator = function(unitsJson) {
+const UnitsTranslator = function(unitsJson) {
     outBuffer = new BufferedHexFileWriter();
-    
+
     /*
      * Header
      */
@@ -12,7 +12,7 @@ var UnitsTranslator = function(unitsJson) {
     outBuffer.addInt(8);
     outBuffer.addInt(11);
     outBuffer.addInt(unitsJson.length); // number of units
-        
+
     /*
      * Body
      */
@@ -32,7 +32,7 @@ var UnitsTranslator = function(unitsJson) {
         outBuffer.addByte(0); // (byte unknown - 0)
         outBuffer.addInt(unit.hitpoints); // hitpoints
         outBuffer.addInt(unit.mana); // mana
-        
+
         //if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
         outBuffer.addInt(-1);
         //}
@@ -41,21 +41,21 @@ var UnitsTranslator = function(unitsJson) {
         //}
         // UNSUPPORTED: dropped items
         outBuffer.addInt(0); // dropped item sets
-        
+
         outBuffer.addInt(unit.gold); // gold amount
         outBuffer.addFloat(unit.targetAcquisition); // target acquisition
         outBuffer.addInt(unit.hero.level); // hero lvl
         outBuffer.addInt(unit.hero.str); // hero str
         outBuffer.addInt(unit.hero.agi); // hero agi
         outBuffer.addInt(unit.hero.int); // hero int
-        
+
         // Inventory - - -
         outBuffer.addInt(unit.inventory.length); // # items in inventory
         unit.inventory.forEach(function(item) {
             outBuffer.addInt(item.slot - 1); // zero-index item slot
             outBuffer.addString(item.type);
         });
-        
+
         // Modified abilities - - -
         outBuffer.addInt(unit.abilities.length); // # modified abilities
         unit.abilities.forEach(function(ability) {
@@ -63,21 +63,21 @@ var UnitsTranslator = function(unitsJson) {
             outBuffer.addInt(+ability.active); // 0 = not active, 1 = active
             outBuffer.addInt(ability.level);
         });
-        
+
         outBuffer.addInt(0);
         outBuffer.addInt(1);
-        
+
         outBuffer.addInt(unit.color); // custom color
         outBuffer.addInt(0); //outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
         outBuffer.addInt(unit.id); // id
     });
-    
+
     return {
         write: function(outputPath) {
-            var path = (outputPath) ? Path.join(outputPath, 'war3mapUnits.doo') : 'war3mapUnits.doo';
+            const path = outputPath ? Path.join(outputPath, 'war3mapUnits.doo') : 'war3mapUnits.doo';
             outBuffer.writeFile(path);
         }
     };
-}
+};
 
 module.exports = UnitsTranslator;

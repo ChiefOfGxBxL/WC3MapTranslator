@@ -1,5 +1,5 @@
 
-var Translator = {
+const Translator = {
     Doodads: require('./translators/DoodadsTranslator.js'),
     Strings: require('./translators/StringsTranslator.js'),
     Terrain: require('./translators/TerrainTranslator.js'),

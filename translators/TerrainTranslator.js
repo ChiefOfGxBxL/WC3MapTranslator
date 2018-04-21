@@ -2,9 +2,9 @@ var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
-var TerrainTranslator = function(terrainJson) {
+const TerrainTranslator = function(terrainJson) {
     outBuffer = new BufferedHexFileWriter();
-    
+
     /*
      * Header
      */
@@ -12,8 +12,8 @@ var TerrainTranslator = function(terrainJson) {
     outBuffer.addInt(11); // file version
     outBuffer.addChar(terrainJson.tileset); // base tileset
     outBuffer.addInt(+terrainJson.customtileset); // 1 = using custom tileset, 0 = not
-        
-    
+
+
     /*
      * Tiles
      */
@@ -21,8 +21,8 @@ var TerrainTranslator = function(terrainJson) {
     terrainJson.tilepalette.forEach(function(tile) {
         outBuffer.addString(tile);
     });
-    
-    
+
+
     /*
      * Cliffs
      */
@@ -30,21 +30,21 @@ var TerrainTranslator = function(terrainJson) {
     terrainJson.clifftilepalette.forEach(function(clifftile) {
         outBuffer.addString(clifftile);
     });
-    
-    
+
+
     /*
      * Map size data
      */
     outBuffer.addInt(terrainJson.map.width);
     outBuffer.addInt(terrainJson.map.height);
-    
+
     // Unsupported
     // map.offset is not implemented yet.. so we hardcode
     outBuffer.addByte(0x00);outBuffer.addByte(0x00);outBuffer.addByte(0x80);outBuffer.addByte(0xc5);
     outBuffer.addByte(0x00);outBuffer.addByte(0x00);outBuffer.addByte(0x80);outBuffer.addByte(0xc5);
     //outBuffer.addFloat(terrainJson.map.offset.x);
     //outBuffer.addFloat(terrainJson.map.offset.y);
-    
+
 
     /*
      * Tile points
@@ -59,13 +59,13 @@ var TerrainTranslator = function(terrainJson) {
             outBuffer.addByte(tile[5]+''+tile[6]);  // cliff tile/layer
         });
     }
-    
+
     return {
         write: function(outputPath) {
-            var path = (outputPath) ? Path.join(outputPath, 'war3map.w3e') : 'war3map.w3e';
+            const path = outputPath ? Path.join(outputPath, 'war3map.w3e') : 'war3map.w3e';
             outBuffer.writeFile(path);
         }
     };
-}
+};
 
 module.exports = TerrainTranslator;

@@ -18,18 +18,18 @@ var BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
         upgrades:       'w3q' // (*)
     };
 
-var ObjectsTranslator = function(type, json) {
+const ObjectsTranslator = function(type, json) {
     outBuffer = new BufferedHexFileWriter();
-    
+
     /*
      * Header
      */
     outBuffer.addInt(2); // file version
-    
+
     function generateTableFromJson(tableType, tableData) { // create "original" or "custom" table
         Object.keys(tableData).forEach(function(defKey) {
             var obj = tableData[defKey];
-            
+
             // Original and new object ids
             if(tableType === 'original') {
                 outBuffer.addString(defKey);
@@ -40,16 +40,16 @@ var ObjectsTranslator = function(type, json) {
                 outBuffer.addString(defKey.substring(5, 9)); // original id
                 outBuffer.addString(defKey.substring(0, 4)); // custom id
             }
-            
+
             // Number of modifications made to this object
             outBuffer.addInt(obj.length);
-            
+
             obj.forEach(function(mod) {
                 var modType;
-                
+
                 // Modification id (e.g. unam = name; reference MetaData lookups)
                 outBuffer.addString(mod.id);
-                
+
                 // Determine what type of field the mod is (int, real, unreal, string)
                 if(mod.type) { // if a type is specified, use it
                     modType = varTypes[mod.type];
@@ -65,21 +65,21 @@ var ObjectsTranslator = function(type, json) {
                         // ERROR: no type specified and cannot infer type!
                     }
                 }
-                
+
                 outBuffer.addInt(modType);
-                
+
                 // Addl integers
                 // Required for: doodads, abilities, upgrades
                 if(type === 'doodads' || type === 'abilities' || type === 'upgrades') {
-                    
+
                     // Level or variation
                     // We need to check if hasOwnProperty because these could be explititly
                     // set to 0, but JavaScript's truthiness evaluates to false to it was defaulting
                     outBuffer.addInt(mod.level || mod.variation || 0); // defaults to 0
-                    
+
                     outBuffer.addInt(mod.column || 0); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
                 }
-                
+
                 // Write mod value
                 if(modType === varTypes.int) {
                     outBuffer.addInt(mod.value);
@@ -94,7 +94,7 @@ var ObjectsTranslator = function(type, json) {
                     outBuffer.addString(mod.value);
                     outBuffer.addNullTerminator();
                 }
-                
+
                 // End of struct
                 if(tableType === 'original') {
                     // Original objects are ended with their base id (e.g. hfoo)
@@ -110,23 +110,23 @@ var ObjectsTranslator = function(type, json) {
             });
         });
     }
-    
+
     /*
      * Original table
      */
     outBuffer.addInt(Object.keys(json.original).length);
     generateTableFromJson('original', json.original);
-    
-    
+
+
     /*
      * Custom table
      */
     outBuffer.addInt(Object.keys(json.custom).length); // # entry modifications
     generateTableFromJson('custom', json.custom);
-    
+
     return {
         write: function(outputPath) {
-            var path = (outputPath) ? Path.join(outputPath, 'war3map.' + fileTypeExt[type]) : 'war3map.' + fileTypeExt[type];
+            const path = outputPath ? Path.join(outputPath, 'war3map.' + fileTypeExt[type]) : 'war3map.' + fileTypeExt[type];
             outBuffer.writeFile(path);
         }
     };
