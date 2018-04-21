@@ -6,15 +6,9 @@ engines:
       - javascript
   eslint:
     enabled: true
-    checks:
-      radix:
-        enabled: false
+    channel: "eslint-4"
   fixme:
     enabled: true
-plugins:
-  eslint:
-    enabled: true
-    channel: "eslint-4"
 ratings:
   paths:
   - "**.inc"
