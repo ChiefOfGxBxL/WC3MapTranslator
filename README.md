@@ -117,12 +117,16 @@ The underlying WarCraft map files (e.g. war3map.doo) have been documented [on ou
 ## Contributing
 We encourage contributions! Generally, the process of making a change is:
 1. Fork this repo
-2. Make a single change on your end
+2. Develop your changes on a new branch
 3. Submit a pull request to `master`
 
-Since this module is simple and small, you can just submit your PR into `master`. This is risky and may be modified in the future to include a development branch with automated tests as the module is depended on more. In the meantime, please make sure to test your changes before submitting your PR.
+**Your code should**:
+ * **run** (your code needs to work, of course)
+ * **include tests** (write unit tests to demonstrate your code works under different conditions)
+ * **be linted** (run `npm run lint` and follow the project's coding standards)
+ * **pass CI** (we enforce: ESLint, unit tests pass, code coverage)
 
-A project member will get back to you within one week. If you haven't heard from someone regarding your PR, feel free to ping @chiefofgxbxl.
+A code review is required on your PR to be accepted into `master`. A project member will get back to you within one week. If you haven't heard from someone regarding your PR, feel free to ping @chiefofgxbxl.
 
 ## Special Thanks
 We owe a lot of thanks to *Chocobo* on [TheHelper](http://www.thehelper.net/) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
