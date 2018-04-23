@@ -1,4 +1,4 @@
-var BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
+let BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path'),
     varTypes = {
@@ -28,7 +28,7 @@ const ObjectsTranslator = function(type, json) {
 
     function generateTableFromJson(tableType, tableData) { // create "original" or "custom" table
         Object.keys(tableData).forEach(function(defKey) {
-            var obj = tableData[defKey];
+            let obj = tableData[defKey];
 
             // Original and new object ids
             if(tableType === 'original') {
@@ -45,7 +45,7 @@ const ObjectsTranslator = function(type, json) {
             outBuffer.addInt(obj.length);
 
             obj.forEach(function(mod) {
-                var modType;
+                let modType;
 
                 // Modification id (e.g. unam = name; reference MetaData lookups)
                 outBuffer.addString(mod.id);
@@ -55,10 +55,10 @@ const ObjectsTranslator = function(type, json) {
                     modType = varTypes[mod.type];
                 }
                 else { // otherwise we try to infer between int/string (note there is no way to detect unreal or float this way, so user must specify those explicitly)
-                    if(typeof(mod.value) === 'number') {
+                    if(typeof mod.value === 'number') {
                         modType = varTypes.int;
                     }
-                    else if(typeof(mod.value) === 'string') {
+                    else if(typeof mod.value === 'string') {
                         modType = varTypes.string;
                     }
                     else {
