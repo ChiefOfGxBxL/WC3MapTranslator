@@ -21,7 +21,7 @@ const CamerasTranslator = function(cameras) {
         outBuffer.addFloat(camera.rotation || 0); // optional
         outBuffer.addFloat(camera.aoa);
         outBuffer.addFloat(camera.distance);
-        outBuffer.addFloat(camera.roll);
+        outBuffer.addFloat(camera.roll || 0);
         outBuffer.addFloat(camera.fov); // in degrees
         outBuffer.addFloat(camera.farClipping);
         outBuffer.addFloat(100); // (?) unknown - usually set to 100

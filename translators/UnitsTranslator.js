@@ -23,9 +23,12 @@ const UnitsTranslator = function(unitsJson) {
         outBuffer.addFloat(unit.position[1]); // position y
         outBuffer.addFloat(unit.position[2]); // position z
         outBuffer.addFloat(unit.rotation || 0); // rotation angle
-        outBuffer.addFloat(unit.scale[0]); // scale x
-        outBuffer.addFloat(unit.scale[1]); // scale y
-        outBuffer.addFloat(unit.scale[2]); // scale z
+
+        if(!unit.scale) unit.scale = [1, 1, 1];
+        outBuffer.addFloat(unit.scale[0] || 1); // scale x
+        outBuffer.addFloat(unit.scale[1] || 1); // scale y
+        outBuffer.addFloat(unit.scale[2] || 1); // scale z
+
         outBuffer.addByte(unit.flags || 0); // flags
         outBuffer.addInt(unit.player); // player #
         outBuffer.addByte(0); // (byte unknown - 0)
@@ -42,14 +45,23 @@ const UnitsTranslator = function(unitsJson) {
         // UNSUPPORTED: dropped items
         outBuffer.addInt(0); // dropped item sets
 
-        outBuffer.addInt(unit.gold); // gold amount
-        outBuffer.addFloat(unit.targetAcquisition); // target acquisition
-        outBuffer.addInt(unit.hero.level); // hero lvl
-        outBuffer.addInt(unit.hero.str); // hero str
-        outBuffer.addInt(unit.hero.agi); // hero agi
-        outBuffer.addInt(unit.hero.int); // hero int
+        // Gold amount
+        // Required if unit is a gold mine
+        // Optional (set to zero) if unit is not a gold mine
+        outBuffer.addInt(unit.type === 'ngol' ? unit.gold : 0);
+
+        outBuffer.addFloat(unit.targetAcquisition || 0); // target acquisition
+
+        // Unit hero attributes
+        // Can be left unspecified, but values can never be below 1
+        if(!unit.hero) unit.hero = { level: 1, str: 1, agi: 1, int: 1 };
+        outBuffer.addInt(unit.hero.level || 1); // hero lvl
+        outBuffer.addInt(unit.hero.str || 1); // hero str
+        outBuffer.addInt(unit.hero.agi || 1); // hero agi
+        outBuffer.addInt(unit.hero.int || 1); // hero int
 
         // Inventory - - -
+        if(!unit.inventory) unit.inventory = [];
         outBuffer.addInt(unit.inventory.length); // # items in inventory
         unit.inventory.forEach(function(item) {
             outBuffer.addInt(item.slot - 1); // zero-index item slot
@@ -57,6 +69,7 @@ const UnitsTranslator = function(unitsJson) {
         });
 
         // Modified abilities - - -
+        if(!unit.abilities) unit.abilities = [];
         outBuffer.addInt(unit.abilities.length); // # modified abilities
         unit.abilities.forEach(function(ability) {
             outBuffer.addString(ability.ability); // ability string
@@ -67,7 +80,7 @@ const UnitsTranslator = function(unitsJson) {
         outBuffer.addInt(0);
         outBuffer.addInt(1);
 
-        outBuffer.addInt(unit.color); // custom color
+        outBuffer.addInt(unit.color || unit.player); // custom color, defaults to owning player
         outBuffer.addInt(0); //outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
         outBuffer.addInt(unit.id); // id
     });

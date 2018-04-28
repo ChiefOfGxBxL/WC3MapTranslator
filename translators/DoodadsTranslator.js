@@ -23,11 +23,15 @@ const DoodadsTranslator = function(doodadsJson) {
         outBuffer.addFloat(tree.position[1]);
         outBuffer.addFloat(tree.position[2]);
         outBuffer.addFloat(tree.angle || 0); // optional - default value 0
-        outBuffer.addFloat(tree.scale[0]);
-        outBuffer.addFloat(tree.scale[1]);
-        outBuffer.addFloat(tree.scale[2]);
+
+        // Scale
+        if(!tree.scale) tree.scale = [1, 1, 1];
+        outBuffer.addFloat(tree.scale[0] || 1);
+        outBuffer.addFloat(tree.scale[1] || 1);
+        outBuffer.addFloat(tree.scale[2] || 1);
+
         outBuffer.addByte(2); // TODO: flags
-        outBuffer.addByte(tree.life);
+        outBuffer.addByte(tree.life || 100);
         outBuffer.addInt(0); // NOT SUPPORTED: random item table pointer: fixed to 0
         outBuffer.addInt(0); // NOT SUPPORTED: number of items dropped for item table
         outBuffer.addInt(tree.id);

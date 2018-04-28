@@ -47,9 +47,16 @@ const RegionsTranslator = function(regionsJson) {
 
         // Color of region used by editor
         // Careful! The order in .w3r is BB GG RR, whereas the JSON spec order is [RR, GG, BB]
-        outBuffer.addByte(region.color[2]);
-        outBuffer.addByte(region.color[1]);
-        outBuffer.addByte(region.color[0]);
+        if(!region.color || region.color.length === 0) {
+            outBuffer.addByte(255); // blue
+            outBuffer.addByte(0);   // green
+            outBuffer.addByte(0);   // red
+        }
+        else {
+            outBuffer.addByte(region.color[2] || 0);   // blue
+            outBuffer.addByte(region.color[1] || 0);   // green
+            outBuffer.addByte(region.color[0] || 255); // red
+        }
 
         // End of structure - for some reason the .w3r needs this here;
         // Value is set to 0xff based on observing the .w3r file, but not sure if it could be something else

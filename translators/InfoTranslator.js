@@ -6,8 +6,8 @@ const InfoTranslator = function(infoJson) {
     outBuffer = new BufferedHexFileWriter();
 
     outBuffer.addInt(25); // file version, 0x19
-    outBuffer.addInt(infoJson.saves);
-    outBuffer.addInt(infoJson.editorVersion);
+    outBuffer.addInt(infoJson.saves || 0);
+    outBuffer.addInt(infoJson.editorVersion || 0);
 
     // Map information
     outBuffer.addString(infoJson.map.name, true);
@@ -33,19 +33,21 @@ const InfoTranslator = function(infoJson) {
      * Flags
      */
     var flags = 0;
-    if(infoJson.map.flags.hideMinimapInPreview)         flags |= 0x0001; // hide minimap in preview screens
-    if(infoJson.map.flags.modifyAllyPriorities)         flags |= 0x0002; // modify ally priorities
-    if(infoJson.map.flags.isMeleeMap)                   flags |= 0x0004; // melee map
-    // 0x0008 - unknown;                                                 // playable map size was large and never reduced to medium (?)
-    if(infoJson.map.flags.maskedPartiallyVisible)       flags |= 0x0010; // masked area are partially visible
-    if(infoJson.map.flags.fixedPlayerSetting)           flags |= 0x0020; // fixed player setting for custom forces
-    if(infoJson.map.flags.useCustomForces)              flags |= 0x0040; // use custom forces
-    if(infoJson.map.flags.useCustomTechtree)            flags |= 0x0080; // use custom techtree
-    if(infoJson.map.flags.useCustomAbilities)           flags |= 0x0100; // use custom abilities
-    if(infoJson.map.flags.useCustomUpgrades)            flags |= 0x0200; // use custom upgrades
-    // 0x0400 - unknown;                                                 // map properties menu opened at least once since map creation (?)
-    if(infoJson.map.flags.waterWavesOnCliffShores)      flags |= 0x0800; // show water waves on cliff shores
-    if(infoJson.map.flags.waterWavesOnRollingShores)    flags |= 0x1000; // show water waves on rolling shores
+    if(infoJson.map.flags) { // can leave out the entire flags object, all flags will default to false
+        if(infoJson.map.flags.hideMinimapInPreview)         flags |= 0x0001; // hide minimap in preview screens
+        if(infoJson.map.flags.modifyAllyPriorities)         flags |= 0x0002; // modify ally priorities
+        if(infoJson.map.flags.isMeleeMap)                   flags |= 0x0004; // melee map
+        // 0x0008 - unknown;                                                 // playable map size was large and never reduced to medium (?)
+        if(infoJson.map.flags.maskedPartiallyVisible)       flags |= 0x0010; // masked area are partially visible
+        if(infoJson.map.flags.fixedPlayerSetting)           flags |= 0x0020; // fixed player setting for custom forces
+        if(infoJson.map.flags.useCustomForces)              flags |= 0x0040; // use custom forces
+        if(infoJson.map.flags.useCustomTechtree)            flags |= 0x0080; // use custom techtree
+        if(infoJson.map.flags.useCustomAbilities)           flags |= 0x0100; // use custom abilities
+        if(infoJson.map.flags.useCustomUpgrades)            flags |= 0x0200; // use custom upgrades
+        // 0x0400 - unknown;                                                 // map properties menu opened at least once since map creation (?)
+        if(infoJson.map.flags.waterWavesOnCliffShores)      flags |= 0x0800; // show water waves on cliff shores
+        if(infoJson.map.flags.waterWavesOnRollingShores)    flags |= 0x1000; // show water waves on rolling shores
+    }
 
     // Unknown, but these seem to always be on, at least for default maps
     flags |= 0x8000;
@@ -84,14 +86,15 @@ const InfoTranslator = function(infoJson) {
     outBuffer.addByte(255); // Fog alpha - unsupported
 
     // Misc.
-    if(infoJson.globalWeather.toLowerCase() === 'none') {
+    // If globalWeather is not defined or is set to 'none', use 0 sentinel value, else add char[4]
+    if(!infoJson.globalWeather || infoJson.globalWeather.toLowerCase() === 'none') {
         outBuffer.addInt(0);
     }
     else {
         outBuffer.addString(infoJson.globalWeather, false); // char[4] - lookup table
     }
-    outBuffer.addString(infoJson.customSoundEnvironment, true);
-    outBuffer.addChar(infoJson.customLightEnv);
+    outBuffer.addString(infoJson.customSoundEnvironment || '', true);
+    outBuffer.addChar(infoJson.customLightEnv || 'L');
 
     // Custom water tinting
     outBuffer.addByte(infoJson.water[0]);
