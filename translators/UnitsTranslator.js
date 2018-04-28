@@ -35,7 +35,7 @@ const UnitsTranslator = function(unitsJson) {
         outBuffer.addByte(0); // (byte unknown - 0)
         outBuffer.addByte(0); // (byte unknown - 0)
         outBuffer.addInt(unit.hitpoints); // hitpoints
-        outBuffer.addInt(unit.mana); // mana
+        outBuffer.addInt(unit.mana || 0); // mana
 
         //if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
         outBuffer.addInt(-1);
