@@ -28,7 +28,9 @@ const UnitsTranslator = function(unitsJson) {
         outBuffer.addFloat(unit.scale[1] || 1); // scale y
         outBuffer.addFloat(unit.scale[2] || 1); // scale z
 
-        outBuffer.addByte(unit.flags || 0); // flags
+        // Unit flags
+        outBuffer.addByte(0); // UNSUPPORTED: flags
+
         outBuffer.addInt(unit.player); // player #
         outBuffer.addByte(0); // (byte unknown - 0)
         outBuffer.addByte(0); // (byte unknown - 0)

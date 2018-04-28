@@ -7,16 +7,20 @@
  const Translator = require('../../../index.js'); // require('wc3maptranslator');
  const { WarFile, Write } = require('../writeHelper.js');
 
-// Place a "throne" doodad on the map
+// Place an Ashenvale tree on the map
 const data = [
     {
         id: 0,
-        type: 'YOth',                           // type of tree - see lookup
+        type: 'ATtr',                           // type of tree - see lookup
         variation: 0,                           // (optional) variation number
-        position: [0.0, 0.0, 20.0],             // x,y,z coords
+        position: [100, 100, 100],              // x,y,z coords
         angle: 0,                               // (optional) in radians
         scale: [1, 1, 1],                       // x,y,z scaling factor - 1 is normal size
-        life: 100                               // % health
+        life: 100,                              // % health
+        flags: {
+            visible: true,
+            solid: false
+        }
     }
 ];
 

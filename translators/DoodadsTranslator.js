@@ -29,7 +29,19 @@ const DoodadsTranslator = function(doodadsJson) {
         outBuffer.addFloat(tree.scale[1] || 1);
         outBuffer.addFloat(tree.scale[2] || 1);
 
-        outBuffer.addByte(2); // NOT SUPPORTED: flags
+        // Tree flags
+        /* | Visible | Solid | Flag value |
+           |   no    |  no   |     0      |
+           |  yes    |  no   |     1      |
+           |  yes    |  yes  |     2      | */
+        let treeFlag = 2; // default: normal tree
+        if(!tree.flags) tree.flags = { visible: true, solid: true }; // defaults if no flags are specified
+        if(!tree.flags.visible && !tree.flags.solid) treeFlag = 0;
+        else if(tree.flags.visible && !tree.flags.solid) treeFlag = 1;
+        else if(tree.flags.visible && tree.flags.solid) treeFlag = 2;
+        // Note: invisible and solid is not an option
+        outBuffer.addByte(treeFlag);
+
         outBuffer.addByte(tree.life || 100);
         outBuffer.addInt(0); // NOT SUPPORTED: random item table pointer: fixed to 0
         outBuffer.addInt(0); // NOT SUPPORTED: number of items dropped for item table
