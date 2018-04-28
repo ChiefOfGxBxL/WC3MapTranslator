@@ -1,6 +1,5 @@
 let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
-    outBuffer,
-    Path = require('path');
+    outBuffer;
 
 const CamerasTranslator = function(cameras) {
     outBuffer = new BufferedHexFileWriter();
@@ -32,10 +31,8 @@ const CamerasTranslator = function(cameras) {
     });
 
     return {
-        write: function(outputPath) {
-            const path = outputPath ? Path.join(outputPath, 'war3map.w3c') : 'war3map.w3c';
-            outBuffer.writeFile(path);
-        }
+        errors: [],
+        buffer: outBuffer.getBuffer()
     };
 };
 

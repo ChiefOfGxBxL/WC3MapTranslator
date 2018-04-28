@@ -1,6 +1,5 @@
 let BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
     outBuffer,
-    Path = require('path'),
     varTypes = {
         int:    0,
         real:   1,
@@ -125,10 +124,8 @@ const ObjectsTranslator = function(type, json) {
     generateTableFromJson('custom', json.custom);
 
     return {
-        write: function(outputPath) {
-            const path = outputPath ? Path.join(outputPath, 'war3map.' + fileTypeExt[type]) : 'war3map.' + fileTypeExt[type];
-            outBuffer.writeFile(path);
-        }
+        errors: [],
+        buffer: outBuffer.getBuffer()
     };
 };
 

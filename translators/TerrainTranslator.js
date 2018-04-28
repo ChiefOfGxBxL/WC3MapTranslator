@@ -1,6 +1,5 @@
 let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
-    outBuffer,
-    Path = require('path');
+    outBuffer;
 
 const TerrainTranslator = function(terrainJson) {
     outBuffer = new BufferedHexFileWriter();
@@ -61,10 +60,8 @@ const TerrainTranslator = function(terrainJson) {
     }
 
     return {
-        write: function(outputPath) {
-            const path = outputPath ? Path.join(outputPath, 'war3map.w3e') : 'war3map.w3e';
-            outBuffer.writeFile(path);
-        }
+        errors: [],
+        buffer: outBuffer.getBuffer()
     };
 };
 

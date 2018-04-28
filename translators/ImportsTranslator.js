@@ -1,6 +1,5 @@
 let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
-    outBuffer,
-    Path = require('path');
+    outBuffer;
 
 const ImportsTranslator = function(imports) {
     outBuffer = new BufferedHexFileWriter();
@@ -27,10 +26,8 @@ const ImportsTranslator = function(imports) {
     });
 
     return {
-        write: function(outputPath) {
-            const path = outputPath ? Path.join(outputPath, 'war3map.imp') : 'war3map.imp';
-            outBuffer.writeFile(path);
-        }
+        errors: [],
+        buffer: outBuffer.getBuffer()
     };
 };
 

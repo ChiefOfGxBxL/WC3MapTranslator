@@ -1,6 +1,5 @@
 let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
-    outBuffer,
-    Path = require('path');
+    outBuffer;
 
 const InfoTranslator = function(infoJson) {
     outBuffer = new BufferedHexFileWriter();
@@ -148,10 +147,8 @@ const InfoTranslator = function(infoJson) {
     outBuffer.addInt(0);
 
     return {
-        write: function(outputPath) {
-            const path = outputPath ? Path.join(outputPath, 'war3map.w3i') : 'war3map.w3i';
-            outBuffer.writeFile(path);
-        }
+        errors: [],
+        buffer: outBuffer.getBuffer()
     };
 };
 

@@ -1,6 +1,5 @@
 let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
-    outBuffer,
-    Path = require('path');
+    outBuffer;
 
 const RegionsTranslator = function(regionsJson) {
     outBuffer = new BufferedHexFileWriter();
@@ -64,10 +63,8 @@ const RegionsTranslator = function(regionsJson) {
     });
 
     return {
-        write: function(outputPath) {
-            const path = outputPath ? Path.join(outputPath, 'war3map.w3r') : 'war3map.w3r';
-            outBuffer.writeFile(path);
-        }
+        errors: [],
+        buffer: outBuffer.getBuffer()
     };
 };
 
