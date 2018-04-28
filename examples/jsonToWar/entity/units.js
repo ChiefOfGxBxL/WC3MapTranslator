@@ -27,8 +27,7 @@ const data = [
             int: 0
         },
         inventory: [],
-        abilities: [],
-        color: 0
+        abilities: []
     }
 ];
 
