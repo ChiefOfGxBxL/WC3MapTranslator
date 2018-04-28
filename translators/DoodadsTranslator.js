@@ -30,7 +30,7 @@ const DoodadsTranslator = function(doodadsJson) {
         outBuffer.addFloat(tree.scale[1] || 1);
         outBuffer.addFloat(tree.scale[2] || 1);
 
-        outBuffer.addByte(2); // TODO: flags
+        outBuffer.addByte(2); // NOT SUPPORTED: flags
         outBuffer.addByte(tree.life || 100);
         outBuffer.addInt(0); // NOT SUPPORTED: random item table pointer: fixed to 0
         outBuffer.addInt(0); // NOT SUPPORTED: number of items dropped for item table
