@@ -1,4 +1,4 @@
-var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
+let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
@@ -37,7 +37,7 @@ const SoundsTranslator = function(soundsJson) {
         outBuffer.addNullTerminator();
 
         // Flags, if present (optional)
-        var flags = 0;
+        let flags = 0;
         if(sound.flags) {
             if(sound.flags.looping) flags |= 0x1;
             if(sound.flags['3dSound']) flags |= 0x2;
@@ -47,8 +47,8 @@ const SoundsTranslator = function(soundsJson) {
         outBuffer.addInt(flags);
 
         // Fade in and out rate (optional)
-        outBuffer.addInt((sound.fadeRate) ? (sound.fadeRate.in || 10): 10); // default to 10
-        outBuffer.addInt((sound.fadeRate) ? (sound.fadeRate.out || 10) : 10); // default to 10
+        outBuffer.addInt(sound.fadeRate ? sound.fadeRate.in || 10: 10); // default to 10
+        outBuffer.addInt(sound.fadeRate ? sound.fadeRate.out || 10 : 10); // default to 10
 
         // Volume (optional)
         outBuffer.addInt(sound.volume || -1); // default to -1 (for normal volume)

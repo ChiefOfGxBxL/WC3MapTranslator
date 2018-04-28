@@ -1,4 +1,4 @@
-var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
+let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
@@ -49,7 +49,7 @@ const TerrainTranslator = function(terrainJson) {
     /*
      * Tile points
      */
-    for(var i = terrainJson.tiles.length - 1; i >= 0; i--) {
+    for(let i = terrainJson.tiles.length - 1; i >= 0; i--) {
         // write each for of tiles
         terrainJson.tiles[i].forEach(function(tile) {
             outBuffer.addShort(tile[0]);            // height

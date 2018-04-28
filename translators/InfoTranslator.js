@@ -1,4 +1,4 @@
-var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
+let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
@@ -16,12 +16,12 @@ const InfoTranslator = function(infoJson) {
     outBuffer.addString(infoJson.map.recommendedPlayers, true);
 
     // Camera bounds (8 floats total)
-    for(var cbIndex = 0; cbIndex < 8; cbIndex++) {
+    for(let cbIndex = 0; cbIndex < 8; cbIndex++) {
         outBuffer.addFloat(infoJson.camera.bounds[cbIndex]);
     }
 
     // Camera complements (4 floats total)
-    for(var ccIndex = 0; ccIndex < 4; ccIndex++) {
+    for(let ccIndex = 0; ccIndex < 4; ccIndex++) {
         outBuffer.addInt(infoJson.camera.complements[ccIndex]);
     }
 
@@ -32,7 +32,7 @@ const InfoTranslator = function(infoJson) {
     /*
      * Flags
      */
-    var flags = 0;
+    let flags = 0;
     if(infoJson.map.flags.hideMinimapInPreview)         flags |= 0x0001; // hide minimap in preview screens
     if(infoJson.map.flags.modifyAllyPriorities)         flags |= 0x0002; // modify ally priorities
     if(infoJson.map.flags.isMeleeMap)                   flags |= 0x0004; // melee map
@@ -117,7 +117,7 @@ const InfoTranslator = function(infoJson) {
     outBuffer.addInt(infoJson.forces.length);
     infoJson.forces.forEach((force) => {
         // Calculate flags
-        var forceFlags = 0;
+        let forceFlags = 0;
         if(force.flags.allied)              forceFlags |= 0x0001;
         if(force.flags.alliedVictory)       forceFlags |= 0x0002;
         if(force.flags.shareVision)         forceFlags |= 0x0004;
