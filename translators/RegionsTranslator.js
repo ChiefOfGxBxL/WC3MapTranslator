@@ -1,4 +1,4 @@
-var BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
+let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
     outBuffer,
     Path = require('path');
 
