@@ -1,8 +1,8 @@
-let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
+let HexBuffer = require('../lib/HexBuffer'),
     outBuffer;
 
 const RegionsTranslator = function(regionsJson) {
-    outBuffer = new BufferedHexFileWriter();
+    outBuffer = new HexBuffer();
 
     /*
      * Header

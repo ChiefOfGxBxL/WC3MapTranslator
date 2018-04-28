@@ -1,8 +1,8 @@
-let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
+let HexBuffer = require('../lib/HexBuffer'),
     outBuffer;
 
 const StringsTranslator = function(stringsJson) {
-    outBuffer = new BufferedHexFileWriter();
+    outBuffer = new HexBuffer();
 
     /*
      * Strings

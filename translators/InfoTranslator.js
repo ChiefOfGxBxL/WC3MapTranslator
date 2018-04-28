@@ -1,8 +1,8 @@
-let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
+let HexBuffer = require('../lib/HexBuffer'),
     outBuffer;
 
 const InfoTranslator = function(infoJson) {
-    outBuffer = new BufferedHexFileWriter();
+    outBuffer = new HexBuffer();
 
     outBuffer.addInt(25); // file version, 0x19
     outBuffer.addInt(infoJson.saves || 0);

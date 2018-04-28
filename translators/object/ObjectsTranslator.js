@@ -1,4 +1,4 @@
-let BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
+let HexBuffer = require('../../lib/HexBuffer'),
     outBuffer,
     varTypes = {
         int:    0,
@@ -18,7 +18,7 @@ let BufferedHexFileWriter = require('../../lib/BufferedHexFileWriter'),
     };
 
 const ObjectsTranslator = function(type, json) {
-    outBuffer = new BufferedHexFileWriter();
+    outBuffer = new HexBuffer();
 
     /*
      * Header

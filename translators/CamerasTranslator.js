@@ -1,8 +1,8 @@
-let BufferedHexFileWriter = require('../lib/BufferedHexFileWriter'),
+let HexBuffer = require('../lib/HexBuffer'),
     outBuffer;
 
 const CamerasTranslator = function(cameras) {
-    outBuffer = new BufferedHexFileWriter();
+    outBuffer = new HexBuffer();
 
     /*
      * Header
