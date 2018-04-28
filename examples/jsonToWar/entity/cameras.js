@@ -4,8 +4,8 @@
  * instead of the first. That is, when using wc3maptranslator in your code,
  * call `require('wc3maptranslator')` instead of `require('../../index.js')`.
  */
-const Translator = require('../../../index.js');
-//const Translator = require('wc3maptranslator');
+const Translator = require('../../../index.js'); // require('wc3maptranslator');
+const { WarFile, Write } = require('../writeHelper.js');
 
 // Place a single camera on the map
 const data = [
@@ -25,8 +25,5 @@ const data = [
     }
 ];
 
-var cameraTranslator = new Translator.Cameras(data);
-cameraTranslator.write('./output');
-
-// Now we have a war3map.w3c file!
-// We can place this in to a .w3x map archive and see it in action
+var cameraResult = new Translator.Cameras(data);
+Write(WarFile.Entity.Camera, cameraResult.buffer);

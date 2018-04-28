@@ -1,4 +1,5 @@
-const Translator = require('../../../index.js');
+const Translator = require('../../../index.js'); // require('wc3maptranslator');
+const { WarFile, Write } = require('../writeHelper.js');
 
 const data = {
     "original": {},
@@ -12,5 +13,5 @@ const data = {
     }
 };
 
-const objTranslator = new Translator.Objects('doodads', data); // Custom doodads -> war3map.w3d
-objTranslator.write('./output');
+const objResult = new Translator.Objects('doodads', data); // Custom doodads -> war3map.w3d
+Write(WarFile.Object.Doodad, objResult.buffer);

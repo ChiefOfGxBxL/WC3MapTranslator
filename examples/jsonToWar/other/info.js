@@ -4,8 +4,8 @@
  * instead of the first. That is, when using wc3maptranslator in your code,
  * call `require('wc3maptranslator')` instead of `require('../../index.js')`.
  */
-const Translator = require('../../../index.js');
-//const Translator = require('wc3maptranslator');
+ const Translator = require('../../../index.js'); // require('wc3maptranslator');
+ const { WarFile, Write } = require('../writeHelper.js');
 
 // Specify some information in the map file
 const data = {
@@ -98,8 +98,5 @@ const data = {
     ]
 };
 
-var infoTranslator = new Translator.Info(data);
-infoTranslator.write('./output');
-
-// Now we have a war3map.w3i file!
-// We can place this in to a .w3x map archive and see it in action
+var infoResult = new Translator.Info(data);
+Write(WarFile.Other.Info, infoResult.buffer);

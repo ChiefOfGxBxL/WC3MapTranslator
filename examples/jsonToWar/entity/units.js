@@ -4,8 +4,8 @@
  * instead of the first. That is, when using wc3maptranslator in your code,
  * call `require('wc3maptranslator')` instead of `require('../../index.js')`.
  */
-const Translator = require('../../../index.js');
-//const Translator = require('wc3maptranslator');
+ const Translator = require('../../../index.js'); // require('wc3maptranslator');
+ const { WarFile, Write } = require('../writeHelper.js');
 
 // Place a footman on the map
 const data = [
@@ -32,8 +32,5 @@ const data = [
     }
 ];
 
-var unitTranslator = new Translator.Units(data);
-unitTranslator.write('./output');
-
-// Now we have a war3mapUnits.doo file!
-// We can place this in to a .w3x map archive and see it in action
+var unitResult = new Translator.Units(data);
+Write(WarFile.Entity.Unit, unitResult.buffer);

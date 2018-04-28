@@ -4,8 +4,8 @@
  * instead of the first. That is, when using wc3maptranslator in your code,
  * call `require('wc3maptranslator')` instead of `require('../../index.js')`.
  */
-const Translator = require('../../../index.js');
-//const Translator = require('wc3maptranslator');
+ const Translator = require('../../../index.js'); // require('wc3maptranslator');
+ const { WarFile, Write } = require('../writeHelper.js');
 
 // Define a new sound effect
 const data = [
@@ -34,8 +34,5 @@ const data = [
     }
 ];
 
-var soundTranslator = new Translator.Sounds(data);
-soundTranslator.write('./output');
-
-// Now we have a war3map.w3s file!
-// We can place this in to a .w3x map archive and see it in action
+var soundResult = new Translator.Sounds(data);
+Write(WarFile.Entity.Sound, soundResult.buffer);
