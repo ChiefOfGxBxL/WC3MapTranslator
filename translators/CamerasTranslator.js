@@ -39,7 +39,6 @@ const CamerasTranslator = {
     },
     warToJson: function(buffer) {
         var result = [],
-            offset = 0,
             b = new W3Buffer(buffer);
 
         var fileVersion = b.readInt(); // File version
