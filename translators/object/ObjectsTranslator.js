@@ -1,10 +1,15 @@
 let HexBuffer = require('../../lib/HexBuffer'),
+    W3Buffer = require('../../lib/W3Buffer'),
     outBuffer,
     varTypes = {
         int:    0,
         real:   1,
         unreal: 2,
-        string: 3
+        string: 3,
+        0:      'int',
+        1:      'real',
+        2:      'unreal',
+        3:      'string'
     },
     // (*) - uses the two optional ints after variable type
     fileTypeExt = {
@@ -129,7 +134,69 @@ const ObjectsTranslator = {
             buffer: outBuffer.getBuffer()
         };
     },
-    warToJson: function(buffer) {}
+    warToJson: function(type, buffer) {
+        var result = { original: {}, custom: {} },
+            b = new W3Buffer(buffer);
+
+        var fileVersion = b.readInt();
+
+        function readModificationTable(isOriginalTable) {
+            var numTableModifications = b.readInt();
+            for(var i = 0; i < numTableModifications; i++) {
+                var objectDefinition = []; // object definition will store one or more modification objects
+
+                var originalId = b.readChars(4),
+                    customId = b.readChars(4),
+                    modificationCount = b.readInt();
+
+                for(var j = 0; j < modificationCount; j++) {
+                    var modification = {};
+
+                    modification.id = b.readChars(4);
+                    modification.type = varTypes[b.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
+
+                    if(type === 'doodads' || type === 'abilities' || type === 'upgrades') {
+                        modification.level = b.readInt();
+                        modification.column = b.readInt();
+                    }
+
+                    if(modification.type === 'int') {
+                        modification.value = b.readInt();
+                    }
+                    else if(modification.type === 'real' || modification.type === 'unreal') {
+                        modification.value = b.readFloat();
+                    }
+                    else { // modification.type === 'string'
+                        modification.value = b.readString();
+                    }
+
+                    if(isOriginalTable) {
+                        b.readInt(); // should be 0 for original objects
+                    }
+                    else {
+                        b.readChars(4); // should be object ID for custom objects
+                    }
+
+                    objectDefinition.push(modification);
+                }
+
+                if(isOriginalTable) {
+                    result.original[originalId] = objectDefinition;
+                }
+                else {
+                    result.custom[customId + ':' + originalId] = objectDefinition;
+                }
+            }
+        }
+
+        readModificationTable(true);
+        readModificationTable(false);
+
+        return {
+            errors: [],
+            json: result
+        };
+    }
 };
 
 module.exports = ObjectsTranslator;
