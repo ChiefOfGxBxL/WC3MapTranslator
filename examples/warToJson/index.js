@@ -10,7 +10,7 @@ section('Placing entities on the map ("world entities")', 'bgGreen');
 // entry('Terrain', 'node entity/terrain.js', 'green');
 entry('Regions', 'node entity/regions.js', 'green');
 entry('Cameras', 'node entity/cameras.js', 'green');
-// entry('Sounds', 'node entity/sounds.js', 'green');
+entry('Sounds', 'node entity/sounds.js', 'green');
 
 breakSection();
 

@@ -1,4 +1,5 @@
 let HexBuffer = require('../lib/HexBuffer'),
+    W3Buffer = require('../lib/W3Buffer'),
     outBuffer;
 
 const SoundsTranslator = {
@@ -99,7 +100,64 @@ const SoundsTranslator = {
             buffer: outBuffer.getBuffer()
         };
     },
-    warToJson: function(buffer) {}
+    warToJson: function(buffer) {
+        var result = [],
+            b = new W3Buffer(buffer);
+
+        var fileVersion = b.readInt(); // File version
+        var numSounds = b.readInt(); // # of sounds
+
+        for(var i = 0; i < numSounds; i++) {
+            let sound = { flags: {}, fadeRate: {}, distance: {} };
+
+            sound.name = b.readString();
+            sound.path = b.readString();
+            sound.eax = b.readString();
+
+            let flags = b.readInt();
+            sound.flags = {
+                looping:        !!(flags & 0b1),    // 0x00000001=looping
+                '3dSound':      !!(flags & 0b10),   // 0x00000002=3D sound
+                stopOutOfRange: !!(flags & 0b100),  // 0x00000004=stop when out of range
+                music:          !!(flags & 0b1000)  // 0x00000008=music
+            };
+
+            sound.fadeRate = {
+                in: b.readInt(),
+                out: b.readInt()
+            };
+
+            sound.volume = b.readInt();
+            sound.pitch = b.readFloat();
+
+            // Unknown values
+            b.readFloat();
+            b.readInt();
+
+            sound.channel = b.readInt();
+
+            sound.distance = {
+                min: b.readFloat(),
+                max: b.readFloat(),
+                cutoff: b.readFloat()
+            };
+
+            // Unknown values
+            b.readFloat();
+            b.readFloat();
+            b.readFloat();
+            b.readFloat();
+            b.readFloat();
+            b.readFloat();
+
+            result.push(sound);
+        }
+
+        return {
+            errors: [],
+            json: result
+        };
+    }
 };
 
 module.exports = SoundsTranslator;
