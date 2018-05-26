@@ -1,3 +1,4 @@
 node_modules
 examples/jsonToWar/output/war3*
 examples/warToJson/files/output/*.json
+examples/warToJson/files/output/object/*.json
