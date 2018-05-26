@@ -1,0 +1,15 @@
+{
+  "name": "warToJson",
+  "version": "1.0.0",
+  "description": "Example on how to use WC3MapTranslator to generate JSON files from war3map",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1"
+  }
+}
