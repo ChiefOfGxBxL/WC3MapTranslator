@@ -28,5 +28,5 @@ const data = {
     ]
 };
 
-var terrainResult = new Translator.Terrain(data);
+var terrainResult = new Translator.Terrain.jsonToWar(data);
 Write(WarFile.Entity.Terrain, terrainResult.buffer);

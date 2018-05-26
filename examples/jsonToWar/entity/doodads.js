@@ -24,5 +24,5 @@ const data = [
     }
 ];
 
-var doodadResult = new Translator.Doodads(data);
+var doodadResult = new Translator.Doodads.jsonToWar(data);
 Write(WarFile.Entity.Doodad, doodadResult.buffer);

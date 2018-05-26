@@ -15,5 +15,5 @@ const data = {
     }
 };
 
-const objResult = new Translator.Objects('buffs', data); // Custom buffs -> war3map.w3h
+const objResult = new Translator.Objects.jsonToWar('buffs', data); // Custom buffs -> war3map.w3h
 Write(WarFile.Object.Buff, objResult.buffer);

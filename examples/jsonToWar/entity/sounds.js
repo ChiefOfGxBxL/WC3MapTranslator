@@ -34,5 +34,5 @@ const data = [
     }
 ];
 
-var soundResult = new Translator.Sounds(data);
+var soundResult = new Translator.Sounds.jsonToWar(data);
 Write(WarFile.Entity.Sound, soundResult.buffer);

@@ -15,5 +15,5 @@ const data = {
     }
 };
 
-const objResult = new Translator.Objects('items', data); // Custom items -> war3map.w3t
+const objResult = new Translator.Objects.jsonToWar('items', data); // Custom items -> war3map.w3t
 Write(WarFile.Object.Item, objResult.buffer);

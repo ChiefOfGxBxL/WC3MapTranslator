@@ -98,5 +98,5 @@ const data = {
     ]
 };
 
-var infoResult = new Translator.Info(data);
+var infoResult = new Translator.Info.jsonToWar(data);
 Write(WarFile.Other.Info, infoResult.buffer);

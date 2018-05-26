@@ -13,5 +13,5 @@ const data = {
     }
 };
 
-const objResult = new Translator.Objects('doodads', data); // Custom doodads -> war3map.w3d
+const objResult = new Translator.Objects.jsonToWar('doodads', data); // Custom doodads -> war3map.w3d
 Write(WarFile.Object.Doodad, objResult.buffer);

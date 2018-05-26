@@ -16,5 +16,5 @@ const data = {
     }
 };
 
-const objResult = new Translator.Objects('destructables', data); // Custom destructables -> war3map.w3b
+const objResult = new Translator.Objects.jsonToWar('destructables', data); // Custom destructables -> war3map.w3b
 Write(WarFile.Object.Destructable, objResult.buffer);

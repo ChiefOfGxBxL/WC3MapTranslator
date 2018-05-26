@@ -14,5 +14,5 @@ const data = {
     "custom": {}
 };
 
-const objResult = new Translator.Objects('abilities', data); // Custom abilities -> war3map.w3a
+const objResult = new Translator.Objects.jsonToWar('abilities', data); // Custom abilities -> war3map.w3a
 Write(WarFile.Object.Ability, objResult.buffer);

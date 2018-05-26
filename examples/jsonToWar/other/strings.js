@@ -17,5 +17,5 @@ const data = {
     "6": "Player 5",
 };
 
-var stringsResult = new Translator.Strings(data);
+var stringsResult = new Translator.Strings.jsonToWar(data);
 Write(WarFile.Other.String, stringsResult.buffer);

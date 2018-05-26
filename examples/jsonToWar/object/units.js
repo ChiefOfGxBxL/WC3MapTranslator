@@ -18,5 +18,5 @@ const data = {
     }
 };
 
-const objResult = new Translator.Objects('units', data); // Custom units -> war3map.w3u
+const objResult = new Translator.Objects.jsonToWar('units', data); // Custom units -> war3map.w3u
 Write(WarFile.Object.Unit, objResult.buffer);

@@ -15,5 +15,5 @@ const data = [
     { "path": "war3mapImported\\dogs.jpg" }
 ]
 
-var importResult = new Translator.Imports(data);
+var importResult = new Translator.Imports.jsonToWar(data);
 Write(WarFile.Other.Import, importResult.buffer);

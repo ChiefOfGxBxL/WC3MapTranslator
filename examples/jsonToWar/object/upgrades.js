@@ -13,5 +13,5 @@ const data = {
     }
 };
 
-const objResult = new Translator.Objects('upgrades', data); // Custom upgrades -> war3map.w3q
+const objResult = new Translator.Objects.jsonToWar('upgrades', data); // Custom upgrades -> war3map.w3q
 Write(WarFile.Object.Upgrade, objResult.buffer);

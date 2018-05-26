@@ -25,5 +25,5 @@ const data = [
     }
 ];
 
-var cameraResult = new Translator.Cameras(data);
+var cameraResult = new Translator.Cameras.jsonToWar(data);
 Write(WarFile.Entity.Camera, cameraResult.buffer);

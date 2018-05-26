@@ -34,5 +34,5 @@ const data = [
     }
 ];
 
-var regionResult = new Translator.Regions(data);
+var regionResult = new Translator.Regions.jsonToWar(data);
 Write(WarFile.Entity.Region, regionResult.buffer);

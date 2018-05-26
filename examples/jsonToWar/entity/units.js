@@ -31,5 +31,5 @@ const data = [
     }
 ];
 
-var unitResult = new Translator.Units(data);
+var unitResult = new Translator.Units.jsonToWar(data);
 Write(WarFile.Entity.Unit, unitResult.buffer);
