@@ -1,5 +1,5 @@
 {
-  "name": "generatewarfiles",
+  "name": "jsonToWar",
   "version": "1.0.0",
   "description": "Example on how to use WC3MapTranslator to generate war3map files from JSON",
   "main": "index.js",
