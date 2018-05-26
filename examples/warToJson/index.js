@@ -8,7 +8,7 @@ section('Placing entities on the map ("world entities")', 'bgGreen');
 // entry('Units', '\tnode entity/units.js', 'green');
 // entry('Doodads', 'node entity/doodads.js', 'green');
 // entry('Terrain', 'node entity/terrain.js', 'green');
-// entry('Regions', 'node entity/regions.js', 'green');
+entry('Regions', 'node entity/regions.js', 'green');
 entry('Cameras', 'node entity/cameras.js', 'green');
 // entry('Sounds', 'node entity/sounds.js', 'green');
 

@@ -1,4 +1,5 @@
 let HexBuffer = require('../lib/HexBuffer'),
+    W3Buffer = require('../lib/W3Buffer'),
     outBuffer;
 
 const RegionsTranslator = {
@@ -68,7 +69,40 @@ const RegionsTranslator = {
             buffer: outBuffer.getBuffer()
         };
     },
-    warToJson: function(buffer) {}
+    warToJson: function(buffer) {
+        var result = [],
+            b = new W3Buffer(buffer);
+
+        var fileVersion = b.readInt(); // File version
+        var numRegions = b.readInt(); // # of regions
+
+        for(var i = 0; i < numRegions; i++) {
+            let region = { position: {} };
+
+            region.position.left = b.readFloat();
+            region.position.bottom = b.readFloat();
+            region.position.right = b.readFloat();
+            region.position.top = b.readFloat();
+            region.name = b.readString();
+            region.id = b.readInt();
+            region.weatherEffect = b.readChars(4);
+            region.ambientSound = b.readString();
+            region.color = [
+                b.readByte(), // red
+                b.readByte(), // green
+                b.readByte() // blue
+            ];
+            region.color.reverse(); // json wants it in RGB, but .w3r file stores it as BB GG RR
+            b.readByte(); // end of region structure
+
+            result.push(region);
+        }
+
+        return {
+            errors: [],
+            json: result
+        };
+    }
 };
 
 module.exports = RegionsTranslator;
