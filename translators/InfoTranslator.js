@@ -1,4 +1,5 @@
 let HexBuffer = require('../lib/HexBuffer'),
+    W3Buffer = require('../lib/W3Buffer'),
     outBuffer;
 
 const InfoTranslator = {
@@ -152,7 +153,186 @@ const InfoTranslator = {
             buffer: outBuffer.getBuffer()
         };
     },
-    warToJson: function(buffer) {}
+    warToJson: function(buffer) {
+        var result = { map: {}, loadingScreen: {}, prologue: {}, fog: {}, camera: {}, players: [], forces: [] },
+            b = new W3Buffer(buffer);
+
+        var fileVersion = b.readInt(); // File version
+        var numOfSaves = b.readInt(); // # of times saved
+        var editorVersion = b.readInt(); // editor version
+
+        result.saves = numOfSaves;
+        result.editorVersion = editorVersion;
+
+        result.map.name = b.readString();
+        result.map.author = b.readString();
+        result.map.description = b.readString();
+        result.map.recommendedPlayers = b.readString();
+
+        result.camera.bounds = [
+            b.readFloat(), b.readFloat(), b.readFloat(), b.readFloat(),
+            b.readFloat(), b.readFloat(), b.readFloat(), b.readFloat()
+        ];
+
+        result.camera.complements = [
+            b.readInt(), b.readInt(), b.readInt(), b.readInt()
+        ];
+
+        result.map.playableArea = {
+            width: b.readInt(),
+            height: b.readInt()
+        };
+
+        var flags = b.readInt();
+        result.map.flags = {
+            hideMinimapInPreview:       !!(flags & 0b1), // 0x0001: 1=hide minimap in preview screens
+            modifyAllyPriorities:       !!(flags & 0b10), // 0x0002: 1=modify ally priorities
+            isMeleeMap:                 !!(flags & 0b100), // 0x0004: 1=melee map
+            // 0x0008: 1=playable map size was large and has never been reduced to medium (?)
+            maskedPartiallyVisible:     !!(flags & 0b10000), // 0x0010: 1=masked area are partially visible
+            fixedPlayerSetting:         !!(flags & 0b100000), // 0x0020: 1=fixed player setting for custom forces
+            useCustomForces:            !!(flags & 0b1000000), // 0x0040: 1=use custom forces
+            useCustomTechtree:          !!(flags & 0b10000000), // 0x0080: 1=use custom techtree
+            useCustomAbilities:         !!(flags & 0b100000000), // 0x0100: 1=use custom abilities
+            useCustomUpgrades:          !!(flags & 0b1000000000), // 0x0200: 1=use custom upgrades
+            // 0x0400: 1=map properties menu opened at least once since map creation (?)
+            waterWavesOnCliffShores:    !!(flags & 0b100000000000), // 0x0800: 1=show water waves on cliff shores
+            waterWavesOnRollingShores:  !!(flags & 0b1000000000000) // 0x1000: 1=show water waves on rolling shores
+            // 0x2000: 1=unknown
+            // 0x4000: 1=unknown
+            // 0x8000: 1=unknown
+        };
+
+        result.map.mainTileType = b.readChars();
+
+        result.loadingScreen.background = b.readInt();
+        result.loadingScreen.path = b.readString();
+        result.loadingScreen.text = b.readString();
+        result.loadingScreen.title = b.readString();
+        result.loadingScreen.subtitle = b.readString();
+
+        var gameDataSet = b.readInt(); // 0 = standard
+
+        result.prologue = {
+            path: b.readString(),
+            text: b.readString(),
+            title: b.readString(),
+            subtitle: b.readString()
+        };
+
+        result.fog = {
+            type: b.readInt(),
+            startHeight: b.readFloat(),
+            endHeight: b.readFloat(),
+            density: b.readFloat(),
+            color: [b.readByte(), b.readByte(), b.readByte(), b.readByte()] // R G B A
+        };
+
+        result.globalWeather = b.readChars(4);
+        result.customSoundEnvironment = b.readString();
+        result.customLightEnv = b.readChars();
+        result.water = [b.readByte(), b.readByte(), b.readByte(), b.readByte()]; // R G B A
+
+        // Struct: players
+        var numPlayers = b.readInt();
+        for(var i = 0; i < numPlayers; i++) {
+            var player = {};
+
+            player.playerNum = b.readInt();
+            player.type = b.readInt(); // 1=Human, 2=Computer, 3=Neutral, 4=Rescuable
+            player.race = b.readInt(); // 1=Human, 2=Orc, 3=Undead, 4=Night Elf
+
+            b.readInt(); // 00000001 = fixed start position
+
+            player.name = b.readString();
+            player.startingPos = {
+                x: b.readFloat(),
+                y: b.readFloat()
+            };
+
+            b.readInt(); // ally low priorities flags (bit "x"=1 --> set for player "x")
+            b.readInt(); // ally high priorities flags (bit "x"=1 --> set for player "x")
+
+            result.players.push(player);
+        }
+
+        // Struct: forces
+        var numForces = b.readInt();
+        for(var i = 0; i < numForces; i++) {
+            var force = {};
+
+            var forceFlag = b.readInt();
+            force.flags = {
+                allied:                 !!(forceFlag & 0b1), // 0x00000001: allied (force 1)
+                alliedVictory:          !!(forceFlag & 0b10), // 0x00000002: allied victory
+                // 0x00000004: share vision (the documentation has this incorrect)
+                shareVision:            !!(forceFlag & 0b1000), // 0x00000008: share vision
+                shareUnitControl:       !!(forceFlag & 0b10000), // 0x00000010: share unit control
+                shareAdvUnitControl:    !!(forceFlag & 0b100000) // 0x00000020: share advanced unit control
+            };
+            force.players = b.readInt(); // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force)
+            force.name = b.readString();
+
+            result.forces.push(force);
+        }
+
+        // UNSUPPORTED: Struct: upgrade avail.
+        var numUpgrades = b.readInt();
+        for(var i = 0; i < numUpgrades; i++) {
+            b.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
+            b.readChars(4); // upgrade id (as in UpgradeData.slk)
+            b.readInt(); // Level of the upgrade for which the availability is changed (this is actually the level - 1, so 1 => 0)
+            b.readInt(); // Availability (0 = unavailable, 1 = available, 2 = researched)
+        }
+
+        // UNSUPPORTED: Struct: tech avail.
+        var numTech = b.readInt();
+        for(var i = 0; i < numTech; i++) {
+            b.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
+            b.readChars(4); // tech id (this can be an item, unit or ability)
+        }
+
+        // UNSUPPORTED: Struct: random unit table
+        var numUnitTable = b.readInt();
+        for(var i = 0; i < numUnitTable; i++) {
+            b.readInt(); // Group number
+            b.readString(); // Group name
+
+            var numPositions = b.readInt(); // Number "m" of positions
+            for(var j = 0; j < numPositions; j++) {
+                b.readInt(); // unit table (=0), a building table (=1) or an item table (=2)
+
+                var numLinesInTable = b.readInt();
+                for(var k = 0; k < numLinesInTable; k++) {
+                    b.readInt(); // Chance of the unit/item (percentage)
+                    b.readChar(); // unit/item id's for this line specified
+                }
+            }
+        }
+
+        // UNSUPPORTED: Struct: random item table
+        var numItemTable = b.readInt();
+        for(var i = 0; i < numItemTable; i++) {
+            b.readInt(); // Table number
+            b.readString(); // Table name
+
+            var itemSetsCurrentTable = b.readInt(); // Number "m" of item sets on the current item table
+            for(var j = 0; j < itemSetsCurrentTable; j++) {
+
+                var itemsInItemSet = b.readInt(); // Number "i" of items on the current item set
+                for(var k = 0; k < itemsInItemSet; k++) {
+                    b.readInt(); // Percentual chance
+                    b.readChars(4); // Item id (as in ItemData.slk)
+                }
+
+            }
+        }
+
+        return {
+            errors: [],
+            json: result
+        };
+    }
 };
 
 module.exports = InfoTranslator;
