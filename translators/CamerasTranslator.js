@@ -1,4 +1,5 @@
 let HexBuffer = require('../lib/HexBuffer'),
+    W3Buffer = require('../lib/W3Buffer'),
     outBuffer;
 
 const CamerasTranslator = {
@@ -36,7 +37,37 @@ const CamerasTranslator = {
             buffer: outBuffer.getBuffer()
         };
     },
-    warToJson: function(buffer) {}
+    warToJson: function(buffer) {
+        var result = [],
+            offset = 0,
+            b = new W3Buffer(buffer);
+
+        var fileVersion = b.readInt(); // File version
+        var numCameras = b.readInt(); // # of cameras
+
+        for(var i = 0; i < numCameras; i++) {
+            let camera = { target: {} };
+
+            camera.target.x = b.readFloat();
+            camera.target.y = b.readFloat();
+            camera.offsetZ = b.readFloat();
+            camera.rotation = b.readFloat(); // in degrees
+            camera.aoa = b.readFloat(); // angle of attack, in degrees
+            camera.distance = b.readFloat();
+            camera.roll = b.readFloat();
+            camera.fov = b.readFloat(); // field of view, in degrees
+            camera.farClipping = b.readFloat();
+            b.readFloat(); // consume this unknown float field
+            camera.name = b.readString();
+
+            result.push(camera);
+        }
+
+        return {
+            errors: [],
+            json: result
+        };
+    }
 };
 
 module.exports = CamerasTranslator;
