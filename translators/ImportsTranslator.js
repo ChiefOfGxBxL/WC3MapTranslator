@@ -1,4 +1,5 @@
 let HexBuffer = require('../lib/HexBuffer'),
+    W3Buffer = require('../lib/W3Buffer'),
     outBuffer;
 
 const ImportsTranslator = {
@@ -31,7 +32,36 @@ const ImportsTranslator = {
             buffer: outBuffer.getBuffer()
         };
     },
-    warToJson: function(buffer) {}
+    warToJson: function(buffer) {
+        var result = [],
+            b = new W3Buffer(buffer);
+
+        var fileVersion = b.readInt(); // File version
+        var numImports = b.readInt(); // # of imports
+
+        for(var i = 0; i < numImports; i++) {
+            let typeValue = b.readByte();
+            let typeEnum = {
+                0: 'standard',
+                5: 'standard',
+                8: 'standard', // * preferred
+                10: 'custom',
+                13: 'custom'  // * preferred
+            };
+            
+            let importedFile = {
+                type: typeEnum[typeValue], // 5 or 8= standard path, 10 or 13: custom path
+                path: b.readString() // e.g. "war3mapImported\mysound.wav"
+            };
+
+            result.push(importedFile);
+        }
+
+        return {
+            errors: [],
+            json: result
+        };
+    }
 };
 
 module.exports = ImportsTranslator;
