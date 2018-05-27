@@ -2,18 +2,34 @@
   <b>WC3MapTranslator</b>
 </p>
 <p align='center'>
-  Module to translate JSON map format to WC3 (war3map) files for .w3x<br/><br/>
+  Module to translate between `war3map` and `json` formats<br/>for WarCraft III .w3x maps
 
-  <a href='https://www.npmjs.com/package/wc3maptranslator'>
-    <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
-  </a>
+  <br/><br/>
+
+  <b>Quality</b><br/>
+
+  [![bitHound Overall Score](https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/score.svg)](https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator)
+
+  [![bitHound Code](https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/code.svg)](https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator)
 
   <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
     <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability'/>
   </a>
 
+  <br /><br/>
+
+  <b>Info</b><br/>
+
+  <a href='https://www.npmjs.com/package/wc3maptranslator'>
+    <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
+  </a>
+
   <a href='https://opensource.org/licenses/MIT'>
     <img src='https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square'/>
+  </a>
+
+  <a href='https://www.npmjs.com/package/wc3maptranslator'>
+    <img src='https://img.shields.io/badge/npm-npm-red.svg?style=flat-square'/>
   </a>
 </p>
 
@@ -29,9 +45,9 @@
 <hr/>
 
 ## Overview
-WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.w3x) data to their `war3map` files. This makes the map data readable and easily modifiable.
+WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.w3x) data to their `war3map` files, and vice-versa. This makes the map data readable and easily modifiable.
 
-This API is a core component of [Ice Sickle](https://github.com/ChiefOfGxBxL/Ice-Sickle), the next-generation world editor. This editor stores data in a JSON format, and then generates all the necessary files to assemble a .w3x MPQ archive to build a map.
+This API is a core component of [Ice Sickle](https://github.com/ChiefOfGxBxL/Ice-Sickle), the next-generation world editor. Ice Sickle stores data in a JSON format, and then generates all the necessary files to assemble a .w3x MPQ archive to build a map.
 
 ## Usage
 ```js
@@ -45,16 +61,17 @@ var Translator = require('wc3maptranslator'),
 // Using individual translators, we may convert JSON
 // representation to generate a WC3 .w3x map file.
 // See the Wiki for more information.
-var unitsTranslator = new Translator.Units(mapJson.units);
-unitsTranslator.write(); // write output file (in this case, war3mapUnits.doo)
+
+var unitResult = new Translator.Units.jsonToWar(mapJson.units);
+// We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive!
 ```
 
 ## Examples
-There is an `/examples` directory that demonstrates how to use *each* translator. This is a great starting point to learn how to use any translator. The directory has `jsonToWar`, a sample project that is capable of creating each file to build a .w3x archive.
+There is an `/examples` directory that demonstrates how to use *each* translator. This is a great starting point to learn how to use any translator. The directory has `jsonToWar`, and `warToJson`, sample projects to convert from JSON to war3map files and back.
 
-To get started, `cd` into `/examples/jsonToWar` and run `npm install` to automatically install all the dependencies. Run `npm start` under `/examples/jsonToWar` to display a list of each command to run an example:
+To get started with either example, `cd` into `/examples/[whichever]` and run `npm install` to automatically install all the dependencies. Run `npm start` under `/examples/[whichever]` to display a list of each command to run.
 
-![image](https://user-images.githubusercontent.com/4079034/39087050-a4b26b96-4568-11e8-9387-2fd1ee012736.png)
+![image](https://user-images.githubusercontent.com/4079034/40582029-e67044c4-6136-11e8-9ae3-c10120096b00.png)
 
 For example, to run the "Cameras" translator, your working directory should be `/examples/jsonToWar`, and then you'll run the command `node entity/cameras.js`. Take a look at the source code under `jsonToWar/entity`, `jsonToWar/object`, or `jsonToWar/other` to see how to use each translator.
 
