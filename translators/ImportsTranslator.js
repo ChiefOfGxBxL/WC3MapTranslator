@@ -16,10 +16,12 @@ const ImportsTranslator = {
          * Body
          */
         imports.forEach(function(importedFile) {
-            outBuffer.addByte(0); // 0 if starts with "war3mapImported\", otherwise 5 for custom path
+            outBuffer.addByte(
+                importedFile.type === 'custom' ? 13 : 5
+            );
 
             // Temporary: always start the file path with war3mapImported\ until other file support is added
-            if(!importedFile.path.startsWith('war3mapImported\\')) {
+            if(!importedFile.path.startsWith('war3mapImported\\') && importedFile.type === 'custom') {
                 importedFile.path = 'war3mapImported\\' + importedFile.path;
             }
 
