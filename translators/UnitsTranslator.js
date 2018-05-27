@@ -1,4 +1,5 @@
 let HexBuffer = require('../lib/HexBuffer'),
+    W3Buffer = require('../lib/W3Buffer'),
     outBuffer;
 
 const UnitsTranslator = {
@@ -92,7 +93,114 @@ const UnitsTranslator = {
             buffer: outBuffer.getBuffer()
         };
     },
-    warToJson: function(buffer) {}
+    warToJson: function(buffer) {
+        var result = [],
+            b = new W3Buffer(buffer);
+
+        var fileId = b.readChars(4); // W3do for doodad file
+        var fileVersion = b.readInt(); // File version = 7
+        var subVersion = b.readInt(); // 0B 00 00 00
+        var numUnits = b.readInt(); // # of units
+
+        for(var i = 0; i < numUnits; i++) {
+            var unit = { hero: {}, inventory: [], abilities: [] };
+
+            unit.type = b.readChars(4); // (iDNR = random item, uDNR = random unit)
+            unit.variation = b.readInt();
+            unit.position = [ b.readFloat(), b.readFloat(), b.readFloat() ]; // X Y Z coords
+            unit.rotation = b.readFloat();
+            unit.scale = [ b.readFloat(), b.readFloat(), b.readFloat() ]; // X Y Z scaling
+
+
+            let flags = b.readByte();
+            // UNSUPPORTED: flags
+
+            unit.player = b.readInt(); // (player1 = 0, 16=neutral passive); note: wc3 patch now has 24 max players
+
+            b.readByte(); // unknown
+            b.readByte(); // unknown
+
+            unit.hitpoints = b.readInt(); // -1 = use default
+            unit.mana = b.readInt(); // -1 = use default, 0 = unit doesn't have mana
+
+            let droppedItemSetPtr = b.readInt();
+            let numDroppedItemSets = b.readInt();
+            for(var j = 0; j < numDroppedItemSets; j++) {
+                let numDroppableItems = b.readInt();
+                for(var k = 0; k < numDroppableItems; k++) {
+                    b.readChars(4); // Item ID
+                    b.readInt(); // % chance to drop
+                }
+            }
+
+            unit.gold = b.readInt();
+            unit.targetAcquisition = b.readFloat(); // (-1 = normal, -2 = camp)
+
+            unit.hero = {
+                level: b.readInt(), // non-hero units = 1
+                str: b.readInt(),
+                agi: b.readInt(),
+                int: b.readInt()
+            };
+
+            let numItemsInventory = b.readInt();
+            for(var j = 0; j < numItemsInventory; j++) {
+                unit.inventory.push({
+                    slot: b.readInt() + 1, // the int is 0-based, but json format wants 1-6
+                    type: b.readChars(4) // Item ID
+                });
+            }
+
+            let numModifiedAbil = b.readInt();
+            for(var j = 0; j < numModifiedAbil; j++) {
+                unit.abilities.push({
+                    ability: b.readChars(4), // Ability ID
+                    active: !!(b.readInt()), // autocast active? 0=no, 1=active
+                    level: b.readInt()
+                })
+            }
+
+            let r = b.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
+            if(r === 0) {
+                // 0 = Any neutral passive building/item, in this case we have
+                //   byte[3]: level of the random unit/item,-1 = any (this is actually interpreted as a 24-bit number)
+                //   byte: item class of the random item, 0 = any, 1 = permanent ... (this is 0 for units)
+                //   r is also 0 for non random units/items so we have these 4 bytes anyway (even if the id wasnt uDNR or iDNR)
+                b.readByte();
+                b.readByte();
+                b.readByte();
+                b.readByte();
+            }
+            else if(r === 1) {
+                // 1 = random unit from random group (defined in the w3i), in this case we have
+                //   int: unit group number (which group from the global table)
+                //   int: position number (which column of this group)
+                //   the column should of course have the item flag set (in the w3i) if this is a random item
+                b.readInt();
+                b.readInt();
+            }
+            else if(r === 2) {
+                // 2 = random unit from custom table, in this case we have
+                //   int: number "n" of different available units
+                //   then we have n times a random unit structure
+                let numDiffAvailUnits = b.readInt();
+                for(var k = 0; k < numDiffAvailUnits; k++) {
+                    // TODO: RANDOM UNIT STRUCT
+                }
+            }
+
+            unit.color = b.readInt();
+            b.readInt(); // UNSUPPORTED: waygate (-1 = deactivated, else its the creation number of the target rect as in war3map.w3r)
+            unit.id = b.readInt();
+
+            result.push(unit);
+        }
+
+        return {
+            errors: [],
+            json: result
+        };
+    }
 };
 
 module.exports = UnitsTranslator;
