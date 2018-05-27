@@ -4,37 +4,34 @@
 <p align='center'>
   Translate <code>war3map</code> ⇄ <code>json</code> formats for WarCraft III .w3x maps
 
-  <br/><br/>
-
-  <b>Quality</b><br/>
-
-  <a href='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator'>
-    <img src='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/score.svg'/>
-  </a>
-  
-  <a href='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator'>
-    <img src='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/code.svg'/>
-  </a>
-
-  <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
-    <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability'/>
-  </a>
+  <p align='center'>
+    <b>Quality</b><br/>
+    <a href='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator'>
+      <img src='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/score.svg' />
+    </a>
+    <a href='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator'>
+      <img src='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/code.svg' />
+    </a>
+    <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
+      <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability' />
+    </a>
+  </p>
 
   <br />
 
-  <b>Info</b><br/>
-
-  <a href='https://www.npmjs.com/package/wc3maptranslator'>
-    <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
-  </a>
-
-  <a href='https://opensource.org/licenses/MIT'>
-    <img src='https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square'/>
-  </a>
-
-  <a href='https://www.npmjs.com/package/wc3maptranslator'>
-    <img src='https://img.shields.io/badge/npm-npm-red.svg?style=flat-square'/>
-  </a>
+  <p align='center'>
+    <b>Info</b><br/>
+    <a href='https://www.npmjs.com/package/wc3maptranslator'>
+      <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
+    </a>
+    <a href='https://opensource.org/licenses/MIT'>
+      <img src='https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square'/>
+    </a>
+    <a href='https://www.npmjs.com/package/wc3maptranslator'>
+      <img src='https://img.shields.io/badge/npm-npm-red.svg?style=flat-square'/>
+    </a>
+  </p>
+  
 </p>
 
 <hr/>
