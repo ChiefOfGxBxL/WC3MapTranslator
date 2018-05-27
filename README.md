@@ -14,12 +14,7 @@
     </a>
     <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
       <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability' />
-    </a>
-  </p>
-
-  <br />
-
-  <p align='center'>
+    </a><br/><br/>
     <b>Info</b><br/>
     <a href='https://www.npmjs.com/package/wc3maptranslator'>
       <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
