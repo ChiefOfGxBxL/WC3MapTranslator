@@ -94,16 +94,16 @@ const UnitsTranslator = {
         };
     },
     warToJson: function(buffer) {
-        var result = [],
+        let result = [],
             b = new W3Buffer(buffer);
 
-        var fileId = b.readChars(4); // W3do for doodad file
-        var fileVersion = b.readInt(); // File version = 7
-        var subVersion = b.readInt(); // 0B 00 00 00
-        var numUnits = b.readInt(); // # of units
+        let fileId = b.readChars(4), // W3do for doodad file
+            fileVersion = b.readInt(), // File version = 7
+            subVersion = b.readInt(), // 0B 00 00 00
+            numUnits = b.readInt(); // # of units
 
-        for(var i = 0; i < numUnits; i++) {
-            var unit = { hero: {}, inventory: [], abilities: [] };
+        for(let i = 0; i < numUnits; i++) {
+            let unit = { hero: {}, inventory: [], abilities: [] };
 
             unit.type = b.readChars(4); // (iDNR = random item, uDNR = random unit)
             unit.variation = b.readInt();
@@ -123,11 +123,11 @@ const UnitsTranslator = {
             unit.hitpoints = b.readInt(); // -1 = use default
             unit.mana = b.readInt(); // -1 = use default, 0 = unit doesn't have mana
 
-            let droppedItemSetPtr = b.readInt();
-            let numDroppedItemSets = b.readInt();
-            for(var j = 0; j < numDroppedItemSets; j++) {
+            let droppedItemSetPtr = b.readInt(),
+                numDroppedItemSets = b.readInt();
+            for(let j = 0; j < numDroppedItemSets; j++) {
                 let numDroppableItems = b.readInt();
-                for(var k = 0; k < numDroppableItems; k++) {
+                for(let k = 0; k < numDroppableItems; k++) {
                     b.readChars(4); // Item ID
                     b.readInt(); // % chance to drop
                 }
@@ -144,7 +144,7 @@ const UnitsTranslator = {
             };
 
             let numItemsInventory = b.readInt();
-            for(var j = 0; j < numItemsInventory; j++) {
+            for(let j = 0; j < numItemsInventory; j++) {
                 unit.inventory.push({
                     slot: b.readInt() + 1, // the int is 0-based, but json format wants 1-6
                     type: b.readChars(4) // Item ID
@@ -152,16 +152,16 @@ const UnitsTranslator = {
             }
 
             let numModifiedAbil = b.readInt();
-            for(var j = 0; j < numModifiedAbil; j++) {
+            for(let j = 0; j < numModifiedAbil; j++) {
                 unit.abilities.push({
                     ability: b.readChars(4), // Ability ID
-                    active: !!(b.readInt()), // autocast active? 0=no, 1=active
+                    active: !!b.readInt(), // autocast active? 0=no, 1=active
                     level: b.readInt()
-                })
+                });
             }
 
-            let r = b.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
-            if(r === 0) {
+            let randFlag = b.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
+            if(randFlag === 0) {
                 // 0 = Any neutral passive building/item, in this case we have
                 //   byte[3]: level of the random unit/item,-1 = any (this is actually interpreted as a 24-bit number)
                 //   byte: item class of the random item, 0 = any, 1 = permanent ... (this is 0 for units)
@@ -171,7 +171,7 @@ const UnitsTranslator = {
                 b.readByte();
                 b.readByte();
             }
-            else if(r === 1) {
+            else if(randFlag === 1) {
                 // 1 = random unit from random group (defined in the w3i), in this case we have
                 //   int: unit group number (which group from the global table)
                 //   int: position number (which column of this group)
@@ -179,13 +179,14 @@ const UnitsTranslator = {
                 b.readInt();
                 b.readInt();
             }
-            else if(r === 2) {
+            else if(randFlag === 2) {
                 // 2 = random unit from custom table, in this case we have
                 //   int: number "n" of different available units
                 //   then we have n times a random unit structure
                 let numDiffAvailUnits = b.readInt();
-                for(var k = 0; k < numDiffAvailUnits; k++) {
-                    // TODO: RANDOM UNIT STRUCT
+                for(let k = 0; k < numDiffAvailUnits; k++) {
+                    b.readChars(4); // Unit ID
+                    b.readInt(); // % chance
                 }
             }
 

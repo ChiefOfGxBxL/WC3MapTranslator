@@ -154,12 +154,12 @@ const InfoTranslator = {
         };
     },
     warToJson: function(buffer) {
-        var result = { map: {}, loadingScreen: {}, prologue: {}, fog: {}, camera: {}, players: [], forces: [] },
+        let result = { map: {}, loadingScreen: {}, prologue: {}, fog: {}, camera: {}, players: [], forces: [] },
             b = new W3Buffer(buffer);
 
-        var fileVersion = b.readInt(); // File version
-        var numOfSaves = b.readInt(); // # of times saved
-        var editorVersion = b.readInt(); // editor version
+        let fileVersion = b.readInt(), // File version
+            numOfSaves = b.readInt(), // # of times saved
+            editorVersion = b.readInt(); // editor version
 
         result.saves = numOfSaves;
         result.editorVersion = editorVersion;
@@ -183,7 +183,7 @@ const InfoTranslator = {
             height: b.readInt()
         };
 
-        var flags = b.readInt();
+        let flags = b.readInt();
         result.map.flags = {
             hideMinimapInPreview:       !!(flags & 0b1), // 0x0001: 1=hide minimap in preview screens
             modifyAllyPriorities:       !!(flags & 0b10), // 0x0002: 1=modify ally priorities
@@ -211,7 +211,7 @@ const InfoTranslator = {
         result.loadingScreen.title = b.readString();
         result.loadingScreen.subtitle = b.readString();
 
-        var gameDataSet = b.readInt(); // 0 = standard
+        let gameDataSet = b.readInt(); // 0 = standard
 
         result.prologue = {
             path: b.readString(),
@@ -234,9 +234,9 @@ const InfoTranslator = {
         result.water = [b.readByte(), b.readByte(), b.readByte(), b.readByte()]; // R G B A
 
         // Struct: players
-        var numPlayers = b.readInt();
-        for(var i = 0; i < numPlayers; i++) {
-            var player = {};
+        let numPlayers = b.readInt();
+        for(let i = 0; i < numPlayers; i++) {
+            let player = {};
 
             player.playerNum = b.readInt();
             player.type = b.readInt(); // 1=Human, 2=Computer, 3=Neutral, 4=Rescuable
@@ -257,11 +257,11 @@ const InfoTranslator = {
         }
 
         // Struct: forces
-        var numForces = b.readInt();
-        for(var i = 0; i < numForces; i++) {
-            var force = {};
+        let numForces = b.readInt();
+        for(let i = 0; i < numForces; i++) {
+            let force = {};
 
-            var forceFlag = b.readInt();
+            let forceFlag = b.readInt();
             force.flags = {
                 allied:                 !!(forceFlag & 0b1), // 0x00000001: allied (force 1)
                 alliedVictory:          !!(forceFlag & 0b10), // 0x00000002: allied victory
@@ -277,8 +277,8 @@ const InfoTranslator = {
         }
 
         // UNSUPPORTED: Struct: upgrade avail.
-        var numUpgrades = b.readInt();
-        for(var i = 0; i < numUpgrades; i++) {
+        let numUpgrades = b.readInt();
+        for(let i = 0; i < numUpgrades; i++) {
             b.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
             b.readChars(4); // upgrade id (as in UpgradeData.slk)
             b.readInt(); // Level of the upgrade for which the availability is changed (this is actually the level - 1, so 1 => 0)
@@ -286,24 +286,24 @@ const InfoTranslator = {
         }
 
         // UNSUPPORTED: Struct: tech avail.
-        var numTech = b.readInt();
-        for(var i = 0; i < numTech; i++) {
+        let numTech = b.readInt();
+        for(let i = 0; i < numTech; i++) {
             b.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
             b.readChars(4); // tech id (this can be an item, unit or ability)
         }
 
         // UNSUPPORTED: Struct: random unit table
-        var numUnitTable = b.readInt();
-        for(var i = 0; i < numUnitTable; i++) {
+        let numUnitTable = b.readInt();
+        for(let i = 0; i < numUnitTable; i++) {
             b.readInt(); // Group number
             b.readString(); // Group name
 
-            var numPositions = b.readInt(); // Number "m" of positions
-            for(var j = 0; j < numPositions; j++) {
+            let numPositions = b.readInt(); // Number "m" of positions
+            for(let j = 0; j < numPositions; j++) {
                 b.readInt(); // unit table (=0), a building table (=1) or an item table (=2)
 
-                var numLinesInTable = b.readInt();
-                for(var k = 0; k < numLinesInTable; k++) {
+                let numLinesInTable = b.readInt();
+                for(let k = 0; k < numLinesInTable; k++) {
                     b.readInt(); // Chance of the unit/item (percentage)
                     b.readChar(); // unit/item id's for this line specified
                 }
@@ -311,16 +311,16 @@ const InfoTranslator = {
         }
 
         // UNSUPPORTED: Struct: random item table
-        var numItemTable = b.readInt();
-        for(var i = 0; i < numItemTable; i++) {
+        let numItemTable = b.readInt();
+        for(let i = 0; i < numItemTable; i++) {
             b.readInt(); // Table number
             b.readString(); // Table name
 
-            var itemSetsCurrentTable = b.readInt(); // Number "m" of item sets on the current item table
-            for(var j = 0; j < itemSetsCurrentTable; j++) {
+            let itemSetsCurrentTable = b.readInt(); // Number "m" of item sets on the current item table
+            for(let j = 0; j < itemSetsCurrentTable; j++) {
 
-                var itemsInItemSet = b.readInt(); // Number "i" of items on the current item set
-                for(var k = 0; k < itemsInItemSet; k++) {
+                let itemsInItemSet = b.readInt(); // Number "i" of items on the current item set
+                for(let k = 0; k < itemsInItemSet; k++) {
                     b.readInt(); // Percentual chance
                     b.readChars(4); // Item id (as in ItemData.slk)
                 }

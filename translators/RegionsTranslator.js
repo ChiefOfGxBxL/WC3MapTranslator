@@ -70,13 +70,13 @@ const RegionsTranslator = {
         };
     },
     warToJson: function(buffer) {
-        var result = [],
+        let result = [],
             b = new W3Buffer(buffer);
 
-        var fileVersion = b.readInt(); // File version
-        var numRegions = b.readInt(); // # of regions
+        let fileVersion = b.readInt(), // File version
+            numRegions = b.readInt(); // # of regions
 
-        for(var i = 0; i < numRegions; i++) {
+        for(let i = 0; i < numRegions; i++) {
             let region = { position: {} };
 
             region.position.left = b.readFloat();

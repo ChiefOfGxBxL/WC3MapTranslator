@@ -38,13 +38,13 @@ const CamerasTranslator = {
         };
     },
     warToJson: function(buffer) {
-        var result = [],
+        let result = [],
             b = new W3Buffer(buffer);
 
-        var fileVersion = b.readInt(); // File version
-        var numCameras = b.readInt(); // # of cameras
+        let fileVersion = b.readInt(), // File version
+            numCameras = b.readInt(); // # of cameras
 
-        for(var i = 0; i < numCameras; i++) {
+        for(let i = 0; i < numCameras; i++) {
             let camera = { target: {} };
 
             camera.target.x = b.readFloat();

@@ -101,13 +101,13 @@ const SoundsTranslator = {
         };
     },
     warToJson: function(buffer) {
-        var result = [],
+        let result = [],
             b = new W3Buffer(buffer);
 
-        var fileVersion = b.readInt(); // File version
-        var numSounds = b.readInt(); // # of sounds
+        let fileVersion = b.readInt(), // File version
+            numSounds = b.readInt(); // # of sounds
 
-        for(var i = 0; i < numSounds; i++) {
+        for(let i = 0; i < numSounds; i++) {
             let sound = { flags: {}, fadeRate: {}, distance: {} };
 
             sound.name = b.readString();

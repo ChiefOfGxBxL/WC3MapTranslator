@@ -35,13 +35,13 @@ const ImportsTranslator = {
         };
     },
     warToJson: function(buffer) {
-        var result = [],
+        let result = [],
             b = new W3Buffer(buffer);
 
-        var fileVersion = b.readInt(); // File version
-        var numImports = b.readInt(); // # of imports
+        let fileVersion = b.readInt(); // File version
+        let numImports = b.readInt(); // # of imports
 
-        for(var i = 0; i < numImports; i++) {
+        for(let i = 0; i < numImports; i++) {
             let typeValue = b.readByte();
             let typeEnum = {
                 0: 'standard',
@@ -50,7 +50,7 @@ const ImportsTranslator = {
                 10: 'custom',
                 13: 'custom'  // * preferred
             };
-            
+
             let importedFile = {
                 type: typeEnum[typeValue], // 5 or 8= standard path, 10 or 13: custom path
                 path: b.readString() // e.g. "war3mapImported\mysound.wav"

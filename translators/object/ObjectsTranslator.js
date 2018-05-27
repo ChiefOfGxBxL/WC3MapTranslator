@@ -135,22 +135,22 @@ const ObjectsTranslator = {
         };
     },
     warToJson: function(type, buffer) {
-        var result = { original: {}, custom: {} },
+        let result = { original: {}, custom: {} },
             b = new W3Buffer(buffer);
 
-        var fileVersion = b.readInt();
+        let fileVersion = b.readInt();
 
         function readModificationTable(isOriginalTable) {
-            var numTableModifications = b.readInt();
-            for(var i = 0; i < numTableModifications; i++) {
-                var objectDefinition = []; // object definition will store one or more modification objects
+            let numTableModifications = b.readInt();
+            for(let i = 0; i < numTableModifications; i++) {
+                let objectDefinition = []; // object definition will store one or more modification objects
 
-                var originalId = b.readChars(4),
+                let originalId = b.readChars(4),
                     customId = b.readChars(4),
                     modificationCount = b.readInt();
 
-                for(var j = 0; j < modificationCount; j++) {
-                    var modification = {};
+                for(let j = 0; j < modificationCount; j++) {
+                    let modification = {};
 
                     modification.id = b.readChars(4);
                     modification.type = varTypes[b.readInt()]; // 'int' | 'real' | 'unreal' | 'string',

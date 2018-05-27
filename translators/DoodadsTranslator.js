@@ -62,15 +62,15 @@ const DoodadsTranslator = {
         };
     },
     warToJson: function(buffer) {
-        var result = [],
+        let result = [],
             b = new W3Buffer(buffer);
 
-        var fileId = b.readChars(4); // W3do for doodad file
-        var fileVersion = b.readInt(); // File version = 8
-        var subVersion = b.readInt(); // 0B 00 00 00
-        var numDoodads = b.readInt(); // # of doodads
+        let fileId = b.readChars(4), // W3do for doodad file
+            fileVersion = b.readInt(), // File version = 8
+            subVersion = b.readInt(), // 0B 00 00 00
+            numDoodads = b.readInt(); // # of doodads
 
-        for(var i = 0; i < numDoodads; i++) {
+        for(let i = 0; i < numDoodads; i++) {
             let doodad = {};
 
             doodad.type = b.readChars(4);
@@ -79,7 +79,7 @@ const DoodadsTranslator = {
             doodad.angle = b.readFloat(); // angle in radians
             doodad.scale = [ b.readFloat(), b.readFloat(), b.readFloat() ]; // X Y Z scaling
 
-            var flags = b.readByte();
+            let flags = b.readByte();
             doodad.flags = {
                 // 0= invisible and non-solid tree
                 // 1= visible but non-solid tree
@@ -92,13 +92,13 @@ const DoodadsTranslator = {
 
             // UNSUPPORTED: random item set drops when doodad is destroyed/killed
             // This section just consumes the bytes from the file
-            let randomItemSetPtr = b.readInt(); // points to an item set defined in the map (rather than custom one defined below)
-            let numberOfItemSets = b.readInt(); // this should be 0 if randomItemSetPtr is >= 0
+            let randomItemSetPtr = b.readInt(), // points to an item set defined in the map (rather than custom one defined below)
+                numberOfItemSets = b.readInt(); // this should be 0 if randomItemSetPtr is >= 0
 
-            for(var j = 0; j < numberOfItemSets; j++) {
+            for(let j = 0; j < numberOfItemSets; j++) {
                 // Read the item set
                 let numberOfItems = b.readInt();
-                for(var k = 0; k < numberOfItems; k++) {
+                for(let k = 0; k < numberOfItems; k++) {
                     b.readChars(4); // Item ID
                     b.readInt(); // % chance to drop
                 }
@@ -112,7 +112,7 @@ const DoodadsTranslator = {
         // UNSUPPORTED: Special doodads
         b.readInt(); // special doodad format version set to '0'
         let numSpecialDoodads = b.readInt();
-        for(var i = 0; i < numSpecialDoodads; i++) {
+        for(let i = 0; i < numSpecialDoodads; i++) {
             b.readChars(4); // doodad ID
             b.readInt();
             b.readInt();
