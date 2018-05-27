@@ -2,21 +2,25 @@
   <b>WC3MapTranslator</b>
 </p>
 <p align='center'>
-  Module to translate between `war3map` and `json` formats<br/>for WarCraft III .w3x maps
+  Translate <code>war3map</code> ⇄ <code>json</code> formats for WarCraft III .w3x maps
 
   <br/><br/>
 
   <b>Quality</b><br/>
 
-  [![bitHound Overall Score](https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/score.svg)](https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator)
-
-  [![bitHound Code](https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/code.svg)](https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator)
+  <a href='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator'>
+    <img src='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/score.svg'/>
+  </a>
+  
+  <a href='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator'>
+    <img src='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/code.svg'/>
+  </a>
 
   <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
     <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability'/>
   </a>
 
-  <br /><br/>
+  <br />
 
   <b>Info</b><br/>
 
