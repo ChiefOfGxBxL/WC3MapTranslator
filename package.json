@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/ChiefOfGxBxL/WC3MapTranslator#readme",
   "dependencies": {
-    "fs-extra": "^2.1.2",
     "ieee754": "^1.1.8",
     "intn": "^1.0.0",
     "round-to": "^3.0.0"
