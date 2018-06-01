@@ -6,24 +6,25 @@
 
   <p align='center'>
     <b>Quality</b><br/>
-    <a href='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator'>
-      <img src='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/score.svg' />
-    </a>
-    <a href='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator'>
-      <img src='https://www.bithound.io/github/ChiefOfGxBxL/WC3MapTranslator/badges/code.svg' />
+    <a href='http://packagequality.com/#?package=wc3maptranslator'>
+      <img src='http://npm.packagequality.com/shield/wc3maptranslator.svg' />
     </a>
     <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
       <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability' />
-    </a><br/><br/>
+    </a>
+    <a href='https://coveralls.io/github/ChiefOfGxBxL/WC3MapTranslator?branch=master'>
+      <img src='https://coveralls.io/repos/github/ChiefOfGxBxL/WC3MapTranslator/badge.svg?branch=master' />
+    </a>
+    <br/><br/>
     <b>Info</b><br/>
     <a href='https://www.npmjs.com/package/wc3maptranslator'>
-      <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg?style=flat-square'/>
+      <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg'/>
     </a>
     <a href='https://opensource.org/licenses/MIT'>
-      <img src='https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square'/>
+      <img src='https://img.shields.io/badge/license-MIT-blue.svg'/>
     </a>
     <a href='https://www.npmjs.com/package/wc3maptranslator'>
-      <img src='https://img.shields.io/badge/npm-npm-red.svg?style=flat-square'/>
+      <img src='https://badge.fury.io/js/wc3maptranslator.svg?style=flat-square'/>
     </a>
   </p>
   
