@@ -1,17 +1,17 @@
 
 const Translator = {
-    Doodads: require('./translators/DoodadsTranslator.js'),
-    Strings: require('./translators/StringsTranslator.js'),
-    Terrain: require('./translators/TerrainTranslator.js'),
-    Units: require('./translators/UnitsTranslator.js'),
-    Regions: require('./translators/RegionsTranslator.js'),
-    Cameras: require('./translators/CamerasTranslator.js'),
-    Sounds: require('./translators/SoundsTranslator.js'),
+    Doodads: require('./lib/translators/DoodadsTranslator.js'),
+    Strings: require('./lib/translators/StringsTranslator.js'),
+    Terrain: require('./lib/translators/TerrainTranslator.js'),
+    Units: require('./lib/translators/UnitsTranslator.js'),
+    Regions: require('./lib/translators/RegionsTranslator.js'),
+    Cameras: require('./lib/translators/CamerasTranslator.js'),
+    Sounds: require('./lib/translators/SoundsTranslator.js'),
 
-    Objects: require('./translators/object/ObjectsTranslator.js'),
+    Objects: require('./lib/translators/object/ObjectsTranslator.js'),
 
-    Imports: require('./translators/ImportsTranslator.js'),
-    Info: require('./translators/InfoTranslator.js')
+    Imports: require('./lib/translators/ImportsTranslator.js'),
+    Info: require('./lib/translators/InfoTranslator.js')
 };
 
 module.exports = Translator;
