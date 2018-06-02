@@ -1,0 +1,19 @@
+{
+    "check-coverage": true,
+    "per-file": true,
+    "include": [
+      "lib/**/*.js",
+      "translators/**/*.js"
+    ],
+    "exclude": [
+      "examples/**/*.js",
+      "test/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "all": true,
+    "temp-directory": "./.coverage-tmp",
+    "report-dir": "./.coverage"
+}

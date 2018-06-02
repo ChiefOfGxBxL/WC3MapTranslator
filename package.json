@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha"
+    "test": "nyc mocha",
+    "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*"
   },
   "repository": {
     "type": "git",
@@ -20,13 +21,16 @@
   "dependencies": {
     "ieee754": "^1.1.8",
     "intn": "^1.0.0",
-    "mocha": "^5.2.0",
     "round-to": "^3.0.0"
   },
   "devDependencies": {
+    "coveralls": "^3.0.1",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.1"
   }
 }
