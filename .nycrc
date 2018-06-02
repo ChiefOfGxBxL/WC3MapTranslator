@@ -2,12 +2,7 @@
     "check-coverage": true,
     "per-file": true,
     "include": [
-      "lib/**/*.js",
-      "translators/**/*.js"
-    ],
-    "exclude": [
-      "examples/**/*.js",
-      "test/**/*.js"
+      "lib/**/*.js"
     ],
     "reporter": [
       "lcov",
