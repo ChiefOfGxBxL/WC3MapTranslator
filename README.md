@@ -15,16 +15,19 @@
     <a href='https://coveralls.io/github/ChiefOfGxBxL/WC3MapTranslator?branch=master'>
       <img src='https://coveralls.io/repos/github/ChiefOfGxBxL/WC3MapTranslator/badge.svg?branch=master' />
     </a>
+    <a href="https://snyk.io/test/github/chiefofgxbxl/wc3maptranslator?targetFile=package.json">
+      <img src="https://snyk.io/test/github/chiefofgxbxl/wc3maptranslator/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/chiefofgxbxl/wc3maptranslator?targetFile=package.json" style="max-width:100%;">
+    </a>
     <br/><br/>
     <b>Info</b><br/>
+    <a href='https://www.npmjs.com/package/wc3maptranslator'>
+      <img src='https://badge.fury.io/js/wc3maptranslator.svg?style=flat-square'/>
+    </a>
     <a href='https://www.npmjs.com/package/wc3maptranslator'>
       <img src='https://img.shields.io/npm/dt/wc3maptranslator.svg'/>
     </a>
     <a href='https://opensource.org/licenses/MIT'>
       <img src='https://img.shields.io/badge/license-MIT-blue.svg'/>
-    </a>
-    <a href='https://www.npmjs.com/package/wc3maptranslator'>
-      <img src='https://badge.fury.io/js/wc3maptranslator.svg?style=flat-square'/>
     </a>
   </p>
   
