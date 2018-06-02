@@ -13,7 +13,5 @@
       "lcov",
       "text-summary"
     ],
-    "all": true,
-    "temp-directory": "./.coverage-tmp",
-    "report-dir": "./.coverage"
+    "all": true
 }

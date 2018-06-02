@@ -10,6 +10,5 @@ examples/warToJson/files/output/other/*.json
 #
 # Build, testing, and coverage
 #
-.coverage/
-.coverage-tmp/
+coverage/
 .nyc_output/
