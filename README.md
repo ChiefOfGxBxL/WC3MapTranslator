@@ -6,12 +6,16 @@
 
   <p align='center'>
     <b>Quality</b><br/>
+    <a href='https://travis-ci.org/ChiefOfGxBxL/WC3MapTranslator'>
+      <img src='https://travis-ci.org/ChiefOfGxBxL/WC3MapTranslator.svg?branch=master' />
+    </a>
     <a href='http://packagequality.com/#?package=wc3maptranslator'>
       <img src='http://npm.packagequality.com/shield/wc3maptranslator.svg' />
     </a>
     <a href='https://codeclimate.com/github/ChiefOfGxBxL/WC3MapTranslator'>
       <img src='https://api.codeclimate.com/v1/badges/065fcb3a010c892f3813/maintainability' />
     </a>
+    <br/>
     <a href='https://coveralls.io/github/ChiefOfGxBxL/WC3MapTranslator?branch=master'>
       <img src='https://coveralls.io/repos/github/ChiefOfGxBxL/WC3MapTranslator/badge.svg?branch=master' />
     </a>
