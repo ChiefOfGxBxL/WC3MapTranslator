@@ -34,12 +34,13 @@
       <img src='https://img.shields.io/badge/license-MIT-blue.svg'/>
     </a>
   </p>
-  
+
 </p>
 
 <hr/>
 <p align='center'>
   <a href="#overview"><strong>Overview</strong></a> &middot;
+  <a href="#install"><strong>Install</strong></a> &middot;
   <a href="#usage"><strong>Usage</strong></a> &middot;
   <a href="#file-support"><strong>File Support</strong></a> &middot;
   <a href="#specification"><strong>Specification</strong></a> &middot;
@@ -52,6 +53,11 @@
 WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.w3x) data to their `war3map` files, and vice-versa. This makes the map data readable and easily modifiable.
 
 This API is a core component of [Ice Sickle](https://github.com/ChiefOfGxBxL/Ice-Sickle), the next-generation world editor. Ice Sickle stores data in a JSON format, and then generates all the necessary files to assemble a .w3x MPQ archive to build a map.
+
+## Install
+```js
+npm install wc3maptranslator
+```
 
 ## Usage
 ```js
