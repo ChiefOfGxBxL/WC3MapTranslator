@@ -1,5 +1,15 @@
+#
+# NodeJS
+#
 node_modules
 examples/jsonToWar/output/war3*
 examples/warToJson/files/output/*.json
 examples/warToJson/files/output/object/*.json
 examples/warToJson/files/output/other/*.json
+
+#
+# Build, testing, and coverage
+#
+.coverage/
+.coverage-tmp/
+.nyc_output/
