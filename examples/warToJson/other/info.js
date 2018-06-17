@@ -4,7 +4,7 @@ const
     fs = require('fs');
 
 const filePath = Path.resolve('./files/input/war3map.w3i');
-const jsonPath = Path.resolve('./files/output/info.json');
+const jsonPath = Path.resolve('./files/output/other/info.json');
 
 fs.readFile(filePath, function(err, data) {
     if(err) throw err;
