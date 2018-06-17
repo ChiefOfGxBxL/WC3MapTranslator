@@ -42,6 +42,7 @@
   <a href="#overview"><strong>Overview</strong></a> &middot;
   <a href="#install"><strong>Install</strong></a> &middot;
   <a href="#usage"><strong>Usage</strong></a> &middot;
+  <a href="#examples"><strong>Examples</strong></a> &middot;
   <a href="#file-support"><strong>File Support</strong></a> &middot;
   <a href="#specification"><strong>Specification</strong></a> &middot;
   <a href="#contributing"><strong>Contributing</strong></a> &middot;
