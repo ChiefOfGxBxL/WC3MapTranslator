@@ -1,6 +1,6 @@
 {
   "name": "wc3maptranslator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Module to translate between `war3map` and `json` formats for WarCraft III .w3x maps",
   "main": "index.js",
   "scripts": {
