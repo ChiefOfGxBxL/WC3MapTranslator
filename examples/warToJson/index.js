@@ -27,5 +27,5 @@ breakSection();
 
 section('Other map files', 'bgRed');
 entry('Imports', 'node other/imports.js', 'red');
-// entry('Strings', 'node other/strings.js', 'red');
+entry('Strings', 'node other/strings.js', 'red');
 entry('Info', '\tnode other/info.js', 'red');
