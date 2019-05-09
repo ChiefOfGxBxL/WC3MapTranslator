@@ -60,13 +60,18 @@ describe('Reversion: war -> json -> war', function() {
         // take war3map.w3e -> json -> war3map.doo
         let originalBuffer = readWar3MapBuffer('war3map.w3e');
         let result = new Translator.Terrain.warToJson(originalBuffer);
+        console.log('have result');
         fs.writeFileSync(
             Path.join(outputDir, 'war3map.w3e.json'), JSON.stringify(result.json));
+        console.log('wrote json');
         let translatedBuffer = new Translator.Terrain.jsonToWar(result.json).buffer;
+        console.log('created translated buffer');
 
         fs.writeFileSync(Path.join(outputDir, 'war3map.w3e'), translatedBuffer);
+        console.log('wrote map');
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        //assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert(false, true);
     });
 
     /*it('Units reversion', function() {
