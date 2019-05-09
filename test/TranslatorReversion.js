@@ -39,7 +39,7 @@ describe('Reversion: war -> json -> war', function() {
         fs.ensureDir(outputDir);
     });
 
-    /*it('Doodads reversion', function() {
+    it('Doodads reversion', function() {
         // Take war3map.doo, -> JSON, -> war3map.doo
         // Compare buffers, ensure they are equal
         let originalBuffer = readWar3MapBuffer('war3map.doo');
@@ -54,7 +54,7 @@ describe('Reversion: war -> json -> war', function() {
     it('Strings reversion', function() {
         // this one is pending the strings translator support for war3map -> json
         assert(false, 'Not implemented');
-    });*/
+    });
 
     it('Terrain reversion', function() {
         // take war3map.w3e -> json -> war3map.doo
@@ -66,7 +66,7 @@ describe('Reversion: war -> json -> war', function() {
         assert(buffersAreEqual(originalBuffer, translatedBuffer));
     });
 
-    /*it('Units reversion', function() {
+    it('Units reversion', function() {
         let originalBuffer = readWar3MapBuffer('war3mapUnits.doo');
         let result = new Translator.Units.warToJson(originalBuffer);
         let translatedBuffer = new Translator.Units.jsonToWar(result.json).buffer;
@@ -194,6 +194,6 @@ describe('Reversion: war -> json -> war', function() {
         fs.writeFileSync(Path.join(outputDir, 'war3map.imp'), translatedBuffer);
 
         assert(buffersAreEqual(originalBuffer, translatedBuffer));
-    });*/
+    });
 
 });
