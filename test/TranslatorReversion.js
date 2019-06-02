@@ -57,7 +57,7 @@ describe('Reversion: war -> json -> war', function() {
     });
 
     it('Terrain reversion', function() {
-        // take war3map.w3e -> json -> war3map.doo
+        // take war3map.w3e -> json -> war3map.w3e
         let originalBuffer = readWar3MapBuffer('war3map.w3e');
         let result = new Translator.Terrain.warToJson(originalBuffer);
         let translatedBuffer = new Translator.Terrain.jsonToWar(result.json).buffer;
