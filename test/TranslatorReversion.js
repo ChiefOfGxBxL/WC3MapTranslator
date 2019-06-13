@@ -57,8 +57,13 @@ describe('Reversion: war -> json -> war', function() {
     });
 
     it('Terrain reversion', function() {
-        // this one is pending the terrain translator support for war3map -> json
-        assert(false, 'Not implemented');
+        // take war3map.w3e -> json -> war3map.w3e
+        let originalBuffer = readWar3MapBuffer('war3map.w3e');
+        let result = new Translator.Terrain.warToJson(originalBuffer);
+        let translatedBuffer = new Translator.Terrain.jsonToWar(result.json).buffer;
+        fs.writeFileSync(Path.join(outputDir, 'war3map.w3e'), translatedBuffer);
+
+        assert(buffersAreEqual(originalBuffer, translatedBuffer));
     });
 
     it('Units reversion', function() {
