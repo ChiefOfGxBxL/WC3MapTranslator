@@ -13,8 +13,96 @@ describe('HexBuffer', function() {
     });
 
     it('should addString', function() {
-        hexBuffer.addString('hello world', false);
-        assert.equal(h().length, 11);
+
+        var testWords = [
+            'Hallo, wêreld!', // Afrikaans
+            'Pershëndetje Botë', // Albanian
+            'أهلاً بالعالم', // Arabic
+            'Բարե՛ւ, աշխարհ։', // Armenian
+            'Salam Dünya', // Azeri
+            'Ahoj Světe!', // Czech
+            'Kaixo mundua!', // Basque/Euskara
+            'Прывітанне свет', // Belarusian
+            'Shani Mwechalo!', // Bemba
+            'Shagatam Prithivi!', // Bengali
+            'Zdravo Svijete!', // Bosnian
+            'Здравей, свят!', // Bulgarian
+            'ជំរាបសួរ ពិភពលោក', // Cambodian
+            'Hola món!', // Catalan
+            '你好世界', // Chinese
+            'ᎣᏏᏲ ᎡᎶᎯ', // Cherokee
+            'Klahowya Hayas Klaska', // Chinook Wawa
+            'Bok Svijete!', // Croatian
+            'Hej, Verden!', // Danish
+            'Hallo, wereld!', // Dutch
+            'Hello World!', // English
+            'Saluton mondo!', // Esperanto
+            'Tere maailm!', // Estonian
+            'Hei maailma!', // Finnish
+            'Salut le Monde!', // French
+            'Hallo, wrâld!', // Frisian
+            'Ola mundo!', // Galician
+            'Hallo Welt!', // German
+            'Γεια σου κόσμε!', // Greek
+            'Aloha Honua', // Hawaiian
+            'שלום עולם', // Hebrew
+            'नमस्ते दुनिया', // Hindi
+            'Nyob zoo ntiaj teb.', // Hmong
+            'Helló világ!', // Hungarian
+            'Halló heimur!', // Icelandic
+            'Ndewo Ụwa', // Igbo
+            'Halo Dunia!', // Indonesian
+            'Dia dhaoibh, a dhomhain!', // Irish
+            'Ciao Mondo!', // Italian
+            'こんにちは、 世界！', // Japanese
+            'ಹಲೋ ವರ್ಲ್ಡ್', // Kannada
+            'Habari dunia!', // Kiswahili
+            'Niatia thi!', // Kikuyu
+            'nuqneH', // Klingon
+            '반갑다 세상아', // Korean
+            'ສະບາຍດີ,ໂລກ', // Lao
+            'AVE MVNDE', // Latin
+            'Sveika, Pasaule!', // Latvian
+            'Sveikas, Pasauli', // Lithuanian
+            'coi li terdi', // Lojban
+            'Moien Welt!', // Luxembourgish
+            'Manao ahoana ry tany!', // Malagasy
+            'Namaskaram, lokame', // Malayalam
+            'Merhba lid-dinja', // Maltese
+            'Hallo verden!', // Norwegian
+            '!سلام دنیا', // Persian
+            'Witaj świecie!', // Polish
+            'Olá, mundo!', // Portuguese
+            'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਦੁਨਿਆ', // Punjabi
+            'Salut lume!', // Romanian
+            'Здравствуй, мир!', // Russian
+            'Halò, a Shaoghail!', // Scots Gaelic
+            'Zdravo Svete!', // Serbian
+            'Ahoj, svet!', // Slovak
+            'Pozdravljen svet!', // Slovenian
+            '¡Hola mundo!', // Spanish
+            'Hallå världen!', // Swedish
+            'Kamusta mundo!', // Tagalog
+            'ஹலோ உலகம்', // Tamil
+            'హలో వరల్డ్', // Telugu
+            'สวัสดีโลก!', // Thai
+            'Merhaba Dünya!', // Turkish
+            'Привiт, свiте!', // Ukrainian
+            'ہیلو دنیا والو', // Urdu
+            'Xin chào thế giới', // Vietnamese
+            'S\'mae byd!', // Welsh
+            'העלא וועלט', // Yiddish
+            'Sawubona Mhlaba', // Zulu
+        ]
+
+        var totalLength = 0;
+        for (var w in testWords) {
+            var bufLength = Buffer.from(testWords[w]).length;
+            hexBuffer.addString(testWords[w], false);
+            totalLength += bufLength;
+            assert.equal(h().length, totalLength);
+        }
+
     });
 
     it('should addString null-terminated', function() {
