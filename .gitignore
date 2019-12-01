@@ -13,3 +13,6 @@ examples/warToJson/files/output/other/*.json
 coverage/
 .nyc_output/
 test/.output
+**/*d.ts
+**/*d.ts.map
+**/*js.map

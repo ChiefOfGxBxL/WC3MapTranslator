@@ -1,17 +1,41 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const HexBuffer_1 = require("../HexBuffer");
-const W3Buffer_1 = require("../W3Buffer");
-class CamerasTranslator {
+import { HexBuffer } from '../HexBuffer';
+import { W3Buffer } from '../W3Buffer';
+
+interface Camera {
+    target: CameraTarget,
+    offsetZ: number;
+    rotation: number; // in degrees
+    aoa: number; // angle of attack, in degrees
+    distance: number;
+    roll: number;
+    fov: number; // field of view, in degrees
+    farClipping: number;
+    name: string;
+}
+
+interface CameraTarget {
+    x: number,
+    y: number
+}
+
+export class CamerasTranslator {
+
+    private _outBufferToWar: HexBuffer;
+    private _outBufferToJSON: W3Buffer;
+
     constructor() {
     }
+
+
     jsonToWar(cameras) {
-        this._outBufferToWar = new HexBuffer_1.HexBuffer();
+        this._outBufferToWar = new HexBuffer();
+
         /*
          * Header
          */
         this._outBufferToWar.addInt(0); // file version
         this._outBufferToWar.addInt(cameras.length); // number of cameras
+
         /*
          * Body
          */
@@ -26,22 +50,27 @@ class CamerasTranslator {
             this._outBufferToWar.addFloat(camera.fov); // in degrees
             this._outBufferToWar.addFloat(camera.farClipping);
             this._outBufferToWar.addFloat(100); // (?) unknown - usually set to 100
+
             // Camera name - must be null-terminated
             this._outBufferToWar.addString(camera.name);
             this._outBufferToWar.addNullTerminator();
         });
+
         return {
             errors: [],
             buffer: this._outBufferToWar.getBuffer()
         };
     }
+
     warToJson(buffer) {
         const result = [];
-        this._outBufferToJSON = new W3Buffer_1.W3Buffer(buffer);
+        this._outBufferToJSON = new W3Buffer(buffer);
+
         let fileVersion = this._outBufferToJSON.readInt(), // File version
-        numCameras = this._outBufferToJSON.readInt(); // # of cameras
+            numCameras = this._outBufferToJSON.readInt(); // # of cameras
+
         for (let i = 0; i < numCameras; i++) {
-            const camera = {
+            const camera: Camera = {
                 target: {
                     x: 0,
                     y: 0
@@ -55,6 +84,7 @@ class CamerasTranslator {
                 farClipping: 0,
                 name: ""
             };
+
             camera.target.x = this._outBufferToJSON.readFloat();
             camera.target.y = this._outBufferToJSON.readFloat();
             camera.offsetZ = this._outBufferToJSON.readFloat();
@@ -66,14 +96,14 @@ class CamerasTranslator {
             camera.farClipping = this._outBufferToJSON.readFloat();
             this._outBufferToJSON.readFloat(); // consume this unknown float field
             camera.name = this._outBufferToJSON.readString();
+
             result.push(camera);
         }
+
         return {
             errors: [],
             json: result
         };
     }
-}
-exports.CamerasTranslator = CamerasTranslator;
-;
-//# sourceMappingURL=CamerasTranslator.js.map
+};
+
