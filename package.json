@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc --build",
-    "test": "nyc mocha",
+    "test": "mocha",
+    "test-nyc": "nyc mocha",
     "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*"
   },
   "repository": {
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/ChiefOfGxBxL/WC3MapTranslator#readme",
   "dependencies": {
+    "@types/fs-extra": "^8.0.1",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.14",
     "@types/round-to": "^4.0.0",

@@ -130,8 +130,8 @@
         "signature": "a1205f8b74ba57896ae4eb9ff19a5ffc7f210352b0b535abcd36d6b06225a3ac"
       },
       "./lib/hexbuffer.ts": {
-        "version": "449e3480cecd636a16663aab3ab0a59342b73be5c14563d728cf7c07d9b64b24",
-        "signature": "0cb53e9df4e988828d4a174def3fac95bd82a6c6d1ed5e43ee763315464176c1"
+        "version": "250cd63f70a7fff6834c840a1e107a1b46a8f7d0966144ceda908c55fc637a44",
+        "signature": "f8a7a50a9ec57d185adc9628ed33555f09cc9f1592fcb915e9fc3e0a0621e7bb"
       },
       "./node_modules/round-to/index.d.ts": {
         "version": "e2caf3fb169c512f3d72e9d18546311641e5b68bb62fe8843c3ccbc217f394d5",
@@ -146,7 +146,7 @@
         "signature": "1da6b378b47f7e9dd603dad3249222cf6aaed94404cf2e61ab1ab670ce920bb9"
       },
       "./lib/translators/doodadstranslator.ts": {
-        "version": "aed1d7ab677be5d4ae01c9027dc50b0ebfbf0d351e338ef2cf56d9b38094e275",
+        "version": "d47ed0e5e7583a3d6a3da6052414a459a810f0633c0b79b59a3fabc9074e2064",
         "signature": "10a3440cdec24f2c4b702afa6cb9d73beba4ec2f460c42fb1f3992f95ff9d36b"
       },
       "./lib/translators/importstranslator.ts": {
@@ -186,8 +186,8 @@
         "signature": "c9c7f4406021e99b1d793196df655780cedb382546b0dac814ea31f4026d6f17"
       },
       "./index.ts": {
-        "version": "6f34c2c095f93c079b98b4a8908a4865fa2c2fe39470cc868827f35176d70535",
-        "signature": "a3fa203bf463d0bbeba8ccdde316b01a824e56aec1d06a4774b2056f360300d6"
+        "version": "b79ca05117d3a68a2337f013d54b2a872f7c295cb8a014d2c8c04f980c2a7f28",
+        "signature": "ed8e6aa3268bde41b7c46355821359f26a702c0736e74217083ef4a658b83b24"
       },
       "./examples/jsontowar/index.d.ts": {
         "version": "00316e779bb16e52d58ebe243051bc85fe123e66577a482f57c290a6f2e1a779",
@@ -330,20 +330,8 @@
         "signature": "d7456a03bc3115e97234ea276dace723f286d0b9327dd0ff89cabd8d864f2f59"
       },
       "./test/hexbuffertest.ts": {
-        "version": "e757b6eab4bdc4c6fa9f5be604ddac317585b6f264b48f62d68feadd0255deb4",
+        "version": "e4ea54c20a1a2232c13d4a15931a0569dd17394aba809cfa34e17acd2d18e906",
         "signature": "74e9f53bbe22f0d739ee02c62025fadc76352df2859898b6320717d4de297b70"
-      },
-      "./test/translatorreversion.ts": {
-        "version": "b36314e79c19581410e9a54249d66f7d39f6441d3b8a4deef6c0473bf896d5cc",
-        "signature": "1869b56a99fa2a628256c330fa3a407c6c6f302f97441f1b8b3274ce7076f665"
-      },
-      "./test/w3buffertest.ts": {
-        "version": "239586cfab6be321a70e4bf919a8f200ca860fbbbdcf41536d09426c91b7fdf2",
-        "signature": "5085f9e6794e2ae85e721c4e7d4462da6610d8c9a7968e6f2e671a19c92d4a9f"
-      },
-      "./node_modules/@types/mocha/index.d.ts": {
-        "version": "c4c03cf65951d980ba618ae9601d10438730803fc9c8a1f7b34af8739981e205",
-        "signature": "c4c03cf65951d980ba618ae9601d10438730803fc9c8a1f7b34af8739981e205"
       },
       "./node_modules/@types/node/globals.d.ts": {
         "version": "05c42320698cb6eb4052d68ef35a0f3b88291b9275f13e9a188b96119844c5b6",
@@ -524,6 +512,22 @@
       "./node_modules/@types/node/ts3.2/index.d.ts": {
         "version": "7c7dabe6de2f88a1b4a4d9a15479c2a99b6f5864b434b9d960fc312ba9498c0a",
         "signature": "7c7dabe6de2f88a1b4a4d9a15479c2a99b6f5864b434b9d960fc312ba9498c0a"
+      },
+      "./node_modules/@types/fs-extra/index.d.ts": {
+        "version": "062fd391f70e8816148e3ba09f2aa5b26db4529f3007d6bfad7776526dd828e6",
+        "signature": "062fd391f70e8816148e3ba09f2aa5b26db4529f3007d6bfad7776526dd828e6"
+      },
+      "./test/translatorreversion.ts": {
+        "version": "6d00a4fe9efbf9643714daa6cba2ce858b990994f1e48126bb02bdda59a54a18",
+        "signature": "1869b56a99fa2a628256c330fa3a407c6c6f302f97441f1b8b3274ce7076f665"
+      },
+      "./test/w3buffertest.ts": {
+        "version": "239586cfab6be321a70e4bf919a8f200ca860fbbbdcf41536d09426c91b7fdf2",
+        "signature": "5085f9e6794e2ae85e721c4e7d4462da6610d8c9a7968e6f2e671a19c92d4a9f"
+      },
+      "./node_modules/@types/mocha/index.d.ts": {
+        "version": "c4c03cf65951d980ba618ae9601d10438730803fc9c8a1f7b34af8739981e205",
+        "signature": "c4c03cf65951d980ba618ae9601d10438730803fc9c8a1f7b34af8739981e205"
       }
     },
     "options": {
@@ -1077,29 +1081,6 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "./test/translatorreversion.ts": [
-        "./node_modules/@types/node/assert.d.ts",
-        "./node_modules/@types/node/path.d.ts",
-        "./index.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./test/w3buffertest.ts": [
-        "./node_modules/@types/node/assert.d.ts",
-        "./lib/w3buffer.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./node_modules/@types/mocha/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "./node_modules/@types/node/globals.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -1456,6 +1437,37 @@
         "./node_modules/@types/node/ts3.2/globals.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/util.d.ts"
+      ],
+      "./node_modules/@types/fs-extra/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./test/translatorreversion.ts": [
+        "./node_modules/@types/node/assert.d.ts",
+        "./node_modules/@types/fs-extra/index.d.ts",
+        "./node_modules/@types/node/path.d.ts",
+        "./index.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./test/w3buffertest.ts": [
+        "./node_modules/@types/node/assert.d.ts",
+        "./lib/w3buffer.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/@types/mocha/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
       ]
     },
     "exportedModulesMap": {
@@ -1913,12 +1925,6 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "./node_modules/@types/mocha/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "./node_modules/@types/node/globals.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -2275,6 +2281,19 @@
         "./node_modules/@types/node/ts3.2/globals.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/util.d.ts"
+      ],
+      "./node_modules/@types/fs-extra/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/@types/mocha/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -2361,9 +2380,6 @@
       "./examples/wartojson/other/info.d.ts",
       "./examples/wartojson/other/strings.d.ts",
       "./test/hexbuffertest.ts",
-      "./test/translatorreversion.ts",
-      "./test/w3buffertest.ts",
-      "./node_modules/@types/mocha/index.d.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
       "./node_modules/@types/node/async_hooks.d.ts",
@@ -2408,7 +2424,11 @@
       "./node_modules/@types/node/ts3.2/fs.d.ts",
       "./node_modules/@types/node/ts3.2/util.d.ts",
       "./node_modules/@types/node/ts3.2/globals.d.ts",
-      "./node_modules/@types/node/ts3.2/index.d.ts"
+      "./node_modules/@types/node/ts3.2/index.d.ts",
+      "./node_modules/@types/fs-extra/index.d.ts",
+      "./test/w3buffertest.ts",
+      "./node_modules/@types/mocha/index.d.ts",
+      "./test/translatorreversion.ts"
     ]
   },
   "version": "3.7.2"

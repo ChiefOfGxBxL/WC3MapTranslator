@@ -46,7 +46,7 @@ export class DoodadsTranslator {
         /*
          * Body
          */
-        doodadsJson.forEach(function (tree) {
+        doodadsJson.forEach((tree) => {
             this._outBufferToWar.addString(tree.type);
             this._outBufferToWar.addInt(tree.variation || 0); // optional - default value 0
             this._outBufferToWar.addFloat(tree.position[0]);

@@ -2,7 +2,6 @@ import assert from 'assert';
 import { HexBuffer } from "../lib/HexBuffer";
 
 var hexBuffer;
-var h = () => hexBuffer.getBuffer();
 
 describe('HexBuffer', function () {
 
@@ -13,10 +12,9 @@ describe('HexBuffer', function () {
     });
 
     it('should addString', function () {
-
         var testWords = [
-            'Hallo, wêreld!', // Afrikaans
-            'Pershëndetje Botë', // Albanian
+            "Hallo, wêreld!", // Afrikaans
+            "Pershëndetje Botë", // Albanian
             'أهلاً بالعالم', // Arabic
             'Բարե՛ւ, աշխարհ։', // Armenian
             'Salam Dünya', // Azeri
@@ -95,69 +93,70 @@ describe('HexBuffer', function () {
             'Sawubona Mhlaba', // Zulu
         ]
 
-        var totalLength = 0;
-        for (var w in testWords) {
-            var bufLength = Buffer.from(testWords[w]).length;
+        let totalLength = 0;
+        for (let w in testWords) {
+            let bufLength = Buffer.from(testWords[w]).length;
             hexBuffer.addString(testWords[w], false);
             totalLength += bufLength;
-            assert.equal(h().length, totalLength);
+            const bufferLength = hexBuffer.getBuffer().length;
+            assert.equal(bufferLength, totalLength);
         }
 
     });
 
     it('should addString null-terminated', function () {
         hexBuffer.addString('hello world', true);
-        assert.equal(h().length, 12); // now it has a null-terminator at the end
-        assert.equal(h()[11], 0); // last character should be the null terminator
+        assert.equal(hexBuffer.getBuffer().length, 12); // now it has a null-terminator at the end
+        assert.equal(hexBuffer.getBuffer()[11], 0); // last character should be the null terminator
     });
 
     it('should addNewLine', function () {
         hexBuffer.addNewLine();
-        assert.equal(h().length, 2);
-        assert.equal(h()[0], 0x0d);
-        assert.equal(h()[1], 0x0a);
+        assert.equal(hexBuffer.getBuffer().length, 2);
+        assert.equal(hexBuffer.getBuffer()[0], 0x0d);
+        assert.equal(hexBuffer.getBuffer()[1], 0x0a);
     });
 
     it('should addChar', function () {
         hexBuffer.addChar('A');
-        assert.equal(h().length, 1);
-        assert.equal(h()[0], 65); // charcode for the ASCII letter "A"
+        assert.equal(hexBuffer.getBuffer().length, 1);
+        assert.equal(hexBuffer.getBuffer()[0], 65); // charcode for the ASCII letter "A"
     });
 
     it('should addInt', function () {
         hexBuffer.addInt(0);
-        assert.equal(h().length, 4); // integer is 4 bytes in length
-        assert.equal(h()[0], 0x00);
-        assert.equal(h()[1], 0x00);
-        assert.equal(h()[2], 0x00);
-        assert.equal(h()[3], 0x00);
+        assert.equal(hexBuffer.getBuffer().length, 4); // integer is 4 bytes in length
+        assert.equal(hexBuffer.getBuffer()[0], 0x00);
+        assert.equal(hexBuffer.getBuffer()[1], 0x00);
+        assert.equal(hexBuffer.getBuffer()[2], 0x00);
+        assert.equal(hexBuffer.getBuffer()[3], 0x00);
     });
 
     it('should addShort', function () {
         hexBuffer.addShort(14);
-        assert.equal(h().length, 2); // 2 bytes in length
-        assert.equal(h()[0], 0x0e);
-        assert.equal(h()[1], 0x00);
+        assert.equal(hexBuffer.getBuffer().length, 2); // 2 bytes in length
+        assert.equal(hexBuffer.getBuffer()[0], 0x0e);
+        assert.equal(hexBuffer.getBuffer()[1], 0x00);
     });
 
     it('should addFloat', function () {
         hexBuffer.addFloat(1.234);
-        assert.equal(h().length, 4); // 4 bytes in length
-        assert.equal(h()[0], 0xb6);
-        assert.equal(h()[1], 0xf3);
-        assert.equal(h()[2], 0x9d);
-        assert.equal(h()[3], 0x3f);
+        assert.equal(hexBuffer.getBuffer().length, 4); // 4 bytes in length
+        assert.equal(hexBuffer.getBuffer()[0], 0xb6);
+        assert.equal(hexBuffer.getBuffer()[1], 0xf3);
+        assert.equal(hexBuffer.getBuffer()[2], 0x9d);
+        assert.equal(hexBuffer.getBuffer()[3], 0x3f);
     });
 
     it('should addByte', function () {
         hexBuffer.addByte(15);
-        assert.equal(h()[0], 15);
+        assert.equal(hexBuffer.getBuffer()[0], 15);
     });
 
     it('should addNullTerminator', function () {
         hexBuffer.addNullTerminator();
-        assert.equal(h().length, 1);
-        assert.equal(h()[0], 0);
+        assert.equal(hexBuffer.getBuffer().length, 1);
+        assert.equal(hexBuffer.getBuffer()[0], 0);
     });
 
     it('should getBuffer', function () {

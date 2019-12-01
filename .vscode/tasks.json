@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build_ts",
+            "command": "tsc", // Could be any other shell command
+            "args": [
+                "--build"
+            ],
+            "type": "shell"
+        }
+    ]
+}
