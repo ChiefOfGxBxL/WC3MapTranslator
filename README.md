@@ -61,21 +61,14 @@ npm install wc3maptranslator
 ```
 
 ## Usage
-```js
-var Translator = require('wc3maptranslator'),
-    mapJson = { // Refer to "Specification"
-        units: [...],
-        doodads: [...],
-        ...
-    };
-
-// Using individual translators, we may convert JSON
-// representation to generate a WC3 .w3x map file.
-// See the Wiki for more information.
-
-var unitResult = new Translator.Units.jsonToWar(mapJson.units);
+```ts
+import { Translator } from 'wc3maptranslator';
+const unitResult = new Translator().Units.jsonToWar(mapJson.units);
 // We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive!
 ```
+
+
+# TODO: UPDATE README OF TS FORK
 
 ## Examples
 There is an `/examples` directory that demonstrates how to use *each* translator. This is a great starting point to learn how to use any translator. The directory has `jsonToWar`, and `warToJson`, sample projects to convert from JSON to war3map files and back.
@@ -118,6 +111,7 @@ All output files are placed in the `output` directory.
 | Type                    | Json → War  | War → Json  | File          |
 |-------------------------|:-----------:|:-----------:|---------------|
 | JASS                    | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | war3map.j       |
+| Lua                    | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ????       |
 | Strings                 | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.wts     |
 
 
@@ -134,31 +128,9 @@ All output files are placed in the `output` directory.
 
 ### Not included
  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) Custom Text Trigger File (war3map.wct)  
-  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) Trigger Names File (war3map.wtg)  
+ ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) Trigger Names File (war3map.wtg)  
  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) Menu Minimap (war3map.mmp)  
  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) Minimap Image (war3mapMap.blp)  
  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) Minimap Image (war3mapMap.b00  
  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) Minimap Image (war3mapMap.tga)  
  ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) Map Preview Image (war3mapPreview.tga)
-
-## Specification
-We have a detailed [specification on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki) explaining how to format a map in JSON. It explains everything from the high-level map object, all the way down to creating individual units, tiles, or custom objects.
-
-The underlying WarCraft map files (e.g. war3map.doo) have been documented [on our Wiki](https://github.com/ChiefOfGxBxL/WC3MapTranslator/wiki) as well. If you are curious about how a .w3x file is composed, this is the place to learn!
-
-## Contributing
-We encourage contributions! Generally, the process of making a change is:
-1. Fork this repo
-2. Develop your changes on a new branch
-3. Submit a pull request to `master`
-
-**Your code should**:
- * **run** (your code needs to work, of course)
- * **include tests** (write unit tests to demonstrate your code works under different conditions)
- * **be linted** (run `npm run lint` and follow the project's coding standards)
- * **pass CI** (we enforce: ESLint, unit tests pass, code coverage)
-
-A code review is required on your PR to be accepted into `master`. A project member will get back to you within one week. If you haven't heard from someone regarding your PR, feel free to ping @chiefofgxbxl.
-
-## Special Thanks
-We owe a lot of thanks to *Chocobo* on [TheHelper](http://www.thehelper.net/) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
