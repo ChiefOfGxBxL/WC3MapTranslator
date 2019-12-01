@@ -2,18 +2,18 @@ import { DoodadsTranslator, StringsTranslator, TerrainTranslator, UnitsTranslato
 
 export default class Translator {
 
-    public Doodads: DoodadsTranslator = new DoodadsTranslator();
-    public Strings: StringsTranslator = new StringsTranslator();
-    public Terrain: TerrainTranslator = new TerrainTranslator();
-    public Units: UnitsTranslator = new UnitsTranslator();
-    public Regions: RegionsTranslator = new RegionsTranslator();
-    public Cameras: CamerasTranslator = new CamerasTranslator();
-    public Sounds: SoundsTranslator = new SoundsTranslator();
+    public Doodads: DoodadsTranslator;
+    public Strings: StringsTranslator;
+    public Terrain: TerrainTranslator;
+    public Units: UnitsTranslator;
+    public Regions: RegionsTranslator;
+    public Cameras: CamerasTranslator;
+    public Sounds: SoundsTranslator;
 
-    public Objects: ObjectsTranslator = new ObjectsTranslator();
+    public Objects: ObjectsTranslator;
 
-    public Imports: ImportsTranslator = new ImportsTranslator();
-    public Info: InfoTranslator = new InfoTranslator();
+    public Imports: ImportsTranslator;
+    public Info: InfoTranslator;
 
     constructor() {
         this.Doodads = new DoodadsTranslator();

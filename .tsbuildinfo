@@ -186,7 +186,7 @@
         "signature": "c9c7f4406021e99b1d793196df655780cedb382546b0dac814ea31f4026d6f17"
       },
       "./index.ts": {
-        "version": "b79ca05117d3a68a2337f013d54b2a872f7c295cb8a014d2c8c04f980c2a7f28",
+        "version": "4f8bd10a674e558f699b6cae0d34228d0df6a89d819fc29b19c88eb8410db12c",
         "signature": "ed8e6aa3268bde41b7c46355821359f26a702c0736e74217083ef4a658b83b24"
       },
       "./examples/jsontowar/index.d.ts": {
@@ -518,7 +518,7 @@
         "signature": "062fd391f70e8816148e3ba09f2aa5b26db4529f3007d6bfad7776526dd828e6"
       },
       "./test/translatorreversion.ts": {
-        "version": "6d00a4fe9efbf9643714daa6cba2ce858b990994f1e48126bb02bdda59a54a18",
+        "version": "7a4b904f27517a8d3e0ca3f190cf1e0f440dedf9ff249d0bfb72cb292f8a7428",
         "signature": "1869b56a99fa2a628256c330fa3a407c6c6f302f97441f1b8b3274ce7076f665"
       },
       "./test/w3buffertest.ts": {
@@ -2343,7 +2343,6 @@
       "./lib/translators/unitstranslator.ts",
       "./lib/translators/object/objectstranslator.ts",
       "./lib/translators/index.ts",
-      "./index.ts",
       "./examples/jsontowar/index.d.ts",
       "./examples/jsontowar/writehelper.d.ts",
       "./examples/jsontowar/entity/cameras.d.ts",
@@ -2428,6 +2427,7 @@
       "./node_modules/@types/fs-extra/index.d.ts",
       "./test/w3buffertest.ts",
       "./node_modules/@types/mocha/index.d.ts",
+      "./index.ts",
       "./test/translatorreversion.ts"
     ]
   },
