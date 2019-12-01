@@ -59,6 +59,7 @@ This API is a core component of [Ice Sickle](https://github.com/ChiefOfGxBxL/Ice
 ```js
 npm install wc3maptranslator
 ```
+**Requires Node >= 8**
 
 ## Usage
 ```js
