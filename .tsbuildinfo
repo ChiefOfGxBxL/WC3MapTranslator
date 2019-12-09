@@ -130,15 +130,15 @@
         "signature": "a1205f8b74ba57896ae4eb9ff19a5ffc7f210352b0b535abcd36d6b06225a3ac"
       },
       "./lib/hexbuffer.ts": {
-        "version": "250cd63f70a7fff6834c840a1e107a1b46a8f7d0966144ceda908c55fc637a44",
-        "signature": "f8a7a50a9ec57d185adc9628ed33555f09cc9f1592fcb915e9fc3e0a0621e7bb"
+        "version": "6fab4daa262f96cdbfb1e46a10f253cdfc5c171a8fcf5111bce815385cd01241",
+        "signature": "b8c497fb6c77d5d9be966c6edc93daf032ce51c72e4891e51fcde42283fe63cc"
       },
       "./node_modules/round-to/index.d.ts": {
         "version": "e2caf3fb169c512f3d72e9d18546311641e5b68bb62fe8843c3ccbc217f394d5",
         "signature": "e2caf3fb169c512f3d72e9d18546311641e5b68bb62fe8843c3ccbc217f394d5"
       },
       "./lib/w3buffer.ts": {
-        "version": "d2327caa5e9789516140c8add27ea10357d37f55d7b2d9ca0a331fc974c24272",
+        "version": "14864dbe8f7346aee798a8e091d67417f1cb7bb54ef1c90554ffbed91b94b331",
         "signature": "d41b8cf8ff9cee344499ec88db1fdee835160740831b313e32c75b10afe50cba"
       },
       "./lib/translators/camerastranslator.ts": {
@@ -2329,20 +2329,7 @@
       "c:/users/rudolf/appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "c:/users/rudolf/appdata/roaming/npm/node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "c:/users/rudolf/appdata/roaming/npm/node_modules/typescript/lib/lib.es2016.full.d.ts",
-      "./lib/hexbuffer.ts",
       "./node_modules/round-to/index.d.ts",
-      "./lib/w3buffer.ts",
-      "./lib/translators/camerastranslator.ts",
-      "./lib/translators/doodadstranslator.ts",
-      "./lib/translators/importstranslator.ts",
-      "./lib/translators/infotranslator.ts",
-      "./lib/translators/regionstranslator.ts",
-      "./lib/translators/soundstranslator.ts",
-      "./lib/translators/stringstranslator.ts",
-      "./lib/translators/terraintranslator.ts",
-      "./lib/translators/unitstranslator.ts",
-      "./lib/translators/object/objectstranslator.ts",
-      "./lib/translators/index.ts",
       "./examples/jsontowar/index.d.ts",
       "./examples/jsontowar/writehelper.d.ts",
       "./examples/jsontowar/entity/cameras.d.ts",
@@ -2378,7 +2365,6 @@
       "./examples/wartojson/other/imports.d.ts",
       "./examples/wartojson/other/info.d.ts",
       "./examples/wartojson/other/strings.d.ts",
-      "./test/hexbuffertest.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
       "./node_modules/@types/node/async_hooks.d.ts",
@@ -2427,6 +2413,20 @@
       "./node_modules/@types/fs-extra/index.d.ts",
       "./test/w3buffertest.ts",
       "./node_modules/@types/mocha/index.d.ts",
+      "./lib/hexbuffer.ts",
+      "./test/hexbuffertest.ts",
+      "./lib/translators/object/objectstranslator.ts",
+      "./lib/translators/unitstranslator.ts",
+      "./lib/translators/terraintranslator.ts",
+      "./lib/translators/stringstranslator.ts",
+      "./lib/translators/soundstranslator.ts",
+      "./lib/translators/regionstranslator.ts",
+      "./lib/translators/infotranslator.ts",
+      "./lib/translators/importstranslator.ts",
+      "./lib/translators/doodadstranslator.ts",
+      "./lib/translators/camerastranslator.ts",
+      "./lib/w3buffer.ts",
+      "./lib/translators/index.ts",
       "./index.ts",
       "./test/translatorreversion.ts"
     ]

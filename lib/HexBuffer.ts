@@ -1,6 +1,6 @@
 const ieee754 = require('ieee754'),
     IntN = require('intn'),
-    intToHex = function (intV: number, isShort: number) {
+    intToHex = function (intV: number, isShort: boolean) {
         // Creates a new 32-bit integer from the given number
         let intSize = isShort ? 16 : 32,
             intNSize = new IntN(intSize),
@@ -38,21 +38,21 @@ export class HexBuffer {
         this._buffer.push('0x0a'); // line feed
     }
 
-    public addChar(char) {
+    public addChar(char: string) {
         this._buffer.push(charToHex(char));
     }
 
-    public addInt(int, isShort = false) {
+    public addInt(int: number, isShort: boolean = false) {
         intToHex(int, isShort).forEach((Byte) => {
             this._buffer.push(Byte);
         });
     }
 
-    public addShort(short) {
+    public addShort(short: number) {
         this.addInt(short, true);
     }
 
-    public addFloat(float) {
+    public addFloat(float: number) {
         let buf = new Buffer(4);
 
         // ieee754.write(buffer, value, buffer offset, little-endian, mantissa length, bytes);
