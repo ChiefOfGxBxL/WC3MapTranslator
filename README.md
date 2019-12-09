@@ -71,30 +71,26 @@ var Translator = require('wc3maptranslator'),
         doodads: [...],
         ...
     };
-
-// Using individual translators, we may convert JSON
-// representation to generate a WC3 .w3x map file.
-// See the Wiki for more information.
-
 var unitResult = new Translator.Units.jsonToWar(mapJson.units);
-// We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive!
 ```
-
 ## Usage TS (version >= 3.0.0)
 ```ts
-var Translator = require('wc3maptranslator'),
-    mapJson = { // Refer to "Specification"
-        units: [...],
-        doodads: [...],
-        ...
-    };
+// JS import
+const TranslatorLib = require('wc3maptranslator');
+const Translator = new TranslatorLib.default();
+console.log(Translator);
+
+//... or TS import
+import * as TranslatorLib from 'wc3maptranslator';
+const Translator = new TranslatorLib.default();
+console.log(Translator);
+
+const unitResult = new Translator.Units.jsonToWar(mapJson.units);
+// We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive!
 
 // Using individual translators, we may convert JSON
 // representation to generate a WC3 .w3x map file.
 // See the Wiki for more information.
-
-var unitResult = new Translator.Units.jsonToWar(mapJson.units);
-// We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive!
 ```
 
 ## Examples
