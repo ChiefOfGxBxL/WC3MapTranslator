@@ -9,26 +9,26 @@ export class W3Buffer {
         this._buffer = buffer;
     }
 
-    readInt() {
-        let int = this._buffer.readInt32LE(this._offset);
+    readInt(): number {
+        const int: number = this._buffer.readInt32LE(this._offset);
         this._offset += 4;
         return int;
     }
 
-    readShort() {
-        let int = this._buffer.readInt16LE(this._offset);
+    readShort(): number {
+        const int: number = this._buffer.readInt16LE(this._offset);
         this._offset += 2;
         return int;
     }
 
-    readFloat() {
-        let float = this._buffer.readFloatLE(this._offset);
+    readFloat(): number {
+        const float: number = this._buffer.readFloatLE(this._offset);
         this._offset += 4;
         return roundTo(float, 3);
     }
 
-    readString() {
-        let string = [];
+    readString(): string {
+        const string = [];
 
         while (this._buffer[this._offset] !== 0x00) {
             string.push(this._buffer[this._offset]);
@@ -41,9 +41,9 @@ export class W3Buffer {
         }).join('');
     }
 
-    readChars(len = 1) {
-        let string = [],
-            numCharsToRead = len || 1;
+    readChars(len: number = 1): string {
+        const string = [];
+        const numCharsToRead = len || 1;
 
         for (let i = 0; i < numCharsToRead; i++) {
             string.push(this._buffer[this._offset]);
@@ -57,6 +57,7 @@ export class W3Buffer {
     }
 
     readByte() {
+        // TODO what kind of binary? Do we use a BigInt or a node provided type from Buffer?
         let byte = this._buffer[this._offset];
         this._offset += 1;
         return byte;
