@@ -6,10 +6,9 @@ export class ImportsTranslator {
     public _outBufferToWar: HexBuffer;
     public _outBufferToJSON: W3Buffer;
 
-    constructor() {
-    }
+    constructor() { }
 
-    jsonToWar(imports) {
+    public jsonToWar(imports) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -41,7 +40,7 @@ export class ImportsTranslator {
         };
     }
 
-    warToJson(buffer) {
+    public warToJson(buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 

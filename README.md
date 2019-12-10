@@ -61,7 +61,7 @@ WC3MapTranslator is written in `TypeScript` starting from verison `3.0.0` theref
 ```ts
 npm install wc3maptranslator
 ```
-**Requires Node >= 8**
+**Requires Node >= 8**  
 **Tested with tsc Version 3.7.2**
 
 ## Usage JS (version < 3.0.0)
@@ -85,12 +85,23 @@ console.log(Translator);
 //... or TS import
 import { Translator } from 'wc3maptranslator';
 const myTranslator = new Translator();
-// imported correctly
 console.log(Translator);
 ```
+### Using the Translator
 ```ts
 // e.g. unit translator
 const unitResult = new Translator.Units.jsonToWar(mapJson.units);
+// all:
+* Doodads
+* Strings
+* Terrain
+* Units
+* Regions
+* Cameras
+* Sounds
+* Objects
+* Imports
+* Info
 ```
 We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive! Using individual translators, we may convert JSON representation to generate a WC3 .w3x map file. See the Wiki for more information.
 
