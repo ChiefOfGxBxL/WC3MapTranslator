@@ -2,19 +2,19 @@ import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 
 interface Doodad {
-    type: string,
-    variation: number,
-    position: number[],
-    angle: number,
-    scale: number[],
-    flags: DoodadFlag,
-    life: number,
-    id: number
+    type: string;
+    variation: number;
+    position: number[];
+    angle: number;
+    scale: number[];
+    flags: DoodadFlag;
+    life: number;
+    id: number;
 };
 
 interface DoodadFlag {
-    visible: any,
-    solid: any
+    visible: any;
+    solid: any;
 }
 
 enum flag {
@@ -23,15 +23,14 @@ enum flag {
     // 2= normal tree (visible and solid)
     undefined = 0,
     visible = 1 || 2,
-    solid = 3,
+    solid = 3
 }
 
 export class DoodadsTranslator {
     public _outBufferToWar: HexBuffer;
     public _outBufferToJSON: W3Buffer;
 
-    constructor() {
-    }
+    constructor() { }
 
     public jsonToWar(doodadsJson) {
         this._outBufferToWar = new HexBuffer();
@@ -118,7 +117,7 @@ export class DoodadsTranslator {
             doodad.angle = this._outBufferToJSON.readFloat(); // angle in radians
             doodad.scale = [this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()]; // X Y Z scaling
 
-            let flags: flag = this._outBufferToJSON.readByte();
+            const flags: flag = this._outBufferToJSON.readByte();
             doodad.flags = {
                 visible: flags === 1 || flags === 2,
                 solid: flags === 2
@@ -133,7 +132,7 @@ export class DoodadsTranslator {
 
             for (let j = 0; j < numberOfItemSets; j++) {
                 // Read the item set
-                let numberOfItems = this._outBufferToJSON.readInt();
+                const numberOfItems = this._outBufferToJSON.readInt();
                 for (let k = 0; k < numberOfItems; k++) {
                     this._outBufferToJSON.readChars(4); // Item ID
                     this._outBufferToJSON.readInt(); // % chance to drop
@@ -147,7 +146,7 @@ export class DoodadsTranslator {
 
         // UNSUPPORTED: Special doodads
         this._outBufferToJSON.readInt(); // special doodad format version set to '0'
-        let numSpecialDoodads = this._outBufferToJSON.readInt();
+        const numSpecialDoodads = this._outBufferToJSON.readInt();
         for (let i = 0; i < numSpecialDoodads; i++) {
             this._outBufferToJSON.readChars(4); // doodad ID
             this._outBufferToJSON.readInt();

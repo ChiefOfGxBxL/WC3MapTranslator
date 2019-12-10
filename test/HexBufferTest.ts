@@ -3,18 +3,18 @@ import { HexBuffer } from "../lib/HexBuffer";
 
 var hexBuffer;
 
-describe('HexBuffer', function () {
+describe('HexBuffer', () => {
 
-    beforeEach(function () {
+    beforeEach(() => {
         // clear the buffer before each test in this block so we
         // don't have to care about what we added in prior tests
         hexBuffer = new HexBuffer();
     });
 
-    it('should addString', function () {
-        var testWords = [
-            "Hallo, wêreld!", // Afrikaans
-            "Pershëndetje Botë", // Albanian
+    it('should addString', () => {
+        const testWords = [
+            'Hallo, wêreld!', // Afrikaans
+            'Pershëndetje Botë', // Albanian
             'أهلاً بالعالم', // Arabic
             'Բարե՛ւ, աշխարհ։', // Armenian
             'Salam Dünya', // Azeri
@@ -90,40 +90,40 @@ describe('HexBuffer', function () {
             'Xin chào thế giới', // Vietnamese
             'S\'mae byd!', // Welsh
             'העלא וועלט', // Yiddish
-            'Sawubona Mhlaba', // Zulu
-        ]
+            'Sawubona Mhlaba' // Zulu
+        ];
 
         let totalLength = 0;
+        // tslint:disable-next-line: forin
         for (let w in testWords) {
-            let bufLength = Buffer.from(testWords[w]).length;
+            const bufLength = Buffer.from(testWords[w]).length;
             hexBuffer.addString(testWords[w], false);
             totalLength += bufLength;
             const bufferLength = hexBuffer.getBuffer().length;
             assert.equal(bufferLength, totalLength);
         }
-
     });
 
-    it('should addString null-terminated', function () {
+    it('should addString null-terminated', () => {
         hexBuffer.addString('hello world', true);
         assert.equal(hexBuffer.getBuffer().length, 12); // now it has a null-terminator at the end
         assert.equal(hexBuffer.getBuffer()[11], 0); // last character should be the null terminator
     });
 
-    it('should addNewLine', function () {
+    it('should addNewLine', () => {
         hexBuffer.addNewLine();
         assert.equal(hexBuffer.getBuffer().length, 2);
         assert.equal(hexBuffer.getBuffer()[0], 0x0d);
         assert.equal(hexBuffer.getBuffer()[1], 0x0a);
     });
 
-    it('should addChar', function () {
+    it('should addChar', () => {
         hexBuffer.addChar('A');
         assert.equal(hexBuffer.getBuffer().length, 1);
         assert.equal(hexBuffer.getBuffer()[0], 65); // charcode for the ASCII letter "A"
     });
 
-    it('should addInt', function () {
+    it('should addInt', () => {
         hexBuffer.addInt(0);
         assert.equal(hexBuffer.getBuffer().length, 4); // integer is 4 bytes in length
         assert.equal(hexBuffer.getBuffer()[0], 0x00);
@@ -132,14 +132,14 @@ describe('HexBuffer', function () {
         assert.equal(hexBuffer.getBuffer()[3], 0x00);
     });
 
-    it('should addShort', function () {
+    it('should addShort', () => {
         hexBuffer.addShort(14);
         assert.equal(hexBuffer.getBuffer().length, 2); // 2 bytes in length
         assert.equal(hexBuffer.getBuffer()[0], 0x0e);
         assert.equal(hexBuffer.getBuffer()[1], 0x00);
     });
 
-    it('should addFloat', function () {
+    it('should addFloat', () => {
         hexBuffer.addFloat(1.234);
         assert.equal(hexBuffer.getBuffer().length, 4); // 4 bytes in length
         assert.equal(hexBuffer.getBuffer()[0], 0xb6);
@@ -148,18 +148,18 @@ describe('HexBuffer', function () {
         assert.equal(hexBuffer.getBuffer()[3], 0x3f);
     });
 
-    it('should addByte', function () {
+    it('should addByte', () => {
         hexBuffer.addByte(15);
         assert.equal(hexBuffer.getBuffer()[0], 15);
     });
 
-    it('should addNullTerminator', function () {
+    it('should addNullTerminator', () => {
         hexBuffer.addNullTerminator();
         assert.equal(hexBuffer.getBuffer().length, 1);
         assert.equal(hexBuffer.getBuffer()[0], 0);
     });
 
-    it('should getBuffer', function () {
+    it('should getBuffer', () => {
         hexBuffer.addString('');
         assert(hexBuffer.getBuffer()); // test if this function works
     });

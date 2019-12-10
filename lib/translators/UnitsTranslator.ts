@@ -2,39 +2,39 @@ import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 
 interface Unit {
-    type: string,
-    variation: number,
-    position: number[],
-    rotation: number,
-    scale: number[],
-    hero: Hero,
-    inventory: Inventory[],
-    abilities: Abilities[],
-    player: number,
-    hitpoints: number,
-    mana: number,
-    gold: number,
-    targetAcquisition: number // (-1 = normal, -2 = camp),
-    color: number,
-    id: number
+    type: string;
+    variation: number;
+    position: number[];
+    rotation: number;
+    scale: number[];
+    hero: Hero;
+    inventory: Inventory[];
+    abilities: Abilities[];
+    player: number;
+    hitpoints: number;
+    mana: number;
+    gold: number;
+    targetAcquisition: number; // (-1 = normal, -2 = camp),
+    color: number;
+    id: number;
 }
 
 interface Hero {
-    level: number,
-    str: number,
-    agi: number,
-    int: number
+    level: number;
+    str: number;
+    agi: number;
+    int: number;
 }
 
 interface Inventory {
-    slot: number, // the int is 0-based, but json format wants 1-6
-    type: string // Item ID
+    slot: number; // the int is 0-based, but json format wants 1-6
+    type: string; // Item ID
 }
 
 interface Abilities {
-    ability: string, // Ability ID
-    active: boolean, // autocast active? 0=no, 1=active
-    level: number
+    ability: string; // Ability ID
+    active: boolean; // autocast active? 0=no, 1=active
+    level: number;
 }
 
 export class UnitsTranslator {
@@ -42,10 +42,9 @@ export class UnitsTranslator {
     public _outBufferToWar: HexBuffer;
     public _outBufferToJSON: W3Buffer;
 
-    constructor() {
-    }
+    constructor() { }
 
-    jsonToWar(unitsJson) {
+    public jsonToWar(unitsJson) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -136,18 +135,18 @@ export class UnitsTranslator {
         };
     }
 
-    warToJson(buffer) {
+    public warToJson(buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 
-        let fileId = this._outBufferToJSON.readChars(4), // W3do for doodad file
+        const fileId = this._outBufferToJSON.readChars(4), // W3do for doodad file
             fileVersion = this._outBufferToJSON.readInt(), // File version = 7
             subVersion = this._outBufferToJSON.readInt(), // 0B 00 00 00
             numUnits = this._outBufferToJSON.readInt(); // # of units
 
         for (let i = 0; i < numUnits; i++) {
             const unit: Unit = {
-                type: "",
+                type: '',
                 variation: -1,
                 position: [0, 0, 0],
                 rotation: 0,
@@ -161,7 +160,7 @@ export class UnitsTranslator {
                 gold: 0,
                 targetAcquisition: -1,
                 color: -1,
-                id: -1,
+                id: -1
             };
 
             unit.type = this._outBufferToJSON.readChars(4); // (iDNR = random item, uDNR = random unit)
@@ -170,8 +169,7 @@ export class UnitsTranslator {
             unit.rotation = this._outBufferToJSON.readFloat();
             unit.scale = [this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()]; // X Y Z scaling
 
-
-            let flags = this._outBufferToJSON.readByte();
+            const flags = this._outBufferToJSON.readByte();
             // UNSUPPORTED: flags
 
             unit.player = this._outBufferToJSON.readInt(); // (player1 = 0, 16=neutral passive); note: wc3 patch now has 24 max players
@@ -182,10 +180,10 @@ export class UnitsTranslator {
             unit.hitpoints = this._outBufferToJSON.readInt(); // -1 = use default
             unit.mana = this._outBufferToJSON.readInt(); // -1 = use default, 0 = unit doesn't have mana
 
-            let droppedItemSetPtr = this._outBufferToJSON.readInt(),
+            const droppedItemSetPtr = this._outBufferToJSON.readInt(),
                 numDroppedItemSets = this._outBufferToJSON.readInt();
             for (let j = 0; j < numDroppedItemSets; j++) {
-                let numDroppableItems = this._outBufferToJSON.readInt();
+                const numDroppableItems = this._outBufferToJSON.readInt();
                 for (let k = 0; k < numDroppableItems; k++) {
                     this._outBufferToJSON.readChars(4); // Item ID
                     this._outBufferToJSON.readInt(); // % chance to drop
@@ -202,7 +200,7 @@ export class UnitsTranslator {
                 int: this._outBufferToJSON.readInt()
             };
 
-            let numItemsInventory = this._outBufferToJSON.readInt();
+            const numItemsInventory = this._outBufferToJSON.readInt();
             for (let j = 0; j < numItemsInventory; j++) {
                 unit.inventory.push({
                     slot: this._outBufferToJSON.readInt() + 1, // the int is 0-based, but json format wants 1-6
@@ -210,7 +208,7 @@ export class UnitsTranslator {
                 });
             }
 
-            let numModifiedAbil = this._outBufferToJSON.readInt();
+            const numModifiedAbil = this._outBufferToJSON.readInt();
             for (let j = 0; j < numModifiedAbil; j++) {
                 unit.abilities.push({
                     ability: this._outBufferToJSON.readChars(4), // Ability ID
@@ -219,7 +217,7 @@ export class UnitsTranslator {
                 });
             }
 
-            let randFlag = this._outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
+            const randFlag = this._outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
             if (randFlag === 0) {
                 // 0 = Any neutral passive building/item, in this case we have
                 //   byte[3]: level of the random unit/item,-1 = any (this is actually interpreted as a 24-bit number)
@@ -229,20 +227,18 @@ export class UnitsTranslator {
                 this._outBufferToJSON.readByte();
                 this._outBufferToJSON.readByte();
                 this._outBufferToJSON.readByte();
-            }
-            else if (randFlag === 1) {
+            } else if (randFlag === 1) {
                 // 1 = random unit from random group (defined in the w3i), in this case we have
                 //   int: unit group number (which group from the global table)
                 //   int: position number (which column of this group)
                 //   the column should of course have the item flag set (in the w3i) if this is a random item
                 this._outBufferToJSON.readInt();
                 this._outBufferToJSON.readInt();
-            }
-            else if (randFlag === 2) {
+            } else if (randFlag === 2) {
                 // 2 = random unit from custom table, in this case we have
                 //   int: number "n" of different available units
                 //   then we have n times a random unit structure
-                let numDiffAvailUnits = this._outBufferToJSON.readInt();
+                const numDiffAvailUnits = this._outBufferToJSON.readInt();
                 for (let k = 0; k < numDiffAvailUnits; k++) {
                     this._outBufferToJSON.readChars(4); // Unit ID
                     this._outBufferToJSON.readInt(); // % chance

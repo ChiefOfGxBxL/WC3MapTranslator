@@ -2,7 +2,7 @@ import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 
 interface Camera {
-    target: CameraTarget,
+    target: CameraTarget;
     offsetZ: number;
     rotation: number; // in degrees
     aoa: number; // angle of attack, in degrees
@@ -14,8 +14,8 @@ interface Camera {
 }
 
 interface CameraTarget {
-    x: number,
-    y: number
+    x: number;
+    y: number;
 }
 
 export class CamerasTranslator {
@@ -23,11 +23,9 @@ export class CamerasTranslator {
     private _outBufferToWar: HexBuffer;
     private _outBufferToJSON: W3Buffer;
 
-    constructor() {
-    }
+    constructor() { }
 
-
-    jsonToWar(cameras) {
+    public jsonToWar(cameras) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -39,7 +37,7 @@ export class CamerasTranslator {
         /*
          * Body
          */
-        cameras.forEach(function (camera) {
+        cameras.forEach((camera) => {
             this._outBufferToWar.addFloat(camera.target.x);
             this._outBufferToWar.addFloat(camera.target.y);
             this._outBufferToWar.addFloat(camera.offsetZ);
@@ -62,11 +60,11 @@ export class CamerasTranslator {
         };
     }
 
-    warToJson(buffer) {
+    public warToJson(buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 
-        let fileVersion = this._outBufferToJSON.readInt(), // File version
+        const fileVersion = this._outBufferToJSON.readInt(), // File version
             numCameras = this._outBufferToJSON.readInt(); // # of cameras
 
         for (let i = 0; i < numCameras; i++) {
@@ -82,7 +80,7 @@ export class CamerasTranslator {
                 roll: 0,
                 fov: 0,
                 farClipping: 0,
-                name: ""
+                name: ''
             };
 
             camera.target.x = this._outBufferToJSON.readFloat();
@@ -105,5 +103,4 @@ export class CamerasTranslator {
             json: result
         };
     }
-};
-
+}

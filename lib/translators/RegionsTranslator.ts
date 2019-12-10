@@ -2,19 +2,19 @@ import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 
 interface Region {
-    position: Rect,
-    name: string,
-    id: number,
-    weatherEffect: string,
-    ambientSound: string,
-    color: number[],
+    position: Rect;
+    name: string;
+    id: number;
+    weatherEffect: string;
+    ambientSound: string;
+    color: number[];
 }
 
 interface Rect {
-    left: number,
-    bottom: number,
-    right: number,
-    top: number
+    left: number;
+    bottom: number;
+    right: number;
+    top: number;
 }
 
 export class RegionsTranslator {
@@ -22,10 +22,9 @@ export class RegionsTranslator {
     public _outBufferToWar: HexBuffer;
     public _outBufferToJSON: W3Buffer;
 
-    constructor() {
-    }
+    constructor() { }
 
-    jsonToWar(regionsJson) {
+    public jsonToWar(regionsJson) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -37,7 +36,7 @@ export class RegionsTranslator {
         /*
          * Body
          */
-        regionsJson.forEach(function (region) {
+        regionsJson.forEach((region) => {
             // Position
             // Note that the .w3x guide has these coords wrong - the guide swaps bottom and right, but this is incorrect; bottom should be written before right
             this._outBufferToWar.addFloat(region.position.left);
@@ -55,8 +54,7 @@ export class RegionsTranslator {
             // Weather effect name - lookup necessary: char[4]
             if (region.weatherEffect) {
                 this._outBufferToWar.addString(region.weatherEffect); // Weather effect is optional - defaults to 0000 for "none"
-            }
-            else {
+            } else {
                 // We can't put a string "0000", because ASCII 0's differ from 0x0 bytes
                 this._outBufferToWar.addByte(0);
                 this._outBufferToWar.addByte(0);
@@ -74,8 +72,7 @@ export class RegionsTranslator {
                 this._outBufferToWar.addByte(255); // blue
                 this._outBufferToWar.addByte(0);   // green
                 this._outBufferToWar.addByte(0);   // red
-            }
-            else {
+            } else {
                 this._outBufferToWar.addByte(region.color[2] || 0);   // blue
                 this._outBufferToWar.addByte(region.color[1] || 0);   // green
                 this._outBufferToWar.addByte(region.color[0] || 255); // red
@@ -92,7 +89,7 @@ export class RegionsTranslator {
         };
     }
 
-    warToJson(buffer) {
+    public warToJson(buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 
@@ -100,11 +97,11 @@ export class RegionsTranslator {
             numRegions = this._outBufferToJSON.readInt(); // # of regions
 
         for (let i = 0; i < numRegions; i++) {
-            let region: Region = {
-                name: "",
+            const region: Region = {
+                name: '',
                 id: 0,
-                weatherEffect: "",
-                ambientSound: "",
+                weatherEffect: '',
+                ambientSound: '',
                 color: [0, 0, 0],
                 position: {
                     left: 0,

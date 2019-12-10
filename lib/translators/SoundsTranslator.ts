@@ -2,45 +2,43 @@ import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 
 interface Sound {
-    name: string,
-    path: string,
-    eax: string,
-    flags: SoundFlags,
-    fadeRate: FadeRate,
-    volume: number,
-    pitch: number,
-    channel: number,
-    distance: Distance,
+    name: string;
+    path: string;
+    eax: string;
+    flags: SoundFlags;
+    fadeRate: FadeRate;
+    volume: number;
+    pitch: number;
+    channel: number;
+    distance: Distance;
 }
 
 interface FadeRate {
-    in: number,
-    out: number
+    in: number;
+    out: number;
 }
 
 interface SoundFlags {
-    looping: boolean,    // 0x00000001=looping
-    '3dSound': boolean,   // 0x00000002=3D sound
-    stopOutOfRange: boolean,  // 0x00000004=stop when out of range
-    music: boolean  // 0x00000008=music
+    looping: boolean;    // 0x00000001=looping
+    '3dSound': boolean;   // 0x00000002=3D sound
+    stopOutOfRange: boolean;  // 0x00000004=stop when out of range
+    music: boolean;  // 0x00000008=music
 }
 
 interface Distance {
-    min: number,
-    max: number,
-    cutoff: number
+    min: number;
+    max: number;
+    cutoff: number;
 }
 
 export class SoundsTranslator {
 
-
     public _outBufferToWar: HexBuffer;
     public _outBufferToJSON: W3Buffer;
 
-    constructor() {
-    }
+    constructor() { }
 
-    jsonToWar(soundsJson) {
+    public jsonToWar(soundsJson) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -147,9 +145,9 @@ export class SoundsTranslator {
 
         for (let i = 0; i < numSounds; i++) {
             let sound: Sound = {
-                name: "",
-                path: "",
-                eax: "",
+                name: '',
+                path: '',
+                eax: '',
                 volume: 0,
                 pitch: 0,
                 channel: 0,
@@ -157,7 +155,7 @@ export class SoundsTranslator {
                     looping: true,    // 0x00000001=looping
                     '3dSound': true,   // 0x00000002=3D sound
                     stopOutOfRange: true,  // 0x00000004=stop when out of range
-                    music: true  // 0x00000008=music}, 
+                    music: true  // 0x00000008=music},
                 },
                 fadeRate: {
                     in: 0,
@@ -174,7 +172,7 @@ export class SoundsTranslator {
             sound.path = this._outBufferToJSON.readString();
             sound.eax = this._outBufferToJSON.readString();
 
-            let flags = this._outBufferToJSON.readInt();
+            const flags = this._outBufferToJSON.readInt();
             sound.flags = {
                 looping: !!(flags & 0b1),    // 0x00000001=looping
                 '3dSound': !!(flags & 0b10),   // 0x00000002=3D sound

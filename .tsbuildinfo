@@ -130,7 +130,7 @@
         "signature": "a1205f8b74ba57896ae4eb9ff19a5ffc7f210352b0b535abcd36d6b06225a3ac"
       },
       "./lib/hexbuffer.ts": {
-        "version": "6fab4daa262f96cdbfb1e46a10f253cdfc5c171a8fcf5111bce815385cd01241",
+        "version": "06d375c1cd28d833545bc10a402adc9722bcf5175df9708544c636a70a4d8b5d",
         "signature": "b8c497fb6c77d5d9be966c6edc93daf032ce51c72e4891e51fcde42283fe63cc"
       },
       "./node_modules/round-to/index.d.ts": {
@@ -138,15 +138,15 @@
         "signature": "e2caf3fb169c512f3d72e9d18546311641e5b68bb62fe8843c3ccbc217f394d5"
       },
       "./lib/w3buffer.ts": {
-        "version": "14864dbe8f7346aee798a8e091d67417f1cb7bb54ef1c90554ffbed91b94b331",
+        "version": "8e3d9559e8b5f98344bdd207a0d899cd4b0549a1685ada7ee005b6a4a64fcaac",
         "signature": "d41b8cf8ff9cee344499ec88db1fdee835160740831b313e32c75b10afe50cba"
       },
       "./lib/translators/camerastranslator.ts": {
-        "version": "3ef6748a44b593d2ff064f3166c4b9a442a390bcc03bfc31c9180aa2b1fd21e9",
+        "version": "0bab691d0331ab98c3b1e746e249b1cd4e994ca875f2e775655ca421aa4aeafc",
         "signature": "1da6b378b47f7e9dd603dad3249222cf6aaed94404cf2e61ab1ab670ce920bb9"
       },
       "./lib/translators/doodadstranslator.ts": {
-        "version": "d47ed0e5e7583a3d6a3da6052414a459a810f0633c0b79b59a3fabc9074e2064",
+        "version": "703bbeb588321f71c96dc1385c47eddc678348f4e135e506b69772990dcd2d96",
         "signature": "10a3440cdec24f2c4b702afa6cb9d73beba4ec2f460c42fb1f3992f95ff9d36b"
       },
       "./lib/translators/importstranslator.ts": {
@@ -154,27 +154,27 @@
         "signature": "7e74c1b20fcf6484c8c4f9495474ec71dc0e11bba3c0759b1fc4802122053ad7"
       },
       "./lib/translators/infotranslator.ts": {
-        "version": "ff652691cba4089ab7b1d1120299ac76fab0769cbdef972cf4f70d8985bf358d",
+        "version": "860ee1af0f1566de2fc5abb7a7b38afdc4de8cc8fc876db254f9191501d70f53",
         "signature": "2453e80eb512af54bd6c966de11eae1ecebcba7f0845daf119615ae82b6db3ab"
       },
       "./lib/translators/regionstranslator.ts": {
-        "version": "dd8312f37d4fed34f3a2be68e3df679720135164db9b09860b5e65d19cbbb3b9",
+        "version": "a0823a37a6a87bd39d99e344905040a89dbfa02f31d1abd01959415957414dad",
         "signature": "e8d9ee94c701c68944b51928eb05018a35ebfa5f64e848401bde9147252545bc"
       },
       "./lib/translators/soundstranslator.ts": {
-        "version": "806a48ad0d31c5c69061b89b4ccef5313b889baa468436d7e68182dc2ec0a875",
+        "version": "94d47ee2adb30466719c0c8a2977b93ac76fd6ad544f14f5cca572f7f96138fb",
         "signature": "9a4acb622e9780233f0dd220f3997c62d184b871f928639d65e865b417bd7476"
       },
       "./lib/translators/stringstranslator.ts": {
-        "version": "79adf59dfdd63cf9db9ab1ff6aceefe850bf40d0276da1e41454af5f5ab07012",
+        "version": "8f4900c6cc280c433e4a6d17e6525fa6901cc5eb01a93dfd694ec01bd6b95555",
         "signature": "14e647399c1e78b8c47f30c0dbdc5843bde5b22abbaab31a294576a51c2a8c0c"
       },
       "./lib/translators/terraintranslator.ts": {
-        "version": "36106b0c1f39e3127a8b305262face746a9abdc242d6b639bb6e0ed50299ce12",
+        "version": "67674e856b77612530910b3c78078699448d9b748dab549ff62cf7122eb37aae",
         "signature": "4130328fd6d5b8d1201321165a44453dcf450ea3ab78338527e3a1171f7dd5a2"
       },
       "./lib/translators/unitstranslator.ts": {
-        "version": "b6ef4fac1505974dd41bc957175f22278d5879c4f16898e9e054fe1a37c1a0f7",
+        "version": "5e0acc0f85f9ec4970e567d74d68b8a555bcf0e79692623e0621afdb01c976ae",
         "signature": "45a496fc64c0e5a973babc053f9884d9d4d3ad8abbef2445d42855465dc4b9cb"
       },
       "./lib/translators/object/objectstranslator.ts": {
@@ -186,8 +186,8 @@
         "signature": "c9c7f4406021e99b1d793196df655780cedb382546b0dac814ea31f4026d6f17"
       },
       "./index.ts": {
-        "version": "0959f443f0af5a118752581e77c5fde0fe16b603c547b5fd6a606e05ccd3ec3b",
-        "signature": "a3fa203bf463d0bbeba8ccdde316b01a824e56aec1d06a4774b2056f360300d6"
+        "version": "ae53baa30535f551fd0a97b8dacb6bb0729fffb2b3ab739066a483ac2a82b187",
+        "signature": "cca1d004993a54ea6c7df21a7047e81ef421fa892804d3236d66db46b6084408"
       },
       "./examples/jsontowar/index.d.ts": {
         "version": "00316e779bb16e52d58ebe243051bc85fe123e66577a482f57c290a6f2e1a779",
@@ -330,7 +330,7 @@
         "signature": "d7456a03bc3115e97234ea276dace723f286d0b9327dd0ff89cabd8d864f2f59"
       },
       "./test/hexbuffertest.ts": {
-        "version": "e4ea54c20a1a2232c13d4a15931a0569dd17394aba809cfa34e17acd2d18e906",
+        "version": "20f16de8f77b7fb5dbfc03c33b7fee60d0c650d297f15b96f80dad977d872f2c",
         "signature": "74e9f53bbe22f0d739ee02c62025fadc76352df2859898b6320717d4de297b70"
       },
       "./node_modules/@types/node/globals.d.ts": {
@@ -518,11 +518,11 @@
         "signature": "062fd391f70e8816148e3ba09f2aa5b26db4529f3007d6bfad7776526dd828e6"
       },
       "./test/translatorreversion.ts": {
-        "version": "a2ec4036999cc7fc659283106364a8c6235bf103dc6f4e19701d4758a8e8ee32",
+        "version": "852af69d483196f293d16d2c56f7db3ab034c52ba07627285e80192475974fe1",
         "signature": "1869b56a99fa2a628256c330fa3a407c6c6f302f97441f1b8b3274ce7076f665"
       },
       "./test/w3buffertest.ts": {
-        "version": "239586cfab6be321a70e4bf919a8f200ca860fbbbdcf41536d09426c91b7fdf2",
+        "version": "0d059749e006da5845fbb8388cd85517bb183b77c0aa806e459a2c93c41a5ce7",
         "signature": "5085f9e6794e2ae85e721c4e7d4462da6610d8c9a7968e6f2e671a19c92d4a9f"
       },
       "./node_modules/@types/mocha/index.d.ts": {
@@ -2332,10 +2332,7 @@
       "./lib/hexbuffer.ts",
       "./node_modules/round-to/index.d.ts",
       "./lib/w3buffer.ts",
-      "./lib/translators/camerastranslator.ts",
-      "./lib/translators/doodadstranslator.ts",
       "./lib/translators/importstranslator.ts",
-      "./lib/translators/infotranslator.ts",
       "./lib/translators/regionstranslator.ts",
       "./lib/translators/soundstranslator.ts",
       "./lib/translators/stringstranslator.ts",
@@ -2343,6 +2340,7 @@
       "./lib/translators/unitstranslator.ts",
       "./lib/translators/object/objectstranslator.ts",
       "./lib/translators/index.ts",
+      "./index.ts",
       "./examples/jsontowar/index.d.ts",
       "./examples/jsontowar/writehelper.d.ts",
       "./examples/jsontowar/entity/cameras.d.ts",
@@ -2425,10 +2423,12 @@
       "./node_modules/@types/node/ts3.2/globals.d.ts",
       "./node_modules/@types/node/ts3.2/index.d.ts",
       "./node_modules/@types/fs-extra/index.d.ts",
+      "./test/translatorreversion.ts",
       "./test/w3buffertest.ts",
       "./node_modules/@types/mocha/index.d.ts",
-      "./index.ts",
-      "./test/translatorreversion.ts"
+      "./lib/translators/camerastranslator.ts",
+      "./lib/translators/doodadstranslator.ts",
+      "./lib/translators/infotranslator.ts"
     ]
   },
   "version": "3.7.2"

@@ -2,9 +2,9 @@ const ieee754 = require('ieee754'),
     IntN = require('intn'),
     intToHex = function (intV: number, isShort: boolean) {
         // Creates a new 32-bit integer from the given number
-        let intSize = isShort ? 16 : 32,
-            intNSize = new IntN(intSize),
-            byteNum = intNSize.fromInt(intV).bytes;
+        const intSize = isShort ? 16 : 32;
+        const intNSize = new IntN(intSize);
+        const byteNum = intNSize.fromInt(intV).bytes;
 
         // Map decimal bytes to hex bytes
         // Bytes are already in correct little-endian form
@@ -24,6 +24,7 @@ export class HexBuffer {
         // "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2"
         // | "ucs-2" | "base64" | "latin1" | "binary" | "hex"
         const buf = Buffer.from(str, 'utf-8');
+        // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < buf.length; i++) {
             this._buffer.push('0x' + buf[i].toString(16));
         }
@@ -53,7 +54,7 @@ export class HexBuffer {
     }
 
     public addFloat(float: number) {
-        let buf = new Buffer(4);
+        const buf = new Buffer(4);
 
         // ieee754.write(buffer, value, buffer offset, little-endian, mantissa length, bytes);
         ieee754.write(buf, float, 0, true, 23, 4);
