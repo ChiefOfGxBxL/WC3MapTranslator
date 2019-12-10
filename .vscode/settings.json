@@ -1,9 +1,0 @@
-{
-    "files.exclude": {
-        "**/*.js": true,
-        "**/*d.ts": true,
-        "**/*d.ts.map": true,
-        "node_modules/": true,
-        "**/*js.map": true
-    }
-}
