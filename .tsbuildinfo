@@ -178,7 +178,7 @@
         "signature": "45a496fc64c0e5a973babc053f9884d9d4d3ad8abbef2445d42855465dc4b9cb"
       },
       "./lib/translators/object/objectstranslator.ts": {
-        "version": "ea1adc514a61ba195939f9983a6884a0573427a80bf87595944b2a11574025d6",
+        "version": "ea3762cfa673d99163cdf9cdc1e7f7effddb5226ec353ed2a292a5b6b614dae0",
         "signature": "f908aed317b35571879ec0b5bcbc437f46b17021fb5d1cf1708a5e71358dcbbf"
       },
       "./lib/translators/index.ts": {
@@ -2332,13 +2332,15 @@
       "./lib/hexbuffer.ts",
       "./node_modules/round-to/index.d.ts",
       "./lib/w3buffer.ts",
+      "./lib/translators/camerastranslator.ts",
+      "./lib/translators/doodadstranslator.ts",
       "./lib/translators/importstranslator.ts",
+      "./lib/translators/infotranslator.ts",
       "./lib/translators/regionstranslator.ts",
       "./lib/translators/soundstranslator.ts",
       "./lib/translators/stringstranslator.ts",
       "./lib/translators/terraintranslator.ts",
       "./lib/translators/unitstranslator.ts",
-      "./lib/translators/object/objectstranslator.ts",
       "./lib/translators/index.ts",
       "./index.ts",
       "./examples/jsontowar/index.d.ts",
@@ -2426,9 +2428,7 @@
       "./test/translatorreversion.ts",
       "./test/w3buffertest.ts",
       "./node_modules/@types/mocha/index.d.ts",
-      "./lib/translators/camerastranslator.ts",
-      "./lib/translators/doodadstranslator.ts",
-      "./lib/translators/infotranslator.ts"
+      "./lib/translators/object/objectstranslator.ts"
     ]
   },
   "version": "3.7.2"

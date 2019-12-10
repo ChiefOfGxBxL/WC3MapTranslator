@@ -1,11 +1,18 @@
 import { HexBuffer } from '../../HexBuffer';
 import { W3Buffer } from '../../W3Buffer';
 
+enum ModificationType {
+    int = 'int',
+    real = 'real',
+    unreal = 'unreal',
+    string = 'string'
+}
+
 interface Modification {
-    id: string,
-    type: any; // 'int' | 'real' | 'unreal' | 'string',
-    level: number,
-    column: number,
+    id: string;
+    type: ModificationType; // 'int' | 'real' | 'unreal' | 'string',
+    level: number;
+    column: number;
     value: any;
 }
 
@@ -162,16 +169,16 @@ export class ObjectsTranslator {
         function readModificationTable(isOriginalTable) {
             let numTableModifications = this._outBufferToJSON.readInt();
             for (let i = 0; i < numTableModifications; i++) {
-                let objectDefinition = []; // object definition will store one or more modification objects
+                const objectDefinition = []; // object definition will store one or more modification objects
 
-                let originalId = this._outBufferToJSON.readChars(4),
+                const originalId = this._outBufferToJSON.readChars(4),
                     customId = this._outBufferToJSON.readChars(4),
                     modificationCount = this._outBufferToJSON.readInt();
 
                 for (let j = 0; j < modificationCount; j++) {
                     let modification: Modification = {
-                        id: "",
-                        type: {},
+                        id: '',
+                        type: ModificationType.string,
                         level: 0,
                         column: 0,
                         value: {}
@@ -187,18 +194,15 @@ export class ObjectsTranslator {
 
                     if (modification.type === 'int') {
                         modification.value = this._outBufferToJSON.readInt();
-                    }
-                    else if (modification.type === 'real' || modification.type === 'unreal') {
+                    } else if (modification.type === 'real' || modification.type === 'unreal') {
                         modification.value = this._outBufferToJSON.readFloat();
-                    }
-                    else { // modification.type === 'string'
+                    } else { // modification.type === 'string'
                         modification.value = this._outBufferToJSON.readString();
                     }
 
                     if (isOriginalTable) {
                         this._outBufferToJSON.readInt(); // should be 0 for original objects
-                    }
-                    else {
+                    } else {
                         this._outBufferToJSON.readChars(4); // should be object ID for custom objects
                     }
 
@@ -207,8 +211,7 @@ export class ObjectsTranslator {
 
                 if (isOriginalTable) {
                     result.original[originalId] = objectDefinition;
-                }
-                else {
+                } else {
                     result.custom[customId + ':' + originalId] = objectDefinition;
                 }
             }
@@ -222,4 +225,4 @@ export class ObjectsTranslator {
             json: result
         };
     }
-};
+}
