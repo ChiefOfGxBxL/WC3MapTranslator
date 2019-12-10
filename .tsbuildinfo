@@ -186,8 +186,8 @@
         "signature": "c9c7f4406021e99b1d793196df655780cedb382546b0dac814ea31f4026d6f17"
       },
       "./index.ts": {
-        "version": "b004f3ac29091be4453bf83cda757a853c934fb4154ce527406838dba833a848",
-        "signature": "f603bcff80517f200e9975c500a62d8dc9525faf91bb2ecd5dec6b5ca3e8386a"
+        "version": "0959f443f0af5a118752581e77c5fde0fe16b603c547b5fd6a606e05ccd3ec3b",
+        "signature": "a3fa203bf463d0bbeba8ccdde316b01a824e56aec1d06a4774b2056f360300d6"
       },
       "./examples/jsontowar/index.d.ts": {
         "version": "00316e779bb16e52d58ebe243051bc85fe123e66577a482f57c290a6f2e1a779",
@@ -518,7 +518,7 @@
         "signature": "062fd391f70e8816148e3ba09f2aa5b26db4529f3007d6bfad7776526dd828e6"
       },
       "./test/translatorreversion.ts": {
-        "version": "ed7a5464e6cee2897c8ffa5e722eb79c869c94712db44292b50e1028eff18f42",
+        "version": "a2ec4036999cc7fc659283106364a8c6235bf103dc6f4e19701d4758a8e8ee32",
         "signature": "1869b56a99fa2a628256c330fa3a407c6c6f302f97441f1b8b3274ce7076f665"
       },
       "./test/w3buffertest.ts": {
