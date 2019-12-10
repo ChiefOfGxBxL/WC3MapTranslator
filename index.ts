@@ -1,6 +1,6 @@
 import { DoodadsTranslator, StringsTranslator, TerrainTranslator, UnitsTranslator, RegionsTranslator, CamerasTranslator, SoundsTranslator, ObjectsTranslator, ImportsTranslator, InfoTranslator } from './lib/translators';
 
-export default class Translator {
+class TranslatorLib {
 
     public Doodads: DoodadsTranslator;
     public Strings: StringsTranslator;
@@ -29,5 +29,7 @@ export default class Translator {
         this.Imports = new ImportsTranslator();
         this.Info = new InfoTranslator();
     }
-
 }
+
+const Translator = new TranslatorLib();
+export = Translator;

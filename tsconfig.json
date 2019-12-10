@@ -1,24 +1,24 @@
 {
-  "compilerOptions": {
-    "types": [
-      "mocha",
-      "node"
-    ],
-    "traceResolution": true,
-    "declaration": true,
-    "declarationMap": true,
-    "target": "es2016",
-    "module": "commonjs",
-    "outDir": "./",
-    "rootDir": "./",
-    "sourceMap": true,
-    "incremental": true,
-    "tsBuildInfoFile": "./.tsbuildinfo",
-    "esModuleInterop": true,
-    "noEmit": false,
-  },
-  "exclude": [],
-  "include": [
-    "./**/*"
-  ]
+    "compilerOptions": {
+        "types": [
+            "mocha",
+            "node"
+        ],
+        "traceResolution": true,
+        "declaration": true,
+        "declarationMap": true,
+        "target": "es2016",
+        "module": "commonjs",
+        "outDir": "./",
+        "rootDir": "./",
+        "sourceMap": true,
+        "incremental": true,
+        "tsBuildInfoFile": "./.tsbuildinfo",
+        "esModuleInterop": true,
+        "noEmit": false,
+    },
+    "exclude": [],
+    "include": [
+        "./**/*"
+    ]
 }
