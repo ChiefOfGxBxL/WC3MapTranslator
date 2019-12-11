@@ -61,6 +61,7 @@ WC3MapTranslator is written in `TypeScript` starting from verison `3.0.0` theref
 ```ts
 npm install wc3maptranslator
 ```
+
 **Requires Node >= 8**  
 **Tested with tsc Version 3.7.2**
 
