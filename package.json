@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "tsc --build",
+        "lint": "tslint --project .",
         "pretest": "tsc --build",
         "test": " mocha",
         "test-nyc": " nyc mocha",
@@ -39,6 +40,8 @@
         "fs-extra": "^6.0.1",
         "istanbul": "^0.4.5",
         "mocha": "^5.2.0",
-        "nyc": "^12.0.1"
+        "nyc": "^12.0.1",
+        "tslint": "^5.20.1",
+        "typescript": "^3.7.3"
     }
 }
