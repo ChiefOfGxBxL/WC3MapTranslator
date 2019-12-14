@@ -10,7 +10,7 @@ interface Doodad {
     flags: DoodadFlag;
     life: number;
     id: number;
-};
+}
 
 interface DoodadFlag {
     visible: any;
@@ -101,7 +101,7 @@ export class DoodadsTranslator {
 
         for (let i = 0; i < numDoodads; i++) {
             const doodad: Doodad = {
-                type: "",
+                type: '',
                 variation: 0,
                 position: [0, 0, 0],
                 angle: -1,

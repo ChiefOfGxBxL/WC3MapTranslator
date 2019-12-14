@@ -44,7 +44,7 @@ export class UnitsTranslator {
 
     constructor() { }
 
-    public jsonToWar(unitsJson) {
+    public jsonToWar(unitsJson: Unit[]) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -58,7 +58,7 @@ export class UnitsTranslator {
         /*
          * Body
          */
-        unitsJson.forEach(function (unit) {
+        unitsJson.forEach(function(unit) {
             this._outBufferToWar.addString(unit.type); // type
             this._outBufferToWar.addInt(unit.variation || 0); // variation
             this._outBufferToWar.addFloat(unit.position[0]); // position x
@@ -80,12 +80,12 @@ export class UnitsTranslator {
             this._outBufferToWar.addInt(unit.hitpoints); // hitpoints
             this._outBufferToWar.addInt(unit.mana || 0); // mana
 
-            //if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
+            // if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
             this._outBufferToWar.addInt(-1);
-            //}
-            //else {
+            // }
+            // else {
             //    outBuffer.addInt(unit.droppedItemSets.length); // # item sets
-            //}
+            // }
             // UNSUPPORTED: dropped items
             this._outBufferToWar.addInt(0); // dropped item sets
 
@@ -107,7 +107,7 @@ export class UnitsTranslator {
             // Inventory - - -
             if (!unit.inventory) unit.inventory = [];
             this._outBufferToWar.addInt(unit.inventory.length); // # items in inventory
-            unit.inventory.forEach(function (item) {
+            unit.inventory.forEach(function(item) {
                 this._outBufferToWar.addInt(item.slot - 1); // zero-index item slot
                 this._outBufferToWar.addString(item.type);
             });
@@ -115,7 +115,7 @@ export class UnitsTranslator {
             // Modified abilities - - -
             if (!unit.abilities) unit.abilities = [];
             this._outBufferToWar.addInt(unit.abilities.length); // # modified abilities
-            unit.abilities.forEach(function (ability) {
+            unit.abilities.forEach(function(ability) {
                 this._outBufferToWar.addString(ability.ability); // ability string
                 this._outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
                 this._outBufferToWar.addInt(ability.level);
@@ -125,7 +125,7 @@ export class UnitsTranslator {
             this._outBufferToWar.addInt(1);
 
             this._outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
-            this._outBufferToWar.addInt(0); //outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
+            this._outBufferToWar.addInt(0); // outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
             this._outBufferToWar.addInt(unit.id); // id
         });
 
@@ -257,4 +257,4 @@ export class UnitsTranslator {
             json: result
         };
     }
-};
+}

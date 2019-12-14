@@ -36,6 +36,7 @@ export class StringsTranslator {
         const result = {}; // stores the json form of strings file
         let match; // stores individual matches as input is read
 
+        // tslint:disable-next-line: no-conditional-assignment
         while ((match = matchStringDefinitionBlock.exec(wts)) !== null) {
             const num = match[1],
                 body = match[2];
@@ -47,4 +48,4 @@ export class StringsTranslator {
             json: result
         };
     }
-};
+}

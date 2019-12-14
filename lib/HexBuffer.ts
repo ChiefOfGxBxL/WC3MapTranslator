@@ -1,6 +1,6 @@
 const ieee754 = require('ieee754'),
     IntN = require('intn'),
-    intToHex = function (intV: number, isShort: boolean) {
+    intToHex = (intV: number, isShort: boolean) => {
         // Creates a new 32-bit integer from the given number
         const intSize = isShort ? 16 : 32;
         const intNSize = new IntN(intSize);
@@ -12,7 +12,7 @@ const ieee754 = require('ieee754'),
             return '0x' + Byte.toString(16);
         });
     },
-    charToHex = function (character: string) {
+    charToHex = (character: string) => {
         return '0x' + character.charCodeAt(0).toString(16);
     };
 

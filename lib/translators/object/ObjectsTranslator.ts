@@ -18,12 +18,11 @@ interface Modification {
 
 export class ObjectsTranslator {
 
+    public varTypes: any;
+    public fileTypeExt: any;
+
     private _outBufferToWar: HexBuffer;
     private _outBufferToJSON: W3Buffer;
-
-    public varTypes: any;
-    // (*) - uses the two optional ints after variable type
-    public fileTypeExt: any;
 
     constructor() {
         this.varTypes = {
@@ -37,7 +36,7 @@ export class ObjectsTranslator {
             3: 'string'
         };
 
-        this.fileTypeExt = {
+        this.fileTypeExt = { // (*) - uses the two optional ints after variable type
             units: 'w3u',
             items: 'w3t',
             destructables: 'w3b',
@@ -48,8 +47,7 @@ export class ObjectsTranslator {
         };
     }
 
-
-    jsonToWar(type, json) {
+    public jsonToWar(type, json) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -58,15 +56,14 @@ export class ObjectsTranslator {
         this._outBufferToWar.addInt(2); // file version
 
         function generateTableFromJson(tableType, tableData) { // create "original" or "custom" table
-            Object.keys(tableData).forEach(function (defKey) {
-                let obj = tableData[defKey];
+            Object.keys(tableData).forEach(function(defKey) {
+                const obj = tableData[defKey];
 
                 // Original and new object ids
                 if (tableType === 'original') {
                     this._outBufferToWar.addString(defKey);
                     this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); // no new Id is assigned
-                }
-                else {
+                } else {
                     // e.g. "h000:hfoo"
                     this._outBufferToWar.addString(defKey.substring(5, 9)); // original id
                     this._outBufferToWar.addString(defKey.substring(0, 4)); // custom id
@@ -75,7 +72,7 @@ export class ObjectsTranslator {
                 // Number of modifications made to this object
                 this._outBufferToWar.addInt(obj.length);
 
-                obj.forEach(function (mod) {
+                obj.forEach(function(mod) {
                     let modType;
 
                     // Modification id (e.g. unam = name; reference MetaData lookups)
@@ -84,15 +81,12 @@ export class ObjectsTranslator {
                     // Determine what type of field the mod is (int, real, unreal, string)
                     if (mod.type) { // if a type is specified, use it
                         modType = this.varTypes[mod.type];
-                    }
-                    else { // otherwise we try to infer between int/string (note there is no way to detect unreal or float this way, so user must specify those explicitly)
+                    } else { // otherwise we try to infer between int/string (note there is no way to detect unreal or float this way, so user must specify those explicitly)
                         if (typeof mod.value === 'number') {
                             modType = this.varTypes.int;
-                        }
-                        else if (typeof mod.value === 'string') {
+                        } else if (typeof mod.value === 'string') {
                             modType = this.varTypes.string;
-                        }
-                        else {
+                        } else {
                             // ERROR: no type specified and cannot infer type!
                         }
                     }
@@ -114,12 +108,10 @@ export class ObjectsTranslator {
                     // Write mod value
                     if (modType === this.varTypes.int) {
                         this._outBufferToWar.addInt(mod.value);
-                    }
-                    else if (modType === this.varTypes.real || modType === this.varTypes.unreal) {
+                    } else if (modType === this.varTypes.real || modType === this.varTypes.unreal) {
                         // Follow-up: check if unreal values are same hex format as real
                         this._outBufferToWar.addFloat(mod.value);
-                    }
-                    else if (modType === this.varTypes.string) {
+                    } else if (modType === this.varTypes.string) {
                         // Note that World Editor normally creates a TRIGSTR_000 for these string
                         // values - WC3MapTranslator just writes the string directly to file
                         this._outBufferToWar.addString(mod.value);
@@ -130,8 +122,7 @@ export class ObjectsTranslator {
                     if (tableType === 'original') {
                         // Original objects are ended with their base id (e.g. hfoo)
                         this._outBufferToWar.addString(defKey);
-                    }
-                    else {
+                    } else {
                         // Custom objects are ended with 0000 bytes
                         this._outBufferToWar.addByte(0);
                         this._outBufferToWar.addByte(0);
@@ -148,7 +139,6 @@ export class ObjectsTranslator {
         this._outBufferToWar.addInt(Object.keys(json.original).length);
         generateTableFromJson('original', json.original);
 
-
         /*
          * Custom table
          */
@@ -160,14 +150,15 @@ export class ObjectsTranslator {
             buffer: this._outBufferToWar.getBuffer()
         };
     }
-    warToJson(type, buffer) {
+
+    public warToJson(type, buffer) {
         const result = { original: {}, custom: {} };
         this._outBufferToJSON = new W3Buffer(buffer);
 
-        let fileVersion = this._outBufferToJSON.readInt();
+        const fileVersion = this._outBufferToJSON.readInt();
 
         function readModificationTable(isOriginalTable) {
-            let numTableModifications = this._outBufferToJSON.readInt();
+            const numTableModifications = this._outBufferToJSON.readInt();
             for (let i = 0; i < numTableModifications; i++) {
                 const objectDefinition = []; // object definition will store one or more modification objects
 
@@ -176,7 +167,7 @@ export class ObjectsTranslator {
                     modificationCount = this._outBufferToJSON.readInt();
 
                 for (let j = 0; j < modificationCount; j++) {
-                    let modification: Modification = {
+                    const modification: Modification = {
                         id: '',
                         type: ModificationType.string,
                         level: 0,

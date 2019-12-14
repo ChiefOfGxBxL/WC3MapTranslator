@@ -20,7 +20,7 @@ export class ImportsTranslator {
         /*
          * Body
          */
-        imports.forEach(function (importedFile) {
+        imports.forEach(function(importedFile) {
             this._outBufferToWar.addByte(
                 importedFile.type === 'custom' ? 13 : 5
             );
@@ -44,13 +44,12 @@ export class ImportsTranslator {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 
-        let fileVersion = this._outBufferToJSON.readInt(); // File version
-        console.log("FILE VERSION: " + fileVersion);
-        let numImports = this._outBufferToJSON.readInt(); // # of imports
+        const fileVersion = this._outBufferToJSON.readInt(); // File version
+        const numImports = this._outBufferToJSON.readInt(); // # of imports
 
         for (let i = 0; i < numImports; i++) {
-            let typeValue = this._outBufferToJSON.readByte();
-            let typeEnum = {
+            const typeValue = this._outBufferToJSON.readByte();
+            const typeEnum = {
                 0: 'standard',
                 5: 'standard',
                 8: 'standard', // * preferred
@@ -58,7 +57,7 @@ export class ImportsTranslator {
                 13: 'custom'  // * preferred
             };
 
-            let importedFile = {
+            const importedFile = {
                 type: typeEnum[typeValue], // 5 or 8= standard path, 10 or 13: custom path
                 path: this._outBufferToJSON.readString() // e.g. "war3mapImported\mysound.wav"
             };
@@ -71,4 +70,4 @@ export class ImportsTranslator {
             json: result
         };
     }
-};
+}

@@ -43,7 +43,7 @@ export class TerrainTranslator {
          * Tiles
          */
         this._outBufferToWar.addInt(terrainJson.tilepalette.length);
-        terrainJson.tilepalette.forEach(function (tile) {
+        terrainJson.tilepalette.forEach(function(tile) {
             this._outBufferToWar.addString(tile);
         });
 
@@ -51,7 +51,7 @@ export class TerrainTranslator {
          * Cliffs
          */
         this._outBufferToWar.addInt(terrainJson.clifftilepalette.length);
-        terrainJson.clifftilepalette.forEach(function (clifftile) {
+        terrainJson.clifftilepalette.forEach(function(clifftile) {
             this._outBufferToWar.addString(clifftile);
         });
 
@@ -70,6 +70,7 @@ export class TerrainTranslator {
          */
         for (let i = terrainJson.tiles.length - 1; i >= 0; i--) {
             // write each for of tiles
+            // tslint:disable-next-line: prefer-for-of
             for (let width = 0; width < terrainJson.tiles[i].length; width++) {
                 const currTile = terrainJson.tiles[i][width];
 
@@ -148,7 +149,7 @@ export class TerrainTranslator {
          */
         const width = this._outBufferToJSON.readInt() - 1;
         const height = this._outBufferToJSON.readInt() - 1;
-        result.map = { width: width, height: height, offset: { x: 0, y: 0 } };
+        result.map = { width, height, offset: { x: 0, y: 0 } };
 
         const offsetX = this._outBufferToJSON.readFloat();
         const offsetY = this._outBufferToJSON.readFloat();
@@ -181,22 +182,22 @@ export class TerrainTranslator {
 
                 // add tile
                 currRow.push({
-                    groundHeight: groundHeight,
-                    waterHeight: waterHeight,
-                    boundaryFlag: boundaryFlag,
-                    flags: flags,
-                    groundTexture: groundTexture,
-                    groundVariation: groundVariation,
-                    cliffVariation: cliffVariation,
-                    cliffTexture: cliffTexture,
-                    layerHeight: layerHeight
+                    groundHeight,
+                    waterHeight,
+                    boundaryFlag,
+                    flags,
+                    groundTexture,
+                    groundVariation,
+                    cliffVariation,
+                    cliffTexture,
+                    layerHeight
                 });
             }
             result.tiles.unshift(currRow);
         }
 
         // tiles
-        //[0, 0, 0, 0, 0, 0, 0]
+        // [0, 0, 0, 0, 0, 0, 0]
 
         return {
             errors: [],

@@ -62,4 +62,4 @@ export class W3Buffer {
         this._offset += 1;
         return byte;
     }
-};
+}

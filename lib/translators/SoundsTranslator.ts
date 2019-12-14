@@ -50,7 +50,7 @@ export class SoundsTranslator {
         /*
          * Body
          */
-        soundsJson.forEach(function (sound) {
+        soundsJson.forEach(function(sound) {
             // Name with null terminator (e.g. gg_snd_HumanGlueScreenLoop1)
             this._outBufferToWar.addString(sound.name);
             this._outBufferToWar.addNullTerminator();
@@ -136,15 +136,15 @@ export class SoundsTranslator {
         };
     }
 
-    warToJson(buffer) {
+    public warToJson(buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 
-        let fileVersion = this._outBufferToJSON.readInt(), // File version
+        const fileVersion = this._outBufferToJSON.readInt(), // File version
             numSounds = this._outBufferToJSON.readInt(); // # of sounds
 
         for (let i = 0; i < numSounds; i++) {
-            let sound: Sound = {
+            const sound: Sound = {
                 name: '',
                 path: '',
                 eax: '',
@@ -152,10 +152,10 @@ export class SoundsTranslator {
                 pitch: 0,
                 channel: 0,
                 flags: {
-                    looping: true,    // 0x00000001=looping
+                    'looping': true,    // 0x00000001=looping
                     '3dSound': true,   // 0x00000002=3D sound
-                    stopOutOfRange: true,  // 0x00000004=stop when out of range
-                    music: true  // 0x00000008=music},
+                    'stopOutOfRange': true,  // 0x00000004=stop when out of range
+                    'music': true  // 0x00000008=music},
                 },
                 fadeRate: {
                     in: 0,
@@ -174,10 +174,10 @@ export class SoundsTranslator {
 
             const flags = this._outBufferToJSON.readInt();
             sound.flags = {
-                looping: !!(flags & 0b1),    // 0x00000001=looping
+                'looping': !!(flags & 0b1),    // 0x00000001=looping
                 '3dSound': !!(flags & 0b10),   // 0x00000002=3D sound
-                stopOutOfRange: !!(flags & 0b100),  // 0x00000004=stop when out of range
-                music: !!(flags & 0b1000)  // 0x00000008=music
+                'stopOutOfRange': !!(flags & 0b100),  // 0x00000004=stop when out of range
+                'music': !!(flags & 0b1000)  // 0x00000008=music
             };
 
             sound.fadeRate = {
@@ -216,4 +216,4 @@ export class SoundsTranslator {
             json: result
         };
     }
-};
+}

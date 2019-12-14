@@ -202,8 +202,7 @@ export class InfoTranslator {
         // If globalWeather is not defined or is set to 'none', use 0 sentinel value, else add char[4]
         if (!infoJson.globalWeather || infoJson.globalWeather.toLowerCase() === 'none') {
             this._outBufferToWar.addInt(0);
-        }
-        else {
+        } else {
             this._outBufferToWar.addString(infoJson.globalWeather, false); // char[4] - lookup table
         }
         this._outBufferToWar.addString(infoJson.customSoundEnvironment || '', true);
@@ -268,15 +267,15 @@ export class InfoTranslator {
     public warToJson(buffer) {
         const result: Info = {
             map: {
-                name: "",
-                author: "",
-                description: "",
-                recommendedPlayers: "",
+                name: '',
+                author: '',
+                description: '',
+                recommendedPlayers: '',
                 playableArea: {
                     width: 64,
                     height: 64
                 },
-                mainTileType: "",
+                mainTileType: '',
                 flags: {
                     hideMinimapInPreview: false, // 0x0001: 1=hide minimap in preview screens
                     modifyAllyPriorities: true, // 0x0002: 1=modify ally priorities
@@ -291,19 +290,19 @@ export class InfoTranslator {
                     // 0x0400: 1=map properties menu opened at least once since map creation (?)
                     waterWavesOnCliffShores: false, // 0x0800: 1=show water waves on cliff shores
                     waterWavesOnRollingShores: false // 0x1000: 1=show water waves on rolling shores
-                },
+                }
             },
             loadingScreen: {
                 background: 0,
-                path: "",
-                text: "",
-                title: "",
-                subtitle: "",
+                path: '',
+                text: '',
+                title: '',
+                subtitle: ''
             }, prologue: {
-                path: "",
-                text: "",
-                title: "",
-                subtitle: ""
+                path: '',
+                text: '',
+                title: '',
+                subtitle: ''
             }, fog: {
                 type: 0,
                 startHeight: 0,
@@ -312,7 +311,7 @@ export class InfoTranslator {
                 color: [0, 0, 0, 1]
             }, camera: {
                 bounds: [],
-                complements: [],
+                complements: []
             }, players: [
 
             ], forces: [
@@ -320,14 +319,14 @@ export class InfoTranslator {
             ],
             saves: 0,
             editorVersion: 0,
-            globalWeather: "",
-            customSoundEnvironment: "",
-            customLightEnv: "",
-            water: [],
+            globalWeather: '',
+            customSoundEnvironment: '',
+            customLightEnv: '',
+            water: []
         };
         this._outBufferToJSON = new W3Buffer(buffer);
 
-        let fileVersion = this._outBufferToJSON.readInt(), // File version
+        const fileVersion = this._outBufferToJSON.readInt(), // File version
             numOfSaves = this._outBufferToJSON.readInt(), // # of times saved
             editorVersion = this._outBufferToJSON.readInt(); // editor version
 
@@ -353,7 +352,7 @@ export class InfoTranslator {
             height: this._outBufferToJSON.readInt()
         };
 
-        let flags = this._outBufferToJSON.readInt();
+        const flags = this._outBufferToJSON.readInt();
         result.map.flags = {
             hideMinimapInPreview: !!(flags & 0b1),
             modifyAllyPriorities: !!(flags & 0b10),
@@ -376,7 +375,7 @@ export class InfoTranslator {
         result.loadingScreen.title = this._outBufferToJSON.readString();
         result.loadingScreen.subtitle = this._outBufferToJSON.readString();
 
-        let gameDataSet = this._outBufferToJSON.readInt(); // 0 = standard
+        const gameDataSet = this._outBufferToJSON.readInt(); // 0 = standard
 
         result.prologue = {
             path: this._outBufferToJSON.readString(),
@@ -399,14 +398,14 @@ export class InfoTranslator {
         result.water = [this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte()]; // R G B A
 
         // Struct: players
-        let numPlayers = this._outBufferToJSON.readInt();
+        const numPlayers = this._outBufferToJSON.readInt();
         for (let i = 0; i < numPlayers; i++) {
-            let player: Player = {
-                name: "",
+            const player: Player = {
+                name: '',
                 startingPos: { x: 0, y: 0 },
                 playerNum: 0,
                 type: 0,
-                race: 0,
+                race: 0
             };
 
             player.playerNum = this._outBufferToJSON.readInt();
@@ -428,15 +427,15 @@ export class InfoTranslator {
         }
 
         // Struct: forces
-        let numForces = this._outBufferToJSON.readInt();
+        const numForces = this._outBufferToJSON.readInt();
         for (let i = 0; i < numForces; i++) {
-            let force: Force = {
+            const force: Force = {
                 flags: { allied: false, alliedVictory: true, shareVision: true, shareUnitControl: false, shareAdvUnitControl: false },
                 players: 0,
-                name: ""
+                name: ''
             };
 
-            let forceFlag = this._outBufferToJSON.readInt();
+            const forceFlag = this._outBufferToJSON.readInt();
             force.flags = {
                 allied: !!(forceFlag & 0b1), // 0x00000001: allied (force 1)
                 alliedVictory: !!(forceFlag & 0b10), // 0x00000002: allied victory
@@ -452,7 +451,7 @@ export class InfoTranslator {
         }
 
         // UNSUPPORTED: Struct: upgrade avail.
-        let numUpgrades = this._outBufferToJSON.readInt();
+        const numUpgrades = this._outBufferToJSON.readInt();
         for (let i = 0; i < numUpgrades; i++) {
             this._outBufferToJSON.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
             this._outBufferToJSON.readChars(4); // upgrade id (as in UpgradeData.slk)
@@ -461,23 +460,23 @@ export class InfoTranslator {
         }
 
         // UNSUPPORTED: Struct: tech avail.
-        let numTech = this._outBufferToJSON.readInt();
+        const numTech = this._outBufferToJSON.readInt();
         for (let i = 0; i < numTech; i++) {
             this._outBufferToJSON.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
             this._outBufferToJSON.readChars(4); // tech id (this can be an item, unit or ability)
         }
 
         // UNSUPPORTED: Struct: random unit table
-        let numUnitTable = this._outBufferToJSON.readInt();
+        const numUnitTable = this._outBufferToJSON.readInt();
         for (let i = 0; i < numUnitTable; i++) {
             this._outBufferToJSON.readInt(); // Group number
             this._outBufferToJSON.readString(); // Group name
 
-            let numPositions = this._outBufferToJSON.readInt(); // Number "m" of positions
+            const numPositions = this._outBufferToJSON.readInt(); // Number "m" of positions
             for (let j = 0; j < numPositions; j++) {
                 this._outBufferToJSON.readInt(); // unit table (=0), a building table (=1) or an item table (=2)
 
-                let numLinesInTable = this._outBufferToJSON.readInt();
+                const numLinesInTable = this._outBufferToJSON.readInt();
                 for (let k = 0; k < numLinesInTable; k++) {
                     this._outBufferToJSON.readInt(); // Chance of the unit/item (percentage)
                     this._outBufferToJSON.readChars(); // unit/item id's for this line specified
@@ -486,15 +485,15 @@ export class InfoTranslator {
         }
 
         // UNSUPPORTED: Struct: random item table
-        let numItemTable = this._outBufferToJSON.readInt();
+        const numItemTable = this._outBufferToJSON.readInt();
         for (let i = 0; i < numItemTable; i++) {
             this._outBufferToJSON.readInt(); // Table number
             this._outBufferToJSON.readString(); // Table name
 
-            let itemSetsCurrentTable = this._outBufferToJSON.readInt(); // Number "m" of item sets on the current item table
+            const itemSetsCurrentTable = this._outBufferToJSON.readInt(); // Number "m" of item sets on the current item table
             for (let j = 0; j < itemSetsCurrentTable; j++) {
 
-                let itemsInItemSet = this._outBufferToJSON.readInt(); // Number "i" of items on the current item set
+                const itemsInItemSet = this._outBufferToJSON.readInt(); // Number "i" of items on the current item set
                 for (let k = 0; k < itemsInItemSet; k++) {
                     this._outBufferToJSON.readInt(); // Percentual chance
                     this._outBufferToJSON.readChars(4); // Item id (as in ItemData.slk)

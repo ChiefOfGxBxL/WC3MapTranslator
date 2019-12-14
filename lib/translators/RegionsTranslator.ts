@@ -93,7 +93,7 @@ export class RegionsTranslator {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 
-        let fileVersion = this._outBufferToJSON.readInt(), // File version
+        const fileVersion = this._outBufferToJSON.readInt(), // File version
             numRegions = this._outBufferToJSON.readInt(); // # of regions
 
         for (let i = 0; i < numRegions; i++) {
@@ -135,4 +135,4 @@ export class RegionsTranslator {
             json: result
         };
     }
-};
+}
