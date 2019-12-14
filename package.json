@@ -2,6 +2,7 @@
     "name": "wc3maptranslator",
     "version": "3.0.0",
     "description": "Module to translate between `war3map` and `json` formats for WarCraft III .w3x maps",
+    "keywords": ["wc3", "warcraft", "reforged", "frozen throne", "reign of chaos", "war3map", "translator", "json", "w3x"],
     "main": "index.js",
     "scripts": {
         "build": "tsc --build",
@@ -10,6 +11,9 @@
         "test": " mocha",
         "test-nyc": " nyc mocha",
         "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*"
+    },
+    "engines": {
+        "node": ">=8.0.0"
     },
     "repository": {
         "type": "git",
