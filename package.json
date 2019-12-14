@@ -15,7 +15,10 @@
         "type": "git",
         "url": "git+https://chiefofgxbxl@github.com/ChiefOfGxBxL/WC3MapTranslator.git"
     },
-    "author": "ChiefOfGxBxL + rufreakde",
+    "author": "ChiefOfGxBxL",
+    "contributors": [
+        "rufreakde"
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/ChiefOfGxBxL/WC3MapTranslator/issues"
