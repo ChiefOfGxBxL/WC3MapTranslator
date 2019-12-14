@@ -55,28 +55,56 @@ WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.
 
 This API is a core component of [Ice Sickle](https://github.com/ChiefOfGxBxL/Ice-Sickle), the next-generation world editor. Ice Sickle stores data in a JSON format, and then generates all the necessary files to assemble a .w3x MPQ archive to build a map.
 
+WC3MapTranslator is written in `TypeScript` starting from verison `3.0.0` therefore supports build in types.
+
 ## Install
-```js
+```ts
 npm install wc3maptranslator
 ```
-**Requires Node >= 8**
 
-## Usage
-```js
+**Requires Node >= 8**  
+**Tested with tsc Version 3.7.2**
+
+## Usage JS (version < 3.0.0)
+```ts
 var Translator = require('wc3maptranslator'),
     mapJson = { // Refer to "Specification"
         units: [...],
         doodads: [...],
         ...
     };
-
-// Using individual translators, we may convert JSON
-// representation to generate a WC3 .w3x map file.
-// See the Wiki for more information.
-
 var unitResult = new Translator.Units.jsonToWar(mapJson.units);
-// We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive!
 ```
+## Usage TS (version >= 3.0.0)
+```js
+// JS import
+const TranslatorLib = require('wc3maptranslator');
+const Translator = new TranslatorLib();
+console.log(Translator);
+```
+```ts
+//... or TS import
+import { Translator } from 'wc3maptranslator';
+const myTranslator = new Translator();
+console.log(Translator);
+```
+### Using the Translator
+```ts
+// e.g. unit translator
+const unitResult = new Translator.Units.jsonToWar(mapJson.units);
+// all:
+* Doodads
+* Strings
+* Terrain
+* Units
+* Regions
+* Cameras
+* Sounds
+* Objects
+* Imports
+* Info
+```
+We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive! Using individual translators, we may convert JSON representation to generate a WC3 .w3x map file. See the Wiki for more information.
 
 ## Examples
 There is an `/examples` directory that demonstrates how to use *each* translator. This is a great starting point to learn how to use any translator. The directory has `jsonToWar`, and `warToJson`, sample projects to convert from JSON to war3map files and back.
@@ -118,6 +146,7 @@ All output files are placed in the `output` directory.
 
 | Type                    | Json → War  | War → Json  | File          |
 |-------------------------|:-----------:|:-----------:|---------------|
+| LUA                    | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | war3map.lua       |
 | JASS                    | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | war3map.j       |
 | Strings                 | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.wts     |
 

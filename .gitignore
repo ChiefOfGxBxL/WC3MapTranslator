@@ -13,3 +13,26 @@ examples/warToJson/files/output/other/*.json
 coverage/
 .nyc_output/
 test/.output
+
+#
+# TypeScript
+#
+**/*d.ts
+**/*d.ts.map
+**/*js.map
+**/*.js
+.tsbuildinfo
+
+
+#
+# VisualStudioCode
+#
+.vscode
+.history
+
+#
+# macOS 
+#
+.DS_Store
+.AppleDouble
+.LSOverride

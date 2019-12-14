@@ -1,38 +1,50 @@
 {
-  "name": "wc3maptranslator",
-  "version": "2.0.0",
-  "description": "Module to translate between `war3map` and `json` formats for WarCraft III .w3x maps",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint .",
-    "test": "nyc mocha",
-    "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://chiefofgxbxl@github.com/ChiefOfGxBxL/WC3MapTranslator.git"
-  },
-  "author": "ChiefOfGxBxL",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ChiefOfGxBxL/WC3MapTranslator/issues"
-  },
-  "homepage": "https://github.com/ChiefOfGxBxL/WC3MapTranslator#readme",
-  "dependencies": {
-    "ieee754": "^1.1.8",
-    "intn": "^1.0.0",
-    "round-to": "^3.0.0"
-  },
-  "devDependencies": {
-    "coveralls": "^3.0.1",
-    "diff-buf": "^1.0.1",
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "fs-extra": "^6.0.1",
-    "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
-    "nyc": "^12.0.1"
-  }
+    "name": "wc3maptranslator",
+    "version": "3.0.0",
+    "description": "Module to translate between `war3map` and `json` formats for WarCraft III .w3x maps",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc --build",
+        "lint": "tslint --project .",
+        "pretest": "tsc --build",
+        "test": " mocha",
+        "test-nyc": " nyc mocha",
+        "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://chiefofgxbxl@github.com/ChiefOfGxBxL/WC3MapTranslator.git"
+    },
+    "author": "ChiefOfGxBxL",
+    "contributors": [
+        "rufreakde"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ChiefOfGxBxL/WC3MapTranslator/issues"
+    },
+    "homepage": "https://github.com/ChiefOfGxBxL/WC3MapTranslator#readme",
+    "dependencies": {
+        "@types/fs-extra": "^8.0.1",
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^12.12.14",
+        "@types/round-to": "^4.0.0",
+        "ieee754": "^1.1.8",
+        "intn": "^1.0.0",
+        "round-to": "^4.0.0"
+    },
+    "devDependencies": {
+        "coveralls": "^3.0.1",
+        "diff-buf": "^1.0.1",
+        "eslint": "^4.19.1",
+        "eslint-config-standard": "^11.0.0",
+        "eslint-plugin-promise": "^3.7.0",
+        "eslint-plugin-standard": "^3.0.1",
+        "fs-extra": "^6.0.1",
+        "istanbul": "^0.4.5",
+        "mocha": "^5.2.0",
+        "nyc": "^12.0.1",
+        "tslint": "^5.20.1",
+        "typescript": "^3.7.3"
+    }
 }
