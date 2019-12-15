@@ -43,7 +43,7 @@ export class TerrainTranslator {
          * Tiles
          */
         this._outBufferToWar.addInt(terrainJson.tilepalette.length);
-        terrainJson.tilepalette.forEach(function(tile) {
+        terrainJson.tilepalette.forEach((tile) => {
             this._outBufferToWar.addString(tile);
         });
 
@@ -51,7 +51,7 @@ export class TerrainTranslator {
          * Cliffs
          */
         this._outBufferToWar.addInt(terrainJson.clifftilepalette.length);
-        terrainJson.clifftilepalette.forEach(function(clifftile) {
+        terrainJson.clifftilepalette.forEach((clifftile) => {
             this._outBufferToWar.addString(clifftile);
         });
 

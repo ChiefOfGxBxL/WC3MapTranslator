@@ -1,7 +1,7 @@
 import assert from 'assert';
+import * as diff from 'diff-buf';
 import * as fs from 'fs-extra';
 import * as Path from 'path';
-import * as diff from 'diff-buf';
 
 import { Translator } from '../index';
 

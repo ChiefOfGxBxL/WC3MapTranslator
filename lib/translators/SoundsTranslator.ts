@@ -50,7 +50,7 @@ export class SoundsTranslator {
         /*
          * Body
          */
-        soundsJson.forEach(function(sound) {
+        soundsJson.forEach((sound) => {
             // Name with null terminator (e.g. gg_snd_HumanGlueScreenLoop1)
             this._outBufferToWar.addString(sound.name);
             this._outBufferToWar.addNullTerminator();

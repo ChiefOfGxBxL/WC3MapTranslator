@@ -1,7 +1,7 @@
 import assert from 'assert';
-import { HexBuffer } from "../lib/HexBuffer";
+import { HexBuffer } from '../lib/HexBuffer';
 
-var hexBuffer;
+let hexBuffer;
 
 describe('HexBuffer', () => {
 
@@ -95,9 +95,9 @@ describe('HexBuffer', () => {
 
         let totalLength = 0;
         // tslint:disable-next-line: forin
-        for (let w in testWords) {
-            const bufLength = Buffer.from(testWords[w]).length;
-            hexBuffer.addString(testWords[w], false);
+        for (const word of testWords) {
+            const bufLength = Buffer.from(word).length;
+            hexBuffer.addString(word, false);
             totalLength += bufLength;
             const bufferLength = hexBuffer.getBuffer().length;
             assert.equal(bufferLength, totalLength);
