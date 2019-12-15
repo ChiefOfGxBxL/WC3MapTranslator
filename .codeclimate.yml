@@ -1,20 +1,13 @@
-engines:
-  duplication:
+plugins:
+  tslint:
     enabled: true
-    config:
-      languages:
-      - javascript
-  eslint:
-    enabled: true
-    channel: "eslint-4"
+    config: tslint.json
   fixme:
     enabled: true
 ratings:
   paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
+  - "**.ts"
+  - "**.tsx"
 exclude_paths:
   - examples/
   - test/

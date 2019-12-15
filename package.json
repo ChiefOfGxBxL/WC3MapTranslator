@@ -2,15 +2,25 @@
     "name": "wc3maptranslator",
     "version": "3.0.0",
     "description": "Module to translate between `war3map` and `json` formats for WarCraft III .w3x maps",
-    "keywords": ["wc3", "warcraft", "reforged", "frozen throne", "reign of chaos", "war3map", "translator", "json", "w3x"],
+    "keywords": [
+        "wc3",
+        "warcraft",
+        "reforged",
+        "frozen throne",
+        "reign of chaos",
+        "war3map",
+        "translator",
+        "json",
+        "w3x"
+    ],
     "main": "index.js",
     "scripts": {
         "build": "tsc --build",
         "lint": "tslint --project .",
         "pretest": "tsc --build",
-        "test": " mocha",
-        "test-nyc": " nyc mocha",
-        "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*"
+        "test": "mocha",
+        "test-nyc": "nyc mocha",
+        "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*.js"
     },
     "engines": {
         "node": ">=8.0.0"
@@ -38,6 +48,7 @@
         "round-to": "^4.0.0"
     },
     "devDependencies": {
+        "@istanbuljs/nyc-config-typescript": "^0.1.3",
         "coveralls": "^3.0.1",
         "diff-buf": "^1.0.1",
         "eslint": "^4.19.1",
@@ -47,7 +58,9 @@
         "fs-extra": "^6.0.1",
         "istanbul": "^0.4.5",
         "mocha": "^5.2.0",
-        "nyc": "^12.0.1",
+        "nyc": "^12.0.2",
+        "source-map-support": "^0.5.16",
+        "ts-node": "^8.5.4",
         "tslint": "^5.20.1",
         "typescript": "^3.7.3"
     }
