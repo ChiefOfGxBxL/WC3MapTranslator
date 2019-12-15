@@ -1,6 +1,11 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 
+interface Import {
+    path: string;
+    type: string; // 'standard', 'custom'
+}
+
 export class ImportsTranslator {
 
     public _outBufferToWar: HexBuffer;
@@ -8,7 +13,7 @@ export class ImportsTranslator {
 
     constructor() { }
 
-    public jsonToWar(imports) {
+    public jsonToWar(imports: Import[]) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -40,7 +45,7 @@ export class ImportsTranslator {
         };
     }
 
-    public warToJson(buffer) {
+    public warToJson(buffer: Buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 

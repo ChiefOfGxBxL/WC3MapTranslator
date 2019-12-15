@@ -5,7 +5,7 @@ export class StringsTranslator {
 
     constructor() { }
 
-    public jsonToWar(stringsJson) {
+    public jsonToWar(stringsJson: object) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -29,7 +29,7 @@ export class StringsTranslator {
         };
     }
 
-    public warToJson(buffer) {
+    public warToJson(buffer: Buffer) {
         const wts = buffer.toString().replace(/\r\n/g, '\n'), // may contain Windows linebreaks (\r\n), but below regex just assumes \n
             matchStringDefinitionBlock = new RegExp('STRING ([0-9]+)\n?(?:.*\n)?\{\n((?:.|\n)*?)\n}', 'g'); // see: https://regexr.com/3r572
 

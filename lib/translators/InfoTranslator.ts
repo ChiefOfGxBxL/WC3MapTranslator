@@ -82,6 +82,7 @@ interface Info {
 interface PlayerStartingPosition {
     x: number;
     y: number;
+    fixed: boolean;
 }
 
 interface Player {
@@ -115,7 +116,7 @@ export class InfoTranslator {
 
     constructor() { }
 
-    public jsonToWar(infoJson) {
+    public jsonToWar(infoJson: Info) {
         this._outBufferToWar = new HexBuffer();
 
         this._outBufferToWar.addInt(25); // file version, 0x19
@@ -264,7 +265,7 @@ export class InfoTranslator {
             buffer: this._outBufferToWar.getBuffer()
         };
     }
-    public warToJson(buffer) {
+    public warToJson(buffer: Buffer) {
         const result: Info = {
             map: {
                 name: '',
@@ -402,7 +403,7 @@ export class InfoTranslator {
         for (let i = 0; i < numPlayers; i++) {
             const player: Player = {
                 name: '',
-                startingPos: { x: 0, y: 0 },
+                startingPos: { x: 0, y: 0, fixed: false },
                 playerNum: 0,
                 type: 0,
                 race: 0
@@ -412,12 +413,13 @@ export class InfoTranslator {
             player.type = this._outBufferToJSON.readInt(); // 1=Human, 2=Computer, 3=Neutral, 4=Rescuable
             player.race = this._outBufferToJSON.readInt(); // 1=Human, 2=Orc, 3=Undead, 4=Night Elf
 
-            this._outBufferToJSON.readInt(); // 00000001 = fixed start position
+            const isPlayerStartPositionFixed: boolean = this._outBufferToJSON.readInt() === 1; // 00000001 = fixed start position
 
             player.name = this._outBufferToJSON.readString();
             player.startingPos = {
                 x: this._outBufferToJSON.readFloat(),
-                y: this._outBufferToJSON.readFloat()
+                y: this._outBufferToJSON.readFloat(),
+                fixed: isPlayerStartPositionFixed
             };
 
             this._outBufferToJSON.readInt(); // ally low priorities flags (bit "x"=1 --> set for player "x")

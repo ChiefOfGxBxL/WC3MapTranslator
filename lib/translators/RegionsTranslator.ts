@@ -24,7 +24,7 @@ export class RegionsTranslator {
 
     constructor() { }
 
-    public jsonToWar(regionsJson) {
+    public jsonToWar(regionsJson: Region[]) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -89,7 +89,7 @@ export class RegionsTranslator {
         };
     }
 
-    public warToJson(buffer) {
+    public warToJson(buffer: Buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 

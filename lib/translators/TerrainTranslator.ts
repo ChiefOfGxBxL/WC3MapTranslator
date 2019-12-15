@@ -28,7 +28,7 @@ export class TerrainTranslator {
 
     constructor() { }
 
-    public jsonToWar(terrainJson) {
+    public jsonToWar(terrainJson: Terrain) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -91,7 +91,7 @@ export class TerrainTranslator {
         };
     }
 
-    public warToJson(buffer) {
+    public warToJson(buffer: Buffer) {
         // create buffer
         const result: Terrain = {
             tileset: '',
