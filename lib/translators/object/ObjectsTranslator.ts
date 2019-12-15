@@ -1,6 +1,21 @@
 import { HexBuffer } from '../../HexBuffer';
 import { W3Buffer } from '../../W3Buffer';
 
+enum ObjectType {
+    units = 'units',
+    items = 'items',
+    destructables = 'destructables',
+    doodads = 'doodads',
+    abilities = 'abilities',
+    buffs = 'buffs',
+    upgrades = 'upgrades'
+}
+
+enum TableType {
+    original = 'original',
+    custom = 'custom'
+}
+
 enum ModificationType {
     int = 'int',
     real = 'real',
@@ -11,15 +26,21 @@ enum ModificationType {
 interface Modification {
     id: string;
     type: ModificationType; // 'int' | 'real' | 'unreal' | 'string',
-    level: number;
-    column: number;
     value: any;
+
+    // Marked optional because these fields are not needed on any table.
+    // They can be specified for: Doodads, Abilities, Upgrades, but if
+    // not specified, they default to the value 0.
+    level?: number;
+    column?: number;
+    variation?: number;
 }
 
 export class ObjectsTranslator {
 
     public varTypes: any;
     public fileTypeExt: any;
+    public ObjectType: any;
 
     private _outBufferToWar: HexBuffer;
     private _outBufferToJSON: W3Buffer;
@@ -45,9 +66,11 @@ export class ObjectsTranslator {
             buffs: 'w3h',
             upgrades: 'w3q' // (*)
         };
+
+        this.ObjectType = ObjectType;
     }
 
-    public jsonToWar(type, json) {
+    public jsonToWar(type: ObjectType, json) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -55,12 +78,12 @@ export class ObjectsTranslator {
          */
         this._outBufferToWar.addInt(2); // file version
 
-        const generateTableFromJson = (tableType, tableData) => { // create "original" or "custom" table
+        const generateTableFromJson = (tableType: TableType, tableData) => { // create "original" or "custom" table
             Object.keys(tableData).forEach((defKey) => {
                 const obj = tableData[defKey];
 
                 // Original and new object ids
-                if (tableType === 'original') {
+                if (tableType === TableType.original) {
                     this._outBufferToWar.addString(defKey);
                     this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); // no new Id is assigned
                 } else {
@@ -72,7 +95,7 @@ export class ObjectsTranslator {
                 // Number of modifications made to this object
                 this._outBufferToWar.addInt(obj.length);
 
-                obj.forEach((mod) => {
+                obj.forEach((mod: Modification) => {
                     let modType;
 
                     // Modification id (e.g. unam = name; reference MetaData lookups)
@@ -95,7 +118,7 @@ export class ObjectsTranslator {
 
                     // Addl integers
                     // Required for: doodads, abilities, upgrades
-                    if (type === 'doodads' || type === 'abilities' || type === 'upgrades') {
+                    if (type === ObjectType.doodads || type === ObjectType.abilities || type === ObjectType.upgrades) {
 
                         // Level or variation
                         // We need to check if hasOwnProperty because these could be explititly
@@ -119,7 +142,7 @@ export class ObjectsTranslator {
                     }
 
                     // End of struct
-                    if (tableType === 'original') {
+                    if (tableType === TableType.original) {
                         // Original objects are ended with their base id (e.g. hfoo)
                         this._outBufferToWar.addString(defKey);
                     } else {
@@ -137,13 +160,13 @@ export class ObjectsTranslator {
          * Original table
          */
         this._outBufferToWar.addInt(Object.keys(json.original).length);
-        generateTableFromJson('original', json.original);
+        generateTableFromJson(TableType.original, json.original);
 
         /*
          * Custom table
          */
         this._outBufferToWar.addInt(Object.keys(json.custom).length); // # entry modifications
-        generateTableFromJson('custom', json.custom);
+        generateTableFromJson(TableType.custom, json.custom);
 
         return {
             errors: [],
@@ -151,13 +174,13 @@ export class ObjectsTranslator {
         };
     }
 
-    public warToJson(type, buffer) {
+    public warToJson(type: ObjectType, buffer: Buffer) {
         const result = { original: {}, custom: {} };
         this._outBufferToJSON = new W3Buffer(buffer);
 
         const fileVersion = this._outBufferToJSON.readInt();
 
-        const readModificationTable = (isOriginalTable) => {
+        const readModificationTable = (isOriginalTable: boolean) => {
             const numTableModifications = this._outBufferToJSON.readInt();
 
             for (let i = 0; i < numTableModifications; i++) {
@@ -179,7 +202,7 @@ export class ObjectsTranslator {
                     modification.id = this._outBufferToJSON.readChars(4);
                     modification.type = this.varTypes[this._outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
 
-                    if (type === 'doodads' || type === 'abilities' || type === 'upgrades') {
+                    if (type === ObjectType.doodads || type === ObjectType.abilities || type === ObjectType.upgrades) {
                         modification.level = this._outBufferToJSON.readInt();
                         modification.column = this._outBufferToJSON.readInt();
                     }

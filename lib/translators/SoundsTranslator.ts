@@ -38,7 +38,7 @@ export class SoundsTranslator {
 
     constructor() { }
 
-    public jsonToWar(soundsJson) {
+    public jsonToWar(soundsJson: Sound[]) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -136,7 +136,7 @@ export class SoundsTranslator {
         };
     }
 
-    public warToJson(buffer) {
+    public warToJson(buffer: Buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 

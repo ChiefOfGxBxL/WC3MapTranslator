@@ -25,7 +25,7 @@ export class CamerasTranslator {
 
     constructor() { }
 
-    public jsonToWar(cameras) {
+    public jsonToWar(cameras: Camera[]) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -60,7 +60,7 @@ export class CamerasTranslator {
         };
     }
 
-    public warToJson(buffer) {
+    public warToJson(buffer: Buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 

@@ -32,7 +32,7 @@ export class DoodadsTranslator {
 
     constructor() { }
 
-    public jsonToWar(doodadsJson) {
+    public jsonToWar(doodadsJson: Doodad[]) {
         this._outBufferToWar = new HexBuffer();
         /*
          * Header
@@ -90,7 +90,7 @@ export class DoodadsTranslator {
         };
     }
 
-    public warToJson(buffer) {
+    public warToJson(buffer: Buffer) {
         const result = [];
         this._outBufferToJSON = new W3Buffer(buffer);
 

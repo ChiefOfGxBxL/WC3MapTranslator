@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { HexBuffer } from '../lib/HexBuffer';
 
-let hexBuffer;
+let hexBuffer: HexBuffer;
 
 describe('HexBuffer', () => {
 
