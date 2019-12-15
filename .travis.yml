@@ -1,6 +1,24 @@
+# Modeled after: https://travis-ci.org/microsoft/TypeScript/jobs/625136191/config
+
 language: node_js
+
+# Run build on Node v8
 node_js:
-  - "node"
+  - "8"
+
+branches:
+  only:
+  - master
+
+install:
+  - npm uninstall typescript --no-save
+  - npm install
+
+cache:
+  directories:
+    - node_modules
+
 script: "npm run-script test-travis"
+
 # Send coverage data to Coveralls
 after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
