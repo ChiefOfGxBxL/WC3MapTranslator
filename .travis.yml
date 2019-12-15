@@ -2,8 +2,8 @@
 
 language: node_js
 
+# Run build on Node v8
 node_js:
-  - "node"
   - "8"
 
 branches:
