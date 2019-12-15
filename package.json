@@ -17,10 +17,9 @@
     "scripts": {
         "build": "tsc --build",
         "lint": "tslint --project .",
-        "pretest": "tsc --build",
-        "test": "mocha",
-        "test-nyc": "nyc mocha",
-        "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*.js"
+        "test": "tsc && mocha",
+        "test-nyc": "tsc && nyc mocha",
+        "test-travis": "tsc && ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*.js"
     },
     "engines": {
         "node": ">=8.0.0"
