@@ -20,7 +20,7 @@ export class ImportsTranslator {
         /*
          * Body
          */
-        imports.forEach(function(importedFile) {
+        imports.forEach((importedFile) => {
             this._outBufferToWar.addByte(
                 importedFile.type === 'custom' ? 13 : 5
             );

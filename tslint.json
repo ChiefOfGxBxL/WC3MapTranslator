@@ -5,6 +5,8 @@
     ],
     "jsRules": {},
     "rules": {
+        "no-empty": false,
+        "no-bitwise": false,
         "object-literal-sort-keys": false,
         "variable-name": false,
         "align": [

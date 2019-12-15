@@ -55,8 +55,8 @@ export class ObjectsTranslator {
          */
         this._outBufferToWar.addInt(2); // file version
 
-        function generateTableFromJson(tableType, tableData) { // create "original" or "custom" table
-            Object.keys(tableData).forEach(function(defKey) {
+        const generateTableFromJson = (tableType, tableData) => { // create "original" or "custom" table
+            Object.keys(tableData).forEach((defKey) => {
                 const obj = tableData[defKey];
 
                 // Original and new object ids
@@ -72,7 +72,7 @@ export class ObjectsTranslator {
                 // Number of modifications made to this object
                 this._outBufferToWar.addInt(obj.length);
 
-                obj.forEach(function(mod) {
+                obj.forEach((mod) => {
                     let modType;
 
                     // Modification id (e.g. unam = name; reference MetaData lookups)
@@ -131,7 +131,7 @@ export class ObjectsTranslator {
                     }
                 });
             });
-        }
+        };
 
         /*
          * Original table
@@ -157,8 +157,9 @@ export class ObjectsTranslator {
 
         const fileVersion = this._outBufferToJSON.readInt();
 
-        function readModificationTable(isOriginalTable) {
+        const readModificationTable = (isOriginalTable) => {
             const numTableModifications = this._outBufferToJSON.readInt();
+
             for (let i = 0; i < numTableModifications; i++) {
                 const objectDefinition = []; // object definition will store one or more modification objects
 
@@ -206,7 +207,7 @@ export class ObjectsTranslator {
                     result.custom[customId + ':' + originalId] = objectDefinition;
                 }
             }
-        }
+        };
 
         readModificationTable(true);
         readModificationTable(false);

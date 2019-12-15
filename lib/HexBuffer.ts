@@ -68,11 +68,11 @@ export class HexBuffer {
         this._buffer.push('0x' + byte.toString(16));
     }
 
-    public addNullTerminator() {
+    public addNullTerminator()  {
         this._buffer.push('0x0');
     }
 
-    public getBuffer() {
-        return this._buffer;
+    public getBuffer(): Buffer {
+        return Buffer.from(this._buffer);
     }
 }

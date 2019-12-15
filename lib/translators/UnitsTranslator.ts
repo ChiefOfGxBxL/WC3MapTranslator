@@ -58,7 +58,7 @@ export class UnitsTranslator {
         /*
          * Body
          */
-        unitsJson.forEach(function(unit) {
+        unitsJson.forEach((unit) => {
             this._outBufferToWar.addString(unit.type); // type
             this._outBufferToWar.addInt(unit.variation || 0); // variation
             this._outBufferToWar.addFloat(unit.position[0]); // position x
@@ -107,7 +107,7 @@ export class UnitsTranslator {
             // Inventory - - -
             if (!unit.inventory) unit.inventory = [];
             this._outBufferToWar.addInt(unit.inventory.length); // # items in inventory
-            unit.inventory.forEach(function(item) {
+            unit.inventory.forEach((item) => {
                 this._outBufferToWar.addInt(item.slot - 1); // zero-index item slot
                 this._outBufferToWar.addString(item.type);
             });
@@ -115,7 +115,7 @@ export class UnitsTranslator {
             // Modified abilities - - -
             if (!unit.abilities) unit.abilities = [];
             this._outBufferToWar.addInt(unit.abilities.length); // # modified abilities
-            unit.abilities.forEach(function(ability) {
+            unit.abilities.forEach((ability) => {
                 this._outBufferToWar.addString(ability.ability); // ability string
                 this._outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
                 this._outBufferToWar.addInt(ability.level);
