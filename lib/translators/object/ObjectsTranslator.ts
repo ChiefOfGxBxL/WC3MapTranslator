@@ -1,16 +1,6 @@
 import { HexBuffer } from '../../HexBuffer';
 import { W3Buffer } from '../../W3Buffer';
 
-enum ObjectType {
-    units = 'units',
-    items = 'items',
-    destructables = 'destructables',
-    doodads = 'doodads',
-    abilities = 'abilities',
-    buffs = 'buffs',
-    upgrades = 'upgrades'
-}
-
 enum TableType {
     original = 'original',
     custom = 'custom'
@@ -38,9 +28,18 @@ interface Modification {
 
 export class ObjectsTranslator {
 
+    public ObjectType = {
+        Units: 'units',
+        Items: 'items',
+        Destructables: 'destructables',
+        Doodads: 'doodads',
+        Abilities: 'abilities',
+        Buffs: 'buffs',
+        Upgrades: 'upgrades'
+    };
+
     public varTypes: any;
     public fileTypeExt: any;
-    public ObjectType: any;
 
     private _outBufferToWar: HexBuffer;
     private _outBufferToJSON: W3Buffer;
@@ -66,11 +65,9 @@ export class ObjectsTranslator {
             buffs: 'w3h',
             upgrades: 'w3q' // (*)
         };
-
-        this.ObjectType = ObjectType;
     }
 
-    public jsonToWar(type: ObjectType, json) {
+    public jsonToWar(type: string, json) {
         this._outBufferToWar = new HexBuffer();
 
         /*
@@ -118,7 +115,7 @@ export class ObjectsTranslator {
 
                     // Addl integers
                     // Required for: doodads, abilities, upgrades
-                    if (type === ObjectType.doodads || type === ObjectType.abilities || type === ObjectType.upgrades) {
+                    if (type === this.ObjectType.Doodads || type === this.ObjectType.Abilities || type === this.ObjectType.Upgrades) {
 
                         // Level or variation
                         // We need to check if hasOwnProperty because these could be explititly
@@ -174,7 +171,7 @@ export class ObjectsTranslator {
         };
     }
 
-    public warToJson(type: ObjectType, buffer: Buffer) {
+    public warToJson(type: string, buffer: Buffer) {
         const result = { original: {}, custom: {} };
         this._outBufferToJSON = new W3Buffer(buffer);
 
@@ -202,7 +199,7 @@ export class ObjectsTranslator {
                     modification.id = this._outBufferToJSON.readChars(4);
                     modification.type = this.varTypes[this._outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
 
-                    if (type === ObjectType.doodads || type === ObjectType.abilities || type === ObjectType.upgrades) {
+                    if (type === this.ObjectType.Doodads || type === this.ObjectType.Abilities || type === this.ObjectType.Upgrades) {
                         modification.level = this._outBufferToJSON.readInt();
                         modification.column = this._outBufferToJSON.readInt();
                     }
