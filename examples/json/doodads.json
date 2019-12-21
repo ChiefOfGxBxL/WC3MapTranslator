@@ -1,0 +1,15 @@
+[
+    {
+        "id": 0,
+        "type": "ATtr",
+        "variation": 0,
+        "position": [100, 100, 100],
+        "angle": 0,
+        "scale": [1, 1, 1],
+        "life": 100,
+        "flags": {
+            "visible": true,
+            "solid": false
+        }
+    }
+]
