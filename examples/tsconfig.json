@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "composite": true,
         "types": [
             "mocha",
             "node"
@@ -18,6 +17,9 @@
         "esModuleInterop": true,
         "noEmit": false,
     },
+    "references": [
+        { "path": "../" }
+    ],
     "exclude": [],
     "include": [
         "./**/*"

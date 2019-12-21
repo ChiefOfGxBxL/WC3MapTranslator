@@ -107,15 +107,9 @@ const unitResult = new Translator.Units.jsonToWar(mapJson.units);
 We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive! Using individual translators, we may convert JSON representation to generate a WC3 .w3x map file. See the Wiki for more information.
 
 ## Examples
-There is an `/examples` directory that demonstrates how to use *each* translator. This is a great starting point to learn how to use any translator. The directory has `jsonToWar`, and `warToJson`, sample projects to convert from JSON to war3map files and back.
+There is an `examples` directory that demonstrates how to use *each* translator, both for converting from war3map to JSON, and JSON to war3map formats. This is a great starting point to learn how to use any translator.
 
-To get started with either example, `cd` into `/examples/[whichever]` and run `npm install` to automatically install all the dependencies. Run `npm start` under `/examples/[whichever]` to display a list of each command to run.
-
-![image](https://user-images.githubusercontent.com/4079034/40582029-e67044c4-6136-11e8-9ae3-c10120096b00.png)
-
-For example, to run the "Cameras" translator, your working directory should be `/examples/jsonToWar`, and then you'll run the command `node entity/cameras.js`. Take a look at the source code under `jsonToWar/entity`, `jsonToWar/object`, or `jsonToWar/other` to see how to use each translator.
-
-All output files are placed in the `output` directory.
+To get started with either example, `cd` into `/examples/` and run `npm install` to install all the dependencies. Then run `npm start` which kicks off the TypeScript build and then executes the resulting JavaScript. A few output files will be written under the `/examples/` directory, but the output is purposely not comprehensive to avoid spamming the directory and because the translation process is sufficiently demonstrated using just one example of translating in each direction.
 
 ## File Support
 

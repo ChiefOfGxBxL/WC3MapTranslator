@@ -1,0 +1,25 @@
+[
+    {
+        "id": 0,
+        "name": "safe zone region",
+        "position": {
+            "left": 50.0,
+            "right": 1000,
+            "bottom": 0,
+            "top": 400
+        },
+        "weatherEffect": "RLlr",
+        "color": [255, 0, 0]
+    },
+    {
+        "id": 1,
+        "name": "death trap",
+        "position": {
+            "left": 100.0,
+            "right": 200,
+            "bottom": 200,
+            "top": 300
+        },
+        "color": [0, 255, 0]
+    }
+]

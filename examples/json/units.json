@@ -1,0 +1,22 @@
+[
+    {
+        "id": 0,
+        "type": "hfoo",
+        "position": [0, 50, 100.52],
+        "rotation": 36,
+        "scale": [1, 1, 1],
+        "player": 0,
+        "hitpoints": 210,
+        "mana": 0,
+        "gold": 0,
+        "targetAcquisition": 0,
+        "hero": {
+            "level": 0,
+            "str": 0,
+            "agi": 0,
+            "int": 0
+        },
+        "inventory": [],
+        "abilities": []
+    }
+]
