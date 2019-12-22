@@ -1,11 +1,12 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { rad2Deg, deg2Rad } from '../AngleConverter';
 
 interface Doodad {
     type: string;
     variation: number;
     position: number[];
-    angle: number;
+    angle: number; // degrees
     scale: number[];
     flags: DoodadFlag;
     life: number;
@@ -51,7 +52,13 @@ export class DoodadsTranslator {
             this._outBufferToWar.addFloat(tree.position[0]);
             this._outBufferToWar.addFloat(tree.position[1]);
             this._outBufferToWar.addFloat(tree.position[2]);
-            this._outBufferToWar.addFloat(tree.angle || 0); // optional - default value 0
+
+            // Angle
+            // Doodads format is unique because it uses radians for angles, as opposed
+            // to angles in any other file which use degrees. Hence conversion is needed.
+            //    war3map: Expects angle in RADIANS
+            //    JSON: Spec defines angle in DEGREES
+            this._outBufferToWar.addFloat(deg2Rad(tree.angle) || 0); // optional - default value 0
 
             // Scale
             if (!tree.scale) tree.scale = [1, 1, 1];
@@ -114,7 +121,14 @@ export class DoodadsTranslator {
             doodad.type = this._outBufferToJSON.readChars(4);
             doodad.variation = this._outBufferToJSON.readInt();
             doodad.position = [this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()]; // X Y Z coords
-            doodad.angle = this._outBufferToJSON.readFloat(); // angle in radians
+
+            // Angle
+            // Doodads format is unique because it uses radians for angles, as opposed
+            // to angles in any other file which use degrees. Hence conversion is needed.
+            //    war3map: Expects angle in RADIANS
+            //    JSON: Spec defines angle in DEGREES
+            doodad.angle = rad2Deg(this._outBufferToJSON.readFloat());
+
             doodad.scale = [this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()]; // X Y Z scaling
 
             const flags: flag = this._outBufferToJSON.readByte();
