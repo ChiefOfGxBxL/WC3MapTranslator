@@ -53,9 +53,9 @@
 ## Overview
 WC3MapTranslator is a module to convert a JSON representation of WarCraft III (.w3x) data to their `war3map` files, and vice-versa. This makes the map data readable and easily modifiable.
 
-This API is a core component of [Ice Sickle](https://github.com/ChiefOfGxBxL/Ice-Sickle), the next-generation world editor. Ice Sickle stores data in a JSON format, and then generates all the necessary files to assemble a .w3x MPQ archive to build a map.
+![TranslationExample](https://user-images.githubusercontent.com/4079034/71315302-4947fb00-2427-11ea-8f50-edf05d6e5c6a.png)
 
-WC3MapTranslator is written in `TypeScript` starting from verison `3.0.0` therefore supports build in types.
+WC3MapTranslator is written in `TypeScript` starting from version `3.0.0`, offering type safety and improved development experience.
 
 ## Install
 ```ts
@@ -65,7 +65,8 @@ npm install wc3maptranslator
 **Requires Node >= 8**  
 **Tested with tsc Version 3.7.2**
 
-## Usage JS (version < 3.0.0)
+## Usage
+### JavaScript (version < 3.0.0)
 ```ts
 var Translator = require('wc3maptranslator'),
     mapJson = { // Refer to "Specification"
@@ -75,7 +76,7 @@ var Translator = require('wc3maptranslator'),
     };
 var unitResult = new Translator.Units.jsonToWar(mapJson.units);
 ```
-## Usage TS (version >= 3.0.0)
+### TypeScript (version >= 3.0.0)
 ```js
 // JS import
 const TranslatorLib = require('wc3maptranslator');
