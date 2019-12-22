@@ -38,7 +38,7 @@ describe('Reversion: war -> json -> war', () => {
 
     before(() => {
         fs.emptyDirSync(outputDir);
-        fs.ensureDir(outputDir);
+        fs.ensureDirSync(outputDir);
     });
 
     it('Doodads reversion', () => {
