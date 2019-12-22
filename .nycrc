@@ -2,8 +2,14 @@
     "extends": "@istanbuljs/nyc-config-typescript",
     "check-coverage": true,
     "per-file": true,
-    "include": [
-      "lib/**/*.js"
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/coverage/**",
+      "**/examples/**"
     ],
     "reporter": [
       "lcov",
