@@ -7,7 +7,7 @@ import { Translator } from '../index';
 
 const testTranslator = new Translator();
 const ObjectType = testTranslator.Objects.ObjectType;
-const war3mapDir = Path.resolve('examples/warToJson/files/input');
+const war3mapDir = Path.resolve('test/data');
 const outputDir = Path.resolve('test/.output');
 
 function readWar3MapBuffer(filename: string) {

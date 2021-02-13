@@ -1,6 +1,5 @@
 /.git/*
 /.nyc_output/*
 /coverage/*
-/examples/*
 /node_modules/*
 /test/*

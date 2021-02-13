@@ -16,8 +16,12 @@
  * Upgrade `ts-node` 8.6.2 -> 9.1.1
  * Upgrade `tslint` 6.0.0 -> 6.1.3
  * Upgrade `typescript` 3.8.2 -> 4.1.5
+ * The project structure has changed:
+    * `examples` sub-project directory is removed
+    * Refer to `USAGE.md` for how to use the code
 ## TESTING
  * Travis CI will now use Node 14 LTS to build the project
+ * `test` directory now contains the WC3 and JSON data files the tests require
 <!--
 # x.y.z (YYYY-MM-DD)
 ## SUMMARY

@@ -8,8 +8,7 @@
     ],
     "exclude": [
       "**/*.d.ts",
-      "**/coverage/**",
-      "**/examples/**"
+      "**/coverage/**"
     ],
     "reporter": [
       "lcov",
