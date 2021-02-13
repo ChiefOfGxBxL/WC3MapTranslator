@@ -1,35 +1,32 @@
 import { HexBuffer } from '../HexBuffer';
 
-export class StringsTranslator {
-    private _outBufferToWar: HexBuffer;
+export abstract class StringsTranslator {
 
-    constructor() { }
-
-    public jsonToWar(stringsJson: object) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(stringsJson: object) {
+        const outBufferToWar = new HexBuffer();
 
         /*
          * Strings
          */
         Object.keys(stringsJson).forEach((key) => {
-            this._outBufferToWar.addString('STRING ' + key);
-            this._outBufferToWar.addNewLine();
-            this._outBufferToWar.addString('{');
-            this._outBufferToWar.addNewLine();
-            this._outBufferToWar.addString(stringsJson[key]);
-            this._outBufferToWar.addNewLine();
-            this._outBufferToWar.addString('}');
-            this._outBufferToWar.addNewLine();
-            this._outBufferToWar.addNewLine();
+            outBufferToWar.addString('STRING ' + key);
+            outBufferToWar.addNewLine();
+            outBufferToWar.addString('{');
+            outBufferToWar.addNewLine();
+            outBufferToWar.addString(stringsJson[key]);
+            outBufferToWar.addNewLine();
+            outBufferToWar.addString('}');
+            outBufferToWar.addNewLine();
+            outBufferToWar.addNewLine();
         });
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
 
-    public warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer) {
         const wts = buffer.toString().replace(/\r\n/g, '\n'), // may contain Windows linebreaks (\r\n), but below regex just assumes \n
             matchStringDefinitionBlock = new RegExp('STRING ([0-9]+)\n?(?:.*\n)?\{\n((?:.|\n)*?)\n}', 'g'); // see: https://regexr.com/3r572
 

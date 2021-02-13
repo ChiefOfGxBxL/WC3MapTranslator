@@ -8,25 +8,20 @@ interface Import {
 
 export class ImportsTranslator {
 
-    private _outBufferToWar: HexBuffer;
-    private _outBufferToJSON: W3Buffer;
-
-    constructor() { }
-
-    public jsonToWar(imports: Import[]) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(imports: Import[]) {
+        const outBufferToWar = new HexBuffer();
 
         /*
          * Header
          */
-        this._outBufferToWar.addInt(1); // file version
-        this._outBufferToWar.addInt(imports.length); // number of imports
+        outBufferToWar.addInt(1); // file version
+        outBufferToWar.addInt(imports.length); // number of imports
 
         /*
          * Body
          */
         imports.forEach((importedFile) => {
-            this._outBufferToWar.addByte(
+            outBufferToWar.addByte(
                 importedFile.type === 'custom' ? 13 : 5
             );
 
@@ -35,25 +30,25 @@ export class ImportsTranslator {
                 importedFile.path = 'war3mapImported\\' + importedFile.path;
             }
 
-            this._outBufferToWar.addString(importedFile.path);
-            this._outBufferToWar.addNullTerminator();
+            outBufferToWar.addString(importedFile.path);
+            outBufferToWar.addNullTerminator();
         });
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
 
-    public warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer) {
         const result = [];
-        this._outBufferToJSON = new W3Buffer(buffer);
+        const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = this._outBufferToJSON.readInt(); // File version
-        const numImports = this._outBufferToJSON.readInt(); // # of imports
+        const fileVersion = outBufferToJSON.readInt(); // File version
+        const numImports = outBufferToJSON.readInt(); // # of imports
 
         for (let i = 0; i < numImports; i++) {
-            const typeValue = this._outBufferToJSON.readByte();
+            const typeValue = outBufferToJSON.readByte();
             const typeEnum = {
                 0: 'standard',
                 5: 'standard',
@@ -64,7 +59,7 @@ export class ImportsTranslator {
 
             const importedFile = {
                 type: typeEnum[typeValue], // 5 or 8= standard path, 10 or 13: custom path
-                path: this._outBufferToJSON.readString() // e.g. "war3mapImported\mysound.wav"
+                path: outBufferToJSON.readString() // e.g. "war3mapImported\mysound.wav"
             };
 
             result.push(importedFile);

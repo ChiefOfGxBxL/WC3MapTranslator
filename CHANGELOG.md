@@ -2,6 +2,9 @@
 ## SUMMARY
 **🔥 Breaking changes**
 ## FEATURES
+ * Improved usage contract: 
+   * Translators are now exported by this library (e.g. `import { ObjectTranslator } from 'wc3maptranslator'`)
+   * Translators no longer need to be instantiated to be used
 ## FIXES
  * Resolve `[DEP0005] DeprecationWarning: Buffer()` warning in `HexBuffer.ts`
  * Fix scoping issues on `*Translator.ts`, `HexBuffer.ts` and `W3Buffer.ts` where certain fields that should be `private` were marked as `public`

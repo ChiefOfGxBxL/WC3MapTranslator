@@ -37,112 +37,107 @@ interface Abilities {
     level: number;
 }
 
-export class UnitsTranslator {
+export abstract class UnitsTranslator {
 
-    private _outBufferToWar: HexBuffer;
-    private _outBufferToJSON: W3Buffer;
-
-    constructor() { }
-
-    public jsonToWar(unitsJson: Unit[]) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(unitsJson: Unit[]) {
+        const outBufferToWar = new HexBuffer();
 
         /*
          * Header
          */
-        this._outBufferToWar.addString('W3do');
-        this._outBufferToWar.addInt(8);
-        this._outBufferToWar.addInt(11);
-        this._outBufferToWar.addInt(unitsJson.length); // number of units
+        outBufferToWar.addString('W3do');
+        outBufferToWar.addInt(8);
+        outBufferToWar.addInt(11);
+        outBufferToWar.addInt(unitsJson.length); // number of units
 
         /*
          * Body
          */
         unitsJson.forEach((unit) => {
-            this._outBufferToWar.addString(unit.type); // type
-            this._outBufferToWar.addInt(unit.variation || 0); // variation
-            this._outBufferToWar.addFloat(unit.position[0]); // position x
-            this._outBufferToWar.addFloat(unit.position[1]); // position y
-            this._outBufferToWar.addFloat(unit.position[2]); // position z
-            this._outBufferToWar.addFloat(unit.rotation || 0); // rotation angle
+            outBufferToWar.addString(unit.type); // type
+            outBufferToWar.addInt(unit.variation || 0); // variation
+            outBufferToWar.addFloat(unit.position[0]); // position x
+            outBufferToWar.addFloat(unit.position[1]); // position y
+            outBufferToWar.addFloat(unit.position[2]); // position z
+            outBufferToWar.addFloat(unit.rotation || 0); // rotation angle
 
             if (!unit.scale) unit.scale = [1, 1, 1];
-            this._outBufferToWar.addFloat(unit.scale[0] || 1); // scale x
-            this._outBufferToWar.addFloat(unit.scale[1] || 1); // scale y
-            this._outBufferToWar.addFloat(unit.scale[2] || 1); // scale z
+            outBufferToWar.addFloat(unit.scale[0] || 1); // scale x
+            outBufferToWar.addFloat(unit.scale[1] || 1); // scale y
+            outBufferToWar.addFloat(unit.scale[2] || 1); // scale z
 
             // Unit flags
-            this._outBufferToWar.addByte(0); // UNSUPPORTED: flags
+            outBufferToWar.addByte(0); // UNSUPPORTED: flags
 
-            this._outBufferToWar.addInt(unit.player); // player #
-            this._outBufferToWar.addByte(0); // (byte unknown - 0)
-            this._outBufferToWar.addByte(0); // (byte unknown - 0)
-            this._outBufferToWar.addInt(unit.hitpoints); // hitpoints
-            this._outBufferToWar.addInt(unit.mana || 0); // mana
+            outBufferToWar.addInt(unit.player); // player #
+            outBufferToWar.addByte(0); // (byte unknown - 0)
+            outBufferToWar.addByte(0); // (byte unknown - 0)
+            outBufferToWar.addInt(unit.hitpoints); // hitpoints
+            outBufferToWar.addInt(unit.mana || 0); // mana
 
             // if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
-            this._outBufferToWar.addInt(-1);
+            outBufferToWar.addInt(-1);
             // }
             // else {
             //    outBuffer.addInt(unit.droppedItemSets.length); // # item sets
             // }
             // UNSUPPORTED: dropped items
-            this._outBufferToWar.addInt(0); // dropped item sets
+            outBufferToWar.addInt(0); // dropped item sets
 
             // Gold amount
             // Required if unit is a gold mine
             // Optional (set to zero) if unit is not a gold mine
-            this._outBufferToWar.addInt(unit.type === 'ngol' ? unit.gold : 0);
+            outBufferToWar.addInt(unit.type === 'ngol' ? unit.gold : 0);
 
-            this._outBufferToWar.addFloat(unit.targetAcquisition || 0); // target acquisition
+            outBufferToWar.addFloat(unit.targetAcquisition || 0); // target acquisition
 
             // Unit hero attributes
             // Can be left unspecified, but values can never be below 1
             if (!unit.hero) unit.hero = { level: 1, str: 1, agi: 1, int: 1 };
-            this._outBufferToWar.addInt(unit.hero.level || 1); // hero lvl
-            this._outBufferToWar.addInt(unit.hero.str || 1); // hero str
-            this._outBufferToWar.addInt(unit.hero.agi || 1); // hero agi
-            this._outBufferToWar.addInt(unit.hero.int || 1); // hero int
+            outBufferToWar.addInt(unit.hero.level || 1); // hero lvl
+            outBufferToWar.addInt(unit.hero.str || 1); // hero str
+            outBufferToWar.addInt(unit.hero.agi || 1); // hero agi
+            outBufferToWar.addInt(unit.hero.int || 1); // hero int
 
             // Inventory - - -
             if (!unit.inventory) unit.inventory = [];
-            this._outBufferToWar.addInt(unit.inventory.length); // # items in inventory
+            outBufferToWar.addInt(unit.inventory.length); // # items in inventory
             unit.inventory.forEach((item) => {
-                this._outBufferToWar.addInt(item.slot - 1); // zero-index item slot
-                this._outBufferToWar.addString(item.type);
+                outBufferToWar.addInt(item.slot - 1); // zero-index item slot
+                outBufferToWar.addString(item.type);
             });
 
             // Modified abilities - - -
             if (!unit.abilities) unit.abilities = [];
-            this._outBufferToWar.addInt(unit.abilities.length); // # modified abilities
+            outBufferToWar.addInt(unit.abilities.length); // # modified abilities
             unit.abilities.forEach((ability) => {
-                this._outBufferToWar.addString(ability.ability); // ability string
-                this._outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
-                this._outBufferToWar.addInt(ability.level);
+                outBufferToWar.addString(ability.ability); // ability string
+                outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
+                outBufferToWar.addInt(ability.level);
             });
 
-            this._outBufferToWar.addInt(0);
-            this._outBufferToWar.addInt(1);
+            outBufferToWar.addInt(0);
+            outBufferToWar.addInt(1);
 
-            this._outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
-            this._outBufferToWar.addInt(0); // outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
-            this._outBufferToWar.addInt(unit.id); // id
+            outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
+            outBufferToWar.addInt(0); // outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
+            outBufferToWar.addInt(unit.id); // id
         });
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
 
-    public warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer) {
         const result = [];
-        this._outBufferToJSON = new W3Buffer(buffer);
+        const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileId = this._outBufferToJSON.readChars(4), // W3do for doodad file
-            fileVersion = this._outBufferToJSON.readInt(), // File version = 7
-            subVersion = this._outBufferToJSON.readInt(), // 0B 00 00 00
-            numUnits = this._outBufferToJSON.readInt(); // # of units
+        const fileId = outBufferToJSON.readChars(4), // W3do for doodad file
+            fileVersion = outBufferToJSON.readInt(), // File version = 7
+            subVersion = outBufferToJSON.readInt(), // 0B 00 00 00
+            numUnits = outBufferToJSON.readInt(); // # of units
 
         for (let i = 0; i < numUnits; i++) {
             const unit: Unit = {
@@ -163,91 +158,91 @@ export class UnitsTranslator {
                 id: -1
             };
 
-            unit.type = this._outBufferToJSON.readChars(4); // (iDNR = random item, uDNR = random unit)
-            unit.variation = this._outBufferToJSON.readInt();
-            unit.position = [this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()]; // X Y Z coords
-            unit.rotation = this._outBufferToJSON.readFloat();
-            unit.scale = [this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()]; // X Y Z scaling
+            unit.type = outBufferToJSON.readChars(4); // (iDNR = random item, uDNR = random unit)
+            unit.variation = outBufferToJSON.readInt();
+            unit.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
+            unit.rotation = outBufferToJSON.readFloat();
+            unit.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
 
-            const flags = this._outBufferToJSON.readByte();
+            const flags = outBufferToJSON.readByte();
             // UNSUPPORTED: flags
 
-            unit.player = this._outBufferToJSON.readInt(); // (player1 = 0, 16=neutral passive); note: wc3 patch now has 24 max players
+            unit.player = outBufferToJSON.readInt(); // (player1 = 0, 16=neutral passive); note: wc3 patch now has 24 max players
 
-            this._outBufferToJSON.readByte(); // unknown
-            this._outBufferToJSON.readByte(); // unknown
+            outBufferToJSON.readByte(); // unknown
+            outBufferToJSON.readByte(); // unknown
 
-            unit.hitpoints = this._outBufferToJSON.readInt(); // -1 = use default
-            unit.mana = this._outBufferToJSON.readInt(); // -1 = use default, 0 = unit doesn't have mana
+            unit.hitpoints = outBufferToJSON.readInt(); // -1 = use default
+            unit.mana = outBufferToJSON.readInt(); // -1 = use default, 0 = unit doesn't have mana
 
-            const droppedItemSetPtr = this._outBufferToJSON.readInt(),
-                numDroppedItemSets = this._outBufferToJSON.readInt();
+            const droppedItemSetPtr = outBufferToJSON.readInt(),
+                numDroppedItemSets = outBufferToJSON.readInt();
             for (let j = 0; j < numDroppedItemSets; j++) {
-                const numDroppableItems = this._outBufferToJSON.readInt();
+                const numDroppableItems = outBufferToJSON.readInt();
                 for (let k = 0; k < numDroppableItems; k++) {
-                    this._outBufferToJSON.readChars(4); // Item ID
-                    this._outBufferToJSON.readInt(); // % chance to drop
+                    outBufferToJSON.readChars(4); // Item ID
+                    outBufferToJSON.readInt(); // % chance to drop
                 }
             }
 
-            unit.gold = this._outBufferToJSON.readInt();
-            unit.targetAcquisition = this._outBufferToJSON.readFloat(); // (-1 = normal, -2 = camp)
+            unit.gold = outBufferToJSON.readInt();
+            unit.targetAcquisition = outBufferToJSON.readFloat(); // (-1 = normal, -2 = camp)
 
             unit.hero = {
-                level: this._outBufferToJSON.readInt(), // non-hero units = 1
-                str: this._outBufferToJSON.readInt(),
-                agi: this._outBufferToJSON.readInt(),
-                int: this._outBufferToJSON.readInt()
+                level: outBufferToJSON.readInt(), // non-hero units = 1
+                str: outBufferToJSON.readInt(),
+                agi: outBufferToJSON.readInt(),
+                int: outBufferToJSON.readInt()
             };
 
-            const numItemsInventory = this._outBufferToJSON.readInt();
+            const numItemsInventory = outBufferToJSON.readInt();
             for (let j = 0; j < numItemsInventory; j++) {
                 unit.inventory.push({
-                    slot: this._outBufferToJSON.readInt() + 1, // the int is 0-based, but json format wants 1-6
-                    type: this._outBufferToJSON.readChars(4) // Item ID
+                    slot: outBufferToJSON.readInt() + 1, // the int is 0-based, but json format wants 1-6
+                    type: outBufferToJSON.readChars(4) // Item ID
                 });
             }
 
-            const numModifiedAbil = this._outBufferToJSON.readInt();
+            const numModifiedAbil = outBufferToJSON.readInt();
             for (let j = 0; j < numModifiedAbil; j++) {
                 unit.abilities.push({
-                    ability: this._outBufferToJSON.readChars(4), // Ability ID
-                    active: !!this._outBufferToJSON.readInt(), // autocast active? 0=no, 1=active
-                    level: this._outBufferToJSON.readInt()
+                    ability: outBufferToJSON.readChars(4), // Ability ID
+                    active: !!outBufferToJSON.readInt(), // autocast active? 0=no, 1=active
+                    level: outBufferToJSON.readInt()
                 });
             }
 
-            const randFlag = this._outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
+            const randFlag = outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
             if (randFlag === 0) {
                 // 0 = Any neutral passive building/item, in this case we have
                 //   byte[3]: level of the random unit/item,-1 = any (this is actually interpreted as a 24-bit number)
                 //   byte: item class of the random item, 0 = any, 1 = permanent ... (this is 0 for units)
                 //   r is also 0 for non random units/items so we have these 4 bytes anyway (even if the id wasnt uDNR or iDNR)
-                this._outBufferToJSON.readByte();
-                this._outBufferToJSON.readByte();
-                this._outBufferToJSON.readByte();
-                this._outBufferToJSON.readByte();
+                outBufferToJSON.readByte();
+                outBufferToJSON.readByte();
+                outBufferToJSON.readByte();
+                outBufferToJSON.readByte();
             } else if (randFlag === 1) {
                 // 1 = random unit from random group (defined in the w3i), in this case we have
                 //   int: unit group number (which group from the global table)
                 //   int: position number (which column of this group)
                 //   the column should of course have the item flag set (in the w3i) if this is a random item
-                this._outBufferToJSON.readInt();
-                this._outBufferToJSON.readInt();
+                outBufferToJSON.readInt();
+                outBufferToJSON.readInt();
             } else if (randFlag === 2) {
                 // 2 = random unit from custom table, in this case we have
                 //   int: number "n" of different available units
                 //   then we have n times a random unit structure
-                const numDiffAvailUnits = this._outBufferToJSON.readInt();
+                const numDiffAvailUnits = outBufferToJSON.readInt();
                 for (let k = 0; k < numDiffAvailUnits; k++) {
-                    this._outBufferToJSON.readChars(4); // Unit ID
-                    this._outBufferToJSON.readInt(); // % chance
+                    outBufferToJSON.readChars(4); // Unit ID
+                    outBufferToJSON.readInt(); // % chance
                 }
             }
 
-            unit.color = this._outBufferToJSON.readInt();
-            this._outBufferToJSON.readInt(); // UNSUPPORTED: waygate (-1 = deactivated, else its the creation number of the target rect as in war3map.w3r)
-            unit.id = this._outBufferToJSON.readInt();
+            unit.color = outBufferToJSON.readInt();
+            outBufferToJSON.readInt(); // UNSUPPORTED: waygate (-1 = deactivated, else its the creation number of the target rect as in war3map.w3r)
+            unit.id = outBufferToJSON.readInt();
 
             result.push(unit);
         }

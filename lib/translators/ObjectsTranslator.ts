@@ -13,6 +13,26 @@ enum ModificationType {
     string = 'string'
 }
 
+enum FileTypeExtension { // (*) - uses the two optional ints after variable type
+    units = 'w3u',
+    items = 'w3t',
+    destructables = 'w3b',
+    doodads = 'w3d', // (*)
+    abilities = 'w3a', // (*)
+    buffs = 'w3h',
+    upgrades = 'w3q' // (*)
+};
+
+enum ObjectType {
+    Units = 'units',
+    Items = 'items',
+    Destructables = 'destructables',
+    Doodads = 'doodads',
+    Abilities = 'abilities',
+    Buffs = 'buffs',
+    Upgrades = 'upgrades'
+};
+
 interface Modification {
     id: string;
     type: ModificationType; // 'int' | 'real' | 'unreal' | 'string',
@@ -26,54 +46,31 @@ interface Modification {
     variation?: number;
 }
 
-export class ObjectsTranslator {
+export abstract class ObjectsTranslator {
 
-    public ObjectType = {
-        Units: 'units',
-        Items: 'items',
-        Destructables: 'destructables',
-        Doodads: 'doodads',
-        Abilities: 'abilities',
-        Buffs: 'buffs',
-        Upgrades: 'upgrades'
+    // Expose the ObjectType enum as part of this abstract class
+    // The enum could be "export"ed , but it wouldn't be accessible
+    // via `ObjectsTranslator.ObjectType`, which is preferable.
+    public static readonly ObjectType = ObjectType;
+
+    private static varTypes = {
+        int: 0,
+        real: 1,
+        unreal: 2,
+        string: 3,
+        0: 'int',
+        1: 'real',
+        2: 'unreal',
+        3: 'string'
     };
 
-    private varTypes: any;
-    private fileTypeExt: any;
-
-    private _outBufferToWar: HexBuffer;
-    private _outBufferToJSON: W3Buffer;
-
-    constructor() {
-        this.varTypes = {
-            int: 0,
-            real: 1,
-            unreal: 2,
-            string: 3,
-            0: 'int',
-            1: 'real',
-            2: 'unreal',
-            3: 'string'
-        };
-
-        this.fileTypeExt = { // (*) - uses the two optional ints after variable type
-            units: 'w3u',
-            items: 'w3t',
-            destructables: 'w3b',
-            doodads: 'w3d', // (*)
-            abilities: 'w3a', // (*)
-            buffs: 'w3h',
-            upgrades: 'w3q' // (*)
-        };
-    }
-
-    public jsonToWar(type: string, json) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(type: string, json) {
+        const outBufferToWar = new HexBuffer();
 
         /*
          * Header
          */
-        this._outBufferToWar.addInt(2); // file version
+        outBufferToWar.addInt(2); // file version
 
         const generateTableFromJson = (tableType: TableType, tableData) => { // create "original" or "custom" table
             Object.keys(tableData).forEach((defKey) => {
@@ -81,22 +78,22 @@ export class ObjectsTranslator {
 
                 // Original and new object ids
                 if (tableType === TableType.original) {
-                    this._outBufferToWar.addString(defKey);
-                    this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); this._outBufferToWar.addByte(0); // no new Id is assigned
+                    outBufferToWar.addString(defKey);
+                    outBufferToWar.addByte(0); outBufferToWar.addByte(0); outBufferToWar.addByte(0); outBufferToWar.addByte(0); // no new Id is assigned
                 } else {
                     // e.g. "h000:hfoo"
-                    this._outBufferToWar.addString(defKey.substring(5, 9)); // original id
-                    this._outBufferToWar.addString(defKey.substring(0, 4)); // custom id
+                    outBufferToWar.addString(defKey.substring(5, 9)); // original id
+                    outBufferToWar.addString(defKey.substring(0, 4)); // custom id
                 }
 
                 // Number of modifications made to this object
-                this._outBufferToWar.addInt(obj.length);
+                outBufferToWar.addInt(obj.length);
 
                 obj.forEach((mod: Modification) => {
                     let modType;
 
                     // Modification id (e.g. unam = name; reference MetaData lookups)
-                    this._outBufferToWar.addString(mod.id);
+                    outBufferToWar.addString(mod.id);
 
                     // Determine what type of field the mod is (int, real, unreal, string)
                     if (mod.type) { // if a type is specified, use it
@@ -111,43 +108,43 @@ export class ObjectsTranslator {
                         }
                     }
 
-                    this._outBufferToWar.addInt(modType);
+                    outBufferToWar.addInt(modType);
 
                     // Addl integers
                     // Required for: doodads, abilities, upgrades
-                    if (type === this.ObjectType.Doodads || type === this.ObjectType.Abilities || type === this.ObjectType.Upgrades) {
+                    if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
 
                         // Level or variation
                         // We need to check if hasOwnProperty because these could be explititly
                         // set to 0, but JavaScript's truthiness evaluates to false to it was defaulting
-                        this._outBufferToWar.addInt(mod.level || mod.variation || 0); // defaults to 0
+                        outBufferToWar.addInt(mod.level || mod.variation || 0); // defaults to 0
 
-                        this._outBufferToWar.addInt(mod.column || 0); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
+                        outBufferToWar.addInt(mod.column || 0); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
                     }
 
                     // Write mod value
                     if (modType === this.varTypes.int) {
-                        this._outBufferToWar.addInt(mod.value);
+                        outBufferToWar.addInt(mod.value);
                     } else if (modType === this.varTypes.real || modType === this.varTypes.unreal) {
                         // Follow-up: check if unreal values are same hex format as real
-                        this._outBufferToWar.addFloat(mod.value);
+                        outBufferToWar.addFloat(mod.value);
                     } else if (modType === this.varTypes.string) {
                         // Note that World Editor normally creates a TRIGSTR_000 for these string
                         // values - WC3MapTranslator just writes the string directly to file
-                        this._outBufferToWar.addString(mod.value);
-                        this._outBufferToWar.addNullTerminator();
+                        outBufferToWar.addString(mod.value);
+                        outBufferToWar.addNullTerminator();
                     }
 
                     // End of struct
                     if (tableType === TableType.original) {
                         // Original objects are ended with their base id (e.g. hfoo)
-                        this._outBufferToWar.addString(defKey);
+                        outBufferToWar.addString(defKey);
                     } else {
                         // Custom objects are ended with 0000 bytes
-                        this._outBufferToWar.addByte(0);
-                        this._outBufferToWar.addByte(0);
-                        this._outBufferToWar.addByte(0);
-                        this._outBufferToWar.addByte(0);
+                        outBufferToWar.addByte(0);
+                        outBufferToWar.addByte(0);
+                        outBufferToWar.addByte(0);
+                        outBufferToWar.addByte(0);
                     }
                 });
             });
@@ -156,36 +153,36 @@ export class ObjectsTranslator {
         /*
          * Original table
          */
-        this._outBufferToWar.addInt(Object.keys(json.original).length);
+        outBufferToWar.addInt(Object.keys(json.original).length);
         generateTableFromJson(TableType.original, json.original);
 
         /*
          * Custom table
          */
-        this._outBufferToWar.addInt(Object.keys(json.custom).length); // # entry modifications
+        outBufferToWar.addInt(Object.keys(json.custom).length); // # entry modifications
         generateTableFromJson(TableType.custom, json.custom);
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
 
-    public warToJson(type: string, buffer: Buffer) {
+    public static warToJson(type: string, buffer: Buffer) {
         const result = { original: {}, custom: {} };
-        this._outBufferToJSON = new W3Buffer(buffer);
+        const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = this._outBufferToJSON.readInt();
+        const fileVersion = outBufferToJSON.readInt();
 
         const readModificationTable = (isOriginalTable: boolean) => {
-            const numTableModifications = this._outBufferToJSON.readInt();
+            const numTableModifications = outBufferToJSON.readInt();
 
             for (let i = 0; i < numTableModifications; i++) {
                 const objectDefinition = []; // object definition will store one or more modification objects
 
-                const originalId = this._outBufferToJSON.readChars(4),
-                    customId = this._outBufferToJSON.readChars(4),
-                    modificationCount = this._outBufferToJSON.readInt();
+                const originalId = outBufferToJSON.readChars(4),
+                    customId = outBufferToJSON.readChars(4),
+                    modificationCount = outBufferToJSON.readInt();
 
                 for (let j = 0; j < modificationCount; j++) {
                     const modification: Modification = {
@@ -196,26 +193,26 @@ export class ObjectsTranslator {
                         value: {}
                     };
 
-                    modification.id = this._outBufferToJSON.readChars(4);
-                    modification.type = this.varTypes[this._outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
+                    modification.id = outBufferToJSON.readChars(4);
+                    modification.type = this.varTypes[outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
 
-                    if (type === this.ObjectType.Doodads || type === this.ObjectType.Abilities || type === this.ObjectType.Upgrades) {
-                        modification.level = this._outBufferToJSON.readInt();
-                        modification.column = this._outBufferToJSON.readInt();
+                    if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
+                        modification.level = outBufferToJSON.readInt();
+                        modification.column = outBufferToJSON.readInt();
                     }
 
                     if (modification.type === 'int') {
-                        modification.value = this._outBufferToJSON.readInt();
+                        modification.value = outBufferToJSON.readInt();
                     } else if (modification.type === 'real' || modification.type === 'unreal') {
-                        modification.value = this._outBufferToJSON.readFloat();
+                        modification.value = outBufferToJSON.readFloat();
                     } else { // modification.type === 'string'
-                        modification.value = this._outBufferToJSON.readString();
+                        modification.value = outBufferToJSON.readString();
                     }
 
                     if (isOriginalTable) {
-                        this._outBufferToJSON.readInt(); // should be 0 for original objects
+                        outBufferToJSON.readInt(); // should be 0 for original objects
                     } else {
-                        this._outBufferToJSON.readChars(4); // should be object ID for custom objects
+                        outBufferToJSON.readChars(4); // should be object ID for custom objects
                     }
 
                     objectDefinition.push(modification);
