@@ -21,49 +21,44 @@ interface Offset {
     y: number;
 }
 
-export class TerrainTranslator {
+export abstract class TerrainTranslator {
 
-    private _outBufferToWar: HexBuffer;
-    private _outBufferToJSON: W3Buffer;
-
-    constructor() { }
-
-    public jsonToWar(terrainJson: Terrain) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(terrainJson: Terrain) {
+        const outBufferToWar = new HexBuffer();
 
         /*
          * Header
          */
-        this._outBufferToWar.addString('W3E!'); // file id
-        this._outBufferToWar.addInt(11); // file version
-        this._outBufferToWar.addChar(terrainJson.tileset); // base tileset
-        this._outBufferToWar.addInt(+terrainJson.customtileset); // 1 = using custom tileset, 0 = not
+        outBufferToWar.addString('W3E!'); // file id
+        outBufferToWar.addInt(11); // file version
+        outBufferToWar.addChar(terrainJson.tileset); // base tileset
+        outBufferToWar.addInt(+terrainJson.customtileset); // 1 = using custom tileset, 0 = not
 
         /*
          * Tiles
          */
-        this._outBufferToWar.addInt(terrainJson.tilepalette.length);
+        outBufferToWar.addInt(terrainJson.tilepalette.length);
         terrainJson.tilepalette.forEach((tile) => {
-            this._outBufferToWar.addString(tile);
+            outBufferToWar.addString(tile);
         });
 
         /*
          * Cliffs
          */
-        this._outBufferToWar.addInt(terrainJson.clifftilepalette.length);
+        outBufferToWar.addInt(terrainJson.clifftilepalette.length);
         terrainJson.clifftilepalette.forEach((clifftile) => {
-            this._outBufferToWar.addString(clifftile);
+            outBufferToWar.addString(clifftile);
         });
 
         /*
          * Map size data
          */
-        this._outBufferToWar.addInt(terrainJson.map.width + 1);
-        this._outBufferToWar.addInt(terrainJson.map.height + 1);
+        outBufferToWar.addInt(terrainJson.map.width + 1);
+        outBufferToWar.addInt(terrainJson.map.height + 1);
 
         // map offset
-        this._outBufferToWar.addFloat(terrainJson.map.offset.x);
-        this._outBufferToWar.addFloat(terrainJson.map.offset.y);
+        outBufferToWar.addFloat(terrainJson.map.offset.x);
+        outBufferToWar.addFloat(terrainJson.map.offset.y);
 
         /*
          * Tile points
@@ -77,21 +72,21 @@ export class TerrainTranslator {
                 const boundaryFlag = currTile.boundaryFlag ? 0x4000 : 0;
 
                 // these bit operations are based off documentation from https://github.com/stijnherfst/HiveWE/wiki/war3map.w3e-Terrain
-                this._outBufferToWar.addShort(currTile.groundHeight); // height
-                this._outBufferToWar.addShort(currTile.waterHeight | boundaryFlag); // water
-                this._outBufferToWar.addByte(currTile.flags | currTile.groundTexture);
-                this._outBufferToWar.addByte(currTile.groundVariation | currTile.cliffVariation);
-                this._outBufferToWar.addByte(currTile.cliffTexture | currTile.layerHeight);
+                outBufferToWar.addShort(currTile.groundHeight); // height
+                outBufferToWar.addShort(currTile.waterHeight | boundaryFlag); // water
+                outBufferToWar.addByte(currTile.flags | currTile.groundTexture);
+                outBufferToWar.addByte(currTile.groundVariation | currTile.cliffVariation);
+                outBufferToWar.addByte(currTile.cliffTexture | currTile.layerHeight);
             }
         }
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
 
-    public warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer) {
         // create buffer
         const result: Terrain = {
             tileset: '',
@@ -108,15 +103,15 @@ export class TerrainTranslator {
             },
             tiles: {}
         };
-        this._outBufferToJSON = new W3Buffer(buffer);
+        const outBufferToJSON = new W3Buffer(buffer);
 
         /**
          * Header
          */
-        const w3eHeader = this._outBufferToJSON.readChars(4); // W3E!
-        const version = this._outBufferToJSON.readInt(); // 0B 00 00 00
-        const tileset = this._outBufferToJSON.readChars(1); // tileset
-        const customtileset = (this._outBufferToJSON.readInt() === 1);
+        const w3eHeader = outBufferToJSON.readChars(4); // W3E!
+        const version = outBufferToJSON.readInt(); // 0B 00 00 00
+        const tileset = outBufferToJSON.readChars(1); // tileset
+        const customtileset = (outBufferToJSON.readInt() === 1);
 
         result.tileset = tileset;
         result.customtileset = customtileset;
@@ -124,10 +119,10 @@ export class TerrainTranslator {
         /**
          * Tiles
          */
-        const numTilePalettes = this._outBufferToJSON.readInt();
+        const numTilePalettes = outBufferToJSON.readInt();
         const tilePalettes = [];
         for (let i = 0; i < numTilePalettes; i++) {
-            tilePalettes.push(this._outBufferToJSON.readChars(4));
+            tilePalettes.push(outBufferToJSON.readChars(4));
         }
 
         result.tilepalette = tilePalettes;
@@ -135,10 +130,10 @@ export class TerrainTranslator {
         /**
          * Cliffs
          */
-        const numCliffTilePalettes = this._outBufferToJSON.readInt();
+        const numCliffTilePalettes = outBufferToJSON.readInt();
         const cliffPalettes = [];
         for (let i = 0; i < numCliffTilePalettes; i++) {
-            const cliffPalette = this._outBufferToJSON.readChars(4);
+            const cliffPalette = outBufferToJSON.readChars(4);
             cliffPalettes.push(cliffPalette);
         }
 
@@ -147,12 +142,12 @@ export class TerrainTranslator {
         /**
          * map dimensions
          */
-        const width = this._outBufferToJSON.readInt() - 1;
-        const height = this._outBufferToJSON.readInt() - 1;
+        const width = outBufferToJSON.readInt() - 1;
+        const height = outBufferToJSON.readInt() - 1;
         result.map = { width, height, offset: { x: 0, y: 0 } };
 
-        const offsetX = this._outBufferToJSON.readFloat();
-        const offsetY = this._outBufferToJSON.readFloat();
+        const offsetX = outBufferToJSON.readFloat();
+        const offsetY = outBufferToJSON.readFloat();
         result.map.offset = { x: offsetX, y: offsetY };
 
         /**
@@ -164,11 +159,11 @@ export class TerrainTranslator {
 
             for (let w = 0; w < width + 1; w++) {
                 // get the bytes from the buffer
-                const groundHeight = this._outBufferToJSON.readShort();
-                const waterHeightAndBoundary = this._outBufferToJSON.readShort();
-                const flagsAndGroundTexture = this._outBufferToJSON.readByte();
-                const groundAndCliffVariation = this._outBufferToJSON.readByte();
-                const cliffTextureAndLayerHeight = this._outBufferToJSON.readByte();
+                const groundHeight = outBufferToJSON.readShort();
+                const waterHeightAndBoundary = outBufferToJSON.readShort();
+                const flagsAndGroundTexture = outBufferToJSON.readByte();
+                const groundAndCliffVariation = outBufferToJSON.readByte();
+                const cliffTextureAndLayerHeight = outBufferToJSON.readByte();
 
                 // parse out different bits (based on documentation from https://github.com/stijnherfst/HiveWE/wiki/war3map.w3e-Terrain)
                 const waterHeight = waterHeightAndBoundary & 32767;

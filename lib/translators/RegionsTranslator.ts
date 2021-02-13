@@ -17,21 +17,16 @@ interface Rect {
     top: number;
 }
 
-export class RegionsTranslator {
+export abstract class RegionsTranslator {
 
-    private _outBufferToWar: HexBuffer;
-    private _outBufferToJSON: W3Buffer;
-
-    constructor() { }
-
-    public jsonToWar(regionsJson: Region[]) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(regionsJson: Region[]) {
+        const outBufferToWar = new HexBuffer();
 
         /*
          * Header
          */
-        this._outBufferToWar.addInt(5); // file version
-        this._outBufferToWar.addInt(regionsJson.length); // number of regions
+        outBufferToWar.addInt(5); // file version
+        outBufferToWar.addInt(regionsJson.length); // number of regions
 
         /*
          * Body
@@ -39,62 +34,62 @@ export class RegionsTranslator {
         regionsJson.forEach((region) => {
             // Position
             // Note that the .w3x guide has these coords wrong - the guide swaps bottom and right, but this is incorrect; bottom should be written before right
-            this._outBufferToWar.addFloat(region.position.left);
-            this._outBufferToWar.addFloat(region.position.bottom);
-            this._outBufferToWar.addFloat(region.position.right);
-            this._outBufferToWar.addFloat(region.position.top);
+            outBufferToWar.addFloat(region.position.left);
+            outBufferToWar.addFloat(region.position.bottom);
+            outBufferToWar.addFloat(region.position.right);
+            outBufferToWar.addFloat(region.position.top);
 
             // Region name - must be null terminated
-            this._outBufferToWar.addString(region.name);
-            this._outBufferToWar.addNullTerminator();
+            outBufferToWar.addString(region.name);
+            outBufferToWar.addNullTerminator();
 
             // Region id
-            this._outBufferToWar.addInt(region.id);
+            outBufferToWar.addInt(region.id);
 
             // Weather effect name - lookup necessary: char[4]
             if (region.weatherEffect) {
-                this._outBufferToWar.addString(region.weatherEffect); // Weather effect is optional - defaults to 0000 for "none"
+                outBufferToWar.addString(region.weatherEffect); // Weather effect is optional - defaults to 0000 for "none"
             } else {
                 // We can't put a string "0000", because ASCII 0's differ from 0x0 bytes
-                this._outBufferToWar.addByte(0);
-                this._outBufferToWar.addByte(0);
-                this._outBufferToWar.addByte(0);
-                this._outBufferToWar.addByte(0);
+                outBufferToWar.addByte(0);
+                outBufferToWar.addByte(0);
+                outBufferToWar.addByte(0);
+                outBufferToWar.addByte(0);
             }
 
             // Ambient sound - refer to names defined in .w3s file
-            this._outBufferToWar.addString(region.ambientSound || ''); // May be empty string
-            this._outBufferToWar.addNullTerminator();
+            outBufferToWar.addString(region.ambientSound || ''); // May be empty string
+            outBufferToWar.addNullTerminator();
 
             // Color of region used by editor
             // Careful! The order in .w3r is BB GG RR, whereas the JSON spec order is [RR, GG, BB]
             if (!region.color || region.color.length === 0) {
-                this._outBufferToWar.addByte(255); // blue
-                this._outBufferToWar.addByte(0);   // green
-                this._outBufferToWar.addByte(0);   // red
+                outBufferToWar.addByte(255); // blue
+                outBufferToWar.addByte(0);   // green
+                outBufferToWar.addByte(0);   // red
             } else {
-                this._outBufferToWar.addByte(region.color[2] || 0);   // blue
-                this._outBufferToWar.addByte(region.color[1] || 0);   // green
-                this._outBufferToWar.addByte(region.color[0] || 255); // red
+                outBufferToWar.addByte(region.color[2] || 0);   // blue
+                outBufferToWar.addByte(region.color[1] || 0);   // green
+                outBufferToWar.addByte(region.color[0] || 255); // red
             }
 
             // End of structure - for some reason the .w3r needs this here;
             // Value is set to 0xff based on observing the .w3r file, but not sure if it could be something else
-            this._outBufferToWar.addByte(0xff);
+            outBufferToWar.addByte(0xff);
         });
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
 
-    public warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer) {
         const result = [];
-        this._outBufferToJSON = new W3Buffer(buffer);
+        const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = this._outBufferToJSON.readInt(), // File version
-            numRegions = this._outBufferToJSON.readInt(); // # of regions
+        const fileVersion = outBufferToJSON.readInt(), // File version
+            numRegions = outBufferToJSON.readInt(); // # of regions
 
         for (let i = 0; i < numRegions; i++) {
             const region: Region = {
@@ -111,21 +106,21 @@ export class RegionsTranslator {
                 }
             };
 
-            region.position.left = this._outBufferToJSON.readFloat();
-            region.position.bottom = this._outBufferToJSON.readFloat();
-            region.position.right = this._outBufferToJSON.readFloat();
-            region.position.top = this._outBufferToJSON.readFloat();
-            region.name = this._outBufferToJSON.readString();
-            region.id = this._outBufferToJSON.readInt();
-            region.weatherEffect = this._outBufferToJSON.readChars(4);
-            region.ambientSound = this._outBufferToJSON.readString();
+            region.position.left = outBufferToJSON.readFloat();
+            region.position.bottom = outBufferToJSON.readFloat();
+            region.position.right = outBufferToJSON.readFloat();
+            region.position.top = outBufferToJSON.readFloat();
+            region.name = outBufferToJSON.readString();
+            region.id = outBufferToJSON.readInt();
+            region.weatherEffect = outBufferToJSON.readChars(4);
+            region.ambientSound = outBufferToJSON.readString();
             region.color = [
-                this._outBufferToJSON.readByte(), // red
-                this._outBufferToJSON.readByte(), // green
-                this._outBufferToJSON.readByte() // blue
+                outBufferToJSON.readByte(), // red
+                outBufferToJSON.readByte(), // green
+                outBufferToJSON.readByte() // blue
             ];
             region.color.reverse(); // json wants it in RGB, but .w3r file stores it as BB GG RR
-            this._outBufferToJSON.readByte(); // end of region structure
+            outBufferToJSON.readByte(); // end of region structure
 
             result.push(region);
         }
