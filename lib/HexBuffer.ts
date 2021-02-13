@@ -54,7 +54,7 @@ export class HexBuffer {
     }
 
     public addFloat(float: number) {
-        const buf = new Buffer(4);
+        const buf = Buffer.alloc(4);
 
         // ieee754.write(buffer, value, buffer offset, little-endian, mantissa length, bytes);
         ieee754.write(buf, float, 0, true, 23, 4);
