@@ -16,7 +16,8 @@
  * Upgrade `ts-node` 8.6.2 -> 9.1.1
  * Upgrade `tslint` 6.0.0 -> 6.1.3
  * Upgrade `typescript` 3.8.2 -> 4.1.5
-
+## TESTING
+ * Travis CI will now use Node 14 LTS to build the project
 <!--
 # x.y.z (YYYY-MM-DD)
 ## SUMMARY
