@@ -1,7 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
 
 export class StringsTranslator {
-    public _outBufferToWar: HexBuffer;
+    private _outBufferToWar: HexBuffer;
 
     constructor() { }
 

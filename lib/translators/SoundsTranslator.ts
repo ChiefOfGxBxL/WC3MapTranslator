@@ -33,8 +33,8 @@ interface Distance {
 
 export class SoundsTranslator {
 
-    public _outBufferToWar: HexBuffer;
-    public _outBufferToJSON: W3Buffer;
+    private _outBufferToWar: HexBuffer;
+    private _outBufferToJSON: W3Buffer;
 
     constructor() { }
 

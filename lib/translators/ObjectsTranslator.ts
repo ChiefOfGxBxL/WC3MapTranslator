@@ -38,8 +38,8 @@ export class ObjectsTranslator {
         Upgrades: 'upgrades'
     };
 
-    public varTypes: any;
-    public fileTypeExt: any;
+    private varTypes: any;
+    private fileTypeExt: any;
 
     private _outBufferToWar: HexBuffer;
     private _outBufferToJSON: W3Buffer;

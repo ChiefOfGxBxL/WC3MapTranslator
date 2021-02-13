@@ -17,7 +17,7 @@ const ieee754 = require('ieee754'),
     };
 
 export class HexBuffer {
-    public _buffer = [];
+    private _buffer = [];
 
     public addString(str: string, isNullTerminated = false) {
         // Write each char to the buffer

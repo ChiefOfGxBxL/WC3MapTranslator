@@ -2,8 +2,8 @@ import roundTo from 'round-to';
 
 export class W3Buffer {
 
-    public _offset = 0;
-    public _buffer: Buffer;
+    private _offset = 0;
+    private _buffer: Buffer;
 
     constructor(buffer: Buffer) {
         this._buffer = buffer;
