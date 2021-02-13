@@ -42,7 +42,6 @@
   <a href="#overview"><strong>Overview</strong></a> &middot;
   <a href="#install"><strong>Install</strong></a> &middot;
   <a href="#usage"><strong>Usage</strong></a> &middot;
-  <a href="#examples"><strong>Examples</strong></a> &middot;
   <a href="#file-support"><strong>File Support</strong></a> &middot;
   <a href="#specification"><strong>Specification</strong></a> &middot;
   <a href="#contributing"><strong>Contributing</strong></a> &middot;
@@ -106,11 +105,6 @@ const unitResult = new Translator.Units.jsonToWar(mapJson.units);
 * Info
 ```
 We can now write the `unitResult.buffer` content to a file named "war3mapUnits.doo" and put it in a .w3x archive! Using individual translators, we may convert JSON representation to generate a WC3 .w3x map file. See the Wiki for more information.
-
-## Examples
-There is an `examples` directory that demonstrates how to use *each* translator, both for converting from war3map to JSON, and JSON to war3map formats. This is a great starting point to learn how to use any translator.
-
-To get started with either example, `cd` into `/examples/` and run `npm install` to install all the dependencies. Then run `npm start` which kicks off the TypeScript build and then executes the resulting JavaScript. A few output files will be written under the `/examples/` directory, but the output is purposely not comprehensive to avoid spamming the directory and because the translation process is sufficiently demonstrated using just one example of translating in each direction.
 
 ## File Support
 

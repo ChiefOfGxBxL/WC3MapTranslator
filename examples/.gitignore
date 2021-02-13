@@ -1,7 +1,0 @@
-# Inherits from root project .gitignore
-
-#
-# Output files from examples `index.ts`
-#
-objectEditorItems.json
-war3mapUnits.doo

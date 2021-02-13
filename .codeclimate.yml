@@ -9,5 +9,4 @@ ratings:
   - "**.ts"
   - "**.tsx"
 exclude_paths:
-  - examples/
   - test/
