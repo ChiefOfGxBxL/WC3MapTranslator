@@ -21,6 +21,7 @@
  * The project structure has changed:
     * `examples` sub-project directory is removed
     * Refer to `USAGE.md` for how to use the code
+ * Add all contributors to `package.json`
 ## TESTING
  * Travis CI will now use Node 14 LTS to build the project
  * `test` directory now contains the WC3 and JSON data files the tests require
