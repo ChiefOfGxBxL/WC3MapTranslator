@@ -2,7 +2,8 @@
 ## SUMMARY
 **🔥 Breaking changes**
 ## FEATURES
-## BUG FIXES
+## FIXES
+ * Resolve `[DEP0005] DeprecationWarning: Buffer()` warning in `HexBuffer.ts`
 ## MAINTENANCE
  * Upgrade to Node 14.x LTS
  * Upgrade to npm 7.x
@@ -27,7 +28,7 @@
 ## SUMMARY
 **🔥 Breaking changes**
 ## FEATURES
-## BUG FIXES
+## FIXES
 ## MAINTENANCE
 ## TESTING
 -->
