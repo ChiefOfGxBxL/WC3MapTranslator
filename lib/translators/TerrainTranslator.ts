@@ -1,5 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult } from '../CommonInterfaces'
 
 interface Terrain {
     tileset: string;
@@ -23,7 +24,7 @@ interface Offset {
 
 export abstract class TerrainTranslator {
 
-    public static jsonToWar(terrainJson: Terrain) {
+    public static jsonToWar(terrainJson: Terrain): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -86,7 +87,7 @@ export abstract class TerrainTranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Terrain> {
         // create buffer
         const result: Terrain = {
             tileset: '',

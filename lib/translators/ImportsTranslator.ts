@@ -1,5 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult } from '../CommonInterfaces'
 
 interface Import {
     path: string;
@@ -8,7 +9,7 @@ interface Import {
 
 export class ImportsTranslator {
 
-    public static jsonToWar(imports: Import[]) {
+    public static jsonToWar(imports: Import[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -40,7 +41,7 @@ export class ImportsTranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Import[]> {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 

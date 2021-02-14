@@ -1,5 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult } from '../CommonInterfaces'
 
 interface Map {
     name: string;
@@ -111,7 +112,7 @@ interface Force {
 
 export abstract class InfoTranslator {
 
-    public static jsonToWar(infoJson: Info) {
+    public static jsonToWar(infoJson: Info): WarResult {
         const outBufferToWar = new HexBuffer();
 
         outBufferToWar.addInt(25); // file version, 0x19
@@ -261,7 +262,7 @@ export abstract class InfoTranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Info> {
         const result: Info = {
             map: {
                 name: '',

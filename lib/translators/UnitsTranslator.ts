@@ -1,11 +1,12 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult, angle } from '../CommonInterfaces'
 
 interface Unit {
     type: string;
     variation: number;
     position: number[];
-    rotation: number;
+    rotation: angle;
     scale: number[];
     hero: Hero;
     inventory: Inventory[];
@@ -39,7 +40,7 @@ interface Abilities {
 
 export abstract class UnitsTranslator {
 
-    public static jsonToWar(unitsJson: Unit[]) {
+    public static jsonToWar(unitsJson: Unit[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -130,7 +131,7 @@ export abstract class UnitsTranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Unit[]> {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 

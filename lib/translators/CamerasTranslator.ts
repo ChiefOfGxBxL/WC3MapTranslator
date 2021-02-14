@@ -1,14 +1,15 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult, angle } from '../CommonInterfaces'
 
 interface Camera {
     target: CameraTarget;
     offsetZ: number;
-    rotation: number; // in degrees
-    aoa: number; // angle of attack, in degrees
+    rotation: angle;
+    aoa: angle; // angle of attack
     distance: number;
     roll: number;
-    fov: number; // field of view, in degrees
+    fov: angle; // field of view
     farClipping: number;
     name: string;
 }
@@ -20,7 +21,7 @@ interface CameraTarget {
 
 export abstract class CamerasTranslator {
 
-    public static jsonToWar(cameras: Camera[]) {
+    public static jsonToWar(cameras: Camera[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -40,7 +41,7 @@ export abstract class CamerasTranslator {
             outBufferToWar.addFloat(camera.aoa);
             outBufferToWar.addFloat(camera.distance);
             outBufferToWar.addFloat(camera.roll || 0);
-            outBufferToWar.addFloat(camera.fov); // in degrees
+            outBufferToWar.addFloat(camera.fov);
             outBufferToWar.addFloat(camera.farClipping);
             outBufferToWar.addFloat(100); // (?) unknown - usually set to 100
 
@@ -55,7 +56,7 @@ export abstract class CamerasTranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Camera[]> {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
@@ -81,11 +82,11 @@ export abstract class CamerasTranslator {
             camera.target.x = outBufferToJSON.readFloat();
             camera.target.y = outBufferToJSON.readFloat();
             camera.offsetZ = outBufferToJSON.readFloat();
-            camera.rotation = outBufferToJSON.readFloat(); // in degrees
-            camera.aoa = outBufferToJSON.readFloat(); // angle of attack, in degrees
+            camera.rotation = outBufferToJSON.readFloat();
+            camera.aoa = outBufferToJSON.readFloat(); // angle of attack
             camera.distance = outBufferToJSON.readFloat();
             camera.roll = outBufferToJSON.readFloat();
-            camera.fov = outBufferToJSON.readFloat(); // field of view, in degrees
+            camera.fov = outBufferToJSON.readFloat(); // field of view
             camera.farClipping = outBufferToJSON.readFloat();
             outBufferToJSON.readFloat(); // consume this unknown float field
             camera.name = outBufferToJSON.readString();

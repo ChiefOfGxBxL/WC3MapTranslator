@@ -5,6 +5,10 @@
  * Improved usage contract: 
    * Translators are now exported by this library (e.g. `import { ObjectTranslator } from 'wc3maptranslator'`)
    * Translators no longer need to be instantiated to be used
+ * Added more type safety:
+   * Translator results from `jsonToWar()` and `warToJson()` are now typed by `WarResult` and `JsonResult`, respectively
+   * `JsonResult` is generically typed to describe what it contains (e.g. `Sound[]`)
+   * Introduced new `angle` type, which is an alias for `number`; `angle`'s should always be specified in degrees, not radians
 ## FIXES
  * Resolve `[DEP0005] DeprecationWarning: Buffer()` warning in `HexBuffer.ts`
  * Fix scoping issues on `*Translator.ts`, `HexBuffer.ts` and `W3Buffer.ts` where certain fields that should be `private` were marked as `public`
