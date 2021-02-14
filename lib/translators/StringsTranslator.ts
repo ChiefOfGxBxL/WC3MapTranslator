@@ -1,8 +1,9 @@
 import { HexBuffer } from '../HexBuffer';
+import { WarResult, JsonResult } from '../CommonInterfaces'
 
 export abstract class StringsTranslator {
 
-    public static jsonToWar(stringsJson: object) {
+    public static jsonToWar(stringsJson: object): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -26,7 +27,7 @@ export abstract class StringsTranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<object> {
         const wts = buffer.toString().replace(/\r\n/g, '\n'), // may contain Windows linebreaks (\r\n), but below regex just assumes \n
             matchStringDefinitionBlock = new RegExp('STRING ([0-9]+)\n?(?:.*\n)?\{\n((?:.|\n)*?)\n}', 'g'); // see: https://regexr.com/3r572
 

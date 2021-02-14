@@ -1,12 +1,13 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { rad2Deg, deg2Rad } from '../AngleConverter';
+import { WarResult, JsonResult, angle } from '../CommonInterfaces'
 
 interface Doodad {
     type: string;
     variation: number;
     position: number[];
-    angle: number; // degrees
+    angle: angle;
     scale: number[];
     flags: DoodadFlag;
     life: number;
@@ -29,7 +30,7 @@ enum flag {
 
 export abstract class DoodadsTranslator {
 
-    public static jsonToWar(doodadsJson: Doodad[]) {
+    public static jsonToWar(doodadsJson: Doodad[]): WarResult {
         const outBufferToWar = new HexBuffer();
         /*
          * Header
@@ -93,7 +94,7 @@ export abstract class DoodadsTranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Doodad[]> {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 

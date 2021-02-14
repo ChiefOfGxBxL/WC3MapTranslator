@@ -1,5 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult } from '../CommonInterfaces'
 
 interface Sound {
     name: string;
@@ -33,7 +34,7 @@ interface Distance {
 
 export abstract class SoundsTranslator {
 
-    public static jsonToWar(soundsJson: Sound[]) {
+    public static jsonToWar(soundsJson: Sound[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -131,7 +132,7 @@ export abstract class SoundsTranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Sound[]> {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 

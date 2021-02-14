@@ -1,5 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult } from '../CommonInterfaces'
 
 enum TableType {
     original = 'original',
@@ -46,6 +47,11 @@ interface Modification {
     variation?: number;
 }
 
+interface ObjectModificationTable {
+    original: object,
+    custom: object
+}
+
 export abstract class ObjectsTranslator {
 
     // Expose the ObjectType enum as part of this abstract class
@@ -64,7 +70,7 @@ export abstract class ObjectsTranslator {
         3: 'string'
     };
 
-    public static jsonToWar(type: string, json) {
+    public static jsonToWar(type: string, json): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -168,7 +174,7 @@ export abstract class ObjectsTranslator {
         };
     }
 
-    public static warToJson(type: string, buffer: Buffer) {
+    public static warToJson(type: string, buffer: Buffer): JsonResult<ObjectModificationTable> {
         const result = { original: {}, custom: {} };
         const outBufferToJSON = new W3Buffer(buffer);
 
