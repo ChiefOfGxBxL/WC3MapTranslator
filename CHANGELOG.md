@@ -29,6 +29,7 @@
     * `examples` sub-project directory is removed
     * Refer to `USAGE.md` for how to use the code
  * Add all contributors to `package.json`
+ * Resolved all security issues via `npm audit fix` (5 low, 1 high, 1 critical)
 ## TESTING
  * Travis CI will now use Node 14 LTS to build the project
  * `test` directory now contains the WC3 and JSON data files the tests require
