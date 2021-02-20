@@ -12,6 +12,7 @@
 ## FIXES
  * Resolve `[DEP0005] DeprecationWarning: Buffer()` warning in `HexBuffer.ts`
  * Fix scoping issues on `*Translator.ts`, `HexBuffer.ts` and `W3Buffer.ts` where certain fields that should be `private` were marked as `public`
+ * Fix InfoTranslator reading random item table ID length as 1 instead of 4
 ## MAINTENANCE
  * Upgrade to Node 14.x LTS
  * Upgrade to npm 7.x

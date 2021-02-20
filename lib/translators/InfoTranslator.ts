@@ -478,7 +478,7 @@ export abstract class InfoTranslator {
                 const numLinesInTable = outBufferToJSON.readInt();
                 for (let k = 0; k < numLinesInTable; k++) {
                     outBufferToJSON.readInt(); // Chance of the unit/item (percentage)
-                    outBufferToJSON.readChars(); // unit/item id's for this line specified
+                    outBufferToJSON.readChars(4); // unit/item id's for this line specified
                 }
             }
         }
