@@ -149,10 +149,10 @@ export abstract class InfoTranslator {
         outBufferToWar.addInt(infoJson.gameVersion.build);
 
         // Map information
-        outBufferToWar.addString(infoJson.map.name, true);
-        outBufferToWar.addString(infoJson.map.author, true);
-        outBufferToWar.addString(infoJson.map.description, true);
-        outBufferToWar.addString(infoJson.map.recommendedPlayers, true);
+        outBufferToWar.addString(infoJson.map.name);
+        outBufferToWar.addString(infoJson.map.author);
+        outBufferToWar.addString(infoJson.map.description);
+        outBufferToWar.addString(infoJson.map.recommendedPlayers);
 
         // Camera bounds (8 floats total)
         for (let cbIndex = 0; cbIndex < 8; cbIndex++) {
@@ -206,19 +206,19 @@ export abstract class InfoTranslator {
 
         // Loading screen
         outBufferToWar.addInt(infoJson.loadingScreen.background);
-        outBufferToWar.addString(infoJson.loadingScreen.path, true);
-        outBufferToWar.addString(infoJson.loadingScreen.text, true);
-        outBufferToWar.addString(infoJson.loadingScreen.title, true);
-        outBufferToWar.addString(infoJson.loadingScreen.subtitle, true);
+        outBufferToWar.addString(infoJson.loadingScreen.path);
+        outBufferToWar.addString(infoJson.loadingScreen.text);
+        outBufferToWar.addString(infoJson.loadingScreen.title);
+        outBufferToWar.addString(infoJson.loadingScreen.subtitle);
 
         // Use game data set (Unsupported)
         outBufferToWar.addInt(0);
 
         // Prologue
-        outBufferToWar.addString(infoJson.prologue.path, true);
-        outBufferToWar.addString(infoJson.prologue.text, true);
-        outBufferToWar.addString(infoJson.prologue.title, true);
-        outBufferToWar.addString(infoJson.prologue.subtitle, true);
+        outBufferToWar.addString(infoJson.prologue.path);
+        outBufferToWar.addString(infoJson.prologue.text);
+        outBufferToWar.addString(infoJson.prologue.title);
+        outBufferToWar.addString(infoJson.prologue.subtitle);
 
         // Fog
         outBufferToWar.addInt(infoJson.fog.type);
@@ -235,9 +235,9 @@ export abstract class InfoTranslator {
         if (!infoJson.globalWeather || infoJson.globalWeather.toLowerCase() === 'none') {
             outBufferToWar.addInt(0);
         } else {
-            outBufferToWar.addString(infoJson.globalWeather, false); // char[4] - lookup table
+            outBufferToWar.addChars(infoJson.globalWeather); // char[4] - lookup table
         }
-        outBufferToWar.addString(infoJson.customSoundEnvironment || '', true);
+        outBufferToWar.addString(infoJson.customSoundEnvironment || '');
         outBufferToWar.addChar(infoJson.customLightEnv || 'L');
 
         // Custom water tinting
@@ -257,7 +257,7 @@ export abstract class InfoTranslator {
             outBufferToWar.addInt(player.type);
             outBufferToWar.addInt(player.race);
             outBufferToWar.addInt(player.startingPos.fixed ? 1 : 0);
-            outBufferToWar.addString(player.name, true);
+            outBufferToWar.addString(player.name);
             outBufferToWar.addFloat(player.startingPos.x);
             outBufferToWar.addFloat(player.startingPos.y);
             outBufferToWar.addInt(0); // ally low prio flags - unsupported
@@ -282,7 +282,7 @@ export abstract class InfoTranslator {
             outBufferToWar.addByte(255); // force players - unsupported
             outBufferToWar.addByte(255); // force players - unsupported
             outBufferToWar.addByte(255); // force players - unsupported
-            outBufferToWar.addString(force.name, true);
+            outBufferToWar.addString(force.name);
         });
 
         // Upgrades - unsupported

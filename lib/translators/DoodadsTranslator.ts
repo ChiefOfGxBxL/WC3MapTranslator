@@ -35,7 +35,7 @@ export abstract class DoodadsTranslator {
         /*
          * Header
          */
-        outBufferToWar.addString('W3do'); // file id
+        outBufferToWar.addChars('W3do'); // file id
         outBufferToWar.addInt(8); // file version
         outBufferToWar.addInt(11); // subversion 0x0B
         outBufferToWar.addInt(doodadsJson.length); // num of trees
@@ -44,7 +44,7 @@ export abstract class DoodadsTranslator {
          * Body
          */
         doodadsJson.forEach((tree) => {
-            outBufferToWar.addString(tree.type);
+            outBufferToWar.addChars(tree.type);
             outBufferToWar.addInt(tree.variation || 0); // optional - default value 0
             outBufferToWar.addFloat(tree.position[0]);
             outBufferToWar.addFloat(tree.position[1]);

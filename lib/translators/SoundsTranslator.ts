@@ -48,13 +48,8 @@ export abstract class SoundsTranslator {
          * Body
          */
         soundsJson.forEach((sound) => {
-            // Name with null terminator (e.g. gg_snd_HumanGlueScreenLoop1)
-            outBufferToWar.addString(sound.name);
-            outBufferToWar.addNullTerminator();
-
-            // Path with null terminator (e.g. Sound\Ambient\HumanGlueScreenLoop1.wav)
-            outBufferToWar.addString(sound.path);
-            outBufferToWar.addNullTerminator();
+            outBufferToWar.addString(sound.name); // e.g. gg_snd_HumanGlueScreenLoop1
+            outBufferToWar.addString(sound.path); // e.g. Sound\Ambient\HumanGlueScreenLoop1.wav
 
             // EAX effects enum (e.g. missiles, speech, etc)
             /*
@@ -67,7 +62,6 @@ export abstract class SoundsTranslator {
                 doodads = DoodadsEAX
             */
             outBufferToWar.addString(sound.eax || 'DefaultEAXON'); // defaults to "DefaultEAXON"
-            outBufferToWar.addNullTerminator();
 
             // Flags, if present (optional)
             let flags = 0;

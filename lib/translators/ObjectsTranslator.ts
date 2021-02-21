@@ -84,12 +84,12 @@ export abstract class ObjectsTranslator {
 
                 // Original and new object ids
                 if (tableType === TableType.original) {
-                    outBufferToWar.addString(defKey);
+                    outBufferToWar.addChars(defKey);
                     outBufferToWar.addByte(0); outBufferToWar.addByte(0); outBufferToWar.addByte(0); outBufferToWar.addByte(0); // no new Id is assigned
                 } else {
                     // e.g. "h000:hfoo"
-                    outBufferToWar.addString(defKey.substring(5, 9)); // original id
-                    outBufferToWar.addString(defKey.substring(0, 4)); // custom id
+                    outBufferToWar.addChars(defKey.substring(5, 9)); // original id
+                    outBufferToWar.addChars(defKey.substring(0, 4)); // custom id
                 }
 
                 // Number of modifications made to this object
@@ -99,7 +99,7 @@ export abstract class ObjectsTranslator {
                     let modType;
 
                     // Modification id (e.g. unam = name; reference MetaData lookups)
-                    outBufferToWar.addString(mod.id);
+                    outBufferToWar.addChars(mod.id);
 
                     // Determine what type of field the mod is (int, real, unreal, string)
                     if (mod.type) { // if a type is specified, use it
@@ -138,13 +138,12 @@ export abstract class ObjectsTranslator {
                         // Note that World Editor normally creates a TRIGSTR_000 for these string
                         // values - WC3MapTranslator just writes the string directly to file
                         outBufferToWar.addString(mod.value);
-                        outBufferToWar.addNullTerminator();
                     }
 
                     // End of struct
                     if (tableType === TableType.original) {
                         // Original objects are ended with their base id (e.g. hfoo)
-                        outBufferToWar.addString(defKey);
+                        outBufferToWar.addChars(defKey);
                     } else {
                         // Custom objects are ended with 0000 bytes
                         outBufferToWar.addByte(0);

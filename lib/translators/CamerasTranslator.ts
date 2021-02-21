@@ -47,7 +47,6 @@ export abstract class CamerasTranslator {
 
             // Camera name - must be null-terminated
             outBufferToWar.addString(camera.name);
-            outBufferToWar.addNullTerminator();
         });
 
         return {

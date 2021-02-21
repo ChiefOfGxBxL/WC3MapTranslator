@@ -46,7 +46,7 @@ export abstract class UnitsTranslator {
         /*
          * Header
          */
-        outBufferToWar.addString('W3do');
+        outBufferToWar.addChars('W3do');
         outBufferToWar.addInt(8);
         outBufferToWar.addInt(11);
         outBufferToWar.addInt(unitsJson.length); // number of units
@@ -55,7 +55,7 @@ export abstract class UnitsTranslator {
          * Body
          */
         unitsJson.forEach((unit) => {
-            outBufferToWar.addString(unit.type); // type
+            outBufferToWar.addChars(unit.type); // type
             outBufferToWar.addInt(unit.variation || 0); // variation
             outBufferToWar.addFloat(unit.position[0]); // position x
             outBufferToWar.addFloat(unit.position[1]); // position y
@@ -105,14 +105,14 @@ export abstract class UnitsTranslator {
             outBufferToWar.addInt(unit.inventory.length); // # items in inventory
             unit.inventory.forEach((item) => {
                 outBufferToWar.addInt(item.slot - 1); // zero-index item slot
-                outBufferToWar.addString(item.type);
+                outBufferToWar.addChars(item.type);
             });
 
             // Modified abilities - - -
             if (!unit.abilities) unit.abilities = [];
             outBufferToWar.addInt(unit.abilities.length); // # modified abilities
             unit.abilities.forEach((ability) => {
-                outBufferToWar.addString(ability.ability); // ability string
+                outBufferToWar.addChars(ability.ability); // ability string
                 outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
                 outBufferToWar.addInt(ability.level);
             });
