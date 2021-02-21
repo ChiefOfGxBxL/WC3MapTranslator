@@ -1,0 +1,31 @@
+{
+    "original": {
+      "LTrc": [
+        {
+          "id": "bsmm",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 0
+        }
+      ]
+    },
+    "custom": {
+      "B000:LTrc": [
+        {
+          "id": "bnam",
+          "type": "string",
+          "level": 0,
+          "column": 0,
+          "value": "TRIGSTR_1679"
+        },
+        {
+          "id": "bgsc",
+          "type": "real",
+          "level": 0,
+          "column": 0,
+          "value": 133
+        }
+      ]
+    }
+  }

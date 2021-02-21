@@ -59,15 +59,9 @@ export abstract class RegionsTranslator {
 
             // Color of region used by editor
             // Careful! The order in .w3r is BB GG RR, whereas the JSON spec order is [RR, GG, BB]
-            if (!region.color || region.color.length === 0) {
-                outBufferToWar.addByte(255); // blue
-                outBufferToWar.addByte(0);   // green
-                outBufferToWar.addByte(0);   // red
-            } else {
-                outBufferToWar.addByte(region.color[2] || 0);   // blue
-                outBufferToWar.addByte(region.color[1] || 0);   // green
-                outBufferToWar.addByte(region.color[0] || 255); // red
-            }
+            outBufferToWar.addByte(region.color[2]); // blue
+            outBufferToWar.addByte(region.color[1]); // green
+            outBufferToWar.addByte(region.color[0]); // red
 
             // End of structure - for some reason the .w3r needs this here;
             // Value is set to 0xff based on observing the .w3r file, but not sure if it could be something else

@@ -273,15 +273,13 @@ export abstract class InfoTranslator {
             let forceFlags = 0;
             if (force.flags.allied) forceFlags |= 0x0001;
             if (force.flags.alliedVictory) forceFlags |= 0x0002;
-            if (force.flags.shareVision) forceFlags |= 0x0004;
+            // Skip 0x0004
+            if (force.flags.shareVision) forceFlags |= 0x0008;
             if (force.flags.shareUnitControl) forceFlags |= 0x0010;
             if (force.flags.shareAdvUnitControl) forceFlags |= 0x0020;
 
             outBufferToWar.addInt(forceFlags);
-            outBufferToWar.addByte(255); // force players - unsupported
-            outBufferToWar.addByte(255); // force players - unsupported
-            outBufferToWar.addByte(255); // force players - unsupported
-            outBufferToWar.addByte(255); // force players - unsupported
+            outBufferToWar.addInt(force.players);
             outBufferToWar.addString(force.name);
         });
 
@@ -514,7 +512,7 @@ export abstract class InfoTranslator {
                 shareUnitControl: !!(forceFlag & 0b10000), // 0x00000010: share unit control
                 shareAdvUnitControl: !!(forceFlag & 0b100000) // 0x00000020: share advanced unit control
             };
-            force.players = outBufferToJSON.readInt(); // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force)
+            force.players = outBufferToJSON.readInt(); // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force; but carried over for accurate translation
             force.name = outBufferToJSON.readString();
 
             result.forces.push(force);
