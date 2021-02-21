@@ -16,7 +16,7 @@
  * Resolve `[DEP0005] DeprecationWarning: Buffer()` warning in `HexBuffer.ts`
  * Fix scoping issues on `*Translator.ts`, `HexBuffer.ts` and `W3Buffer.ts` where certain fields that should be `private` were marked as `public`
  * Fix InfoTranslator reading random item table ID length as 1 instead of 4
- * Fixes potential null-terminator errors related to string or character-array fields
+ * Fix potential null-terminator errors related to string or character-array fields
 ## MAINTENANCE
  * Upgrade to Node 14.x LTS
  * Upgrade to npm 7.x
@@ -38,6 +38,7 @@
 ## TESTING
  * Travis CI will now use Node 14 LTS to build the project
  * `test` directory now contains the WC3 and JSON data files the tests require
+ * Implement the StringsTranslator test
 <!--
 # x.y.z (YYYY-MM-DD)
 ## SUMMARY

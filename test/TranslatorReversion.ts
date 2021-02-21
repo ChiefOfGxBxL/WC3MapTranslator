@@ -52,8 +52,13 @@ describe('Reversion: war -> json -> war', () => {
     });
 
     it('Strings reversion', () => {
-        // this one is pending the strings translator support for war3map -> json
-        assert(false, 'Not implemented');
+        const originalBuffer = readWar3MapBuffer('war3map.wts');
+        const result = Translator.StringsTranslator.warToJson(originalBuffer);
+        const translatedBuffer = Translator.StringsTranslator.jsonToWar(result.json).buffer;
+
+        fs.writeFileSync(Path.join(outputDir, 'war3map.wts'), translatedBuffer);
+
+        assert(buffersAreEqual(originalBuffer, translatedBuffer));
     });
 
     it('Terrain reversion', () => {
