@@ -40,16 +40,12 @@ export abstract class RegionsTranslator {
             outBufferToWar.addFloat(region.position.right);
             outBufferToWar.addFloat(region.position.top);
 
-            // Region name - must be null terminated
             outBufferToWar.addString(region.name);
-            outBufferToWar.addNullTerminator();
-
-            // Region id
             outBufferToWar.addInt(region.id);
 
             // Weather effect name - lookup necessary: char[4]
             if (region.weatherEffect) {
-                outBufferToWar.addString(region.weatherEffect); // Weather effect is optional - defaults to 0000 for "none"
+                outBufferToWar.addChars(region.weatherEffect); // Weather effect is optional - defaults to 0000 for "none"
             } else {
                 // We can't put a string "0000", because ASCII 0's differ from 0x0 bytes
                 outBufferToWar.addByte(0);
@@ -60,7 +56,6 @@ export abstract class RegionsTranslator {
 
             // Ambient sound - refer to names defined in .w3s file
             outBufferToWar.addString(region.ambientSound || ''); // May be empty string
-            outBufferToWar.addNullTerminator();
 
             // Color of region used by editor
             // Careful! The order in .w3r is BB GG RR, whereas the JSON spec order is [RR, GG, BB]

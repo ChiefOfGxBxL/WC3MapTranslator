@@ -32,7 +32,6 @@ export class ImportsTranslator {
             }
 
             outBufferToWar.addString(importedFile.path);
-            outBufferToWar.addNullTerminator();
         });
 
         return {

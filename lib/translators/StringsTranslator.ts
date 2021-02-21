@@ -10,13 +10,13 @@ export abstract class StringsTranslator {
          * Strings
          */
         Object.keys(stringsJson).forEach((key) => {
-            outBufferToWar.addString('STRING ' + key);
+            outBufferToWar.addChars('STRING ' + key);
             outBufferToWar.addNewLine();
-            outBufferToWar.addString('{');
+            outBufferToWar.addChars('{');
             outBufferToWar.addNewLine();
-            outBufferToWar.addString(stringsJson[key]);
+            outBufferToWar.addChars(stringsJson[key]);
             outBufferToWar.addNewLine();
-            outBufferToWar.addString('}');
+            outBufferToWar.addChars('}');
             outBufferToWar.addNewLine();
             outBufferToWar.addNewLine();
         });

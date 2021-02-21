@@ -30,7 +30,7 @@ export abstract class TerrainTranslator {
         /*
          * Header
          */
-        outBufferToWar.addString('W3E!'); // file id
+        outBufferToWar.addChars('W3E!'); // file id
         outBufferToWar.addInt(11); // file version
         outBufferToWar.addChar(terrainJson.tileset); // base tileset
         outBufferToWar.addInt(+terrainJson.customtileset); // 1 = using custom tileset, 0 = not
@@ -40,7 +40,7 @@ export abstract class TerrainTranslator {
          */
         outBufferToWar.addInt(terrainJson.tilepalette.length);
         terrainJson.tilepalette.forEach((tile) => {
-            outBufferToWar.addString(tile);
+            outBufferToWar.addChars(tile);
         });
 
         /*
@@ -48,7 +48,7 @@ export abstract class TerrainTranslator {
          */
         outBufferToWar.addInt(terrainJson.clifftilepalette.length);
         terrainJson.clifftilepalette.forEach((clifftile) => {
-            outBufferToWar.addString(clifftile);
+            outBufferToWar.addChars(clifftile);
         });
 
         /*
