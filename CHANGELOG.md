@@ -2,7 +2,10 @@
 ## SUMMARY
 **🔥 Breaking changes**
 ## FEATURES
- * Improved usage contract: 
+ * Upgrade to latest file formats
+   * Sounds version upgraded from `1` -> `3`
+   * Info version upgraded from `25` -> `31`
+ * Improved usage contract:
    * Translators are now exported by this library (e.g. `import { ObjectTranslator } from 'wc3maptranslator'`)
    * Translators no longer need to be instantiated to be used
  * Added more type safety:

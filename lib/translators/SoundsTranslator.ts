@@ -4,6 +4,7 @@ import { WarResult, JsonResult } from '../CommonInterfaces'
 
 interface Sound {
     name: string;
+    variableName: string;
     path: string;
     eax: string;
     flags: SoundFlags;
@@ -40,7 +41,7 @@ export abstract class SoundsTranslator {
         /*
          * Header
          */
-        outBufferToWar.addInt(1); // file version
+        outBufferToWar.addInt(3); // file version
         outBufferToWar.addInt(soundsJson.length); // number of sounds
 
         /*
@@ -124,6 +125,19 @@ export abstract class SoundsTranslator {
             outBufferToWar.addFloat(0);
             outBufferToWar.addFloat(0);
             outBufferToWar.addFloat(0);
+
+            outBufferToWar.addString(sound.variableName);
+            outBufferToWar.addString('');
+            outBufferToWar.addString(sound.path);
+
+            // More unknowns
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addByte(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addByte(0);
+            outBufferToWar.addFloat(0);
         });
 
         return {
@@ -142,6 +156,7 @@ export abstract class SoundsTranslator {
         for (let i = 0; i < numSounds; i++) {
             const sound: Sound = {
                 name: '',
+                variableName: '',
                 path: '',
                 eax: '',
                 volume: 0,
@@ -203,6 +218,19 @@ export abstract class SoundsTranslator {
             outBufferToJSON.readFloat();
             outBufferToJSON.readFloat();
             outBufferToJSON.readFloat();
+
+            sound.variableName = outBufferToJSON.readString();
+
+            // Unknown values
+            outBufferToJSON.readString();
+            outBufferToJSON.readString();
+            outBufferToJSON.readChars(4);
+            outBufferToJSON.readChars(1);
+            outBufferToJSON.readChars(4);
+            outBufferToJSON.readChars(4);
+            outBufferToJSON.readChars(4);
+            outBufferToJSON.readChars(1);
+            outBufferToJSON.readChars(4);
 
             result.push(sound);
         }
