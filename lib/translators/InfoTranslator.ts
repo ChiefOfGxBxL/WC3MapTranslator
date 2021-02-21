@@ -492,8 +492,6 @@ export abstract class InfoTranslator {
             outBufferToJSON.readInt(); // ally high priorities flags (bit "x"=1 --> set for player "x")
             outBufferToJSON.readInt(); // enemy low priorities flags
             outBufferToJSON.readInt(); // enemy high priorities flags
-            outBufferToJSON.readInt(); // unknown
-            outBufferToJSON.readInt(); // unknown
 
             result.players.push(player);
         }
