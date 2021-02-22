@@ -54,8 +54,14 @@ interface LoadingScreen {
     subtitle: string;
 }
 
+enum FogType {
+    Linear = 0,
+    Exponential1 = 1,
+    Exponential2 = 2
+}
+
 interface Fog {
-    type: number;
+    type: FogType;
     startHeight: number;
     endHeight: number;
     density: number;
@@ -345,7 +351,7 @@ export abstract class InfoTranslator {
                 title: '',
                 subtitle: ''
             }, fog: {
-                type: 0,
+                type: FogType.Linear,
                 startHeight: 0,
                 endHeight: 0,
                 density: 0,
