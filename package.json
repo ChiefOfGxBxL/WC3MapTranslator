@@ -23,7 +23,8 @@
     },
     "engines": {
         "node": ">=14",
-        "npm": ">=7"
+        "npm": ">=7",
+        "tsc": ">3"
     },
     "repository": {
         "type": "git",
