@@ -1,15 +1,2730 @@
 [
     {
-        "id": 0,
-        "type": "ATtr",
-        "variation": 0,
-        "position": [100, 100, 100],
-        "angle": 0,
-        "scale": [1, 1, 1],
-        "life": 100,
-        "flags": {
-            "visible": true,
-            "solid": false
-        }
+      "type": "OOgr",
+      "variation": 1,
+      "position": [
+        -512,
+        1152,
+        -128
+      ],
+      "angle": 269.9777130656439,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "OOgr",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 2
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        640,
+        384,
+        -25.6
+      ],
+      "angle": 224.0264978961519,
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": false,
+        "solid": false
+      },
+      "life": 255,
+      "id": 18
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        -640,
+        -896,
+        -25.6
+      ],
+      "angle": 44.97718691776963,
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": false,
+        "solid": false
+      },
+      "life": 255,
+      "id": 21
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        640,
+        -896,
+        -25.6
+      ],
+      "angle": 134.98885653282196,
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": false,
+        "solid": false
+      },
+      "life": 255,
+      "id": 22
+    },
+    {
+      "type": "OOgr",
+      "variation": 1,
+      "position": [
+        512,
+        1152,
+        -128
+      ],
+      "angle": 269.9777130656439,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "OOgr",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 3
+    },
+    {
+      "type": "OOgr",
+      "variation": 1,
+      "position": [
+        -1408,
+        256,
+        -128
+      ],
+      "angle": 269.9777130656439,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "OOgr",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 1
+    },
+    {
+      "type": "OOgr",
+      "variation": 1,
+      "position": [
+        1408,
+        -768,
+        -128
+      ],
+      "angle": 269.9777130656439,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "OOgr",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 5
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        1282.693,
+        -3542.79,
+        -38.517
+      ],
+      "angle": 88.98034558381684,
+      "scale": [
+        0.6,
+        1,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 124
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        -640,
+        192,
+        -128
+      ],
+      "angle": 359.01535442897386,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 8
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        -640,
+        -704,
+        -128
+      ],
+      "angle": 359.01535442897386,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 9
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        -448,
+        -896,
+        -128
+      ],
+      "angle": 88.98034558381684,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 10
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        448,
+        -896,
+        -128
+      ],
+      "angle": 88.98034558381684,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 11
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        640,
+        -704,
+        -128
+      ],
+      "angle": 178.99201519886918,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 12
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        640,
+        192,
+        -128
+      ],
+      "angle": 178.99201519886918,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 13
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        -448,
+        384,
+        -128
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 14
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        448,
+        384,
+        -128
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 15
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1280,
+        384,
+        0
+      ],
+      "angle": 315.0121957629266,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 16
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        -1275.36,
+        -3546.229,
+        -33.131
+      ],
+      "angle": 88.98034558381684,
+      "scale": [
+        0.6,
+        1,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 125
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        -3287.585,
+        -1540.456,
+        -35.959
+      ],
+      "angle": 0,
+      "scale": [
+        1,
+        0.6,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 126
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -640,
+        1024,
+        0
+      ],
+      "angle": 315.0121957629266,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 19
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        640,
+        1024,
+        0
+      ],
+      "angle": 315.0121957629266,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 20
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        -640,
+        384,
+        -25.6
+      ],
+      "angle": 313.98087173169114,
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": false,
+        "solid": false
+      },
+      "life": 255,
+      "id": 17
+    },
+    {
+      "type": "OOgr",
+      "variation": 1,
+      "position": [
+        512,
+        -1664,
+        -128
+      ],
+      "angle": 269.9777130656439,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "OOgr",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 6
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1280,
+        384,
+        0
+      ],
+      "angle": 315.0121957629266,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 23
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1280,
+        -896,
+        0
+      ],
+      "angle": 315.0121957629266,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 24
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1920,
+        1664,
+        128
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 33
+    },
+    {
+      "type": "OOgr",
+      "variation": 1,
+      "position": [
+        1408,
+        256,
+        -128
+      ],
+      "angle": 269.9777130656439,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "OOgr",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 4
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        640,
+        -1536,
+        0
+      ],
+      "angle": 315.0121957629266,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 27
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -640,
+        -1536,
+        0
+      ],
+      "angle": 315.0121957629266,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 28
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        -3290.696,
+        1020.421,
+        -33.725
+      ],
+      "angle": 0,
+      "scale": [
+        1,
+        0.6,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 127
+    },
+    {
+      "type": "OOgr",
+      "variation": 1,
+      "position": [
+        -1408,
+        -768,
+        -128
+      ],
+      "angle": 269.9777130656439,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "OOgr",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 0
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1280,
+        -896,
+        0
+      ],
+      "angle": 315.0121957629266,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 31
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1920,
+        -2176,
+        128
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 32
+    },
+    {
+      "type": "OOgr",
+      "variation": 1,
+      "position": [
+        -512,
+        -1664,
+        -128
+      ],
+      "angle": 269.9777130656439,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "OOgr",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 7
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1920,
+        1664,
+        128
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 34
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1920,
+        -2176,
+        128
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 35
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1152,
+        -1792,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 36
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1536,
+        -1408,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 37
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1536,
+        896,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 38
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1152,
+        1280,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 39
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1152,
+        1280,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 40
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1536,
+        896,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 41
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1536,
+        -1408,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 42
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1152,
+        -1792,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 43
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -546.787,
+        1170.946,
+        -79.416
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 44
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -483.355,
+        1176.967,
+        -79.976
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 45
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -548.141,
+        1120.609,
+        -69.331
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 46
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -486.512,
+        1131.57,
+        -86.15
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 47
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        482.421,
+        1169.286,
+        -85.13
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 48
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        482.957,
+        1116.455,
+        -71.477
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 49
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        538.35,
+        1122.712,
+        -78.392
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 50
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        539.244,
+        1168.34,
+        -87.894
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 51
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        1389.221,
+        273.479,
+        -94.307
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 52
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        1393.447,
+        220.532,
+        -82.012
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 53
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        1442.062,
+        225.694,
+        -71.696
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 54
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        1438.933,
+        280.112,
+        -78.782
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 55
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        1378.507,
+        -754.531,
+        -88.141
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 56
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        1379.321,
+        -800.076,
+        -74.432
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 57
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        1430.305,
+        -793.281,
+        -84.819
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 58
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        1433.99,
+        -744.196,
+        -83.039
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 59
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        485.159,
+        -1641.483,
+        -83.364
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 60
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        545.303,
+        -1637.937,
+        -75.415
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 61
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        538.614,
+        -1695.586,
+        -76.367
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 62
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        484.893,
+        -1701.208,
+        -71.565
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 63
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -548.919,
+        -1633.564,
+        -69.424
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 64
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -490.024,
+        -1633.319,
+        -80.61
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 65
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -489.392,
+        -1696.401,
+        -78.713
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 66
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -541.27,
+        -1689.431,
+        -79.114
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 67
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -1435.834,
+        -735.759,
+        -74.936
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 68
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -1435.658,
+        -789.624,
+        -83.391
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 69
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -1378.629,
+        -792.418,
+        -79.814
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 70
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -1376.349,
+        -744.046,
+        -78.318
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 71
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -1433.941,
+        269.664,
+        -91.164
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 72
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -1428.972,
+        225.541,
+        -81.559
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 73
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -1379.021,
+        229.842,
+        -78.784
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 74
+    },
+    {
+      "type": "YOfs",
+      "variation": 0,
+      "position": [
+        -1373.416,
+        272.422,
+        -81.431
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOfs",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 75
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1152,
+        -3456,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 133
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1152,
+        -3456,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 132
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -2432,
+        -1408,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 78
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1152,
+        -2688,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 79
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        3200,
+        -1408,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 131
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1152,
+        -2688,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 81
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        3200,
+        896,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 130
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        2432,
+        -1408,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 83
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1152,
+        2944,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 129
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        2432,
+        896,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 85
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1152,
+        2944,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 128
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        1152,
+        2176,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 87
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -3200,
+        896,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 135
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -1152,
+        2176,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 89
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -3200,
+        -1408,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 134
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -2432,
+        896,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 91
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -3072,
+        0,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 92
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -3072,
+        -512,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 93
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -256,
+        2816,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 94
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        256,
+        2816,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 95
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        3072,
+        0,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 96
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        3072,
+        -512,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 97
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        256,
+        -3328,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 98
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -256,
+        -3328,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 99
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -768,
+        -3328,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 100
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        768,
+        -3328,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 101
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        3072,
+        -1024,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 102
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        3072,
+        512,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 103
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        768,
+        2816,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 104
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -768,
+        2816,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 105
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -3072,
+        512,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 106
+    },
+    {
+      "type": "YOob",
+      "variation": 0,
+      "position": [
+        -3072,
+        -1024,
+        0
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOob",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 107
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        0,
+        2816,
+        -172.8
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": false,
+        "solid": false
+      },
+      "life": 255,
+      "id": 108
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        -3136,
+        -256,
+        -172.8
+      ],
+      "angle": 359.01535442897386,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": false,
+        "solid": false
+      },
+      "life": 255,
+      "id": 109
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        0,
+        -3392,
+        -172.8
+      ],
+      "angle": 88.98034558381684,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": false,
+        "solid": false
+      },
+      "life": 255,
+      "id": 110
+    },
+    {
+      "type": "YOks",
+      "variation": 0,
+      "position": [
+        3136,
+        -256,
+        -172.8
+      ],
+      "angle": 178.99201519886918,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "skinId": "YOks",
+      "flags": {
+        "visible": false,
+        "solid": false
+      },
+      "life": 255,
+      "id": 111
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        -256.825,
+        3030.213,
+        -41.232
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        0.6,
+        1,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 112
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        256.202,
+        3033.077,
+        -38.782
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        0.6,
+        1,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 113
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        3289.139,
+        8.965,
+        -32.618
+      ],
+      "angle": 178.99201519886918,
+      "scale": [
+        1,
+        0.6,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 114
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        3281.371,
+        -507.546,
+        -42.175
+      ],
+      "angle": 178.99201519886918,
+      "scale": [
+        1,
+        0.6,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 115
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        -3289.73,
+        -4.412,
+        -33.858
+      ],
+      "angle": 359.01535442897386,
+      "scale": [
+        1,
+        0.6,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 116
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        -3289.184,
+        -518.533,
+        -34.265
+      ],
+      "angle": 359.01535442897386,
+      "scale": [
+        1,
+        0.6,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 117
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        -250.486,
+        -3546.719,
+        -31.767
+      ],
+      "angle": 88.98034558381684,
+      "scale": [
+        0.6,
+        1,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 118
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        263.086,
+        -3543.885,
+        -35.249
+      ],
+      "angle": 88.98034558381684,
+      "scale": [
+        0.6,
+        1,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 119
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        -1286.872,
+        3030.999,
+        -34.129
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        0.6,
+        1,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 120
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        1274.656,
+        3033.528,
+        -33.129
+      ],
+      "angle": 269.0036848139215,
+      "scale": [
+        0.6,
+        1,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 121
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        3292.858,
+        1028.976,
+        -30.166
+      ],
+      "angle": 178.99201519886918,
+      "scale": [
+        1,
+        0.6,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 122
+    },
+    {
+      "type": "LWw0",
+      "variation": 0,
+      "position": [
+        3297.456,
+        -1535.095,
+        -29.639
+      ],
+      "angle": 178.99201519886918,
+      "scale": [
+        1,
+        0.6,
+        1
+      ],
+      "skinId": "LWw0",
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 255,
+      "id": 123
     }
-]
+  ]

@@ -70,6 +70,8 @@ export abstract class UnitsTranslator {
             // Unit flags
             outBufferToWar.addByte(0); // UNSUPPORTED: flags
 
+            outBufferToWar.addInt(0); // unknown
+
             outBufferToWar.addInt(unit.player); // player #
             outBufferToWar.addByte(0); // (byte unknown - 0)
             outBufferToWar.addByte(0); // (byte unknown - 0)
@@ -88,17 +90,18 @@ export abstract class UnitsTranslator {
             // Gold amount
             // Required if unit is a gold mine
             // Optional (set to zero) if unit is not a gold mine
-            outBufferToWar.addInt(unit.type === 'ngol' ? unit.gold : 0);
+            outBufferToWar.addInt(unit.gold);
+            // outBufferToWar.addInt(unit.type === 'ngol' ? unit.gold : 0);
 
             outBufferToWar.addFloat(unit.targetAcquisition || 0); // target acquisition
 
             // Unit hero attributes
             // Can be left unspecified, but values can never be below 1
             if (!unit.hero) unit.hero = { level: 1, str: 1, agi: 1, int: 1 };
-            outBufferToWar.addInt(unit.hero.level || 1); // hero lvl
-            outBufferToWar.addInt(unit.hero.str || 1); // hero str
-            outBufferToWar.addInt(unit.hero.agi || 1); // hero agi
-            outBufferToWar.addInt(unit.hero.int || 1); // hero int
+            outBufferToWar.addInt(unit.hero.level);
+            outBufferToWar.addInt(unit.hero.str);
+            outBufferToWar.addInt(unit.hero.agi);
+            outBufferToWar.addInt(unit.hero.int);
 
             // Inventory - - -
             if (!unit.inventory) unit.inventory = [];
@@ -165,8 +168,10 @@ export abstract class UnitsTranslator {
             unit.rotation = outBufferToJSON.readFloat();
             unit.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
 
-            const flags = outBufferToJSON.readByte();
             // UNSUPPORTED: flags
+            const flags = outBufferToJSON.readByte();
+
+            outBufferToJSON.readInt(); // Unknown
 
             unit.player = outBufferToJSON.readInt(); // (player1 = 0, 16=neutral passive); note: wc3 patch now has 24 max players
 

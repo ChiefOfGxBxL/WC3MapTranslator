@@ -1,22 +1,452 @@
 [
     {
-        "id": 0,
-        "type": "hfoo",
-        "position": [0, 50, 100.52],
-        "rotation": 36,
-        "scale": [1, 1, 1],
-        "player": 0,
-        "hitpoints": 210,
-        "mana": 0,
-        "gold": 0,
-        "targetAcquisition": 0,
-        "hero": {
-            "level": 0,
-            "str": 0,
-            "agi": 0,
-            "int": 0
-        },
-        "inventory": [],
-        "abilities": []
+      "type": "sloc",
+      "variation": 0,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 0,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 1
+    },
+    {
+      "type": "sloc",
+      "variation": 11,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 11,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 17
+    },
+    {
+      "type": "sloc",
+      "variation": 1,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 1,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 0
+    },
+    {
+      "type": "sloc",
+      "variation": 2,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 2,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 2
+    },
+    {
+      "type": "sloc",
+      "variation": 3,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 3,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 3
+    },
+    {
+      "type": "sloc",
+      "variation": 4,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 4,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 10
+    },
+    {
+      "type": "sloc",
+      "variation": 5,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 5,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 11
+    },
+    {
+      "type": "sloc",
+      "variation": 6,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 6,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 12
+    },
+    {
+      "type": "sloc",
+      "variation": 7,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 7,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 13
+    },
+    {
+      "type": "sloc",
+      "variation": 8,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 8,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 14
+    },
+    {
+      "type": "sloc",
+      "variation": 9,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 9,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 15
+    },
+    {
+      "type": "sloc",
+      "variation": 10,
+      "position": [
+        0,
+        -256,
+        -128
+      ],
+      "rotation": 4.712,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 0,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 10,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 0,
+      "targetAcquisition": 0,
+      "color": -1,
+      "id": 16
+    },
+    {
+      "type": "H000",
+      "variation": 0,
+      "position": [
+        413.455,
+        -94.833,
+        -128
+      ],
+      "rotation": 1.611,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 1,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 1,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 12500,
+      "targetAcquisition": -1,
+      "color": -1,
+      "id": 4
+    },
+    {
+      "type": "hpea",
+      "variation": 0,
+      "position": [
+        -308.096,
+        -542.293,
+        -128
+      ],
+      "rotation": 0.657,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 1,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 1,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 12500,
+      "targetAcquisition": -1,
+      "color": -1,
+      "id": 5
+    },
+    {
+      "type": "hkni",
+      "variation": 0,
+      "position": [
+        -249.695,
+        98.257,
+        -128
+      ],
+      "rotation": 4.08,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "hero": {
+        "level": 1,
+        "str": 0,
+        "agi": 0,
+        "int": 0
+      },
+      "inventory": [],
+      "abilities": [],
+      "player": 3,
+      "hitpoints": -1,
+      "mana": -1,
+      "gold": 12500,
+      "targetAcquisition": -1,
+      "color": -1,
+      "id": 6
     }
-]
+  ]

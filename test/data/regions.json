@@ -1,25 +1,206 @@
 [
     {
-        "id": 0,
-        "name": "safe zone region",
-        "position": {
-            "left": 50.0,
-            "right": 1000,
-            "bottom": 0,
-            "top": 400
-        },
-        "weatherEffect": "RLlr",
-        "color": [255, 0, 0]
+      "name": "UP Center",
+      "id": 0,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        0,
+        0,
+        0
+      ],
+      "position": {
+        "left": -704,
+        "bottom": 480,
+        "right": 704,
+        "top": 1504
+      }
     },
     {
-        "id": 1,
-        "name": "death trap",
-        "position": {
-            "left": 100.0,
-            "right": 200,
-            "bottom": 200,
-            "top": 300
-        },
-        "color": [0, 255, 0]
+      "name": "Right Center",
+      "id": 1,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        0,
+        0,
+        0
+      ],
+      "position": {
+        "left": 704,
+        "bottom": -960,
+        "right": 1696,
+        "top": 448
+      }
+    },
+    {
+      "name": "Down Center",
+      "id": 2,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        0,
+        0,
+        0
+      ],
+      "position": {
+        "left": -704,
+        "bottom": -1984,
+        "right": 704,
+        "top": -960
+      }
+    },
+    {
+      "name": "Left Center",
+      "id": 3,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        0,
+        0,
+        0
+      ],
+      "position": {
+        "left": -1760,
+        "bottom": -960,
+        "right": -704,
+        "top": 480
+      }
+    },
+    {
+      "name": "Water Up",
+      "id": 4,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "position": {
+        "left": -1600,
+        "bottom": 1088,
+        "right": 1600,
+        "top": 2976
+      }
+    },
+    {
+      "name": "Water Right",
+      "id": 5,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "position": {
+        "left": 1344,
+        "bottom": -1856,
+        "right": 3232,
+        "top": 1344
+      }
+    },
+    {
+      "name": "Water Down",
+      "id": 6,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "position": {
+        "left": -1600,
+        "bottom": -3488,
+        "right": 1600,
+        "top": -1600
+      }
+    },
+    {
+      "name": "Water Left",
+      "id": 7,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "position": {
+        "left": -3232,
+        "bottom": -1856,
+        "right": -1344,
+        "top": 1344
+      }
+    },
+    {
+      "name": "LeftTop",
+      "id": 8,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        128,
+        128,
+        255
+      ],
+      "position": {
+        "left": -1376,
+        "bottom": 480,
+        "right": -704,
+        "top": 1184
+      }
+    },
+    {
+      "name": "RightTop",
+      "id": 9,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        128,
+        128,
+        255
+      ],
+      "position": {
+        "left": 704,
+        "bottom": 448,
+        "right": 1312,
+        "top": 1056
+      }
+    },
+    {
+      "name": "RightBottom",
+      "id": 10,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        128,
+        128,
+        255
+      ],
+      "position": {
+        "left": 704,
+        "bottom": -1568,
+        "right": 1312,
+        "top": -960
+      }
+    },
+    {
+      "name": "LeftBottom",
+      "id": 11,
+      "weatherEffect": "0000",
+      "ambientSound": "",
+      "color": [
+        128,
+        128,
+        255
+      ],
+      "position": {
+        "left": -1312,
+        "bottom": -1600,
+        "right": -704,
+        "top": -960
+      }
     }
-]
+  ]

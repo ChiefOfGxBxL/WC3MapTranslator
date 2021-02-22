@@ -1,0 +1,40 @@
+{
+    "original": {
+      "hpea": [
+        {
+          "id": "uabi",
+          "type": "string",
+          "level": 0,
+          "column": 0,
+          "value": "Ahar,Ahrp"
+        }
+      ],
+      "hmtt": [
+        {
+          "id": "ua1b",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 30
+        }
+      ]
+    },
+    "custom": {
+      "H000:Hmkg": [
+        {
+          "id": "unam",
+          "type": "string",
+          "level": 0,
+          "column": 0,
+          "value": "TRIGSTR_1677"
+        },
+        {
+          "id": "uclg",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 25
+        }
+      ]
+    }
+  }

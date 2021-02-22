@@ -1,0 +1,38 @@
+{
+    "original": {
+      "Rhss": [
+        {
+          "id": "gglb",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 12
+        }
+      ]
+    },
+    "custom": {
+      "R000:Rhfl": [
+        {
+          "id": "gnam",
+          "type": "string",
+          "level": 1,
+          "column": 0,
+          "value": "TRIGSTR_1683"
+        },
+        {
+          "id": "gglb",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 57
+        },
+        {
+          "id": "gar1",
+          "type": "string",
+          "level": 1,
+          "column": 0,
+          "value": "ReplaceableTextures\\CommandButtons\\BTNHumanMissileUpThree.blp"
+        }
+      ]
+    }
+  }

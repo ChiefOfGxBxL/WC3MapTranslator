@@ -5,10 +5,10 @@
  * Upgrade to latest file formats
    * Sounds version upgraded from `1` -> `3`
    * Info version upgraded from `25` -> `31`
- * Improved usage contract:
+ * Improve usage contract:
    * Translators are now exported by this library (e.g. `import { ObjectTranslator } from 'wc3maptranslator'`)
    * Translators no longer need to be instantiated to be used
- * Added more type safety:
+ * Add more type safety:
    * Translator results from `jsonToWar()` and `warToJson()` are now typed by `WarResult` and `JsonResult`, respectively
    * `JsonResult` is generically typed to describe what it contains (e.g. `Sound[]`)
    * Introduced new `angle` type, which is an alias for `number`; `angle`'s should always be specified in degrees, not radians
@@ -34,11 +34,12 @@
     * `examples` sub-project directory is removed
     * Refer to `USAGE.md` for how to use the code
  * Add all contributors to `package.json`
- * Resolved all security issues via `npm audit fix` (5 low, 1 high, 1 critical)
+ * Resolve all security issues via `npm audit fix` (5 low, 1 high, 1 critical)
 ## TESTING
  * Travis CI will now use Node 14 LTS to build the project
  * `test` directory now contains the WC3 and JSON data files the tests require
  * Implement the StringsTranslator test
+ * Resolve all broken unit tests, most of them being reversion tests
 <!--
 # x.y.z (YYYY-MM-DD)
 ## SUMMARY

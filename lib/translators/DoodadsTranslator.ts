@@ -9,6 +9,7 @@ interface Doodad {
     position: number[];
     angle: angle;
     scale: number[];
+    skinId: string;
     flags: DoodadFlag;
     life: number;
     id: number;
@@ -63,6 +64,8 @@ export abstract class DoodadsTranslator {
             outBufferToWar.addFloat(tree.scale[1] || 1);
             outBufferToWar.addFloat(tree.scale[2] || 1);
 
+            outBufferToWar.addChars(tree.skinId);
+
             // Tree flags
             /* | Visible | Solid | Flag value |
                |   no    |  no   |     0      |
@@ -110,6 +113,7 @@ export abstract class DoodadsTranslator {
                 position: [0, 0, 0],
                 angle: -1,
                 scale: [0, 0, 0],
+                skinId: '',
                 flags: { visible: flag.visible, solid: flag.solid },
                 life: -1,
                 id: -1
@@ -127,6 +131,7 @@ export abstract class DoodadsTranslator {
             doodad.angle = rad2Deg(outBufferToJSON.readFloat());
 
             doodad.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
+            doodad.skinId = outBufferToJSON.readChars(4);
 
             const flags: flag = outBufferToJSON.readByte();
             doodad.flags = {

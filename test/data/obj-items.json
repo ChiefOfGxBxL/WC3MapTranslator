@@ -1,0 +1,31 @@
+{
+    "original": {
+      "clfm": [
+        {
+          "id": "iicd",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 1
+        }
+      ]
+    },
+    "custom": {
+      "I000:dkfw": [
+        {
+          "id": "unam",
+          "type": "string",
+          "level": 0,
+          "column": 0,
+          "value": "TRIGSTR_1678"
+        },
+        {
+          "id": "istr",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 55
+        }
+      ]
+    }
+  }
