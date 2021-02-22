@@ -2,9 +2,14 @@ import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { WarResult, JsonResult } from '../CommonInterfaces'
 
+enum ImportType {
+    Standard = 'standard',
+    Custom = 'custom'
+}
+
 interface Import {
     path: string;
-    type: string; // 'standard', 'custom'
+    type: ImportType;
 }
 
 export class ImportsTranslator {
@@ -23,11 +28,11 @@ export class ImportsTranslator {
          */
         imports.forEach((importedFile) => {
             outBufferToWar.addByte(
-                importedFile.type === 'custom' ? 13 : 5
+                importedFile.type === ImportType.Custom ? 13 : 5
             );
 
             // Temporary: always start the file path with war3mapImported\ until other file support is added
-            if (!importedFile.path.startsWith('war3mapImported\\') && importedFile.type === 'custom') {
+            if (!importedFile.path.startsWith('war3mapImported\\') && importedFile.type === ImportType.Custom) {
                 importedFile.path = 'war3mapImported\\' + importedFile.path;
             }
 
