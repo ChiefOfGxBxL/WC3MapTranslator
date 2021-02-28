@@ -1,6 +1,17 @@
-# 4.0.0 (2021-mm-dd)
+# 4.0.0 (2021-02-28)
 ## SUMMARY
 **🔥 Breaking changes**
+
+This major release significantly overhauls WC3MapTranslator since the release of WarCraft III: Reforged. There are a few breaking changes in this release.
+
+The two largest changes include a new usage contract and changes to the terrain `.json` format, both of which are detailed below. This release also integrates the latest file formats, after a few changes to the war3map formats to support Reforged.
+
+The old usage contract meant that developers had to instantiate translators, which didn't make much sense. Now translators are static classes that can be used directly after importing.
+
+The `.json` format for terrain gets rid of the bulky `tile` objects and returns to a one-dimensional mask array for things like ground height, boundary flags, etc. In an older version of WC3MapTranslator, terrain used to be a multi-dimensional array of rows, followed by the `tile` object format. The problems with the `tile` object format were two-fold: (1) file size would blow up (e.g. a 29kB `.w3e` file would become a 1199kB `.json` terrain file); and (2) the bulky `tile` objects did not lend themselves to the spirit of having a diff-able JSON file. We believe that a single-dimensional array will allow developers to more easily see differences between JSONs.
+
+Another exciting change is a new [WC3MapSpecification](https://github.com/ChiefOfGxBxL/WC3MapSpecification) repository for documenting the war3map specifications. This is a living document, meaning it may be updated in-place as our understanding of the file formats improves!
+
 ## FEATURES
  * 🔥 Improve usage contract:
    * Translators are now exported by this library (e.g. `import { ObjectTranslator } from 'wc3maptranslator'`)
