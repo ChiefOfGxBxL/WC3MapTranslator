@@ -1,5 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult } from '../CommonInterfaces'
 
 interface Map {
     name: string;
@@ -11,28 +12,38 @@ interface Map {
     mainTileType: string;
 }
 
+interface GameVersion {
+    major: number;
+    minor: number;
+    patch: number;
+    build: number;
+}
+
 interface Camera {
     bounds: number[];
     complements: number[];
 }
 
 interface MapFlags {
-    hideMinimapInPreview: boolean; // 0x0001: 1=hide minimap in preview screens
-    modifyAllyPriorities: boolean; // 0x0002: 1=modify ally priorities
-    isMeleeMap: boolean; // 0x0004: 1=melee map
+    hideMinimapInPreview: boolean;  // 0x0001: 1=hide minimap in preview screens
+    modifyAllyPriorities: boolean;  // 0x0002: 1=modify ally priorities
+    isMeleeMap: boolean;            // 0x0004: 1=melee map
     // 0x0008: 1=playable map size was large and has never been reduced to medium (?)
     maskedPartiallyVisible: boolean; // 0x0010: 1=masked area are partially visible
-    fixedPlayerSetting: boolean; // 0x0020: 1=fixed player setting for custom forces
-    useCustomForces: boolean; // 0x0040: 1=use custom forces
-    useCustomTechtree: boolean; // 0x0080: 1=use custom techtree
-    useCustomAbilities: boolean; // 0x0100: 1=use custom abilities
-    useCustomUpgrades: boolean; // 0x0200: 1=use custom upgrades
+    fixedPlayerSetting: boolean;    // 0x0020: 1=fixed player setting for custom forces
+    useCustomForces: boolean;       // 0x0040: 1=use custom forces
+    useCustomTechtree: boolean;     // 0x0080: 1=use custom techtree
+    useCustomAbilities: boolean;    // 0x0100: 1=use custom abilities
+    useCustomUpgrades: boolean;     // 0x0200: 1=use custom upgrades
     // 0x0400: 1=map properties menu opened at least once since map creation (?)
     waterWavesOnCliffShores: boolean; // 0x0800: 1=show water waves on cliff shores
     waterWavesOnRollingShores: boolean; // 0x1000: 1=show water waves on rolling shores
     // 0x2000: 1=unknown
     // 0x4000: 1=unknown
-    // 0x8000: 1=unknown
+    useItemClassificationSystem: boolean; // 0x8000: 1=use item classification system
+    enableWaterTinting: boolean;        // 0x10000
+    useAccurateProbabilityForCalculations: boolean; // 0x20000
+    useCustomAbilitySkins: boolean;     // 0x40000
 }
 
 interface LoadingScreen {
@@ -43,8 +54,14 @@ interface LoadingScreen {
     subtitle: string;
 }
 
+enum FogType {
+    Linear = 0,
+    Exponential1 = 1,
+    Exponential2 = 2
+}
+
 interface Fog {
-    type: number;
+    type: FogType;
     startHeight: number;
     endHeight: number;
     density: number;
@@ -65,7 +82,10 @@ interface Prologue {
 
 interface Info {
     saves: number;
+    gameVersion: GameVersion;
     editorVersion: number;
+    scriptLanguage: ScriptLanguage;
+    supportedModes: SupportedModes;
     map: Map;
     camera: Camera;
     prologue: Prologue;
@@ -109,39 +129,50 @@ interface Force {
     name: string;
 }
 
-export class InfoTranslator {
+enum ScriptLanguage {
+    JASS = 0,
+    Lua = 1
+}
 
-    public _outBufferToWar: HexBuffer;
-    public _outBufferToJSON: W3Buffer;
+enum SupportedModes {
+    SD = 1,
+    HD = 2,
+    Both = 3
+}
 
-    constructor() { }
+export abstract class InfoTranslator {
 
-    public jsonToWar(infoJson: Info) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(infoJson: Info): WarResult {
+        const outBufferToWar = new HexBuffer();
 
-        this._outBufferToWar.addInt(25); // file version, 0x19
-        this._outBufferToWar.addInt(infoJson.saves || 0);
-        this._outBufferToWar.addInt(infoJson.editorVersion || 0);
+        outBufferToWar.addInt(31); // file version, 0x1F
+        outBufferToWar.addInt(infoJson.saves || 0);
+        outBufferToWar.addInt(infoJson.editorVersion || 0);
+
+        outBufferToWar.addInt(infoJson.gameVersion.major);
+        outBufferToWar.addInt(infoJson.gameVersion.minor);
+        outBufferToWar.addInt(infoJson.gameVersion.patch);
+        outBufferToWar.addInt(infoJson.gameVersion.build);
 
         // Map information
-        this._outBufferToWar.addString(infoJson.map.name, true);
-        this._outBufferToWar.addString(infoJson.map.author, true);
-        this._outBufferToWar.addString(infoJson.map.description, true);
-        this._outBufferToWar.addString(infoJson.map.recommendedPlayers, true);
+        outBufferToWar.addString(infoJson.map.name);
+        outBufferToWar.addString(infoJson.map.author);
+        outBufferToWar.addString(infoJson.map.description);
+        outBufferToWar.addString(infoJson.map.recommendedPlayers);
 
         // Camera bounds (8 floats total)
         for (let cbIndex = 0; cbIndex < 8; cbIndex++) {
-            this._outBufferToWar.addFloat(infoJson.camera.bounds[cbIndex]);
+            outBufferToWar.addFloat(infoJson.camera.bounds[cbIndex]);
         }
 
         // Camera complements (4 floats total)
         for (let ccIndex = 0; ccIndex < 4; ccIndex++) {
-            this._outBufferToWar.addInt(infoJson.camera.complements[ccIndex]);
+            outBufferToWar.addInt(infoJson.camera.complements[ccIndex]);
         }
 
         // Playable area
-        this._outBufferToWar.addInt(infoJson.map.playableArea.width);
-        this._outBufferToWar.addInt(infoJson.map.playableArea.height);
+        outBufferToWar.addInt(infoJson.map.playableArea.width);
+        outBufferToWar.addInt(infoJson.map.playableArea.height);
 
         /*
          * Flags
@@ -161,6 +192,12 @@ export class InfoTranslator {
             // 0x0400 - unknown;                                                 // map properties menu opened at least once since map creation (?)
             if (infoJson.map.flags.waterWavesOnCliffShores) flags |= 0x0800; // show water waves on cliff shores
             if (infoJson.map.flags.waterWavesOnRollingShores) flags |= 0x1000; // show water waves on rolling shores
+            // 0x2000: 1=unknown
+            // 0x4000: 1=unknown
+            if (infoJson.map.flags.useItemClassificationSystem) flags |= 0x8000
+            if (infoJson.map.flags.enableWaterTinting) flags |= 0x10000
+            if (infoJson.map.flags.useAccurateProbabilityForCalculations) flags |= 0x20000
+            if (infoJson.map.flags.useCustomAbilitySkins) flags |= 0x40000
         }
 
         // Unknown, but these seem to always be on, at least for default maps
@@ -168,104 +205,109 @@ export class InfoTranslator {
         flags |= 0x4000;
         flags |= 0x0400;
 
-        this._outBufferToWar.addInt(flags); // Add flags
+        outBufferToWar.addInt(flags); // Add flags
 
         // Map main ground type
-        this._outBufferToWar.addChar(infoJson.map.mainTileType);
+        outBufferToWar.addChar(infoJson.map.mainTileType);
 
         // Loading screen
-        this._outBufferToWar.addInt(infoJson.loadingScreen.background);
-        this._outBufferToWar.addString(infoJson.loadingScreen.path, true);
-        this._outBufferToWar.addString(infoJson.loadingScreen.text, true);
-        this._outBufferToWar.addString(infoJson.loadingScreen.title, true);
-        this._outBufferToWar.addString(infoJson.loadingScreen.subtitle, true);
+        outBufferToWar.addInt(infoJson.loadingScreen.background);
+        outBufferToWar.addString(infoJson.loadingScreen.path);
+        outBufferToWar.addString(infoJson.loadingScreen.text);
+        outBufferToWar.addString(infoJson.loadingScreen.title);
+        outBufferToWar.addString(infoJson.loadingScreen.subtitle);
 
         // Use game data set (Unsupported)
-        this._outBufferToWar.addInt(0);
+        outBufferToWar.addInt(0);
 
         // Prologue
-        this._outBufferToWar.addString(infoJson.prologue.path, true);
-        this._outBufferToWar.addString(infoJson.prologue.text, true);
-        this._outBufferToWar.addString(infoJson.prologue.title, true);
-        this._outBufferToWar.addString(infoJson.prologue.subtitle, true);
+        outBufferToWar.addString(infoJson.prologue.path);
+        outBufferToWar.addString(infoJson.prologue.text);
+        outBufferToWar.addString(infoJson.prologue.title);
+        outBufferToWar.addString(infoJson.prologue.subtitle);
 
         // Fog
-        this._outBufferToWar.addInt(infoJson.fog.type);
-        this._outBufferToWar.addFloat(infoJson.fog.startHeight);
-        this._outBufferToWar.addFloat(infoJson.fog.endHeight);
-        this._outBufferToWar.addFloat(infoJson.fog.density);
-        this._outBufferToWar.addByte(infoJson.fog.color[0]);
-        this._outBufferToWar.addByte(infoJson.fog.color[1]);
-        this._outBufferToWar.addByte(infoJson.fog.color[2]);
-        this._outBufferToWar.addByte(255); // Fog alpha - unsupported
+        outBufferToWar.addInt(infoJson.fog.type);
+        outBufferToWar.addFloat(infoJson.fog.startHeight);
+        outBufferToWar.addFloat(infoJson.fog.endHeight);
+        outBufferToWar.addFloat(infoJson.fog.density);
+        outBufferToWar.addByte(infoJson.fog.color[0]);
+        outBufferToWar.addByte(infoJson.fog.color[1]);
+        outBufferToWar.addByte(infoJson.fog.color[2]);
+        outBufferToWar.addByte(255); // Fog alpha - unsupported
 
         // Misc.
         // If globalWeather is not defined or is set to 'none', use 0 sentinel value, else add char[4]
         if (!infoJson.globalWeather || infoJson.globalWeather.toLowerCase() === 'none') {
-            this._outBufferToWar.addInt(0);
+            outBufferToWar.addInt(0);
         } else {
-            this._outBufferToWar.addString(infoJson.globalWeather, false); // char[4] - lookup table
+            outBufferToWar.addChars(infoJson.globalWeather); // char[4] - lookup table
         }
-        this._outBufferToWar.addString(infoJson.customSoundEnvironment || '', true);
-        this._outBufferToWar.addChar(infoJson.customLightEnv || 'L');
+        outBufferToWar.addString(infoJson.customSoundEnvironment || '');
+        outBufferToWar.addChar(infoJson.customLightEnv || 'L');
 
         // Custom water tinting
-        this._outBufferToWar.addByte(infoJson.water[0]);
-        this._outBufferToWar.addByte(infoJson.water[1]);
-        this._outBufferToWar.addByte(infoJson.water[2]);
-        this._outBufferToWar.addByte(255); // Water alpha - unsupported
+        outBufferToWar.addByte(infoJson.water[0]);
+        outBufferToWar.addByte(infoJson.water[1]);
+        outBufferToWar.addByte(infoJson.water[2]);
+        outBufferToWar.addByte(255); // Water alpha - unsupported
+
+        outBufferToWar.addInt(infoJson.scriptLanguage);
+        outBufferToWar.addInt(infoJson.supportedModes);
+        outBufferToWar.addInt(0); // unknown
 
         // Players
-        this._outBufferToWar.addInt(infoJson.players.length);
+        outBufferToWar.addInt(infoJson.players.length);
         infoJson.players.forEach((player) => {
-            this._outBufferToWar.addInt(player.playerNum);
-            this._outBufferToWar.addInt(player.type);
-            this._outBufferToWar.addInt(player.race);
-            this._outBufferToWar.addInt(player.startingPos.fixed ? 1 : 0);
-            this._outBufferToWar.addString(player.name, true);
-            this._outBufferToWar.addFloat(player.startingPos.x);
-            this._outBufferToWar.addFloat(player.startingPos.y);
-            this._outBufferToWar.addInt(0); // ally low prio flags - unsupported
-            this._outBufferToWar.addInt(0); // ally high prio flags - unsupported
+            outBufferToWar.addInt(player.playerNum);
+            outBufferToWar.addInt(player.type);
+            outBufferToWar.addInt(player.race);
+            outBufferToWar.addInt(player.startingPos.fixed ? 1 : 0);
+            outBufferToWar.addString(player.name);
+            outBufferToWar.addFloat(player.startingPos.x);
+            outBufferToWar.addFloat(player.startingPos.y);
+            outBufferToWar.addInt(0); // ally low prio flags - unsupported
+            outBufferToWar.addInt(0); // ally high prio flags - unsupported
+            outBufferToWar.addInt(0); // enemy low prio flags - unsupported
+            outBufferToWar.addInt(0); // enemy high prio flags - unsupported
         });
 
         // Forces
-        this._outBufferToWar.addInt(infoJson.forces.length);
+        outBufferToWar.addInt(infoJson.forces.length);
         infoJson.forces.forEach((force) => {
             // Calculate flags
             let forceFlags = 0;
             if (force.flags.allied) forceFlags |= 0x0001;
             if (force.flags.alliedVictory) forceFlags |= 0x0002;
-            if (force.flags.shareVision) forceFlags |= 0x0004;
+            // Skip 0x0004
+            if (force.flags.shareVision) forceFlags |= 0x0008;
             if (force.flags.shareUnitControl) forceFlags |= 0x0010;
             if (force.flags.shareAdvUnitControl) forceFlags |= 0x0020;
 
-            this._outBufferToWar.addInt(forceFlags);
-            this._outBufferToWar.addByte(255); // force players - unsupported
-            this._outBufferToWar.addByte(255); // force players - unsupported
-            this._outBufferToWar.addByte(255); // force players - unsupported
-            this._outBufferToWar.addByte(255); // force players - unsupported
-            this._outBufferToWar.addString(force.name, true);
+            outBufferToWar.addInt(forceFlags);
+            outBufferToWar.addInt(force.players);
+            outBufferToWar.addString(force.name);
         });
 
         // Upgrades - unsupported
-        this._outBufferToWar.addInt(0);
+        outBufferToWar.addInt(0);
 
         // Tech availability - unsupported
-        this._outBufferToWar.addInt(0);
+        outBufferToWar.addInt(0);
 
         // Unit table (random) - unsupported
-        this._outBufferToWar.addInt(0);
+        outBufferToWar.addInt(0);
 
         // Item table (random) - unsupported
-        this._outBufferToWar.addInt(0);
+        outBufferToWar.addInt(0);
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
-    public warToJson(buffer: Buffer) {
+
+    public static warToJson(buffer: Buffer): JsonResult<Info> {
         const result: Info = {
             map: {
                 name: '',
@@ -290,7 +332,11 @@ export class InfoTranslator {
                     useCustomUpgrades: false, // 0x0200: 1=use custom upgrades
                     // 0x0400: 1=map properties menu opened at least once since map creation (?)
                     waterWavesOnCliffShores: false, // 0x0800: 1=show water waves on cliff shores
-                    waterWavesOnRollingShores: false // 0x1000: 1=show water waves on rolling shores
+                    waterWavesOnRollingShores: false, // 0x1000: 1=show water waves on rolling shores
+                    useItemClassificationSystem: false, // 0x8000: 1=use item classification system
+                    enableWaterTinting: false, // 0x10000
+                    useAccurateProbabilityForCalculations: false, // 0x20000
+                    useCustomAbilitySkins: false // 0x40000
                 }
             },
             loadingScreen: {
@@ -305,7 +351,7 @@ export class InfoTranslator {
                 title: '',
                 subtitle: ''
             }, fog: {
-                type: 0,
+                type: FogType.Linear,
                 startHeight: 0,
                 endHeight: 0,
                 density: 0,
@@ -320,86 +366,110 @@ export class InfoTranslator {
             ],
             saves: 0,
             editorVersion: 0,
+            scriptLanguage: ScriptLanguage.JASS,
+            supportedModes: SupportedModes.Both,
+            gameVersion: {
+                major: 0,
+                minor: 0,
+                patch: 0,
+                build: 0
+            },
             globalWeather: '',
             customSoundEnvironment: '',
             customLightEnv: '',
             water: []
         };
-        this._outBufferToJSON = new W3Buffer(buffer);
+        const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = this._outBufferToJSON.readInt(), // File version
-            numOfSaves = this._outBufferToJSON.readInt(), // # of times saved
-            editorVersion = this._outBufferToJSON.readInt(); // editor version
+        const fileVersion = outBufferToJSON.readInt();
 
-        result.saves = numOfSaves;
-        result.editorVersion = editorVersion;
+        result.saves = outBufferToJSON.readInt(),
+        result.editorVersion = outBufferToJSON.readInt();
 
-        result.map.name = this._outBufferToJSON.readString();
-        result.map.author = this._outBufferToJSON.readString();
-        result.map.description = this._outBufferToJSON.readString();
-        result.map.recommendedPlayers = this._outBufferToJSON.readString();
+        result.gameVersion = {
+            major: outBufferToJSON.readInt(),
+            minor: outBufferToJSON.readInt(),
+            patch: outBufferToJSON.readInt(),
+            build: outBufferToJSON.readInt()
+        };
+
+        result.map.name = outBufferToJSON.readString();
+        result.map.author = outBufferToJSON.readString();
+        result.map.description = outBufferToJSON.readString();
+        result.map.recommendedPlayers = outBufferToJSON.readString();
 
         result.camera.bounds = [
-            this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(),
-            this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()
+            outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat(),
+            outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()
         ];
 
         result.camera.complements = [
-            this._outBufferToJSON.readInt(), this._outBufferToJSON.readInt(), this._outBufferToJSON.readInt(), this._outBufferToJSON.readInt()
+            outBufferToJSON.readInt(), outBufferToJSON.readInt(), outBufferToJSON.readInt(), outBufferToJSON.readInt()
         ];
 
         result.map.playableArea = {
-            width: this._outBufferToJSON.readInt(),
-            height: this._outBufferToJSON.readInt()
+            width: outBufferToJSON.readInt(),
+            height: outBufferToJSON.readInt()
         };
 
-        const flags = this._outBufferToJSON.readInt();
+        const flags = outBufferToJSON.readInt();
         result.map.flags = {
-            hideMinimapInPreview: !!(flags & 0b1),
-            modifyAllyPriorities: !!(flags & 0b10),
-            isMeleeMap: !!(flags & 0b100),
-            maskedPartiallyVisible: !!(flags & 0b10000),
-            fixedPlayerSetting: !!(flags & 0b100000),
-            useCustomForces: !!(flags & 0b1000000),
-            useCustomTechtree: !!(flags & 0b10000000),
-            useCustomAbilities: !!(flags & 0b100000000),
-            useCustomUpgrades: !!(flags & 0b1000000000),
-            waterWavesOnCliffShores: !!(flags & 0b100000000000),
-            waterWavesOnRollingShores: !!(flags & 0b1000000000000)
+            hideMinimapInPreview:       !!(flags & 0x0001),
+            modifyAllyPriorities:       !!(flags & 0x0002),
+            isMeleeMap:                 !!(flags & 0x0004),
+            // skip 0x008
+            maskedPartiallyVisible:     !!(flags & 0x0010),
+            fixedPlayerSetting:         !!(flags & 0x0020),
+            useCustomForces:            !!(flags & 0x0040),
+            useCustomTechtree:          !!(flags & 0x0080),
+            useCustomAbilities:         !!(flags & 0x0100),
+            useCustomUpgrades:          !!(flags & 0x0200),
+            waterWavesOnCliffShores:    !!(flags & 0x0800),
+            waterWavesOnRollingShores:  !!(flags & 0x1000),
+            // skip 0x2000
+            // skip 0x4000
+            useItemClassificationSystem: !!(flags & 0x8000),
+            enableWaterTinting:         !!(flags & 0x10000),
+            useAccurateProbabilityForCalculations: !!(flags & 0x20000),
+            useCustomAbilitySkins:      !!(flags & 0x40000)
         };
 
-        result.map.mainTileType = this._outBufferToJSON.readChars();
+        result.map.mainTileType = outBufferToJSON.readChars();
 
-        result.loadingScreen.background = this._outBufferToJSON.readInt();
-        result.loadingScreen.path = this._outBufferToJSON.readString();
-        result.loadingScreen.text = this._outBufferToJSON.readString();
-        result.loadingScreen.title = this._outBufferToJSON.readString();
-        result.loadingScreen.subtitle = this._outBufferToJSON.readString();
+        result.loadingScreen.background = outBufferToJSON.readInt();
+        result.loadingScreen.path = outBufferToJSON.readString();
+        result.loadingScreen.text = outBufferToJSON.readString();
+        result.loadingScreen.title = outBufferToJSON.readString();
+        result.loadingScreen.subtitle = outBufferToJSON.readString();
 
-        const gameDataSet = this._outBufferToJSON.readInt(); // 0 = standard
+        const gameDataSet = outBufferToJSON.readInt(); // 0 = standard
 
         result.prologue = {
-            path: this._outBufferToJSON.readString(),
-            text: this._outBufferToJSON.readString(),
-            title: this._outBufferToJSON.readString(),
-            subtitle: this._outBufferToJSON.readString()
+            path: outBufferToJSON.readString(),
+            text: outBufferToJSON.readString(),
+            title: outBufferToJSON.readString(),
+            subtitle: outBufferToJSON.readString()
         };
 
         result.fog = {
-            type: this._outBufferToJSON.readInt(),
-            startHeight: this._outBufferToJSON.readFloat(),
-            endHeight: this._outBufferToJSON.readFloat(),
-            density: this._outBufferToJSON.readFloat(),
-            color: [this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte()] // R G B A
+            type: outBufferToJSON.readInt(),
+            startHeight: outBufferToJSON.readFloat(),
+            endHeight: outBufferToJSON.readFloat(),
+            density: outBufferToJSON.readFloat(),
+            color: [outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte()] // R G B A
         };
 
-        result.globalWeather = this._outBufferToJSON.readChars(4);
-        result.customSoundEnvironment = this._outBufferToJSON.readString();
-        result.customLightEnv = this._outBufferToJSON.readChars();
-        result.water = [this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte(), this._outBufferToJSON.readByte()]; // R G B A
+        result.globalWeather = outBufferToJSON.readChars(4);
+        result.customSoundEnvironment = outBufferToJSON.readString();
+        result.customLightEnv = outBufferToJSON.readChars();
+        result.water = [outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte()]; // R G B A
+
+        result.scriptLanguage = outBufferToJSON.readInt();
+        result.supportedModes = outBufferToJSON.readInt();
+        outBufferToJSON.readInt(); // unknown
 
         // Struct: players
-        const numPlayers = this._outBufferToJSON.readInt();
+        const numPlayers = outBufferToJSON.readInt();
         for (let i = 0; i < numPlayers; i++) {
             const player: Player = {
                 name: '',
@@ -409,27 +479,29 @@ export class InfoTranslator {
                 race: 0
             };
 
-            player.playerNum = this._outBufferToJSON.readInt();
-            player.type = this._outBufferToJSON.readInt(); // 1=Human, 2=Computer, 3=Neutral, 4=Rescuable
-            player.race = this._outBufferToJSON.readInt(); // 1=Human, 2=Orc, 3=Undead, 4=Night Elf
+            player.playerNum = outBufferToJSON.readInt();
+            player.type = outBufferToJSON.readInt(); // 1=Human, 2=Computer, 3=Neutral, 4=Rescuable
+            player.race = outBufferToJSON.readInt(); // 1=Human, 2=Orc, 3=Undead, 4=Night Elf
 
-            const isPlayerStartPositionFixed: boolean = this._outBufferToJSON.readInt() === 1; // 00000001 = fixed start position
+            const isPlayerStartPositionFixed: boolean = outBufferToJSON.readInt() === 1; // 00000001 = fixed start position
 
-            player.name = this._outBufferToJSON.readString();
+            player.name = outBufferToJSON.readString();
             player.startingPos = {
-                x: this._outBufferToJSON.readFloat(),
-                y: this._outBufferToJSON.readFloat(),
+                x: outBufferToJSON.readFloat(),
+                y: outBufferToJSON.readFloat(),
                 fixed: isPlayerStartPositionFixed
             };
 
-            this._outBufferToJSON.readInt(); // ally low priorities flags (bit "x"=1 --> set for player "x")
-            this._outBufferToJSON.readInt(); // ally high priorities flags (bit "x"=1 --> set for player "x")
+            outBufferToJSON.readInt(); // ally low priorities flags (bit "x"=1 --> set for player "x")
+            outBufferToJSON.readInt(); // ally high priorities flags (bit "x"=1 --> set for player "x")
+            outBufferToJSON.readInt(); // enemy low priorities flags
+            outBufferToJSON.readInt(); // enemy high priorities flags
 
             result.players.push(player);
         }
 
         // Struct: forces
-        const numForces = this._outBufferToJSON.readInt();
+        const numForces = outBufferToJSON.readInt();
         for (let i = 0; i < numForces; i++) {
             const force: Force = {
                 flags: { allied: false, alliedVictory: true, shareVision: true, shareUnitControl: false, shareAdvUnitControl: false },
@@ -437,7 +509,7 @@ export class InfoTranslator {
                 name: ''
             };
 
-            const forceFlag = this._outBufferToJSON.readInt();
+            const forceFlag = outBufferToJSON.readInt();
             force.flags = {
                 allied: !!(forceFlag & 0b1), // 0x00000001: allied (force 1)
                 alliedVictory: !!(forceFlag & 0b10), // 0x00000002: allied victory
@@ -446,59 +518,59 @@ export class InfoTranslator {
                 shareUnitControl: !!(forceFlag & 0b10000), // 0x00000010: share unit control
                 shareAdvUnitControl: !!(forceFlag & 0b100000) // 0x00000020: share advanced unit control
             };
-            force.players = this._outBufferToJSON.readInt(); // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force)
-            force.name = this._outBufferToJSON.readString();
+            force.players = outBufferToJSON.readInt(); // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force; but carried over for accurate translation
+            force.name = outBufferToJSON.readString();
 
             result.forces.push(force);
         }
 
         // UNSUPPORTED: Struct: upgrade avail.
-        const numUpgrades = this._outBufferToJSON.readInt();
+        const numUpgrades = outBufferToJSON.readInt();
         for (let i = 0; i < numUpgrades; i++) {
-            this._outBufferToJSON.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
-            this._outBufferToJSON.readChars(4); // upgrade id (as in UpgradeData.slk)
-            this._outBufferToJSON.readInt(); // Level of the upgrade for which the availability is changed (this is actually the level - 1, so 1 => 0)
-            this._outBufferToJSON.readInt(); // Availability (0 = unavailable, 1 = available, 2 = researched)
+            outBufferToJSON.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
+            outBufferToJSON.readChars(4); // upgrade id (as in UpgradeData.slk)
+            outBufferToJSON.readInt(); // Level of the upgrade for which the availability is changed (this is actually the level - 1, so 1 => 0)
+            outBufferToJSON.readInt(); // Availability (0 = unavailable, 1 = available, 2 = researched)
         }
 
         // UNSUPPORTED: Struct: tech avail.
-        const numTech = this._outBufferToJSON.readInt();
+        const numTech = outBufferToJSON.readInt();
         for (let i = 0; i < numTech; i++) {
-            this._outBufferToJSON.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
-            this._outBufferToJSON.readChars(4); // tech id (this can be an item, unit or ability)
+            outBufferToJSON.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
+            outBufferToJSON.readChars(4); // tech id (this can be an item, unit or ability)
         }
 
         // UNSUPPORTED: Struct: random unit table
-        const numUnitTable = this._outBufferToJSON.readInt();
+        const numUnitTable = outBufferToJSON.readInt();
         for (let i = 0; i < numUnitTable; i++) {
-            this._outBufferToJSON.readInt(); // Group number
-            this._outBufferToJSON.readString(); // Group name
+            outBufferToJSON.readInt(); // Group number
+            outBufferToJSON.readString(); // Group name
 
-            const numPositions = this._outBufferToJSON.readInt(); // Number "m" of positions
+            const numPositions = outBufferToJSON.readInt(); // Number "m" of positions
             for (let j = 0; j < numPositions; j++) {
-                this._outBufferToJSON.readInt(); // unit table (=0), a building table (=1) or an item table (=2)
+                outBufferToJSON.readInt(); // unit table (=0), a building table (=1) or an item table (=2)
 
-                const numLinesInTable = this._outBufferToJSON.readInt();
+                const numLinesInTable = outBufferToJSON.readInt();
                 for (let k = 0; k < numLinesInTable; k++) {
-                    this._outBufferToJSON.readInt(); // Chance of the unit/item (percentage)
-                    this._outBufferToJSON.readChars(); // unit/item id's for this line specified
+                    outBufferToJSON.readInt(); // Chance of the unit/item (percentage)
+                    outBufferToJSON.readChars(4); // unit/item id's for this line specified
                 }
             }
         }
 
         // UNSUPPORTED: Struct: random item table
-        const numItemTable = this._outBufferToJSON.readInt();
+        const numItemTable = outBufferToJSON.readInt();
         for (let i = 0; i < numItemTable; i++) {
-            this._outBufferToJSON.readInt(); // Table number
-            this._outBufferToJSON.readString(); // Table name
+            outBufferToJSON.readInt(); // Table number
+            outBufferToJSON.readString(); // Table name
 
-            const itemSetsCurrentTable = this._outBufferToJSON.readInt(); // Number "m" of item sets on the current item table
+            const itemSetsCurrentTable = outBufferToJSON.readInt(); // Number "m" of item sets on the current item table
             for (let j = 0; j < itemSetsCurrentTable; j++) {
 
-                const itemsInItemSet = this._outBufferToJSON.readInt(); // Number "i" of items on the current item set
+                const itemsInItemSet = outBufferToJSON.readInt(); // Number "i" of items on the current item set
                 for (let k = 0; k < itemsInItemSet; k++) {
-                    this._outBufferToJSON.readInt(); // Percentual chance
-                    this._outBufferToJSON.readChars(4); // Item id (as in ItemData.slk)
+                    outBufferToJSON.readInt(); // Percentual chance
+                    outBufferToJSON.readChars(4); // Item id (as in ItemData.slk)
                 }
 
             }

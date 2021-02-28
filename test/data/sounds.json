@@ -1,0 +1,50 @@
+[
+    {
+      "name": "gg_snd_FirstSound",
+      "variableName": "gg_snd_FirstSound",
+      "path": "Units\\Demon\\HeroPitLord\\HPitLordYesAttack1.wav",
+      "eax": "HeroAcksEAX",
+      "volume": -1,
+      "pitch": 0.75,
+      "channel": 0,
+      "flags": {
+        "looping": false,
+        "3dSound": false,
+        "stopOutOfRange": true,
+        "music": false
+      },
+      "fadeRate": {
+        "in": 10,
+        "out": 10
+      },
+      "distance": {
+        "min": 0,
+        "max": 10000,
+        "cutoff": 3000
+      }
+    },
+    {
+      "name": "gg_snd_Warning",
+      "variableName": "gg_snd_Warning",
+      "path": "Sound\\Interface\\Warning.wav",
+      "eax": "DefaultEAXON",
+      "volume": -1,
+      "pitch": 1,
+      "channel": 0,
+      "flags": {
+        "looping": false,
+        "3dSound": false,
+        "stopOutOfRange": false,
+        "music": false
+      },
+      "fadeRate": {
+        "in": 10,
+        "out": 10
+      },
+      "distance": {
+        "min": 0,
+        "max": 10000,
+        "cutoff": 3000
+      }
+    }
+  ]

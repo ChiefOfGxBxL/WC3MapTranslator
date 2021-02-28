@@ -1,4 +1,3 @@
-
 export * from './CamerasTranslator';
 export * from './DoodadsTranslator';
 export * from './ImportsTranslator';
@@ -8,4 +7,4 @@ export * from './SoundsTranslator';
 export * from './StringsTranslator';
 export * from './TerrainTranslator';
 export * from './UnitsTranslator';
-export * from './object/ObjectsTranslator';
+export * from './ObjectsTranslator';

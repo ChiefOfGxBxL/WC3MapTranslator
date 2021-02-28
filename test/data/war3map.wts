@@ -1,0 +1,631 @@
+﻿STRING 1569
+{
+|cffFFFFCCThe invasion has now intensified:|r
+2x |cffFF6666L|r|cffCC3333ava|r |cffFF6666S|r|cffCC3333pawn|r
+2x |cffFF6666F|r|cffCC3333irelord|r
+|cffFF6666F|r|cffCC3333el|r |cffFF6666B|r|cffCC3333oar|r
+|cffFF6666I|r|cffCC3333nfernal|r/|cffFF6666P|r|cffCC3333it|r |cffFF6666L|r|cffCC3333ord|r
+|cffFFCC00Hellfire|r Aura
+}
+
+STRING 1572
+{
+|cffFFFFCCThe invasion has now intensified:|r
+2x |cffFF6666L|r|cffCC3333ava|r |cffFF6666S|r|cffCC3333pawn|r
+2x |cffFF6666F|r|cffCC3333irelord|r
+|cffFF6666F|r|cffCC3333el|r |cffFF6666B|r|cffCC3333oar|r
+|cffFF6666I|r|cffCC3333nfernal|r/|cffFF6666P|r|cffCC3333it|r |cffFF6666L|r|cffCC3333ord|r
+2x |cffFFCC00Hellfire|r Aura
+}
+
+STRING 1573
+{
+|cffFF3333About...|r
+}
+
+STRING 1574
+{
+|cffFFFFCCHermit Survival started as a side project. With time it has evolved into a game I can be proud of.
+
+I'd like to thank the following individual for helping me out with testing and ideas, this map wouldn't be what it is today without his valued support:|r |cffFFCC00B.a.b.o.G|r
+}
+
+STRING 1575
+{
+|cffFF3333Change Log|r
+}
+
+STRING 1576
+{
+[|cffFFCC001.4|r]
+- Added unique spawns at 5 minute intervals
+- Increased Hermit Crab HP
+- Added new item
+- Fire realocates targets 2 seconds faster
+- Many small balance tweaks
+}
+
+STRING 1577
+{
+|cffFFFFCCWelcome to |r|cffFFCC00Hermit Survival|r|cffFFFFCC.|r
+version |cffCC33331.4|r
+}
+
+STRING 1578
+{
+|cffFFFFCCDifficulty|r
+}
+
+STRING 1579
+{
+|cff66CC33Easy|r
+}
+
+STRING 1580
+{
+|cffCC9933Standard|r
+}
+
+STRING 1581
+{
+|cffFF3333Hard|r
+}
+
+STRING 1582
+{
+|cffFFFFCCSelect your Crab|r
+}
+
+STRING 1583
+{
+|cffFFCC99H|r|cffFF9933ermit|r |cffFFCC99C|r|cffFF9933rab|r (|cffCCFFCCCarpenter|r)
+}
+
+STRING 1584
+{
+|cffFFCC99C|r|cffFF9933ameo|r |cffFFCC99C|r|cffFF9933rab|r (|cffFFCCFFWarrior|r)
+}
+
+STRING 1585
+{
+|cffFFCC99T|r|cffFF9933rove|r |cffFFCC99L|r|cffFF9933obster|r (|cffFFFFCCMedic|r)
+}
+
+STRING 1586
+{
+|cffFFCC99S|r|cffFF9933piny|r |cffFFCC99S|r|cffFF9933napper|r (|cffFF6666Tank|r)
+}
+
+STRING 1587
+{
+|cffFFCC99F|r|cffFF9933rog|r |cffFFCC99J|r|cffFF9933ester|r (|cff66FF66Handicap|r)
+}
+
+STRING 1588
+{
+|cffFFFFCCThe invasion begins in |r|cffFFCC001|r|cffFFFFCC minute.|r
+|cffFF3333If you haven't picked your crab by then it's too late.|r
+|cffFFFFCCYou can |r|cffFFCC00-repick|r|cffFFFFCC before the minute is up.|r
+|cffFF3333If you die you cannot come back!|r
+}
+
+STRING 1589
+{
+|cffFFFFCCYou can |r|cffFFCC00-notip|r|cffFFFFCC to disable tips.|r
+}
+
+STRING 1590
+{
+|cffFFCC00-repick|r is disabled
+}
+
+STRING 1591
+{
+|cffFFFFCCThe invasion has begun:|r
+|cffFF6666L|r|cffCC3333ava|r |cffFF6666S|r|cffCC3333pawn|r
+}
+
+STRING 1592
+{
+|cffFFFFCCThe invasion has now intensified:|r
+2x |cffFF6666L|r|cffCC3333ava|r |cffFF6666S|r|cffCC3333pawn|r
+}
+
+STRING 1593
+{
+|cffFF33FFSkills Upgraded:|r [|cff9999992/4|r]
+}
+
+STRING 1594
+{
+|cffFFFFCCThe invasion has now intensified:|r
+2x |cffFF6666L|r|cffCC3333ava|r |cffFF6666S|r|cffCC3333pawn|r
+|cffFF6666F|r|cffCC3333irelord|r
+}
+
+STRING 1595
+{
+|cffFFFFCCThe invasion has now intensified:|r
+2x |cffFF6666L|r|cffCC3333ava|r |cffFF6666S|r|cffCC3333pawn|r
+|cffFF6666F|r|cffCC3333irelord|r
+|cffFF6666F|r|cffCC3333el|r |cffFF6666B|r|cffCC3333oar|r
+}
+
+STRING 1596
+{
+|cffFFFFCCThe invasion has now intensified:|r
+2x |cffFF6666L|r|cffCC3333ava|r |cffFF6666S|r|cffCC3333pawn|r
+2x |cffFF6666F|r|cffCC3333irelord|r
+|cffFF6666F|r|cffCC3333el|r |cffFF6666B|r|cffCC3333oar|r
+|cffFF6666I|r|cffCC3333nfernal|r/|cffFF6666P|r|cffCC3333it|r |cffFF6666L|r|cffCC3333ord|r
+}
+
+STRING 1597
+{
+|cffFF33FFSkills Upgraded:|r [|cff9999993/4|r]
+}
+
+STRING 1598
+{
+|cffFF33FFSkills Upgraded:|r [|cff9999994/4|r]
+}
+
+STRING 1599
+{
+|cffFFCC00The difficulty has been set to |r|cff66CC33Easy|r|cffFFCC00.|r
+Enemies now have:
+75% |cffFFCC00Hit points|r
+75% |cffFFCC00Attack rate|r
+95% |cffFFCC00Movement speed|r
+50% |cffFFCC00Spawn rate|r
+}
+
+STRING 1600
+{
+|cffFFCC00The difficulty has been set to |r|cffCC9933Standard|r|cffFFCC00.|r
+Enemies now have:
+100% |cffFFCC00Hit points|r
+100% |cffFFCC00Attack rate|r
+100% |cffFFCC00Movement speed|r
+100% |cffFFCC00Spawn rate|r
+}
+
+STRING 1601
+{
+|cffFFCC00The difficulty has been set to |r|cffFF3333Hard|r|cffFFCC00.|r
+Enemies now have:
+125% |cffFFCC00Hit points|r
+125% |cffFFCC00Attack rate|r
+105% |cffFFCC00Movement speed|r
+200% |cffFFCC00Spawn rate|r
+}
+
+STRING 1602
+{
+|cffFFCC99C|r|cffFF9933ameo|r |cffFFCC99C|r|cffFF9933rab|r statistics:
+}
+
+STRING 1603
+{
+Your |cffFFCC99C|r|cffFF9933ameo|r |cffFFCC99C|r|cffFF9933rab|r has mastered its |cffFFCC00Hit Points|r.
+}
+
+STRING 1604
+{
+Your |cffFFCC99C|r|cffFF9933ameo|r |cffFFCC99C|r|cffFF9933rab|r has mastered its |cffFFCC00Armor|r.
+}
+
+STRING 1605
+{
+Your |cffFFCC99C|r|cffFF9933ameo|r |cffFFCC99C|r|cffFF9933rab|r has mastered its |cffFFCC00Regeneration|r.
+}
+
+STRING 1606
+{
+Your |cffFFCC99C|r|cffFF9933ameo|r |cffFFCC99C|r|cffFF9933rab|r has mastered its |cffFFCC00Damage|r.
+}
+
+STRING 1607
+{
+Your |cffFFCC99C|r|cffFF9933ameo|r |cffFFCC99C|r|cffFF9933rab|r has mastered its |cffFFCC00Speed|r.
+}
+
+STRING 1608
+{
+Your |cffFFCC99C|r|cffFF9933ameo|r |cffFFCC99C|r|cffFF9933rab|r has mastered its |cffFFCC00Canon|r.
+}
+
+STRING 1609
+{
+|cffFF3333Victory Count|r:
+}
+
+STRING 1610
+{
+|cff3333FFRepick Available|r:
+}
+
+STRING 1611
+{
+The ones that survived until the very end deserved to win, good job.
+If you didn't survive dont worry this game takes practice.
+The game will end in |cffFFCC0010|r seconds.
+}
+
+STRING 1612
+{
+Toasted!
+}
+
+STRING 1613
+{
+|cffFFCC00Tips|r enabled.
+}
+
+STRING 1614
+{
+|cffFFCC00Tips|r disabled.
+}
+
+STRING 1615
+{
+Minions
+}
+
+STRING 1616
+{
+Player 2
+}
+
+STRING 1617
+{
+Player 3
+}
+
+STRING 1618
+{
+Player 4
+}
+
+STRING 1619
+{
+Player 5
+}
+
+STRING 1620
+{
+Player 6
+}
+
+STRING 1621
+{
+Player 7
+}
+
+STRING 1622
+{
+Player 8
+}
+
+STRING 1623
+{
+Player 9
+}
+
+STRING 1624
+{
+Player 10
+}
+
+STRING 1625
+{
+Player 11
+}
+
+STRING 1626
+{
+Player 12
+}
+
+STRING 1627
+{
+|cff99CCFFHermit Players|r
+}
+
+STRING 1628
+{
+|cffFF6666Hell's Minions|r
+}
+
+STRING 1629
+{
+Type: |Cffffcc00Creep|R
+}
+
+STRING 1630
+{
+100% |cffFFCC00Chaos|r|n75% |cffFFCC00Hero|r
+}
+
+STRING 1631
+{
+100% |cffFFCC00Hero|r|n65% |cffFFCC00Chaos|r
+}
+
+STRING 1632
+{
+110% |cffFFCC00Hero|r|n100% |cffFFCC00Chaos|r
+}
+
+STRING 1633
+{
+0% |cffFFCC00Chaos|r|n0% |cffFFCC00Hero|r
+}
+
+STRING 1634
+{
+100% |cffFFCC00Chaos|r|n75% |cffFFCC00Hero|r
+}
+
+STRING 1635
+{
+100% |cffFFCC00Hero|r|n65% |cffFFCC00Chaos|r
+}
+
+STRING 1636
+{
+110% |cffFFCC00Hero|r|n100% |cffFFCC00Chaos|r
+}
+
+STRING 1637
+{
+0% |cffFFCC00Chaos|r|n0% |cffFFCC00Hero|r
+}
+
+STRING 1638
+{
+100% |cffFFCC00Chaos|r|n75% |cffFFCC00Hero|r
+}
+
+STRING 1639
+{
+100% |cffFFCC00Hero|r|n65% |cffFFCC00Chaos|r
+}
+
+STRING 1640
+{
+110% |cffFFCC00Hero|r|n100% |cffFFCC00Chaos|r
+}
+
+STRING 1641
+{
+0% |cffFFCC00Chaos|r|n0% |cffFFCC00Hero|r
+}
+
+STRING 1642
+{
+Kill Tokens:
+}
+
+STRING 1643
+{
+Game Speed:
+}
+
+STRING 1644
+{
+110% |cffFFCC00Creep|r|n100% |cffFFCC00Hero|r|n75% |cffFFCC00Fortified|r
+}
+
+STRING 1645
+{
+100% |cffFFCC00Creep|r|n100% |cffFFCC00Fortified|r|n65% |cffFFCC00Hero|r
+}
+
+STRING 1646
+{
+110% |cffFFCC00Creep|r|n100% |cffFFCC00Hero|r|n75% |cffFFCC00Fortified|r
+}
+
+STRING 1647
+{
+100% |cffFFCC00Creep|r|n100% |cffFFCC00Fortified|r|n65% |cffFFCC00Hero|r
+}
+
+STRING 1648
+{
+110% |cffFFCC00Creep|r|n100% |cffFFCC00Hero|r|n75% |cffFFCC00Fortified|r
+}
+
+STRING 1649
+{
+100% |cffFFCC00Creep|r|n100% |cffFFCC00Fortified|r|n65% |cffFFCC00Hero|r
+}
+
+STRING 1650
+{
+Kill Tokens
+}
+
+STRING 1651
+{
+Idle Crab (|Cfffed312F8|R)
+}
+
+STRING 1652
+{
+Information (|Cfffed312F9|R)
+}
+
+STRING 1653
+{
+Subject Description
+}
+
+STRING 1654
+{
+Information
+}
+
+STRING 1655
+{
+Facts & Archives
+}
+
+STRING 1656
+{
+Hints & Strategies
+}
+
+STRING 1657
+{
+Quest Not Yet Discovered
+}
+
+STRING 1658
+{
+This number represents the cumulated level of the enemies you have killed.
+}
+
+STRING 1659
+{
+Lumber has no use.
+}
+
+STRING 1660
+{
+version |cffFF33331.4|r
+}
+
+STRING 1661
+{
+ 
+}
+
+STRING 1662
+{
+ 
+}
+
+STRING 1663
+{
+The amount of food you are using over the total amount you can currently sustain.|n|nThis is only of use to |cffFFCC99H|r|cffFF9933ermit|r |cffFFCC99C|r|cffFF9933rab|rs.
+}
+
+STRING 1664
+{
+|cffFF3333Tichondrius(C)|r
+}
+
+STRING 1665
+{
+ 
+}
+
+STRING 1666
+{
+Information Library (|Cfffed312F9|R)
+}
+
+STRING 1667
+{
+|cffCC9999Bait|r
+}
+
+STRING 1668
+{
+|cff996666Incarnation|r
+}
+
+STRING 1669
+{
+|cffFF3333Fire Elemental|r
+}
+
+STRING 1670
+{
+|cffCC3333Hermit|r Survival v1.4e
+}
+
+STRING 1671
+{
+4+
+}
+
+STRING 1672
+{
+|cffFF0000-|r |cffFFFFCCSurvive|r 20 |cffFFFFCCminutes.|r
+|cffFF0000-|r |cffFFFFCCSelect one of four unit types:|r
+|cff99CCFFHermit Crab|r, |cff99CCFFCameo Crab|r, |cff99CCFFTrove Lobster|r, |cff99CCFFSpiny Snapper|r
+}
+
+STRING 1673
+{
+Tichondrius(C)
+}
+
+STRING 1674
+{
+|cff99CCFFTichondrius(C)|r
+}
+
+STRING 1675
+{
+|cffCC3333Hermit |cffFFFFCCSurvival|r
+}
+
+STRING 1676
+{
+|cffFF0000-|r |cffFFFFCCSurvive|r 20 |cffFFFFCCminutes.|r
+|cffFF0000-|r |cffFFFFCCWork as a team.|r
+|cffFF0000-|r |cffFFFFCCOnce you die it's over. You don't come back.|r
+|cffFF0000-|r |cffFFFFCCTry different difficulties only when you're ready for them.|r
+|cffFF0000-|r |cffFFFFCCTry to pick complementary units.|r
+|cffFF0000-|r |cffFFFFCCHave fun!|r
+
+Version |cffCC33331.4e|r
+Released |cffFFFFCCJanuary 1, 2010|r
+}
+
+STRING 1677
+// Units: H000 (CustomUnit1), Name (Name)
+{
+CustomUnit1
+}
+
+STRING 1678
+// Items: I000 (CustomItem1), Name (Name)
+{
+CustomItem1
+}
+
+STRING 1679
+// Destructibles: B000 (Rock Chunks - Custom), Name (Name)
+{
+Rock Chunks - Custom
+}
+
+STRING 1680
+// Doodads: D000 (CustomStatue), Name (Name)
+{
+CustomStatue
+}
+
+STRING 1681
+// Abilities: A000 (CustomAbility1), Name (Name)
+{
+CustomAbility1
+}
+
+STRING 1682
+// Buffs/Effects: X000 (CustomAbility1), EditorName (Name (Editor Only))
+{
+CustomAbility1
+}
+
+STRING 1683
+// Upgrades: R000 (Flare), Name (Name)
+{
+CustomUpgrade1
+}
+

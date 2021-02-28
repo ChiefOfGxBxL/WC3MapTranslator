@@ -1,13 +1,15 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { rad2Deg, deg2Rad } from '../AngleConverter';
+import { WarResult, JsonResult, angle } from '../CommonInterfaces'
 
 interface Doodad {
     type: string;
     variation: number;
     position: number[];
-    angle: number; // degrees
+    angle: angle;
     scale: number[];
+    skinId: string;
     flags: DoodadFlag;
     life: number;
     id: number;
@@ -27,44 +29,42 @@ enum flag {
     solid = 3
 }
 
-export class DoodadsTranslator {
-    public _outBufferToWar: HexBuffer;
-    public _outBufferToJSON: W3Buffer;
+export abstract class DoodadsTranslator {
 
-    constructor() { }
-
-    public jsonToWar(doodadsJson: Doodad[]) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(doodadsJson: Doodad[]): WarResult {
+        const outBufferToWar = new HexBuffer();
         /*
          * Header
          */
-        this._outBufferToWar.addString('W3do'); // file id
-        this._outBufferToWar.addInt(8); // file version
-        this._outBufferToWar.addInt(11); // subversion 0x0B
-        this._outBufferToWar.addInt(doodadsJson.length); // num of trees
+        outBufferToWar.addChars('W3do'); // file id
+        outBufferToWar.addInt(8); // file version
+        outBufferToWar.addInt(11); // subversion 0x0B
+        outBufferToWar.addInt(doodadsJson.length); // num of trees
 
         /*
          * Body
          */
         doodadsJson.forEach((tree) => {
-            this._outBufferToWar.addString(tree.type);
-            this._outBufferToWar.addInt(tree.variation || 0); // optional - default value 0
-            this._outBufferToWar.addFloat(tree.position[0]);
-            this._outBufferToWar.addFloat(tree.position[1]);
-            this._outBufferToWar.addFloat(tree.position[2]);
+            outBufferToWar.addChars(tree.type);
+            outBufferToWar.addInt(tree.variation || 0); // optional - default value 0
+            outBufferToWar.addFloat(tree.position[0]);
+            outBufferToWar.addFloat(tree.position[1]);
+            outBufferToWar.addFloat(tree.position[2]);
 
             // Angle
             // Doodads format is unique because it uses radians for angles, as opposed
             // to angles in any other file which use degrees. Hence conversion is needed.
             //    war3map: Expects angle in RADIANS
             //    JSON: Spec defines angle in DEGREES
-            this._outBufferToWar.addFloat(deg2Rad(tree.angle) || 0); // optional - default value 0
+            outBufferToWar.addFloat(deg2Rad(tree.angle) || 0); // optional - default value 0
 
             // Scale
             if (!tree.scale) tree.scale = [1, 1, 1];
-            this._outBufferToWar.addFloat(tree.scale[0] || 1);
-            this._outBufferToWar.addFloat(tree.scale[1] || 1);
-            this._outBufferToWar.addFloat(tree.scale[2] || 1);
+            outBufferToWar.addFloat(tree.scale[0] || 1);
+            outBufferToWar.addFloat(tree.scale[1] || 1);
+            outBufferToWar.addFloat(tree.scale[2] || 1);
+
+            outBufferToWar.addChars(tree.skinId);
 
             // Tree flags
             /* | Visible | Solid | Flag value |
@@ -77,34 +77,34 @@ export class DoodadsTranslator {
             else if (tree.flags.visible && !tree.flags.solid) treeFlag = 1;
             else if (tree.flags.visible && tree.flags.solid) treeFlag = 2;
             // Note: invisible and solid is not an option
-            this._outBufferToWar.addByte(treeFlag);
+            outBufferToWar.addByte(treeFlag);
 
-            this._outBufferToWar.addByte(tree.life || 100);
-            this._outBufferToWar.addInt(0); // NOT SUPPORTED: random item table pointer: fixed to 0
-            this._outBufferToWar.addInt(0); // NOT SUPPORTED: number of items dropped for item table
-            this._outBufferToWar.addInt(tree.id);
+            outBufferToWar.addByte(tree.life || 100);
+            outBufferToWar.addInt(0); // NOT SUPPORTED: random item table pointer: fixed to 0
+            outBufferToWar.addInt(0); // NOT SUPPORTED: number of items dropped for item table
+            outBufferToWar.addInt(tree.id);
         });
 
         /*
          * Footer
          */
-        this._outBufferToWar.addInt(0); // special doodad format number, fixed at 0x00
-        this._outBufferToWar.addInt(0); // NOT SUPPORTED: number of special doodads
+        outBufferToWar.addInt(0); // special doodad format number, fixed at 0x00
+        outBufferToWar.addInt(0); // NOT SUPPORTED: number of special doodads
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
 
-    public warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Doodad[]> {
         const result = [];
-        this._outBufferToJSON = new W3Buffer(buffer);
+        const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileId = this._outBufferToJSON.readChars(4); // W3do for doodad file
-        const fileVersion = this._outBufferToJSON.readInt(); // File version = 8
-        const subVersion = this._outBufferToJSON.readInt(); // 0B 00 00 00
-        const numDoodads = this._outBufferToJSON.readInt(); // # of doodads
+        const fileId = outBufferToJSON.readChars(4); // W3do for doodad file
+        const fileVersion = outBufferToJSON.readInt(); // File version = 8
+        const subVersion = outBufferToJSON.readInt(); // 0B 00 00 00
+        const numDoodads = outBufferToJSON.readInt(); // # of doodads
 
         for (let i = 0; i < numDoodads; i++) {
             const doodad: Doodad = {
@@ -113,59 +113,61 @@ export class DoodadsTranslator {
                 position: [0, 0, 0],
                 angle: -1,
                 scale: [0, 0, 0],
+                skinId: '',
                 flags: { visible: flag.visible, solid: flag.solid },
                 life: -1,
                 id: -1
             };
 
-            doodad.type = this._outBufferToJSON.readChars(4);
-            doodad.variation = this._outBufferToJSON.readInt();
-            doodad.position = [this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()]; // X Y Z coords
+            doodad.type = outBufferToJSON.readChars(4);
+            doodad.variation = outBufferToJSON.readInt();
+            doodad.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
 
             // Angle
             // Doodads format is unique because it uses radians for angles, as opposed
             // to angles in any other file which use degrees. Hence conversion is needed.
             //    war3map: Expects angle in RADIANS
             //    JSON: Spec defines angle in DEGREES
-            doodad.angle = rad2Deg(this._outBufferToJSON.readFloat());
+            doodad.angle = rad2Deg(outBufferToJSON.readFloat());
 
-            doodad.scale = [this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat(), this._outBufferToJSON.readFloat()]; // X Y Z scaling
+            doodad.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
+            doodad.skinId = outBufferToJSON.readChars(4);
 
-            const flags: flag = this._outBufferToJSON.readByte();
+            const flags: flag = outBufferToJSON.readByte();
             doodad.flags = {
                 visible: flags === 1 || flags === 2,
                 solid: flags === 2
             };
 
-            doodad.life = this._outBufferToJSON.readByte(); // as a %
+            doodad.life = outBufferToJSON.readByte(); // as a %
 
             // UNSUPPORTED: random item set drops when doodad is destroyed/killed
             // This section just consumes the bytes from the file
-            const randomItemSetPtr = this._outBufferToJSON.readInt(); // points to an item set defined in the map (rather than custom one defined below)
-            const numberOfItemSets = this._outBufferToJSON.readInt(); // this should be 0 if randomItemSetPtr is >= 0
+            const randomItemSetPtr = outBufferToJSON.readInt(); // points to an item set defined in the map (rather than custom one defined below)
+            const numberOfItemSets = outBufferToJSON.readInt(); // this should be 0 if randomItemSetPtr is >= 0
 
             for (let j = 0; j < numberOfItemSets; j++) {
                 // Read the item set
-                const numberOfItems = this._outBufferToJSON.readInt();
+                const numberOfItems = outBufferToJSON.readInt();
                 for (let k = 0; k < numberOfItems; k++) {
-                    this._outBufferToJSON.readChars(4); // Item ID
-                    this._outBufferToJSON.readInt(); // % chance to drop
+                    outBufferToJSON.readChars(4); // Item ID
+                    outBufferToJSON.readInt(); // % chance to drop
                 }
             }
 
-            doodad.id = this._outBufferToJSON.readInt();
+            doodad.id = outBufferToJSON.readInt();
 
             result.push(doodad);
         }
 
         // UNSUPPORTED: Special doodads
-        this._outBufferToJSON.readInt(); // special doodad format version set to '0'
-        const numSpecialDoodads = this._outBufferToJSON.readInt();
+        outBufferToJSON.readInt(); // special doodad format version set to '0'
+        const numSpecialDoodads = outBufferToJSON.readInt();
         for (let i = 0; i < numSpecialDoodads; i++) {
-            this._outBufferToJSON.readChars(4); // doodad ID
-            this._outBufferToJSON.readInt();
-            this._outBufferToJSON.readInt();
-            this._outBufferToJSON.readInt();
+            outBufferToJSON.readChars(4); // doodad ID
+            outBufferToJSON.readInt();
+            outBufferToJSON.readInt();
+            outBufferToJSON.readInt();
         }
 
         return {

@@ -1,0 +1,4892 @@
+{
+    "original": {
+      "A00N": [
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 725
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 4,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 30
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 650
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 675
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 700
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 725
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 5,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 6,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 7,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 8,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 15
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 15
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 15
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 15
+        }
+      ],
+      "A00O": [
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 18
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 20
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 22
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 24
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 26
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 9,
+          "column": 1,
+          "value": 28
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 10,
+          "column": 1,
+          "value": 30
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 11,
+          "column": 1,
+          "value": 32
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 12,
+          "column": 1,
+          "value": 34
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 13,
+          "column": 1,
+          "value": 36
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 14,
+          "column": 1,
+          "value": 38
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 15,
+          "column": 1,
+          "value": 40
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "ground,air,enemy"
+        }
+      ],
+      "A00Q": [
+        {
+          "id": "bsk2",
+          "type": "unreal",
+          "level": 4,
+          "column": 2,
+          "value": 0.25
+        },
+        {
+          "id": "bsk1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 0.25
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 90
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 13
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 13
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "B008"
+        },
+        {
+          "id": "bsk2",
+          "type": "unreal",
+          "level": 5,
+          "column": 2,
+          "value": 0.25
+        },
+        {
+          "id": "bsk2",
+          "type": "unreal",
+          "level": 6,
+          "column": 2,
+          "value": 0.25
+        },
+        {
+          "id": "bsk2",
+          "type": "unreal",
+          "level": 7,
+          "column": 2,
+          "value": 0.25
+        },
+        {
+          "id": "bsk2",
+          "type": "unreal",
+          "level": 8,
+          "column": 2,
+          "value": 0.25
+        },
+        {
+          "id": "bsk1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 0.25
+        },
+        {
+          "id": "bsk1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 0.25
+        },
+        {
+          "id": "bsk1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 0.25
+        },
+        {
+          "id": "bsk1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 0.25
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "B008"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "B008"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "B008"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "B008"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 60
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 55
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 50
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 45
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 10
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 11
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 12
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 13
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 13
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 12
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 11
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 10
+        }
+      ],
+      "A010": [
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 18
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 20
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 22
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 24
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 26
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 9,
+          "column": 1,
+          "value": 28
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 10,
+          "column": 1,
+          "value": 30
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 11,
+          "column": 1,
+          "value": 32
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 12,
+          "column": 1,
+          "value": 34
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 13,
+          "column": 1,
+          "value": 36
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 14,
+          "column": 1,
+          "value": 38
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 15,
+          "column": 1,
+          "value": 40
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "ground,air,enemy"
+        }
+      ],
+      "A025": [
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 18
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 20
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 22
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 24
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 26
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 9,
+          "column": 1,
+          "value": 28
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 10,
+          "column": 1,
+          "value": 30
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 11,
+          "column": 1,
+          "value": 32
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 12,
+          "column": 1,
+          "value": 34
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 13,
+          "column": 1,
+          "value": 36
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 14,
+          "column": 1,
+          "value": 38
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 15,
+          "column": 1,
+          "value": 40
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "ground,air,enemy"
+        }
+      ],
+      "A02M": [
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 18
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 20
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 22
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 24
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 26
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 9,
+          "column": 1,
+          "value": 28
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 10,
+          "column": 1,
+          "value": 30
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 11,
+          "column": 1,
+          "value": 32
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 12,
+          "column": 1,
+          "value": 34
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 13,
+          "column": 1,
+          "value": 36
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 14,
+          "column": 1,
+          "value": 38
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 15,
+          "column": 1,
+          "value": 40
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "ground,air,enemy"
+        }
+      ],
+      "A030": [
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 525
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 525
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 525
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 525
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 525
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 9,
+          "column": 1,
+          "value": 500
+        },
+        {
+          "id": "Ebl1",
+          "type": "unreal",
+          "level": 10,
+          "column": 1,
+          "value": 500
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 4,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 5,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 6,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 7,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 8,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 9,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "Ebl2",
+          "type": "unreal",
+          "level": 10,
+          "column": 2,
+          "value": 5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.5
+        }
+      ],
+      "A03J": [
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 18
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 20
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 22
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 24
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 26
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 9,
+          "column": 1,
+          "value": 28
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 10,
+          "column": 1,
+          "value": 30
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 11,
+          "column": 1,
+          "value": 32
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 12,
+          "column": 1,
+          "value": 34
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 13,
+          "column": 1,
+          "value": 36
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 14,
+          "column": 1,
+          "value": 38
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 15,
+          "column": 1,
+          "value": 40
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "ground,air,enemy"
+        }
+      ],
+      "A03M": [
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 4,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 5,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 6,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 7,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 8,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 9,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 10,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 4,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 5,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 6,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 7,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 8,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 9,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 10,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 18
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 20
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 22
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 24
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 26
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 9,
+          "column": 1,
+          "value": 28
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 10,
+          "column": 1,
+          "value": 30
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 11,
+          "column": 1,
+          "value": 32
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 12,
+          "column": 1,
+          "value": 34
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 13,
+          "column": 1,
+          "value": 36
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 14,
+          "column": 1,
+          "value": 38
+        },
+        {
+          "id": "pxf1",
+          "type": "unreal",
+          "level": 15,
+          "column": 1,
+          "value": 40
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 500
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "abuf",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "B007"
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "acdn",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.5
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "ahdu",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 11,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 12,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 13,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 14,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "adur",
+          "type": "unreal",
+          "level": 15,
+          "column": 0,
+          "value": 0.01
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 11,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 12,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 13,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 14,
+          "column": 0,
+          "value": "ground,air,enemy"
+        },
+        {
+          "id": "atar",
+          "type": "string",
+          "level": 15,
+          "column": 0,
+          "value": "ground,air,enemy"
+        }
+      ],
+      "A03R": [
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 4,
+          "column": 1,
+          "value": -17
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 5,
+          "column": 1,
+          "value": -16
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 6,
+          "column": 1,
+          "value": -15
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 7,
+          "column": 1,
+          "value": -14
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 8,
+          "column": 1,
+          "value": -13
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 9,
+          "column": 1,
+          "value": -12
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 10,
+          "column": 1,
+          "value": -11
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 11,
+          "column": 1,
+          "value": -10
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 12,
+          "column": 1,
+          "value": -9
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 13,
+          "column": 1,
+          "value": -8
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 14,
+          "column": 1,
+          "value": -7
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 16,
+          "column": 1,
+          "value": -5
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 17,
+          "column": 1,
+          "value": -4
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 18,
+          "column": 1,
+          "value": -3
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 19,
+          "column": 1,
+          "value": -2
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 20,
+          "column": 1,
+          "value": -1
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 22,
+          "column": 1,
+          "value": 1
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 23,
+          "column": 1,
+          "value": 2
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 24,
+          "column": 1,
+          "value": 3
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 25,
+          "column": 1,
+          "value": 4
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 26,
+          "column": 1,
+          "value": 5
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 27,
+          "column": 1,
+          "value": 6
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 28,
+          "column": 1,
+          "value": 7
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 29,
+          "column": 1,
+          "value": 8
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 30,
+          "column": 1,
+          "value": 9
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 31,
+          "column": 1,
+          "value": 10
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 32,
+          "column": 1,
+          "value": 11
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 33,
+          "column": 1,
+          "value": 12
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 34,
+          "column": 1,
+          "value": 13
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 35,
+          "column": 1,
+          "value": 14
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 36,
+          "column": 1,
+          "value": 15
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 37,
+          "column": 1,
+          "value": 16
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 38,
+          "column": 1,
+          "value": 17
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 39,
+          "column": 1,
+          "value": 18
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 40,
+          "column": 1,
+          "value": 19
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 41,
+          "column": 1,
+          "value": 20
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 15,
+          "column": 1,
+          "value": -6
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 42,
+          "column": 1,
+          "value": 19
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 43,
+          "column": 1,
+          "value": 18
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 44,
+          "column": 1,
+          "value": 17
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 45,
+          "column": 1,
+          "value": 16
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 46,
+          "column": 1,
+          "value": 15
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 47,
+          "column": 1,
+          "value": 14
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 48,
+          "column": 1,
+          "value": 13
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 49,
+          "column": 1,
+          "value": 12
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 50,
+          "column": 1,
+          "value": 11
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 51,
+          "column": 1,
+          "value": 10
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 52,
+          "column": 1,
+          "value": 9
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 53,
+          "column": 1,
+          "value": 8
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 54,
+          "column": 1,
+          "value": 7
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 55,
+          "column": 1,
+          "value": 6
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 56,
+          "column": 1,
+          "value": 5
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 57,
+          "column": 1,
+          "value": 4
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 58,
+          "column": 1,
+          "value": 3
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 59,
+          "column": 1,
+          "value": 2
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 60,
+          "column": 1,
+          "value": 1
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 62,
+          "column": 1,
+          "value": -1
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 63,
+          "column": 1,
+          "value": -2
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 64,
+          "column": 1,
+          "value": -3
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 65,
+          "column": 1,
+          "value": -4
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 66,
+          "column": 1,
+          "value": -5
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 67,
+          "column": 1,
+          "value": -6
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 68,
+          "column": 1,
+          "value": -7
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 69,
+          "column": 1,
+          "value": -8
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 70,
+          "column": 1,
+          "value": -9
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 71,
+          "column": 1,
+          "value": -10
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 72,
+          "column": 1,
+          "value": -11
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 73,
+          "column": 1,
+          "value": -12
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 74,
+          "column": 1,
+          "value": -13
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 75,
+          "column": 1,
+          "value": -14
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 76,
+          "column": 1,
+          "value": -15
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 77,
+          "column": 1,
+          "value": -16
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 78,
+          "column": 1,
+          "value": -17
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 79,
+          "column": 1,
+          "value": -18
+        },
+        {
+          "id": "Iatt",
+          "type": "int",
+          "level": 80,
+          "column": 1,
+          "value": -19
+        }
+      ],
+      "A03S": [
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 4,
+          "column": 1,
+          "value": -3
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 5,
+          "column": 1,
+          "value": -4
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 6,
+          "column": 1,
+          "value": -5
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 7,
+          "column": 1,
+          "value": -6
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 8,
+          "column": 1,
+          "value": -7
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 9,
+          "column": 1,
+          "value": -8
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 10,
+          "column": 1,
+          "value": -9
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 11,
+          "column": 1,
+          "value": -10
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 12,
+          "column": 1,
+          "value": -11
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 13,
+          "column": 1,
+          "value": -12
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 14,
+          "column": 1,
+          "value": -13
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 15,
+          "column": 1,
+          "value": -14
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 16,
+          "column": 1,
+          "value": -15
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 17,
+          "column": 1,
+          "value": -16
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 18,
+          "column": 1,
+          "value": -17
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 19,
+          "column": 1,
+          "value": -18
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 20,
+          "column": 1,
+          "value": -19
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 21,
+          "column": 1,
+          "value": -20
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 22,
+          "column": 1,
+          "value": -21
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 23,
+          "column": 1,
+          "value": -22
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 24,
+          "column": 1,
+          "value": -23
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 25,
+          "column": 1,
+          "value": -24
+        },
+        {
+          "id": "Idef",
+          "type": "int",
+          "level": 26,
+          "column": 1,
+          "value": -25
+        }
+      ],
+      "A03T": [
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 4,
+          "column": 1,
+          "value": 0.15
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 5,
+          "column": 1,
+          "value": 0.2
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 6,
+          "column": 1,
+          "value": 0.25
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 7,
+          "column": 1,
+          "value": 0.3
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 8,
+          "column": 1,
+          "value": 0.35
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 9,
+          "column": 1,
+          "value": 0.4
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 10,
+          "column": 1,
+          "value": 0.45
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 11,
+          "column": 1,
+          "value": 0.5
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 12,
+          "column": 1,
+          "value": 0.55
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 13,
+          "column": 1,
+          "value": 0.6
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 14,
+          "column": 1,
+          "value": 0.65
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 15,
+          "column": 1,
+          "value": 0.7
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 16,
+          "column": 1,
+          "value": 0.75
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 17,
+          "column": 1,
+          "value": 0.8
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 18,
+          "column": 1,
+          "value": 0.9
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 19,
+          "column": 1,
+          "value": 0.95
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 20,
+          "column": 1,
+          "value": 1
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 21,
+          "column": 1,
+          "value": 1.05
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 22,
+          "column": 1,
+          "value": 1.1
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 23,
+          "column": 1,
+          "value": 1.15
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 24,
+          "column": 1,
+          "value": 1.2
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 25,
+          "column": 1,
+          "value": 1.25
+        },
+        {
+          "id": "Isx1",
+          "type": "unreal",
+          "level": 26,
+          "column": 1,
+          "value": 1.3
+        }
+      ],
+      "Amls": [
+        {
+          "id": "amsp",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 5
+        }
+      ]
+    },
+    "custom": {
+      "A000:Aams": [
+        {
+          "id": "anam",
+          "type": "string",
+          "level": 0,
+          "column": 0,
+          "value": "TRIGSTR_1681"
+        },
+        {
+          "id": "aare",
+          "type": "unreal",
+          "level": 1,
+          "column": 0,
+          "value": 55
+        }
+      ]
+    }
+  }

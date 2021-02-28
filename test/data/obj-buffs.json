@@ -1,0 +1,38 @@
+{
+    "original": {
+      "BHbd": [
+        {
+          "id": "fmsp",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 5
+        },
+        {
+          "id": "feff",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 1
+        }
+      ]
+    },
+    "custom": {
+      "X000:Xclf": [
+        {
+          "id": "fnam",
+          "type": "string",
+          "level": 0,
+          "column": 0,
+          "value": "TRIGSTR_1682"
+        },
+        {
+          "id": "flig",
+          "type": "string",
+          "level": 0,
+          "column": 0,
+          "value": "LEAS"
+        }
+      ]
+    }
+  }

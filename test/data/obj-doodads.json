@@ -1,0 +1,38 @@
+{
+    "original": {
+      "AOgs": [
+        {
+          "id": "dmar",
+          "type": "unreal",
+          "level": 0,
+          "column": 0,
+          "value": 1
+        },
+        {
+          "id": "dmap",
+          "type": "unreal",
+          "level": 0,
+          "column": 0,
+          "value": 1.112
+        }
+      ]
+    },
+    "custom": {
+      "D000:AOgs": [
+        {
+          "id": "dnam",
+          "type": "string",
+          "level": 0,
+          "column": 0,
+          "value": "TRIGSTR_1680"
+        },
+        {
+          "id": "dvar",
+          "type": "int",
+          "level": 0,
+          "column": 0,
+          "value": 2
+        }
+      ]
+    }
+  }

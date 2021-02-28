@@ -1,8 +1,10 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
+import { WarResult, JsonResult } from '../CommonInterfaces'
 
 interface Sound {
     name: string;
+    variableName: string;
     path: string;
     eax: string;
     flags: SoundFlags;
@@ -31,33 +33,23 @@ interface Distance {
     cutoff: number;
 }
 
-export class SoundsTranslator {
+export abstract class SoundsTranslator {
 
-    public _outBufferToWar: HexBuffer;
-    public _outBufferToJSON: W3Buffer;
-
-    constructor() { }
-
-    public jsonToWar(soundsJson: Sound[]) {
-        this._outBufferToWar = new HexBuffer();
+    public static jsonToWar(soundsJson: Sound[]): WarResult {
+        const outBufferToWar = new HexBuffer();
 
         /*
          * Header
          */
-        this._outBufferToWar.addInt(1); // file version
-        this._outBufferToWar.addInt(soundsJson.length); // number of sounds
+        outBufferToWar.addInt(3); // file version
+        outBufferToWar.addInt(soundsJson.length); // number of sounds
 
         /*
          * Body
          */
         soundsJson.forEach((sound) => {
-            // Name with null terminator (e.g. gg_snd_HumanGlueScreenLoop1)
-            this._outBufferToWar.addString(sound.name);
-            this._outBufferToWar.addNullTerminator();
-
-            // Path with null terminator (e.g. Sound\Ambient\HumanGlueScreenLoop1.wav)
-            this._outBufferToWar.addString(sound.path);
-            this._outBufferToWar.addNullTerminator();
+            outBufferToWar.addString(sound.name); // e.g. gg_snd_HumanGlueScreenLoop1
+            outBufferToWar.addString(sound.path); // e.g. Sound\Ambient\HumanGlueScreenLoop1.wav
 
             // EAX effects enum (e.g. missiles, speech, etc)
             /*
@@ -69,8 +61,7 @@ export class SoundsTranslator {
                 hero speech = HeroAcksEAX
                 doodads = DoodadsEAX
             */
-            this._outBufferToWar.addString(sound.eax || 'DefaultEAXON'); // defaults to "DefaultEAXON"
-            this._outBufferToWar.addNullTerminator();
+            outBufferToWar.addString(sound.eax || 'DefaultEAXON'); // defaults to "DefaultEAXON"
 
             // Flags, if present (optional)
             let flags = 0;
@@ -80,21 +71,21 @@ export class SoundsTranslator {
                 if (sound.flags.stopOutOfRange) flags |= 0x4;
                 if (sound.flags.music) flags |= 0x8;
             }
-            this._outBufferToWar.addInt(flags);
+            outBufferToWar.addInt(flags);
 
             // Fade in and out rate (optional)
-            this._outBufferToWar.addInt(sound.fadeRate ? sound.fadeRate.in || 10 : 10); // default to 10
-            this._outBufferToWar.addInt(sound.fadeRate ? sound.fadeRate.out || 10 : 10); // default to 10
+            outBufferToWar.addInt(sound.fadeRate ? sound.fadeRate.in || 10 : 10); // default to 10
+            outBufferToWar.addInt(sound.fadeRate ? sound.fadeRate.out || 10 : 10); // default to 10
 
             // Volume (optional)
-            this._outBufferToWar.addInt(sound.volume || -1); // default to -1 (for normal volume)
+            outBufferToWar.addInt(sound.volume || -1); // default to -1 (for normal volume)
 
             // Pitch (optional)
-            this._outBufferToWar.addFloat(sound.pitch || 1.0); // default to 1.0 for normal pitch
+            outBufferToWar.addFloat(sound.pitch || 1.0); // default to 1.0 for normal pitch
 
             // Mystery numbers... their use is unknown by the w3x documentation, but they must be present
-            this._outBufferToWar.addFloat(0);
-            this._outBufferToWar.addInt(8); // or -1?
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addInt(8); // or -1?
 
             // Which channel to use? Use the lookup table for more details (optional)
             /*
@@ -114,38 +105,52 @@ export class SoundsTranslator {
                 13=Birth
                 14=Fire
             */
-            this._outBufferToWar.addInt(sound.channel || 0); // default to 0
+            outBufferToWar.addInt(sound.channel || 0); // default to 0
 
             // Distance fields
-            this._outBufferToWar.addFloat(sound.distance.min);
-            this._outBufferToWar.addFloat(sound.distance.max);
-            this._outBufferToWar.addFloat(sound.distance.cutoff);
+            outBufferToWar.addFloat(sound.distance.min);
+            outBufferToWar.addFloat(sound.distance.max);
+            outBufferToWar.addFloat(sound.distance.cutoff);
 
             // More mystery numbers...
-            this._outBufferToWar.addFloat(0);
-            this._outBufferToWar.addFloat(0);
-            this._outBufferToWar.addFloat(127); // or -1?
-            this._outBufferToWar.addFloat(0);
-            this._outBufferToWar.addFloat(0);
-            this._outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(127); // or -1?
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(0);
+
+            outBufferToWar.addString(sound.variableName);
+            outBufferToWar.addString('');
+            outBufferToWar.addString(sound.path);
+
+            // More unknowns
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addByte(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addFloat(0);
+            outBufferToWar.addByte(0);
+            outBufferToWar.addFloat(0);
         });
 
         return {
             errors: [],
-            buffer: this._outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer()
         };
     }
 
-    public warToJson(buffer: Buffer) {
+    public static warToJson(buffer: Buffer): JsonResult<Sound[]> {
         const result = [];
-        this._outBufferToJSON = new W3Buffer(buffer);
+        const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = this._outBufferToJSON.readInt(), // File version
-            numSounds = this._outBufferToJSON.readInt(); // # of sounds
+        const fileVersion = outBufferToJSON.readInt(), // File version
+            numSounds = outBufferToJSON.readInt(); // # of sounds
 
         for (let i = 0; i < numSounds; i++) {
             const sound: Sound = {
                 name: '',
+                variableName: '',
                 path: '',
                 eax: '',
                 volume: 0,
@@ -168,11 +173,11 @@ export class SoundsTranslator {
                 }
             };
 
-            sound.name = this._outBufferToJSON.readString();
-            sound.path = this._outBufferToJSON.readString();
-            sound.eax = this._outBufferToJSON.readString();
+            sound.name = outBufferToJSON.readString();
+            sound.path = outBufferToJSON.readString();
+            sound.eax = outBufferToJSON.readString();
 
-            const flags = this._outBufferToJSON.readInt();
+            const flags = outBufferToJSON.readInt();
             sound.flags = {
                 'looping': !!(flags & 0b1),    // 0x00000001=looping
                 '3dSound': !!(flags & 0b10),   // 0x00000002=3D sound
@@ -181,32 +186,45 @@ export class SoundsTranslator {
             };
 
             sound.fadeRate = {
-                in: this._outBufferToJSON.readInt(),
-                out: this._outBufferToJSON.readInt()
+                in: outBufferToJSON.readInt(),
+                out: outBufferToJSON.readInt()
             };
 
-            sound.volume = this._outBufferToJSON.readInt();
-            sound.pitch = this._outBufferToJSON.readFloat();
+            sound.volume = outBufferToJSON.readInt();
+            sound.pitch = outBufferToJSON.readFloat();
 
             // Unknown values
-            this._outBufferToJSON.readFloat();
-            this._outBufferToJSON.readInt();
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readInt();
 
-            sound.channel = this._outBufferToJSON.readInt();
+            sound.channel = outBufferToJSON.readInt();
 
             sound.distance = {
-                min: this._outBufferToJSON.readFloat(),
-                max: this._outBufferToJSON.readFloat(),
-                cutoff: this._outBufferToJSON.readFloat()
+                min: outBufferToJSON.readFloat(),
+                max: outBufferToJSON.readFloat(),
+                cutoff: outBufferToJSON.readFloat()
             };
 
             // Unknown values
-            this._outBufferToJSON.readFloat();
-            this._outBufferToJSON.readFloat();
-            this._outBufferToJSON.readFloat();
-            this._outBufferToJSON.readFloat();
-            this._outBufferToJSON.readFloat();
-            this._outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
+
+            sound.variableName = outBufferToJSON.readString();
+
+            // Unknown values
+            outBufferToJSON.readString();
+            outBufferToJSON.readString();
+            outBufferToJSON.readChars(4);
+            outBufferToJSON.readChars(1);
+            outBufferToJSON.readChars(4);
+            outBufferToJSON.readChars(4);
+            outBufferToJSON.readChars(4);
+            outBufferToJSON.readChars(1);
+            outBufferToJSON.readChars(4);
 
             result.push(sound);
         }

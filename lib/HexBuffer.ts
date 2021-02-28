@@ -17,9 +17,9 @@ const ieee754 = require('ieee754'),
     };
 
 export class HexBuffer {
-    public _buffer = [];
+    private _buffer = [];
 
-    public addString(str: string, isNullTerminated = false) {
+    public addString(str: string) {
         // Write each char to the buffer
         // "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2"
         // | "ucs-2" | "base64" | "latin1" | "binary" | "hex"
@@ -28,10 +28,7 @@ export class HexBuffer {
         for (let i = 0; i < buf.length; i++) {
             this._buffer.push('0x' + buf[i].toString(16));
         }
-
-        if (isNullTerminated) {
-            this.addNullTerminator();
-        }
+        this.addNullTerminator();
     }
 
     public addNewLine() {
@@ -41,6 +38,12 @@ export class HexBuffer {
 
     public addChar(char: string) {
         this._buffer.push(charToHex(char));
+    }
+
+    public addChars(chars: string) {
+        chars.split('').forEach(char => {
+            this.addChar(char);
+        });
     }
 
     public addInt(int: number, isShort: boolean = false) {
@@ -54,7 +57,7 @@ export class HexBuffer {
     }
 
     public addFloat(float: number) {
-        const buf = new Buffer(4);
+        const buf = Buffer.alloc(4);
 
         // ieee754.write(buffer, value, buffer offset, little-endian, mantissa length, bytes);
         ieee754.write(buf, float, 0, true, 23, 4);

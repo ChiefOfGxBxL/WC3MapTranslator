@@ -97,17 +97,11 @@ describe('HexBuffer', () => {
         // tslint:disable-next-line: forin
         for (const word of testWords) {
             const bufLength = Buffer.from(word).length;
-            hexBuffer.addString(word, false);
-            totalLength += bufLength;
+            hexBuffer.addString(word);
+            totalLength += bufLength + 1; // adding one accounts for the null terminator at the end of the string
             const bufferLength = hexBuffer.getBuffer().length;
             assert.equal(bufferLength, totalLength);
         }
-    });
-
-    it('should addString null-terminated', () => {
-        hexBuffer.addString('hello world', true);
-        assert.equal(hexBuffer.getBuffer().length, 12); // now it has a null-terminator at the end
-        assert.equal(hexBuffer.getBuffer()[11], 0); // last character should be the null terminator
     });
 
     it('should addNewLine', () => {
@@ -121,6 +115,15 @@ describe('HexBuffer', () => {
         hexBuffer.addChar('A');
         assert.equal(hexBuffer.getBuffer().length, 1);
         assert.equal(hexBuffer.getBuffer()[0], 65); // charcode for the ASCII letter "A"
+    });
+
+    it('should addChars', () => {
+        hexBuffer.addChars('ABCD');
+        assert.equal(hexBuffer.getBuffer().length, 4);
+        assert.equal(hexBuffer.getBuffer()[0], 65); // charcode for the ASCII letter "A"
+        assert.equal(hexBuffer.getBuffer()[1], 66); // charcode for the ASCII letter "B"
+        assert.equal(hexBuffer.getBuffer()[2], 67); // charcode for the ASCII letter "C"
+        assert.equal(hexBuffer.getBuffer()[3], 68); // charcode for the ASCII letter "D"
     });
 
     it('should addInt', () => {

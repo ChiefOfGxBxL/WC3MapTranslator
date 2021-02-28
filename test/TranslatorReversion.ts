@@ -3,15 +3,22 @@ import * as diff from 'diff-buf';
 import * as fs from 'fs-extra';
 import * as Path from 'path';
 
-import { Translator } from '../index';
+import * as Translator from '../index';
 
-const testTranslator = new Translator();
-const ObjectType = testTranslator.Objects.ObjectType;
-const war3mapDir = Path.resolve('examples/warToJson/files/input');
+const ObjectType = Translator.ObjectsTranslator.ObjectType;
+const war3mapDir = Path.resolve('test/data');
 const outputDir = Path.resolve('test/.output');
 
 function readWar3MapBuffer(filename: string) {
     return fs.readFileSync(Path.join(war3mapDir, filename));
+}
+
+function readJsonTestFile(filename: string) {
+    return fs.readJsonSync(Path.join(war3mapDir, filename));
+}
+
+function writeJsonTestFile(filename: string, json: object) {
+    return fs.writeJsonSync(Path.join(outputDir, filename), json);
 }
 
 function buffersAreEqual(b1: Buffer, b2: Buffer) {
@@ -31,10 +38,10 @@ function buffersAreEqual(b1: Buffer, b2: Buffer) {
     return buffersEqual;
 }
 
-// Ensures that when a war3map file is converted to JSON and back again,
-// the two war3map files are the same; converting between the two data formats
-// should be a reversible process
-describe('Reversion: war -> json -> war', () => {
+// Ensures that when a JSON file is converted to war3map and back again,
+// the two JSON files are the same; converting between the two data formats
+// must yield the original results back (except for some differences in rounding)
+describe('Reversion: json -> war -> json', () => {
 
     before(() => {
         fs.emptyDirSync(outputDir);
@@ -42,159 +49,170 @@ describe('Reversion: war -> json -> war', () => {
     });
 
     it('Doodads reversion', () => {
-        // Take war3map.doo, -> JSON, -> war3map.doo
-        // Compare buffers, ensure they are equal
-        const originalBuffer = readWar3MapBuffer('war3map.doo');
-        const result = testTranslator.Doodads.warToJson(originalBuffer);
-        const translatedBuffer = testTranslator.Doodads.jsonToWar(result.json).buffer;
-        fs.writeFileSync(Path.join(outputDir, 'war3map.doo'), translatedBuffer);
+        const originalJson = readJsonTestFile('doodads.json');
+        const translatedBuffer = Translator.DoodadsTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.DoodadsTranslator.warToJson(translatedBuffer).json;
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        writeJsonTestFile('doodads.json', translatedJson);
+
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Strings reversion', () => {
-        // this one is pending the strings translator support for war3map -> json
-        assert(false, 'Not implemented');
+        const originalJson = readJsonTestFile('strings.json');
+        const translatedBuffer = Translator.StringsTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.StringsTranslator.warToJson(translatedBuffer).json;
+
+        writeJsonTestFile('strings.json', translatedJson);
+
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Terrain reversion', () => {
-        // take war3map.w3e -> json -> war3map.w3e
-        const originalBuffer = readWar3MapBuffer('war3map.w3e');
-        const result = testTranslator.Terrain.warToJson(originalBuffer);
-        const translatedBuffer = testTranslator.Terrain.jsonToWar(result.json).buffer;
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3e'), translatedBuffer);
+        const originalJson = readJsonTestFile('terrain.json');
+        const translatedBuffer = Translator.TerrainTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.TerrainTranslator.warToJson(translatedBuffer).json;
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        writeJsonTestFile('terrain.json', translatedJson);
+
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Units reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3mapUnits.doo');
-        const result = testTranslator.Units.warToJson(originalBuffer);
-        const translatedBuffer = testTranslator.Units.jsonToWar(result.json).buffer;
+        const originalJson = readJsonTestFile('units.json');
+        const translatedBuffer = Translator.UnitsTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.UnitsTranslator.warToJson(translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3mapUnits.doo'), translatedBuffer);
+        writeJsonTestFile('units.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Regions reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3r');
-        const result = testTranslator.Regions.warToJson(originalBuffer);
-        const translatedBuffer = testTranslator.Regions.jsonToWar(result.json).buffer;
+        const originalJson = readJsonTestFile('regions.json');
+        const translatedBuffer = Translator.RegionsTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.RegionsTranslator.warToJson(translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3r'), translatedBuffer);
+        writeJsonTestFile('regions.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Cameras reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3c');
-        const result = testTranslator.Cameras.warToJson(originalBuffer);
-        const translatedBuffer = testTranslator.Cameras.jsonToWar(result.json).buffer;
+        const originalJson = readJsonTestFile('cameras.json');
+        const translatedBuffer = Translator.CamerasTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.CamerasTranslator.warToJson(translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3c'), translatedBuffer);
+        writeJsonTestFile('cameras.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Sounds reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3s');
-        const result = testTranslator.Sounds.warToJson(originalBuffer);
-        const translatedBuffer = testTranslator.Sounds.jsonToWar(result.json).buffer;
+        const originalJson = readJsonTestFile('sounds.json');
+        const translatedBuffer = Translator.SoundsTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.SoundsTranslator.warToJson(translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3s'), translatedBuffer);
+        writeJsonTestFile('sounds.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Units (Object) reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3u');
-        const result = testTranslator.Objects.warToJson(ObjectType.Units, originalBuffer);
-        const translatedBuffer = testTranslator.Objects.jsonToWar(ObjectType.Units, result.json).buffer;
+        const originalJson = readJsonTestFile('obj-units.json');
+        const objectType = Translator.ObjectsTranslator.ObjectType.Units;
+        const translatedBuffer = Translator.ObjectsTranslator.jsonToWar(objectType, originalJson).buffer;
+        const translatedJson = Translator.ObjectsTranslator.warToJson(objectType, translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3u'), translatedBuffer);
+        writeJsonTestFile('obj-units.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Items (Object) reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3t');
-        const result = testTranslator.Objects.warToJson(ObjectType.Items, originalBuffer);
-        const translatedBuffer = testTranslator.Objects.jsonToWar(ObjectType.Items, result.json).buffer;
+        const originalJson = readJsonTestFile('obj-items.json');
+        const objectType = Translator.ObjectsTranslator.ObjectType.Items;
+        const translatedBuffer = Translator.ObjectsTranslator.jsonToWar(objectType, originalJson).buffer;
+        const translatedJson = Translator.ObjectsTranslator.warToJson(objectType, translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3t'), translatedBuffer);
+        writeJsonTestFile('obj-items.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Destructables (Object) reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3b');
-        const result = testTranslator.Objects.warToJson(ObjectType.Items, originalBuffer);
-        const translatedBuffer = testTranslator.Objects.jsonToWar(ObjectType.Items, result.json).buffer;
+        const originalJson = readJsonTestFile('obj-destructables.json');
+        const objectType = Translator.ObjectsTranslator.ObjectType.Destructables;
+        const translatedBuffer = Translator.ObjectsTranslator.jsonToWar(objectType, originalJson).buffer;
+        const translatedJson = Translator.ObjectsTranslator.warToJson(objectType, translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3b'), translatedBuffer);
+        writeJsonTestFile('obj-destructables.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Doodads (Object) reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3d');
-        const result = testTranslator.Objects.warToJson(ObjectType.Doodads, originalBuffer);
-        const translatedBuffer = testTranslator.Objects.jsonToWar(ObjectType.Doodads, result.json).buffer;
+        const originalJson = readJsonTestFile('obj-doodads.json');
+        const objectType = Translator.ObjectsTranslator.ObjectType.Doodads;
+        const translatedBuffer = Translator.ObjectsTranslator.jsonToWar(objectType, originalJson).buffer;
+        const translatedJson = Translator.ObjectsTranslator.warToJson(objectType, translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3d'), translatedBuffer);
+        writeJsonTestFile('obj-doodads.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Abilities (Object) reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3a');
-        const result = testTranslator.Objects.warToJson(ObjectType.Abilities, originalBuffer);
-        const translatedBuffer = testTranslator.Objects.jsonToWar(ObjectType.Abilities, result.json).buffer;
+        const originalJson = readJsonTestFile('obj-abilities.json');
+        const objectType = Translator.ObjectsTranslator.ObjectType.Abilities;
+        const translatedBuffer = Translator.ObjectsTranslator.jsonToWar(objectType, originalJson).buffer;
+        const translatedJson = Translator.ObjectsTranslator.warToJson(objectType, translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3a'), translatedBuffer);
+        writeJsonTestFile('obj-abilities.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Buffs (Object) reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3h');
-        const result = testTranslator.Objects.warToJson(ObjectType.Buffs, originalBuffer);
-        const translatedBuffer = testTranslator.Objects.jsonToWar(ObjectType.Buffs, result.json).buffer;
+        const originalJson = readJsonTestFile('obj-buffs.json');
+        const objectType = Translator.ObjectsTranslator.ObjectType.Buffs;
+        const translatedBuffer = Translator.ObjectsTranslator.jsonToWar(objectType, originalJson).buffer;
+        const translatedJson = Translator.ObjectsTranslator.warToJson(objectType, translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3h'), translatedBuffer);
+        writeJsonTestFile('obj-buffs.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Upgrades (Object) reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3q');
-        const result = testTranslator.Objects.warToJson(ObjectType.Upgrades, originalBuffer);
-        const translatedBuffer = testTranslator.Objects.jsonToWar(ObjectType.Upgrades, result.json).buffer;
+        const originalJson = readJsonTestFile('obj-upgrades.json');
+        const objectType = Translator.ObjectsTranslator.ObjectType.Upgrades;
+        const translatedBuffer = Translator.ObjectsTranslator.jsonToWar(objectType, originalJson).buffer;
+        const translatedJson = Translator.ObjectsTranslator.warToJson(objectType, translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3q'), translatedBuffer);
+        writeJsonTestFile('obj-upgrades.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Info reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.w3i');
-        const result = testTranslator.Info.warToJson(originalBuffer);
-        const translatedBuffer = testTranslator.Info.jsonToWar(result.json).buffer;
+        const originalJson = readJsonTestFile('info.json');
+        const translatedBuffer = Translator.InfoTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.InfoTranslator.warToJson(translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.w3i'), translatedBuffer);
+        writeJsonTestFile('info.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
     it('Imports reversion', () => {
-        const originalBuffer = readWar3MapBuffer('war3map.imp');
-        const result = testTranslator.Imports.warToJson(originalBuffer);
-        const translatedBuffer = testTranslator.Imports.jsonToWar(result.json).buffer;
+        const originalJson = readJsonTestFile('imports.json');
+        const translatedBuffer = Translator.ImportsTranslator.jsonToWar(originalJson).buffer;
+        const translatedJson = Translator.ImportsTranslator.warToJson(translatedBuffer).json;
 
-        fs.writeFileSync(Path.join(outputDir, 'war3map.imp'), translatedBuffer);
+        writeJsonTestFile('imports.json', translatedJson);
 
-        assert(buffersAreEqual(originalBuffer, translatedBuffer));
+        assert.deepStrictEqual(originalJson, translatedJson);
     });
 
 });

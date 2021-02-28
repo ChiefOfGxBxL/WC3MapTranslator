@@ -5,10 +5,12 @@ import { W3Buffer } from '../lib/W3Buffer';
 // on W3Buffer. It consists of, in this order:
 // char(4), int, float, string(7 Ws), byte
 const buffData = Buffer.from([
-    0x57, 0x33, 0x64, 0x6f, // char(4): "W3do"
     0x01, 0x00, 0x00, 0x00, // int: 1
+    0x81, 0x70, // short: 28801
     0x00, 0x00, 0x9b, 0xc5, // float: -4960
     0x57, 0x57, 0x57, 0x57, 0x57, 0x57, 0x57, 0x00, // string: "WWWWWWW"
+    0x57, 0x33, 0x64, 0x6f, // char(4): "W3do"
+    0x57, // char(1): "W"
     0x02 // byte: 2
 ]);
 
@@ -16,29 +18,33 @@ const w3buffer = new W3Buffer(buffData);
 
 describe('W3Buffer', () => {
 
-    it('should readChar(4)', () => {
-        const result = w3buffer.readChars(4);
-        assert.equal(result, 'W3do');
+    it('should readInt', () => {
+        assert.equal(w3buffer.readInt(), 1);
     });
 
-    it('should readInt', () => {
-        const result = w3buffer.readInt();
-        assert.equal(result, 1);
+    it('should readShort', () => {
+        assert.equal(w3buffer.readShort(), 28801);
     });
 
     it('should readFloat', () => {
-        const result = w3buffer.readFloat();
-        assert.equal(result, -4960);
+        assert.equal(w3buffer.readFloat(), -4960);
     });
 
     it('should readString', () => {
-        const result = w3buffer.readString();
-        assert.equal(result, 'WWWWWWW');
+        assert.equal(w3buffer.readString(), 'WWWWWWW');
+    });
+
+    it('should readChars', () => {
+        assert.equal(w3buffer.readChars(4), 'W3do');
+        assert.equal(w3buffer.readChars(), 'W')
     });
 
     it('should readByte', () => {
-        const result = w3buffer.readByte();
-        assert.equal(result, 2);
+        assert.equal(w3buffer.readByte(), 2);
+    });
+
+    it('should be exhausted', () => {
+        assert.ok(w3buffer.isExhausted());
     });
 
 });

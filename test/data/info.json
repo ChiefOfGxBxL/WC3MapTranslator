@@ -1,0 +1,250 @@
+{
+    "map": {
+      "name": "TRIGSTR_1670",
+      "author": "TRIGSTR_1673",
+      "description": "TRIGSTR_1672",
+      "recommendedPlayers": "TRIGSTR_1671",
+      "playableArea": {
+        "width": 52,
+        "height": 52
+      },
+      "mainTileType": "X",
+      "flags": {
+        "hideMinimapInPreview": false,
+        "modifyAllyPriorities": false,
+        "isMeleeMap": false,
+        "maskedPartiallyVisible": false,
+        "fixedPlayerSetting": true,
+        "useCustomForces": true,
+        "useCustomTechtree": false,
+        "useCustomAbilities": false,
+        "useCustomUpgrades": false,
+        "waterWavesOnCliffShores": true,
+        "waterWavesOnRollingShores": true,
+        "useItemClassificationSystem": true,
+        "enableWaterTinting": false,
+        "useAccurateProbabilityForCalculations": false,
+        "useCustomAbilitySkins": false
+      }
+    },
+    "loadingScreen": {
+      "background": -1,
+      "path": "LoadingScreen.mdx",
+      "text": "TRIGSTR_1676",
+      "title": "TRIGSTR_1674",
+      "subtitle": "TRIGSTR_1675"
+    },
+    "prologue": {
+      "path": "",
+      "text": "",
+      "title": "",
+      "subtitle": ""
+    },
+    "fog": {
+      "type": 0,
+      "startHeight": 3000,
+      "endHeight": 5000,
+      "density": 0.5,
+      "color": [
+        0,
+        0,
+        0,
+        255
+      ]
+    },
+    "camera": {
+      "bounds": [
+        -2816,
+        -3328,
+        2816,
+        2816,
+        -2816,
+        2816,
+        2816,
+        -3328
+      ],
+      "complements": [
+        6,
+        6,
+        4,
+        8
+      ]
+    },
+    "players": [
+      {
+        "name": "TRIGSTR_1615",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 0,
+        "type": 2,
+        "race": 3
+      },
+      {
+        "name": "TRIGSTR_1616",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 1,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1617",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 2,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1618",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 3,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1619",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 4,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1620",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 5,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1621",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 6,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1622",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 7,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1623",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 8,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1624",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 9,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1625",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 10,
+        "type": 1,
+        "race": 1
+      },
+      {
+        "name": "TRIGSTR_1626",
+        "startingPos": {
+          "x": 0,
+          "y": -256,
+          "fixed": true
+        },
+        "playerNum": 11,
+        "type": 1,
+        "race": 1
+      }
+    ],
+    "forces": [
+      {
+        "flags": {
+          "allied": true,
+          "alliedVictory": false,
+          "shareVision": true,
+          "shareUnitControl": false,
+          "shareAdvUnitControl": false
+        },
+        "players": -2,
+        "name": "TRIGSTR_1627"
+      },
+      {
+        "flags": {
+          "allied": true,
+          "alliedVictory": false,
+          "shareVision": false,
+          "shareUnitControl": false,
+          "shareAdvUnitControl": false
+        },
+        "players": 1,
+        "name": "TRIGSTR_1628"
+      }
+    ],
+    "saves": 1846,
+    "editorVersion": 6112,
+    "scriptLanguage": 0,
+    "supportedModes": 3,
+    "gameVersion": {
+      "major": 1,
+      "minor": 32,
+      "patch": 9,
+      "build": 16589
+    },
+    "globalWeather": "0000",
+    "customSoundEnvironment": "",
+    "customLightEnv": "O",
+    "water": [
+      255,
+      255,
+      255,
+      255
+    ]
+  }
