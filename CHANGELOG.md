@@ -2,12 +2,20 @@
 ## SUMMARY
 **🔥 Breaking changes**
 ## FEATURES
+ * 🔥 Improve usage contract:
+   * Translators are now exported by this library (e.g. `import { ObjectTranslator } from 'wc3maptranslator'`)
+   * Translators no longer need to be instantiated to be used
+ * 🔥 Change terrain format:
+   * Tiles are now defined via "masks", for ground height, texture, variation, etc.
+     * Before: `tiles` is an array of objects... `{ groundHeight, waterHeight, boundaryFlag, flags, groundTexture, groundVariation, cliffVariation, cliffTexture, layerHeight }`
+     * After: a one-dimensional array for each of the above fields... e.g. for a 64x64 map, `groundHeight` is an array of 65*65=4225 tile points
+   * Some fields have been renamed into camelCase for consistency:
+     * `customtileset` -> `customTileset`
+     * `tilepalette` -> `tilePalette`
+     * `clifftilepalette` -> `cliffTilePalette`
  * Upgrade to latest file formats
    * Sounds version upgraded from `1` -> `3`
    * Info version upgraded from `25` -> `31`
- * Improve usage contract:
-   * Translators are now exported by this library (e.g. `import { ObjectTranslator } from 'wc3maptranslator'`)
-   * Translators no longer need to be instantiated to be used
  * Add more type safety:
    * Translator results from `jsonToWar()` and `warToJson()` are now typed by `WarResult` and `JsonResult`, respectively
    * `JsonResult` is generically typed to describe what it contains (e.g. `Sound[]`)

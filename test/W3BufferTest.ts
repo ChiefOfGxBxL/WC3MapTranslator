@@ -43,4 +43,8 @@ describe('W3Buffer', () => {
         assert.equal(w3buffer.readByte(), 2);
     });
 
+    it('should be exhausted', () => {
+        assert.ok(w3buffer.isExhausted());
+    });
+
 });
