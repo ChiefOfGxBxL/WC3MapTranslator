@@ -62,4 +62,8 @@ export class W3Buffer {
         this._offset += 1;
         return byte;
     }
+
+    public isExhausted(): boolean {
+        return this._offset === this._buffer.length;
+    }
 }
