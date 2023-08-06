@@ -1,3 +1,8 @@
+# 4.0.1 (2023-08-06)
+## SUMMARY
+## FIXES
+ * Project properly builds all TS files upon installation, resolving out-of-the-box errors
+
 # 4.0.0 (2021-02-28)
 ## SUMMARY
 **🔥 Breaking changes**
