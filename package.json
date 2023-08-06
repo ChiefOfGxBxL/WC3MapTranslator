@@ -1,6 +1,6 @@
 {
     "name": "wc3maptranslator",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "description": "Module to translate between `war3map` and `json` formats for WarCraft III .w3x maps",
     "keywords": [
         "wc3",
@@ -17,6 +17,7 @@
     "scripts": {
         "build": "tsc --build",
         "lint": "tslint --project .",
+        "postinstall": "npm run build",
         "test": "npm run build && mocha",
         "test-nyc": "npm run build && nyc mocha",
         "test-travis": "npm run build && ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*.js"
