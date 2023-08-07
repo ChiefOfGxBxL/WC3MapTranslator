@@ -1,3 +1,8 @@
+# 4.0.3 (2023-08-06)
+## SUMMARY
+## FIXES
+ * Fix dependency `ieee754` being listed as devDependency instead of regular dependency, breaking some translators
+
 # 4.0.2 (2023-08-06)
 ## SUMMARY
 ## FIXES
