@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { HexBuffer } from '../lib/HexBuffer';
+import { HexBuffer } from '../src/HexBuffer';
 
 let hexBuffer: HexBuffer;
 

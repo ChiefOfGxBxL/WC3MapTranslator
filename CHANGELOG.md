@@ -1,3 +1,8 @@
+# 4.0.2 (2023-08-06)
+## SUMMARY
+## FIXES
+ * Fix build issues from previous release
+
 # 4.0.1 (2023-08-06)
 ## SUMMARY
 ## FIXES

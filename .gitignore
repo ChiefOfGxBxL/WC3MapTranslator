@@ -9,6 +9,7 @@ node_modules
 coverage/
 .nyc_output/
 test/.output
+dist
 
 #
 # TypeScript

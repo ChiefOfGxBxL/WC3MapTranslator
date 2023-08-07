@@ -10,16 +10,15 @@
         "declarationMap": true,
         "target": "es2016",
         "module": "commonjs",
-        "outDir": "./",
-        "rootDir": "./",
+        "outDir": "./dist",
+        "rootDir": "./src",
         "sourceMap": true,
         "incremental": true,
         "tsBuildInfoFile": "./.tsbuildinfo",
+        "moduleResolution": "Node",
         "esModuleInterop": true,
         "noEmit": false,
     },
-    "exclude": [],
-    "include": [
-        "./**/*"
-    ]
+    "include": ["src/**/*.ts"],
+    "exclude": ["test/**/*.ts"]
 }

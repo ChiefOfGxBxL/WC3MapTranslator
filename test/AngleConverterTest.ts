@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { deg2Rad, rad2Deg } from '../lib/AngleConverter';
+import { deg2Rad, rad2Deg } from '../src/AngleConverter';
 
 describe('AngleConverter', () => {
 

@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { W3Buffer } from '../lib/W3Buffer';
+import { W3Buffer } from '../src/W3Buffer';
 
 // This is a hard-coded buffer to test all the reading methods
 // on W3Buffer. It consists of, in this order:
