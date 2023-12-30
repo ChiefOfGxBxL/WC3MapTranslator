@@ -201,7 +201,6 @@ export abstract class ObjectsTranslator {
                         setsFlag[set] = outBufferToJSON.readInt();
                     }
                     const modificationCount = outBufferToJSON.readInt();
-                    console.log(customId, modificationCount)
                     for (let j = 0; j < modificationCount; j++) {
                         const modification: Modification = {
                             id: '',
