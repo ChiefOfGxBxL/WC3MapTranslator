@@ -1,6 +1,6 @@
-import { HexBuffer } from '../HexBuffer';
-import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult } from '../CommonInterfaces'
+import {HexBuffer} from '../HexBuffer';
+import {W3Buffer} from '../W3Buffer';
+import {WarResult, JsonResult} from '../CommonInterfaces'
 
 enum TableType {
     original = 'original',
@@ -85,7 +85,10 @@ export abstract class ObjectsTranslator {
                 // Original and new object ids
                 if (tableType === TableType.original) {
                     outBufferToWar.addChars(defKey);
-                    outBufferToWar.addByte(0); outBufferToWar.addByte(0); outBufferToWar.addByte(0); outBufferToWar.addByte(0); // no new Id is assigned
+                    outBufferToWar.addByte(0);
+                    outBufferToWar.addByte(0);
+                    outBufferToWar.addByte(0);
+                    outBufferToWar.addByte(0); // no new Id is assigned
                 } else {
                     // e.g. "h000:hfoo"
                     outBufferToWar.addChars(defKey.substring(5, 9)); // original id
@@ -174,7 +177,7 @@ export abstract class ObjectsTranslator {
     }
 
     public static warToJson(type: string, buffer: Buffer): JsonResult<ObjectModificationTable> {
-        const result = { original: {}, custom: {} };
+        const result = {original: {}, custom: {}};
         const outBufferToJSON = new W3Buffer(buffer);
 
         const fileVersion = outBufferToJSON.readInt();
@@ -185,42 +188,51 @@ export abstract class ObjectsTranslator {
             for (let i = 0; i < numTableModifications; i++) {
                 const objectDefinition = []; // object definition will store one or more modification objects
 
-                const originalId = outBufferToJSON.readChars(4),
-                    customId = outBufferToJSON.readChars(4),
-                    modificationCount = outBufferToJSON.readInt();
+                const originalId = outBufferToJSON.readChars(4);
+                const customId = outBufferToJSON.readChars(4);
+                let sets = 1;
+                const setsFlag: number[] = [];
+                if (fileVersion >= 3) {
+                    sets = outBufferToJSON.readInt();
+                }
 
-                for (let j = 0; j < modificationCount; j++) {
-                    const modification: Modification = {
-                        id: '',
-                        type: ModificationType.string,
-                        level: 0,
-                        column: 0,
-                        value: {}
-                    };
-
-                    modification.id = outBufferToJSON.readChars(4);
-                    modification.type = this.varTypes[outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
-
-                    if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
-                        modification.level = outBufferToJSON.readInt();
-                        modification.column = outBufferToJSON.readInt();
+                for (let set = 0; set < sets; set++) {
+                    if(fileVersion >=3) {
+                        setsFlag[set] = outBufferToJSON.readInt();
                     }
+                    const modificationCount = outBufferToJSON.readInt();
+                    for (let j = 0; j < modificationCount; j++) {
+                        const modification: Modification = {
+                            id: '',
+                            type: ModificationType.string,
+                            level: 0,
+                            column: 0,
+                            value: {}
+                        };
 
-                    if (modification.type === 'int') {
-                        modification.value = outBufferToJSON.readInt();
-                    } else if (modification.type === 'real' || modification.type === 'unreal') {
-                        modification.value = outBufferToJSON.readFloat();
-                    } else { // modification.type === 'string'
-                        modification.value = outBufferToJSON.readString();
+                        modification.id = outBufferToJSON.readChars(4);
+                        modification.type = this.varTypes[outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
+
+                        if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
+                            modification.level = outBufferToJSON.readInt();
+                            modification.column = outBufferToJSON.readInt();
+                        }
+
+                        if (modification.type === 'int') {
+                            modification.value = outBufferToJSON.readInt();
+                        } else if (modification.type === 'real' || modification.type === 'unreal') {
+                            modification.value = outBufferToJSON.readFloat();
+                        } else { // modification.type === 'string'
+                            modification.value = outBufferToJSON.readString();
+                        }
+
+                        if (isOriginalTable) {
+                            outBufferToJSON.readInt(); // should be 0 for original objects
+                        } else {
+                            outBufferToJSON.readChars(4); // should be object ID for custom objects
+                        }
+                        objectDefinition.push(modification);
                     }
-
-                    if (isOriginalTable) {
-                        outBufferToJSON.readInt(); // should be 0 for original objects
-                    } else {
-                        outBufferToJSON.readChars(4); // should be object ID for custom objects
-                    }
-
-                    objectDefinition.push(modification);
                 }
 
                 if (isOriginalTable) {
