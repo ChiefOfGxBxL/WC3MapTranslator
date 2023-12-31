@@ -1,15 +1,24 @@
-# 4.0.3 (2023-08-06)
+# 5.0.0 (2023-12-31)
 ## SUMMARY
+**🔥 Breaking changes**
+## FEATURES
+## FIXES
+## MAINTENANCE
+## TESTING
+
+# 4.0.4 (2023-08-06)
+## FIXES
+ * Resolve files packaged incorrectly when publishing npm
+
+# 4.0.3 (2023-08-06)
 ## FIXES
  * Fix dependency `ieee754` being listed as devDependency instead of regular dependency, breaking some translators
 
 # 4.0.2 (2023-08-06)
-## SUMMARY
 ## FIXES
  * Fix build issues from previous release
 
 # 4.0.1 (2023-08-06)
-## SUMMARY
 ## FIXES
  * Project properly builds all TS files upon installation, resolving out-of-the-box errors
 
