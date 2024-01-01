@@ -15,7 +15,9 @@
     ],
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "files": ["dist/**"],
+    "files": [
+        "dist/**"
+    ],
     "scripts": {
         "build": "tsc --build",
         "lint": "tslint --project .",
@@ -46,6 +48,8 @@
     },
     "homepage": "https://github.com/ChiefOfGxBxL/WC3MapTranslator#readme",
     "dependencies": {
+        "chalk": "^4.1.2",
+        "commander": "^11.1.0",
         "ieee754": "^1.2.1",
         "intn": "^1.0.0",
         "round-to": "^5.0.0"
