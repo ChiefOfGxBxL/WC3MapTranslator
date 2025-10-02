@@ -185,8 +185,8 @@ export abstract class ObjectsTranslator {
             for (let i = 0; i < numTableModifications; i++) {
                 const objectDefinition = []; // object definition will store one or more modification objects
 
-                const originalId = outBufferToJSON.readChars(4),
-                    customId = outBufferToJSON.readChars(4),
+                const originalId = outBufferToJSON.readFourCC(),
+                    customId = outBufferToJSON.readFourCC(),
                     modificationCount = outBufferToJSON.readInt();
 
                 for (let j = 0; j < modificationCount; j++) {
@@ -198,7 +198,7 @@ export abstract class ObjectsTranslator {
                         value: {}
                     };
 
-                    modification.id = outBufferToJSON.readChars(4);
+                    modification.id = outBufferToJSON.readFourCC();
                     modification.type = this.varTypes[outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
 
                     if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
@@ -217,7 +217,7 @@ export abstract class ObjectsTranslator {
                     if (isOriginalTable) {
                         outBufferToJSON.readInt(); // should be 0 for original objects
                     } else {
-                        outBufferToJSON.readChars(4); // should be object ID for custom objects
+                        outBufferToJSON.readFourCC(); // should be object ID for custom objects
                     }
 
                     objectDefinition.push(modification);

@@ -41,7 +41,7 @@ export class W3Buffer {
         }).join('');
     }
 
-    public readChars(len: number = 1): string {
+    public readChars(len: number = 1, allowNull: boolean = false): string {
         const string = [];
         const numCharsToRead = len || 1;
 
@@ -51,9 +51,13 @@ export class W3Buffer {
         }
 
         return string.map((ch) => {
-            if (ch === 0x0) return '0';
+            if (!allowNull && ch === 0x0) return '0';
             return String.fromCharCode(ch);
         }).join('');
+    }
+
+    public readFourCC(): string {
+        return this.readChars(4, true);
     }
 
     public readByte() {
