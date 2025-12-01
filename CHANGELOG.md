@@ -1,3 +1,8 @@
+# 4.0.4 (2023-08-06)
+## SUMMARY
+## FIXES
+ * Resolve files packaged incorrectly when publishing npm
+
 # 4.0.3 (2023-08-06)
 ## SUMMARY
 ## FIXES
