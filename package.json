@@ -13,20 +13,24 @@
         "json",
         "w3x"
     ],
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": ["dist/**"],
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
+    "files": [
+        "dist/src/**"
+    ],
     "scripts": {
         "build": "tsc --build",
-        "lint": "tslint --project .",
-        "test": "npm run build && mocha",
+        "rebuild": "npm run clean && npm run build",
+        "clean": "npx rimraf dist",
+        "lint": "tslint --project test",
+        "test": "npm run rebuild && mocha ./dist/test/**/*.js",
         "test-nyc": "npm run build && nyc mocha",
         "test-travis": "npm run build && ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*.js"
     },
     "engines": {
-        "node": ">=14",
-        "npm": ">=7",
-        "tsc": ">3"
+        "node": ">=22",
+        "npm": ">=11",
+        "tsc": ">4"
     },
     "repository": {
         "type": "git",
