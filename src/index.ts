@@ -2,7 +2,7 @@ import {
     CamerasTranslator,
     DoodadsTranslator,
     ImportsTranslator,
-    InfoTranslator, 
+    InfoTranslator,
     ObjectsTranslator,
     RegionsTranslator,
     SoundsTranslator,
