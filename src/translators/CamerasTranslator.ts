@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, angle } from '../CommonInterfaces'
+import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces'
 
 interface Camera {
     target: CameraTarget;
@@ -19,7 +19,7 @@ interface CameraTarget {
     y: number;
 }
 
-export abstract class CamerasTranslator {
+export abstract class CamerasTranslator extends ITranslator {
 
     public static jsonToWar(cameras: Camera[]): WarResult {
         const outBufferToWar = new HexBuffer();

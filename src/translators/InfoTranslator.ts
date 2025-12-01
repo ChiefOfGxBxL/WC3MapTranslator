@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
 
 interface Map {
     name: string;
@@ -140,7 +140,7 @@ enum SupportedModes {
     Both = 3
 }
 
-export abstract class InfoTranslator {
+export abstract class InfoTranslator extends ITranslator {
 
     public static jsonToWar(infoJson: Info): WarResult {
         const outBufferToWar = new HexBuffer();

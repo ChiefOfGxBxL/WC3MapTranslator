@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, angle } from '../CommonInterfaces'
+import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces'
 
 interface Unit {
     type: string;
@@ -38,7 +38,7 @@ interface Abilities {
     level: number;
 }
 
-export abstract class UnitsTranslator {
+export abstract class UnitsTranslator extends ITranslator {
 
     public static jsonToWar(unitsJson: Unit[]): WarResult {
         const outBufferToWar = new HexBuffer();

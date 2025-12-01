@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
 
 enum TableType {
     original = 'original',
@@ -52,7 +52,7 @@ interface ObjectModificationTable {
     custom: object
 }
 
-export abstract class ObjectsTranslator {
+export abstract class ObjectsTranslator extends ITranslator {
 
     // Expose the ObjectType enum as part of this abstract class
     // The enum could be "export"ed , but it wouldn't be accessible

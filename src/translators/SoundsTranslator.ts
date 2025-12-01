@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
 
 interface Sound {
     name: string;
@@ -33,7 +33,7 @@ interface Distance {
     cutoff: number;
 }
 
-export abstract class SoundsTranslator {
+export abstract class SoundsTranslator extends ITranslator {
 
     public static jsonToWar(soundsJson: Sound[]): WarResult {
         const outBufferToWar = new HexBuffer();

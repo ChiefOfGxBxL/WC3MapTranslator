@@ -1,7 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
-import { WarResult, JsonResult } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
 
-export abstract class StringsTranslator {
+export abstract class StringsTranslator extends ITranslator {
 
     public static jsonToWar(stringsJson: object): WarResult {
         const outBufferToWar = new HexBuffer();

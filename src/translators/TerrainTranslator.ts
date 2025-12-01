@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
 
 interface Terrain {
     tileset: string;
@@ -39,7 +39,7 @@ function splitLargeArrayIntoWidthArrays(array: any[], width: number) {
     return rows;
 }
 
-export abstract class TerrainTranslator {
+export abstract class TerrainTranslator extends ITranslator {
 
     public static jsonToWar(terrainJson: Terrain): WarResult {
         const outBufferToWar = new HexBuffer();

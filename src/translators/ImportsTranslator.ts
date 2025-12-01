@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
 
 enum ImportType {
     Standard = 'standard',
@@ -12,7 +12,7 @@ interface Import {
     type: ImportType;
 }
 
-export class ImportsTranslator {
+export abstract class ImportsTranslator extends ITranslator {
 
     public static jsonToWar(imports: Import[]): WarResult {
         const outBufferToWar = new HexBuffer();

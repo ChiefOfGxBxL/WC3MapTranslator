@@ -3,20 +3,27 @@
  */
 export type angle = number;
 
+export abstract class ITranslator {
+    abstract jsonToWar (...args: any[]): WarResult;
+    abstract warToJson (...args: any[]): JsonResult;
+    // abstract jsonToWar (type: string, data: any): WarResult;
+    // abstract warToJson (type: string, buffer: Buffer): JsonResult;
+}
+
 // TranslationError is reserved for future use in case
 // additional constraints are added to translated output,
 // like if WC3 has maximum string lengths, or if certain
 // values must be in a specific range
 export interface TranslationError {
-    message: string
+    message: string;
 }
 
 export interface WarResult {
-    buffer: Buffer,
-    errors?: TranslationError[]
+    buffer: Buffer;
+    errors?: TranslationError[];
 }
 
 export interface JsonResult<T = object> {
-    json: T,
-    errors?: TranslationError[]
+    json: T;
+    errors?: TranslationError[];
 }

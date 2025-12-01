@@ -1,7 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { rad2Deg, deg2Rad } from '../AngleConverter';
-import { WarResult, JsonResult, angle } from '../CommonInterfaces'
+import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces'
 
 interface Doodad {
     type: string;
@@ -29,7 +29,7 @@ enum flag {
     solid = 3
 }
 
-export abstract class DoodadsTranslator {
+export abstract class DoodadsTranslator extends ITranslator {
 
     public static jsonToWar(doodadsJson: Doodad[]): WarResult {
         const outBufferToWar = new HexBuffer();

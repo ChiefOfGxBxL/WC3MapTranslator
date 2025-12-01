@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
 
 interface Region {
     position: Rect;
@@ -18,7 +18,7 @@ interface Rect {
     top: number;
 }
 
-export abstract class RegionsTranslator {
+export abstract class RegionsTranslator extends ITranslator {
 
     public static jsonToWar(regionsJson: Region[]): WarResult {
         const outBufferToWar = new HexBuffer();
