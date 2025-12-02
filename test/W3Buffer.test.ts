@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import { suite, test } from 'node:test';
 import { W3Buffer } from '../src/W3Buffer';
 
 // This is a hard-coded buffer to test all the reading methods
@@ -16,34 +17,34 @@ const buffData = Buffer.from([
 
 const w3buffer = new W3Buffer(buffData);
 
-describe('W3Buffer', () => {
+suite('W3Buffer', () => {
 
-    it('should readInt', () => {
+    test('should readInt', () => {
         assert.equal(w3buffer.readInt(), 1);
     });
 
-    it('should readShort', () => {
+    test('should readShort', () => {
         assert.equal(w3buffer.readShort(), 28801);
     });
 
-    it('should readFloat', () => {
+    test('should readFloat', () => {
         assert.equal(w3buffer.readFloat(), -4960);
     });
 
-    it('should readString', () => {
+    test('should readString', () => {
         assert.equal(w3buffer.readString(), 'WWWWWWW');
     });
 
-    it('should readChars', () => {
+    test('should readChars', () => {
         assert.equal(w3buffer.readChars(4), 'W3do');
         assert.equal(w3buffer.readChars(), 'W')
     });
 
-    it('should readByte', () => {
+    test('should readByte', () => {
         assert.equal(w3buffer.readByte(), 2);
     });
 
-    it('should be exhausted', () => {
+    test('should be exhausted', () => {
         assert.ok(w3buffer.isExhausted());
     });
 

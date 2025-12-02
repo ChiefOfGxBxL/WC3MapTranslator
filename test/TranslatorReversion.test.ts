@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra';
 import assert from 'node:assert';
 import path from 'node:path';
+import { before, suite, test } from 'node:test';
 
 import * as Translator from '../src';
 import { ITranslator } from '../src/CommonInterfaces';
@@ -37,7 +38,7 @@ const tests: { name: string, jsonFile: string, warFile: string, translator: ITra
 // Ensures that when a JSON file is converted to war3map and back again,
 // the two JSON files are the same; converting between the two data formats
 // must yield the original results back (except for some differences in rounding)
-describe('Reversion: json -> war -> json', () => {
+suite('Reversion: json -> war -> json', () => {
 
     before(() => {
         fs.emptyDirSync(outputDir);
@@ -45,7 +46,7 @@ describe('Reversion: json -> war -> json', () => {
     });
 
     tests.forEach(({ name, jsonFile, translator, objectType }) => {
-        it(`should revert ${name}`, () => {
+        test(`should revert ${name}`, () => {
             const originalJson = readJsonTestFile(jsonFile);
 
             const translatedBuffer = translator === Translator.ObjectsTranslator ?
@@ -64,7 +65,7 @@ describe('Reversion: json -> war -> json', () => {
 
 });
 
-describe('Reversion: war -> json -> war', () => {
+suite('Reversion: war -> json -> war', () => {
 
     before(() => {
         fs.emptyDirSync(outputDir);
@@ -72,7 +73,7 @@ describe('Reversion: war -> json -> war', () => {
     });
 
     tests.forEach(({ name, warFile, translator, objectType }) => {
-        it(`should revert ${name}`, () => {
+        test(`should revert ${name}`, () => {
             const originalBuffer = readWar3MapBuffer(warFile);
 
             const translatedJson = translator === Translator.ObjectsTranslator ?

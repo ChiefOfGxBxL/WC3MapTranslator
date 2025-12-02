@@ -1,9 +1,10 @@
 import assert from 'node:assert';
+import { beforeEach, suite, test } from 'node:test';
 import { HexBuffer } from '../src/HexBuffer';
 
 let hexBuffer: HexBuffer;
 
-describe('HexBuffer', () => {
+suite('HexBuffer', () => {
 
     beforeEach(() => {
         // clear the buffer before each test in this block so we
@@ -11,7 +12,7 @@ describe('HexBuffer', () => {
         hexBuffer = new HexBuffer();
     });
 
-    it('should addString', () => {
+    test('should addString', () => {
         const testWords = [
             'Hallo, wêreld!', // Afrikaans
             'Pershëndetje Botë', // Albanian
@@ -104,20 +105,20 @@ describe('HexBuffer', () => {
         }
     });
 
-    it('should addNewLine', () => {
+    test('should addNewLine', () => {
         hexBuffer.addNewLine();
         assert.equal(hexBuffer.getBuffer().length, 2);
         assert.equal(hexBuffer.getBuffer()[0], 0x0d);
         assert.equal(hexBuffer.getBuffer()[1], 0x0a);
     });
 
-    it('should addChar', () => {
+    test('should addChar', () => {
         hexBuffer.addChar('A');
         assert.equal(hexBuffer.getBuffer().length, 1);
         assert.equal(hexBuffer.getBuffer()[0], 65); // charcode for the ASCII letter "A"
     });
 
-    it('should addChars', () => {
+    test('should addChars', () => {
         hexBuffer.addChars('ABCD');
         assert.equal(hexBuffer.getBuffer().length, 4);
         assert.equal(hexBuffer.getBuffer()[0], 65); // charcode for the ASCII letter "A"
@@ -126,7 +127,7 @@ describe('HexBuffer', () => {
         assert.equal(hexBuffer.getBuffer()[3], 68); // charcode for the ASCII letter "D"
     });
 
-    it('should addInt', () => {
+    test('should addInt', () => {
         hexBuffer.addInt(0);
         assert.equal(hexBuffer.getBuffer().length, 4); // integer is 4 bytes in length
         assert.equal(hexBuffer.getBuffer()[0], 0x00);
@@ -135,14 +136,14 @@ describe('HexBuffer', () => {
         assert.equal(hexBuffer.getBuffer()[3], 0x00);
     });
 
-    it('should addShort', () => {
+    test('should addShort', () => {
         hexBuffer.addShort(14);
         assert.equal(hexBuffer.getBuffer().length, 2); // 2 bytes in length
         assert.equal(hexBuffer.getBuffer()[0], 0x0e);
         assert.equal(hexBuffer.getBuffer()[1], 0x00);
     });
 
-    it('should addFloat', () => {
+    test('should addFloat', () => {
         hexBuffer.addFloat(1.234);
         assert.equal(hexBuffer.getBuffer().length, 4); // 4 bytes in length
         assert.equal(hexBuffer.getBuffer()[0], 0xb6);
@@ -151,18 +152,18 @@ describe('HexBuffer', () => {
         assert.equal(hexBuffer.getBuffer()[3], 0x3f);
     });
 
-    it('should addByte', () => {
+    test('should addByte', () => {
         hexBuffer.addByte(15);
         assert.equal(hexBuffer.getBuffer()[0], 15);
     });
 
-    it('should addNullTerminator', () => {
+    test('should addNullTerminator', () => {
         hexBuffer.addNullTerminator();
         assert.equal(hexBuffer.getBuffer().length, 1);
         assert.equal(hexBuffer.getBuffer()[0], 0);
     });
 
-    it('should getBuffer', () => {
+    test('should getBuffer', () => {
         hexBuffer.addString('');
         assert(hexBuffer.getBuffer()); // test if this function works
     });
