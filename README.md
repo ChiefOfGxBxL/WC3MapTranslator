@@ -169,6 +169,7 @@ We encourage contributions! Generally, the process of making a change is:
 
 A code review is required on your PR to be accepted into `master`. A project member will get back to you within one week. If you haven't heard from someone regarding your PR, feel free to ping @chiefofgxbxl.
 
+Your pull request may update `package.json` to include your username under the `contributors` field.
 
 ## Special Thanks
 We owe a lot of thanks to *Chocobo* on [TheHelper](http://www.thehelper.net/) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
