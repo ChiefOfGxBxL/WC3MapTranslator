@@ -112,7 +112,6 @@ fs.writeFileSync('war3map.w3c', translatedResult.buffer);
 | Doodads                 | ✅ | ✅ | war3map.doo      |
 | Regions                 | ✅ | ✅ | war3map.w3r      |
 | Cameras                 | ✅ | ✅ | war3map.w3c      |
-| Sounds (definitions)    | ✅ | ✅ | war3map.w3s      |
 
 ### Object data files
 
@@ -126,31 +125,24 @@ fs.writeFileSync('war3map.w3c', translatedResult.buffer);
 | Upgrades - Objects      | ✅ | ✅ | war3map.w3q     |
 | Buffs - Objects         | ✅ | ✅ | war3map.w3h     |
 
-### Trigger files
-
-| Type                    | Json → War  | War → Json  | File          |
-|-------------------------|:-----------:|:-----------:|---------------|
-| Strings                 | ✅ | ✅ | war3map.wts     |
-| LUA                    | ❌ | ❌ | war3map.lua       |
-| JASS                    | ❌ | ❌ | war3map.j       |
-
-
 ### Map files
 
 | Type                    | Json → War  | War → Json  | File          |
 |-------------------------|:-----------:|:-----------:|---------------|
 | Info File               | ✅ | ✅ | war3map.w3i        |
 | Imported Files          | ✅ | ✅ | war3map.imp        |
+| Sounds (definitions)    | ✅ | ✅ | war3map.w3s        |
+| Strings (triggers)      | ✅ | ✅ | war3map.wts        |
 | Pathing                 | ❌ | ❌ | war3map.wpm        |
 | Shadow map              | ❌ | ❌ | war3map.shd        |
 
-
 ### Not relevant
+ ➖ Triggers (war3map.j, war3map.lua)  
  ➖ Custom Text Trigger File (war3map.wct)  
  ➖ Trigger Names File (war3map.wtg)  
  ➖ Menu Minimap (war3map.mmp)  
  ➖ Minimap Image (war3mapMap.blp)  
- ➖ Minimap Image (war3mapMap.b00  
+ ➖ Minimap Image (war3mapMap.b00)  
  ➖ Minimap Image (war3mapMap.tga)  
  ➖ Map Preview Image (war3mapPreview.tga)
 
@@ -171,7 +163,7 @@ We encourage contributions! Generally, the process of making a change is:
 
 **Your code should**:
  * **run** (your code needs to work, of course)
- * **include tests** (write unit tests to demonstrate your code works under different conditions)
+ * **include tests** (run `npm run test` and include unit tests to demonstrate your code works under different conditions)
  * **be linted** (run `npm run lint` and follow the project's coding standards)
  * **pass CI** (we enforce: ESLint, unit tests pass, code coverage)
 
