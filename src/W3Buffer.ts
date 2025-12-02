@@ -1,4 +1,4 @@
-import roundTo from 'round-to';
+import { roundTo } from 'round-to';
 
 export class W3Buffer {
 
