@@ -1,4 +1,4 @@
-import assert from 'assert';
+import assert from 'node:assert';
 import { deg2Rad, rad2Deg } from '../src/AngleConverter';
 
 describe('AngleConverter', () => {

@@ -1,4 +1,4 @@
-import assert from 'assert';
+import assert from 'node:assert';
 import { W3Buffer } from '../src/W3Buffer';
 
 // This is a hard-coded buffer to test all the reading methods

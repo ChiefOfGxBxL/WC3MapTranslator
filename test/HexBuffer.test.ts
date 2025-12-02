@@ -1,4 +1,4 @@
-import assert from 'assert';
+import assert from 'node:assert';
 import { HexBuffer } from '../src/HexBuffer';
 
 let hexBuffer: HexBuffer;
