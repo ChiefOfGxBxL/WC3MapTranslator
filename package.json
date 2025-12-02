@@ -28,7 +28,7 @@
         "test-travis": "npm run build && ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --include-all-sources true --root ./lib -- -R spec ./test/*.js"
     },
     "engines": {
-        "node": ">=22",
+        "node": ">=24",
         "npm": ">=11",
         "tsc": ">4"
     },
