@@ -107,53 +107,52 @@ fs.writeFileSync('war3map.w3c', translatedResult.buffer);
 
 | Type                    | Json → War  | War → Json  | File          |
 |-------------------------|:-----------:|:-----------:|---------------|
-| Terrain                 | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3e      |
-| Units                   | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3mapUnits.doo |
-| Doodads                 | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.doo      |
-| Regions                 | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3r      |
-| Cameras                 | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3c      |
-| Sounds (definitions)    | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3s      |
+| Terrain                 | ✅ | ✅ | war3map.w3e      |
+| Units                   | ✅ | ✅ | war3mapUnits.doo |
+| Doodads                 | ✅ | ✅ | war3map.doo      |
+| Regions                 | ✅ | ✅ | war3map.w3r      |
+| Cameras                 | ✅ | ✅ | war3map.w3c      |
+| Sounds (definitions)    | ✅ | ✅ | war3map.w3s      |
 
 ### Object data files
 
 | Type                    | Json → War  | War → Json  | File          |
 |-------------------------|:-----------:|:-----------:|---------------|
-| Units - Objects         | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3u     |
-| Items - Objects         | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3t     |
-| Abilities - Objects     | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3a     |
-| Destructables - Objects | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3b     |
-| Doodads - Objects       | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3d     |
-| Upgrades - Objects      | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3q     |
-| Buffs - Objects         | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3h     |
+| Units - Objects         | ✅ | ✅ | war3map.w3u     |
+| Items - Objects         | ✅ | ✅ | war3map.w3t     |
+| Abilities - Objects     | ✅ | ✅ | war3map.w3a     |
+| Destructables - Objects | ✅ | ✅ | war3map.w3b     |
+| Doodads - Objects       | ✅ | ✅ | war3map.w3d     |
+| Upgrades - Objects      | ✅ | ✅ | war3map.w3q     |
+| Buffs - Objects         | ✅ | ✅ | war3map.w3h     |
 
 ### Trigger files
 
 | Type                    | Json → War  | War → Json  | File          |
 |-------------------------|:-----------:|:-----------:|---------------|
-| LUA                    | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | war3map.lua       |
-| JASS                    | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | war3map.j       |
-| Strings                 | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.wts     |
-
+| Strings                 | ✅ | ✅ | war3map.wts     |
+| LUA                    | ❌ | ❌ | war3map.lua       |
+| JASS                    | ❌ | ❌ | war3map.j       |
 
 
 ### Map files
 
 | Type                    | Json → War  | War → Json  | File          |
 |-------------------------|:-----------:|:-----------:|---------------|
-| Info File               | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.w3i        |
-| Imported Files          | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | ![check](https://cloud.githubusercontent.com/assets/4079034/25298706/7a881946-26c5-11e7-896b-402f60a0f059.png) | war3map.imp        |
-| Pathing                 | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | war3map.wpm        |
-| Shadow map              | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | ![times](https://cloud.githubusercontent.com/assets/4079034/25298707/7a883642-26c5-11e7-841c-cd3eb1425461.png) | war3map.shd        |
+| Info File               | ✅ | ✅ | war3map.w3i        |
+| Imported Files          | ✅ | ✅ | war3map.imp        |
+| Pathing                 | ❌ | ❌ | war3map.wpm        |
+| Shadow map              | ❌ | ❌ | war3map.shd        |
 
 
 ### Not relevant
- ![minus-solid](https://user-images.githubusercontent.com/4079034/108644014-16f6bb00-747b-11eb-8c2b-9e7a1d7b6f9b.png) Custom Text Trigger File (war3map.wct)  
- ![minus-solid](https://user-images.githubusercontent.com/4079034/108644014-16f6bb00-747b-11eb-8c2b-9e7a1d7b6f9b.png) Trigger Names File (war3map.wtg)  
- ![minus-solid](https://user-images.githubusercontent.com/4079034/108644014-16f6bb00-747b-11eb-8c2b-9e7a1d7b6f9b.png) Menu Minimap (war3map.mmp)  
- ![minus-solid](https://user-images.githubusercontent.com/4079034/108644014-16f6bb00-747b-11eb-8c2b-9e7a1d7b6f9b.png) Minimap Image (war3mapMap.blp)  
- ![minus-solid](https://user-images.githubusercontent.com/4079034/108644014-16f6bb00-747b-11eb-8c2b-9e7a1d7b6f9b.png) Minimap Image (war3mapMap.b00  
- ![minus-solid](https://user-images.githubusercontent.com/4079034/108644014-16f6bb00-747b-11eb-8c2b-9e7a1d7b6f9b.png) Minimap Image (war3mapMap.tga)  
- ![minus-solid](https://user-images.githubusercontent.com/4079034/108644014-16f6bb00-747b-11eb-8c2b-9e7a1d7b6f9b.png) Map Preview Image (war3mapPreview.tga)
+ ➖ Custom Text Trigger File (war3map.wct)  
+ ➖ Trigger Names File (war3map.wtg)  
+ ➖ Menu Minimap (war3map.mmp)  
+ ➖ Minimap Image (war3mapMap.blp)  
+ ➖ Minimap Image (war3mapMap.b00  
+ ➖ Minimap Image (war3mapMap.tga)  
+ ➖ Map Preview Image (war3mapPreview.tga)
 
 ## Specification
 ### WC3MapTranslator format
