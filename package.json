@@ -62,7 +62,6 @@
         "@types/node": "^14.14.31",
         "@types/round-to": "^4.0.0",
         "coveralls": "^3.1.0",
-        "diff-buf": "^1.0.1",
         "fs-extra": "^9.1.0",
         "istanbul": "^0.4.5",
         "mocha": "^8.3.0",

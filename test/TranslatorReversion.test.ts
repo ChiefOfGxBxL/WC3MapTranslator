@@ -1,42 +1,38 @@
 import assert from 'assert';
-import * as diff from 'diff-buf';
 import * as fs from 'fs-extra';
-import * as Path from 'path';
+import path from 'path';
 
 import * as Translator from '../src';
 import { ITranslator } from '../src/CommonInterfaces';
 
-const war3mapDir = Path.resolve('test/data');
-const outputDir = Path.resolve('test/.output');
+const war3mapDir = path.resolve('test/data');
+const outputDir = path.resolve('test/.output');
 
-function readWar3MapBuffer(filename: string) {
-    return fs.readFileSync(Path.join(war3mapDir, filename));
-}
+const readWar3MapBuffer = (filename: string) => fs.readFileSync(path.join(war3mapDir, filename));
+const writeWar3TestFile = (filename: string, data: Buffer) => fs.writeFileSync(path.join(outputDir, filename), data);
+const readJsonTestFile = (filename: string) => fs.readJsonSync(path.join(war3mapDir, filename));
+const writeJsonTestFile = (filename: string, json: object) => fs.writeJsonSync(path.join(outputDir, filename), json);
 
-function readJsonTestFile(filename: string) {
-    return fs.readJsonSync(Path.join(war3mapDir, filename));
-}
+const ObjectType = Translator.ObjectsTranslator.ObjectType;
+const tests: { name: string, jsonFile: string, warFile: string, translator: ITranslator, objectType?: string }[] = [
+    { name: 'Doodads', jsonFile: 'doodads.json', warFile: 'war3map.doo', translator: Translator.DoodadsTranslator },
+    { name: 'Strings', jsonFile: 'strings.json', warFile: 'war3map.wts', translator: Translator.StringsTranslator },
+    { name: 'Terrain', jsonFile: 'terrain.json', warFile: 'war3map.w3e', translator: Translator.TerrainTranslator },
+    { name: 'Units', jsonFile: 'units.json', warFile: 'war3mapUnits.doo', translator: Translator.UnitsTranslator },
+    { name: 'Regions', jsonFile: 'regions.json', warFile: 'war3map.w3r', translator: Translator.RegionsTranslator },
+    { name: 'Cameras', jsonFile: 'cameras.json', warFile: 'war3map.w3c', translator: Translator.CamerasTranslator },
+    { name: 'Sounds', jsonFile: 'sounds.json', warFile: 'war3map.w3s', translator: Translator.SoundsTranslator },
+    { name: 'Info', jsonFile: 'info.json', warFile: 'war3map.w3i', translator: Translator.InfoTranslator },
+    { name: 'Imports', jsonFile: 'imports.json', warFile: 'war3map.imp', translator: Translator.ImportsTranslator },
 
-function writeJsonTestFile(filename: string, json: object) {
-    return fs.writeJsonSync(Path.join(outputDir, filename), json);
-}
-
-function buffersAreEqual(b1: Buffer, b2: Buffer) {
-    const comparison = diff.default(b1, b2, { string: false });
-
-    // Library `diff` returns an array of objects documenting comparison
-    // e.g. { added: undefined, removed: undefined, value: 10 }
-    // We want all `added` and `removed` fields to be "undefined" for
-    // the buffers to be considered equal
-    let buffersEqual = true;
-    comparison.forEach((compare) => {
-        if (compare.added || compare.removed) {
-            buffersEqual = false;
-        }
-    });
-
-    return buffersEqual;
-}
+    { name: 'Units (Object)', jsonFile: 'obj-units.json', warFile: 'war3map.w3u', translator: Translator.ObjectsTranslator, objectType: ObjectType.Units },
+    { name: 'Items (Object)', jsonFile: 'obj-items.json', warFile: 'war3map.w3t', translator: Translator.ObjectsTranslator, objectType: ObjectType.Items },
+    { name: 'Destructables (Object)', jsonFile: 'obj-destructables.json', warFile: 'war3map.w3b', translator: Translator.ObjectsTranslator, objectType: ObjectType.Destructables },
+    { name: 'Doodads (Object)', jsonFile: 'obj-doodads.json', warFile: 'war3map.w3d', translator: Translator.ObjectsTranslator, objectType: ObjectType.Doodads },
+    { name: 'Abilities (Object)', jsonFile: 'obj-abilities.json', warFile: 'war3map.w3a', translator: Translator.ObjectsTranslator, objectType: ObjectType.Abilities },
+    { name: 'Buffs (Object)', jsonFile: 'obj-buffs.json', warFile: 'war3map.w3h', translator: Translator.ObjectsTranslator, objectType: ObjectType.Buffs },
+    { name: 'Upgrades (Object)', jsonFile: 'obj-upgrades.json', warFile: 'war3map.w3q', translator: Translator.ObjectsTranslator, objectType: ObjectType.Upgrades }
+];
 
 // Ensures that when a JSON file is converted to war3map and back again,
 // the two JSON files are the same; converting between the two data formats
@@ -48,31 +44,9 @@ describe('Reversion: json -> war -> json', () => {
         fs.ensureDirSync(outputDir);
     });
 
-    const ObjectType = Translator.ObjectsTranslator.ObjectType;
-
-    const tests: { name: string, file: string, translator: ITranslator, objectType?: string }[] = [
-        { name: 'Doodads', file: 'doodads.json', translator: Translator.DoodadsTranslator },
-        { name: 'Strings', file: 'strings.json', translator: Translator.StringsTranslator },
-        { name: 'Terrain', file: 'terrain.json', translator: Translator.TerrainTranslator },
-        { name: 'Units', file: 'units.json', translator: Translator.UnitsTranslator },
-        { name: 'Regions', file: 'regions.json', translator: Translator.RegionsTranslator },
-        { name: 'Cameras', file: 'cameras.json', translator: Translator.CamerasTranslator },
-        { name: 'Sounds', file: 'sounds.json', translator: Translator.SoundsTranslator },
-        { name: 'Info', file: 'info.json', translator: Translator.InfoTranslator },
-        { name: 'Imports', file: 'imports.json', translator: Translator.ImportsTranslator },
-
-        { name: 'Units (Object)', file: 'obj-units.json', translator: Translator.ObjectsTranslator, objectType: ObjectType.Units },
-        { name: 'Items (Object)', file: 'obj-items.json', translator: Translator.ObjectsTranslator, objectType: ObjectType.Items },
-        { name: 'Destructables (Object)', file: 'obj-destructables.json', translator: Translator.ObjectsTranslator, objectType: ObjectType.Destructables },
-        { name: 'Doodads (Object)', file: 'obj-doodads.json', translator: Translator.ObjectsTranslator, objectType: ObjectType.Doodads },
-        { name: 'Abilities (Object)', file: 'obj-abilities.json', translator: Translator.ObjectsTranslator, objectType: ObjectType.Abilities },
-        { name: 'Buffs (Object)', file: 'obj-buffs.json', translator: Translator.ObjectsTranslator, objectType: ObjectType.Buffs },
-        { name: 'Upgrades (Object)', file: 'obj-upgrades.json', translator: Translator.ObjectsTranslator, objectType: ObjectType.Upgrades },
-    ];
-
-    tests.forEach(({ name, file, translator, objectType }) => {
+    tests.forEach(({ name, jsonFile, translator, objectType }) => {
         it(`should revert ${name}`, () => {
-            const originalJson = readJsonTestFile(file);
+            const originalJson = readJsonTestFile(jsonFile);
 
             const translatedBuffer = translator === Translator.ObjectsTranslator ?
                 translator.jsonToWar(objectType, originalJson).buffer :
@@ -82,10 +56,36 @@ describe('Reversion: json -> war -> json', () => {
                 translator.warToJson(objectType, translatedBuffer).json :
                 translator.warToJson(translatedBuffer).json;
 
-            writeJsonTestFile(file, translatedJson);
+            writeJsonTestFile(jsonFile, translatedJson);
 
             assert.deepStrictEqual(originalJson, translatedJson);
-        })
-    })
+        });
+    });
+
+});
+
+describe('Reversion: war -> json -> war', () => {
+
+    before(() => {
+        fs.emptyDirSync(outputDir);
+        fs.ensureDirSync(outputDir);
+    });
+
+    tests.forEach(({ name, warFile, translator, objectType }) => {
+        it(`should revert ${name}`, () => {
+            const originalBuffer = readWar3MapBuffer(warFile);
+
+            const translatedJson = translator === Translator.ObjectsTranslator ?
+                translator.warToJson(objectType, originalBuffer).json :
+                translator.warToJson(originalBuffer).json;
+
+            const translatedBuffer = translator === Translator.ObjectsTranslator ?
+                translator.jsonToWar(objectType, translatedJson).buffer :
+                translator.jsonToWar(translatedJson).buffer;
+
+            writeWar3TestFile(warFile, translatedBuffer);
+            assert.ok(originalBuffer.equals(translatedBuffer));
+        });
+    });
 
 });
