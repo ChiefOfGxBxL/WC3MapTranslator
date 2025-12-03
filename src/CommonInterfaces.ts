@@ -20,10 +20,10 @@ export interface TranslationError {
 
 export interface WarResult {
     buffer: Buffer;
-    errors?: TranslationError[];
+    errors: TranslationError[];
 }
 
 export interface JsonResult<T = object> {
     json: T;
-    errors?: TranslationError[];
+    errors: TranslationError[];
 }
