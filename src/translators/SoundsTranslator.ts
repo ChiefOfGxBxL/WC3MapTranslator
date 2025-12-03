@@ -75,11 +75,8 @@ export abstract class SoundsTranslator extends ITranslator {
             outBufferToWar.addInt(sound.fadeRate ? sound.fadeRate.in || 10 : 10); // default to 10
             outBufferToWar.addInt(sound.fadeRate ? sound.fadeRate.out || 10 : 10); // default to 10
 
-            // Volume (optional)
-            outBufferToWar.addInt(sound.volume || -1); // default to -1 (for normal volume)
-
-            // Pitch (optional)
-            outBufferToWar.addFloat(sound.pitch || 1.0); // default to 1.0 for normal pitch
+            outBufferToWar.addInt(sound.volume || -1); // Volumn (optional) default to -1 (for normal volume)
+            outBufferToWar.addFloat(sound.pitch || 1.0); // Pitch (optional) default to 1.0 for normal pitch
 
             // Mystery numbers... their use is unknown by the w3x documentation, but they must be present
             outBufferToWar.addFloat(0);
@@ -119,10 +116,10 @@ export abstract class SoundsTranslator extends ITranslator {
             outBufferToWar.addFloat(0);
 
             outBufferToWar.addString(sound.variableName);
-            outBufferToWar.addString('');
-            outBufferToWar.addString(sound.path);
 
-            // More unknowns
+            // More mystery values...
+            outBufferToWar.addString('');
+            outBufferToWar.addString(sound.path); // always equal to path?
             outBufferToWar.addFloat(0);
             outBufferToWar.addByte(0);
             outBufferToWar.addFloat(0);
@@ -158,7 +155,7 @@ export abstract class SoundsTranslator extends ITranslator {
                     looping: true, // 0x00000001=looping
                     '3dSound': true, // 0x00000002=3D sound
                     stopOutOfRange: true, // 0x00000004=stop when out of range
-                    music: true // 0x00000008=music},
+                    music: true // 0x00000008=music,
                 },
                 fadeRate: {
                     in: 0,
@@ -206,7 +203,7 @@ export abstract class SoundsTranslator extends ITranslator {
             // Unknown values
             outBufferToJSON.readFloat();
             outBufferToJSON.readFloat();
-            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat(); // 127
             outBufferToJSON.readFloat();
             outBufferToJSON.readFloat();
             outBufferToJSON.readFloat();
@@ -215,7 +212,7 @@ export abstract class SoundsTranslator extends ITranslator {
 
             // Unknown values
             outBufferToJSON.readString();
-            outBufferToJSON.readString();
+            outBufferToJSON.readString(); // same as path?
             outBufferToJSON.readChars(4);
             outBufferToJSON.readChars(1);
             outBufferToJSON.readChars(4);
