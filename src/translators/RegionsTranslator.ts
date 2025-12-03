@@ -101,7 +101,7 @@ export abstract class RegionsTranslator extends ITranslator {
             region.position.top = outBufferToJSON.readFloat();
             region.name = outBufferToJSON.readString();
             region.id = outBufferToJSON.readInt();
-            region.weatherEffect = outBufferToJSON.readChars(4);
+            region.weatherEffect = outBufferToJSON.readChars(4, true);
             region.ambientSound = outBufferToJSON.readString();
             region.color = [
                 outBufferToJSON.readByte(), // red
