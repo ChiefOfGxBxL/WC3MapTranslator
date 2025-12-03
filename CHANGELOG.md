@@ -6,6 +6,21 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
 
 ### FEATURES
 ### FIXES
+ * Fixes round-trip conversions (war3 -> json -> war3) on a number of translators:
+   * 🔥 Strings: now supports string comments, thus requiring a new JSON format:
+      ```json
+        {
+          // strings.json (BEFORE)
+          "1591": "|cffFF3333Victory Count|r:",
+          "1592": "|cff3333FFRepick Available|r:"
+        }
+
+        {
+          // strings.json (AFTER)
+          "1591": { "value": "CustomUnit1", "comment": "// Units: H000 (CustomUnit1), Name (Name)" },
+          "1592": { "value": "|cff3333FFRepick Available|r:" }
+        }
+      ```
 ### MAINTENANCE
  * Upgrade to NodeJS v24 (LTS)
  * Upgrade `fs-extra` 9.1.0 -> 11.3.2

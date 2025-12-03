@@ -65,7 +65,6 @@ suite('Reversion: json -> war -> json', () => {
                 : translator.warToJson(translatedBuffer).json;
 
             writeJsonTestFile(jsonFile, translatedJson);
-
             assert.deepStrictEqual(originalJson, translatedJson);
         });
     });
