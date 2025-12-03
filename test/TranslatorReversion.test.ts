@@ -12,7 +12,7 @@ const outputDir = path.resolve('test/.output');
 const readWar3MapBuffer = (filename: string) => fs.readFileSync(path.join(war3mapDir, filename));
 const writeWar3TestFile = (filename: string, data: Buffer) => fs.writeFileSync(path.join(outputDir, filename), data);
 const readJsonTestFile = (filename: string) => fs.readJsonSync(path.join(war3mapDir, filename));
-const writeJsonTestFile = (filename: string, json: object) => fs.writeJsonSync(path.join(outputDir, filename), json);
+const writeJsonTestFile = (filename: string, json: object) => fs.writeJsonSync(path.join(outputDir, filename), json, { spaces: 2 });
 
 interface testRecord {
     name: string;
