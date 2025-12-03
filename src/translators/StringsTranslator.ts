@@ -20,12 +20,6 @@ export abstract class StringsTranslator extends ITranslator {
             outBufferToWar.addNewLine();
             if (w3String.comment) {
                 outBufferToWar.addChars(w3String.comment);
-
-                // Users may not specifically add newline character in their JSON,
-                // but the capture group when parsing the war3 file will have it
-                if (!w3String.comment.endsWith('\r\n')) {
-                    outBufferToWar.addNewLine();
-                }
             }
             outBufferToWar.addChars('{');
             outBufferToWar.addNewLine();
