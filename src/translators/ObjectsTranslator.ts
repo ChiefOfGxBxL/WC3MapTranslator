@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
 enum TableType {
     original = 'original',
@@ -13,16 +13,6 @@ enum ModificationType {
     unreal = 'unreal',
     string = 'string'
 }
-
-enum FileTypeExtension { // (*) - uses the two optional ints after variable type
-    units = 'w3u',
-    items = 'w3t',
-    destructables = 'w3b',
-    doodads = 'w3d', // (*)
-    abilities = 'w3a', // (*)
-    buffs = 'w3h',
-    upgrades = 'w3q' // (*)
-};
 
 enum ObjectType {
     Units = 'units',
@@ -37,7 +27,7 @@ enum ObjectType {
 interface Modification {
     id: string;
     type: ModificationType; // 'int' | 'real' | 'unreal' | 'string',
-    value: any;
+    value: number | string;
 
     // Marked optional because these fields are not needed on any table.
     // They can be specified for: Doodads, Abilities, Upgrades, but if
@@ -48,12 +38,11 @@ interface Modification {
 }
 
 interface ObjectModificationTable {
-    original: object,
-    custom: object
+    original: object;
+    custom: object;
 }
 
 export abstract class ObjectsTranslator extends ITranslator {
-
     // Expose the ObjectType enum as part of this abstract class
     // The enum could be "export"ed , but it wouldn't be accessible
     // via `ObjectsTranslator.ObjectType`, which is preferable.
@@ -85,7 +74,12 @@ export abstract class ObjectsTranslator extends ITranslator {
                 // Original and new object ids
                 if (tableType === TableType.original) {
                     outBufferToWar.addChars(defKey);
-                    outBufferToWar.addByte(0); outBufferToWar.addByte(0); outBufferToWar.addByte(0); outBufferToWar.addByte(0); // no new Id is assigned
+
+                    // no new Id is assigned
+                    outBufferToWar.addByte(0);
+                    outBufferToWar.addByte(0);
+                    outBufferToWar.addByte(0);
+                    outBufferToWar.addByte(0);
                 } else {
                     // e.g. "h000:hfoo"
                     outBufferToWar.addChars(defKey.substring(5, 9)); // original id
@@ -119,7 +113,6 @@ export abstract class ObjectsTranslator extends ITranslator {
                     // Addl integers
                     // Required for: doodads, abilities, upgrades
                     if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
-
                         // Level or variation
                         // We need to check if hasOwnProperty because these could be explititly
                         // set to 0, but JavaScript's truthiness evaluates to false to it was defaulting
@@ -129,12 +122,12 @@ export abstract class ObjectsTranslator extends ITranslator {
                     }
 
                     // Write mod value
-                    if (modType === this.varTypes.int) {
+                    if (modType === this.varTypes.int && typeof mod.value === 'number') {
                         outBufferToWar.addInt(mod.value);
-                    } else if (modType === this.varTypes.real || modType === this.varTypes.unreal) {
+                    } else if ((modType === this.varTypes.real || modType === this.varTypes.unreal) && typeof mod.value === 'number') {
                         // Follow-up: check if unreal values are same hex format as real
                         outBufferToWar.addFloat(mod.value);
-                    } else if (modType === this.varTypes.string) {
+                    } else if (modType === this.varTypes.string && typeof mod.value === 'string') {
                         // Note that World Editor normally creates a TRIGSTR_000 for these string
                         // values - WC3MapTranslator just writes the string directly to file
                         outBufferToWar.addString(mod.value);
@@ -177,7 +170,7 @@ export abstract class ObjectsTranslator extends ITranslator {
         const result = { original: {}, custom: {} };
         const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = outBufferToJSON.readInt();
+        outBufferToJSON.readInt(); // fileVersion
 
         const readModificationTable = (isOriginalTable: boolean) => {
             const numTableModifications = outBufferToJSON.readInt();
@@ -185,9 +178,9 @@ export abstract class ObjectsTranslator extends ITranslator {
             for (let i = 0; i < numTableModifications; i++) {
                 const objectDefinition = []; // object definition will store one or more modification objects
 
-                const originalId = outBufferToJSON.readChars(4),
-                    customId = outBufferToJSON.readChars(4),
-                    modificationCount = outBufferToJSON.readInt();
+                const originalId = outBufferToJSON.readChars(4);
+                const customId = outBufferToJSON.readChars(4);
+                const modificationCount = outBufferToJSON.readInt();
 
                 for (let j = 0; j < modificationCount; j++) {
                     const modification: Modification = {
@@ -195,7 +188,7 @@ export abstract class ObjectsTranslator extends ITranslator {
                         type: ModificationType.string,
                         level: 0,
                         column: 0,
-                        value: {}
+                        value: null
                     };
 
                     modification.id = outBufferToJSON.readChars(4);

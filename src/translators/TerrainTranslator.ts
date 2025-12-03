@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
 interface Terrain {
     tileset: string;
@@ -9,15 +9,15 @@ interface Terrain {
     cliffTilePalette: string[];
     map: Map;
     // "Masks"
-    groundHeight: number[],
-    waterHeight: number[],
-    boundaryFlag: boolean[],
-    flags: number[],
-    groundTexture: number[],
-    groundVariation: number[],
-    cliffVariation: number[],
-    cliffTexture: number[],
-    layerHeight: number[]
+    groundHeight: number[];
+    waterHeight: number[];
+    boundaryFlag: boolean[];
+    flags: number[];
+    groundTexture: number[];
+    groundVariation: number[];
+    cliffVariation: number[];
+    cliffTexture: number[];
+    layerHeight: number[];
 }
 
 interface Map {
@@ -31,16 +31,15 @@ interface Offset {
     y: number;
 }
 
-function splitLargeArrayIntoWidthArrays(array: any[], width: number) {
+function splitLargeArrayIntoWidthArrays(array: unknown[], width: number) {
     const rows = [];
-    for(let i = 0; i < array.length / width; i++) {
-        rows.push(array.slice(i * width, (i+1) * width));
+    for (let i = 0; i < array.length / width; i++) {
+        rows.push(array.slice(i * width, (i + 1) * width));
     }
     return rows;
 }
 
 export abstract class TerrainTranslator extends ITranslator {
-
     public static jsonToWar(terrainJson: Terrain): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -107,8 +106,8 @@ export abstract class TerrainTranslator extends ITranslator {
         rows.cliffTexture.reverse();
         rows.layerHeight.reverse();
 
-        for(let i = 0; i < rows.groundHeight.length; i++) {
-            for(let j = 0; j < rows.groundHeight[i].length; j++) {
+        for (let i = 0; i < rows.groundHeight.length; i++) {
+            for (let j = 0; j < rows.groundHeight[i].length; j++) {
                 // these bit operations are based off documentation from https://github.com/stijnherfst/HiveWE/wiki/war3map.w3e-Terrain
                 const groundHeight = rows.groundHeight[i][j];
                 const waterHeight = rows.waterHeight[i][j];
@@ -166,8 +165,8 @@ export abstract class TerrainTranslator extends ITranslator {
         /**
          * Header
          */
-        const w3eHeader = outBufferToJSON.readChars(4); // W3E!
-        const version = outBufferToJSON.readInt(); // 0B 00 00 00
+        outBufferToJSON.readChars(4); // w3eHeader: W3E!
+        outBufferToJSON.readInt(); // version: 0B 00 00 00
         const tileset = outBufferToJSON.readChars(1); // tileset
         const customTileset = (outBufferToJSON.readInt() === 1);
 
@@ -221,7 +220,7 @@ export abstract class TerrainTranslator extends ITranslator {
         const arr_cliffTexture = [];
         const arr_layerHeight = [];
 
-        while(!outBufferToJSON.isExhausted()) {
+        while (!outBufferToJSON.isExhausted()) {
             const groundHeight = outBufferToJSON.readShort();
             const waterHeightAndBoundary = outBufferToJSON.readShort();
             const flagsAndGroundTexture = outBufferToJSON.readByte();
@@ -251,22 +250,22 @@ export abstract class TerrainTranslator extends ITranslator {
 
         function convertArrayOfArraysIntoFlatArray(arr) {
             return arr.reduce((a, b) => {
-                return [...a, ...b]
+                return [...a, ...b];
             });
         }
 
         // The map was read in "backwards" because wc3 maps have origin (0,0)
         // at the bottom left instead of top left as we desire. Flip the rows
         // vertically to fix this.
-        result.groundHeight = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_groundHeight, result.map.width + 1).reverse())
-        result.waterHeight = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_waterHeight, result.map.width + 1).reverse())
-        result.boundaryFlag = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_boundaryFlag, result.map.width + 1).reverse())
-        result.flags = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_flags, result.map.width + 1).reverse())
-        result.groundTexture = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_groundTexture, result.map.width + 1).reverse())
-        result.groundVariation = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_groundVariation, result.map.width + 1).reverse())
-        result.cliffVariation = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_cliffVariation, result.map.width + 1).reverse())
-        result.cliffTexture = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_cliffTexture, result.map.width + 1).reverse())
-        result.layerHeight = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_layerHeight, result.map.width + 1).reverse())
+        result.groundHeight = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_groundHeight, result.map.width + 1).reverse());
+        result.waterHeight = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_waterHeight, result.map.width + 1).reverse());
+        result.boundaryFlag = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_boundaryFlag, result.map.width + 1).reverse());
+        result.flags = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_flags, result.map.width + 1).reverse());
+        result.groundTexture = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_groundTexture, result.map.width + 1).reverse());
+        result.groundVariation = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_groundVariation, result.map.width + 1).reverse());
+        result.cliffVariation = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_cliffVariation, result.map.width + 1).reverse());
+        result.cliffTexture = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_cliffTexture, result.map.width + 1).reverse());
+        result.layerHeight = convertArrayOfArraysIntoFlatArray(splitLargeArrayIntoWidthArrays(arr_layerHeight, result.map.width + 1).reverse());
 
         return {
             errors: [],

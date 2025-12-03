@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
 enum ImportType {
     Standard = 'standard',
@@ -13,7 +13,6 @@ interface Import {
 }
 
 export abstract class ImportsTranslator extends ITranslator {
-
     public static jsonToWar(imports: Import[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -49,7 +48,7 @@ export abstract class ImportsTranslator extends ITranslator {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = outBufferToJSON.readInt(); // File version
+        outBufferToJSON.readInt(); // File version
         const numImports = outBufferToJSON.readInt(); // # of imports
 
         for (let i = 0; i < numImports; i++) {
@@ -59,7 +58,7 @@ export abstract class ImportsTranslator extends ITranslator {
                 5: 'standard',
                 8: 'standard', // * preferred
                 10: 'custom',
-                13: 'custom'  // * preferred
+                13: 'custom' // * preferred
             };
 
             const importedFile = {

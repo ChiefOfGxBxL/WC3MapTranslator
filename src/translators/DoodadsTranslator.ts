@@ -1,7 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { rad2Deg, deg2Rad } from '../AngleConverter';
-import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces'
+import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
 
 interface Doodad {
     type: string;
@@ -30,7 +30,6 @@ enum flag {
 }
 
 export abstract class DoodadsTranslator extends ITranslator {
-
     public static jsonToWar(doodadsJson: Doodad[]): WarResult {
         const outBufferToWar = new HexBuffer();
         /*
@@ -101,9 +100,9 @@ export abstract class DoodadsTranslator extends ITranslator {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileId = outBufferToJSON.readChars(4); // W3do for doodad file
-        const fileVersion = outBufferToJSON.readInt(); // File version = 8
-        const subVersion = outBufferToJSON.readInt(); // 0B 00 00 00
+        outBufferToJSON.readChars(4); // File ID: `W3do` for doodad file
+        outBufferToJSON.readInt(); // File version = 8
+        outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
         const numDoodads = outBufferToJSON.readInt(); // # of doodads
 
         for (let i = 0; i < numDoodads; i++) {
@@ -143,7 +142,7 @@ export abstract class DoodadsTranslator extends ITranslator {
 
             // UNSUPPORTED: random item set drops when doodad is destroyed/killed
             // This section just consumes the bytes from the file
-            const randomItemSetPtr = outBufferToJSON.readInt(); // points to an item set defined in the map (rather than custom one defined below)
+            outBufferToJSON.readInt(); // randomItemSetPtr, points to an item set defined in the map (rather than custom one defined below)
             const numberOfItemSets = outBufferToJSON.readInt(); // this should be 0 if randomItemSetPtr is >= 0
 
             for (let j = 0; j < numberOfItemSets; j++) {

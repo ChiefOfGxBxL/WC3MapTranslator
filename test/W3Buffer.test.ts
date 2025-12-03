@@ -18,7 +18,6 @@ const buffData = Buffer.from([
 const w3buffer = new W3Buffer(buffData);
 
 suite('W3Buffer', () => {
-
     test('should readInt', () => {
         assert.equal(w3buffer.readInt(), 1);
     });
@@ -37,7 +36,7 @@ suite('W3Buffer', () => {
 
     test('should readChars', () => {
         assert.equal(w3buffer.readChars(4), 'W3do');
-        assert.equal(w3buffer.readChars(), 'W')
+        assert.equal(w3buffer.readChars(), 'W');
     });
 
     test('should readByte', () => {
@@ -47,5 +46,4 @@ suite('W3Buffer', () => {
     test('should be exhausted', () => {
         assert.ok(w3buffer.isExhausted());
     });
-
 });

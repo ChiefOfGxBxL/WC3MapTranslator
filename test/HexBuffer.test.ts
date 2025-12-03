@@ -5,7 +5,6 @@ import { HexBuffer } from '../src/HexBuffer';
 let hexBuffer: HexBuffer;
 
 suite('HexBuffer', () => {
-
     beforeEach(() => {
         // clear the buffer before each test in this block so we
         // don't have to care about what we added in prior tests
@@ -95,7 +94,7 @@ suite('HexBuffer', () => {
         ];
 
         let totalLength = 0;
-        // tslint:disable-next-line: forin
+
         for (const word of testWords) {
             const bufLength = Buffer.from(word).length;
             hexBuffer.addString(word);
@@ -167,5 +166,4 @@ suite('HexBuffer', () => {
         hexBuffer.addString('');
         assert(hexBuffer.getBuffer()); // test if this function works
     });
-
 });

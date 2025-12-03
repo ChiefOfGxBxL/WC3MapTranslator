@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces'
+import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
 
 interface Unit {
     type: string;
@@ -39,7 +39,6 @@ interface Abilities {
 }
 
 export abstract class UnitsTranslator extends ITranslator {
-
     public static jsonToWar(unitsJson: Unit[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -138,10 +137,10 @@ export abstract class UnitsTranslator extends ITranslator {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileId = outBufferToJSON.readChars(4), // W3do for doodad file
-            fileVersion = outBufferToJSON.readInt(), // File version = 7
-            subVersion = outBufferToJSON.readInt(), // 0B 00 00 00
-            numUnits = outBufferToJSON.readInt(); // # of units
+        outBufferToJSON.readChars(4); // File ID: `W3do`
+        outBufferToJSON.readInt(); // File version = 7
+        outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
+        const numUnits = outBufferToJSON.readInt(); // # of units
 
         for (let i = 0; i < numUnits; i++) {
             const unit: Unit = {
@@ -169,7 +168,7 @@ export abstract class UnitsTranslator extends ITranslator {
             unit.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
 
             // UNSUPPORTED: flags
-            const flags = outBufferToJSON.readByte();
+            outBufferToJSON.readByte(); // flags
 
             outBufferToJSON.readInt(); // Unknown
 
@@ -181,8 +180,8 @@ export abstract class UnitsTranslator extends ITranslator {
             unit.hitpoints = outBufferToJSON.readInt(); // -1 = use default
             unit.mana = outBufferToJSON.readInt(); // -1 = use default, 0 = unit doesn't have mana
 
-            const droppedItemSetPtr = outBufferToJSON.readInt(),
-                numDroppedItemSets = outBufferToJSON.readInt();
+            outBufferToJSON.readInt(); // droppedItemSetPtr
+            const numDroppedItemSets = outBufferToJSON.readInt();
             for (let j = 0; j < numDroppedItemSets; j++) {
                 const numDroppableItems = outBufferToJSON.readInt();
                 for (let k = 0; k < numDroppableItems; k++) {

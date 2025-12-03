@@ -1,8 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
 export abstract class StringsTranslator extends ITranslator {
-
     public static jsonToWar(stringsJson: object): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -28,16 +27,14 @@ export abstract class StringsTranslator extends ITranslator {
     }
 
     public static warToJson(buffer: Buffer): JsonResult<object> {
-        const wts = buffer.toString().replace(/\r\n/g, '\n'), // may contain Windows linebreaks (\r\n), but below regex just assumes \n
-            matchStringDefinitionBlock = new RegExp('STRING ([0-9]+)\n?(?:.*\n)?\{\n((?:.|\n)*?)\n}', 'g'); // see: https://regexr.com/3r572
+        const wts = buffer.toString().replace(/\r\n/g, '\n'); // may contain Windows linebreaks (\r\n), but below regex just assumes \n
+        const matchStringDefinitionBlock = /STRING ([0-9]+)\n?(?:.*\n)?{\n((?:.|\n)*?)\n}/g; // see: https://regexr.com/3r572
 
         const result = {}; // stores the json form of strings file
         let match; // stores individual matches as input is read
 
-        // tslint:disable-next-line: no-conditional-assignment
         while ((match = matchStringDefinitionBlock.exec(wts)) !== null) {
-            const num = match[1],
-                body = match[2];
+            const [, num, body] = match;
             result[num] = body;
         }
 

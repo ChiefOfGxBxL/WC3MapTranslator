@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
 interface Map {
     name: string;
@@ -141,7 +141,6 @@ enum SupportedModes {
 }
 
 export abstract class InfoTranslator extends ITranslator {
-
     public static jsonToWar(infoJson: Info): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -194,10 +193,10 @@ export abstract class InfoTranslator extends ITranslator {
             if (infoJson.map.flags.waterWavesOnRollingShores) flags |= 0x1000; // show water waves on rolling shores
             // 0x2000: 1=unknown
             // 0x4000: 1=unknown
-            if (infoJson.map.flags.useItemClassificationSystem) flags |= 0x8000
-            if (infoJson.map.flags.enableWaterTinting) flags |= 0x10000
-            if (infoJson.map.flags.useAccurateProbabilityForCalculations) flags |= 0x20000
-            if (infoJson.map.flags.useCustomAbilitySkins) flags |= 0x40000
+            if (infoJson.map.flags.useItemClassificationSystem) flags |= 0x8000;
+            if (infoJson.map.flags.enableWaterTinting) flags |= 0x10000;
+            if (infoJson.map.flags.useAccurateProbabilityForCalculations) flags |= 0x20000;
+            if (infoJson.map.flags.useCustomAbilitySkins) flags |= 0x40000;
         }
 
         // Unknown, but these seem to always be on, at least for default maps
@@ -381,9 +380,9 @@ export abstract class InfoTranslator extends ITranslator {
         };
         const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = outBufferToJSON.readInt();
+        outBufferToJSON.readInt(); // File version
 
-        result.saves = outBufferToJSON.readInt(),
+        result.saves = outBufferToJSON.readInt();
         result.editorVersion = outBufferToJSON.readInt();
 
         result.gameVersion = {
@@ -442,7 +441,7 @@ export abstract class InfoTranslator extends ITranslator {
         result.loadingScreen.title = outBufferToJSON.readString();
         result.loadingScreen.subtitle = outBufferToJSON.readString();
 
-        const gameDataSet = outBufferToJSON.readInt(); // 0 = standard
+        outBufferToJSON.readInt(); // Game dataset, 0 = standard
 
         result.prologue = {
             path: outBufferToJSON.readString(),
@@ -566,13 +565,11 @@ export abstract class InfoTranslator extends ITranslator {
 
             const itemSetsCurrentTable = outBufferToJSON.readInt(); // Number "m" of item sets on the current item table
             for (let j = 0; j < itemSetsCurrentTable; j++) {
-
                 const itemsInItemSet = outBufferToJSON.readInt(); // Number "i" of items on the current item set
                 for (let k = 0; k < itemsInItemSet; k++) {
                     outBufferToJSON.readInt(); // Percentual chance
                     outBufferToJSON.readChars(4); // Item id (as in ItemData.slk)
                 }
-
             }
         }
 

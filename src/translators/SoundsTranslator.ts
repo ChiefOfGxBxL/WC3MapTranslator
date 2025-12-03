@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces'
+import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
 interface Sound {
     name: string;
@@ -21,10 +21,10 @@ interface FadeRate {
 }
 
 interface SoundFlags {
-    looping: boolean;    // 0x00000001=looping
-    '3dSound': boolean;   // 0x00000002=3D sound
-    stopOutOfRange: boolean;  // 0x00000004=stop when out of range
-    music: boolean;  // 0x00000008=music
+    looping: boolean; // 0x00000001=looping
+    '3dSound': boolean; // 0x00000002=3D sound
+    stopOutOfRange: boolean; // 0x00000004=stop when out of range
+    music: boolean; // 0x00000008=music
 }
 
 interface Distance {
@@ -34,10 +34,8 @@ interface Distance {
 }
 
 export abstract class SoundsTranslator extends ITranslator {
-
     public static jsonToWar(soundsJson: Sound[]): WarResult {
         const outBufferToWar = new HexBuffer();
-
         /*
          * Header
          */
@@ -144,8 +142,8 @@ export abstract class SoundsTranslator extends ITranslator {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
-        const fileVersion = outBufferToJSON.readInt(), // File version
-            numSounds = outBufferToJSON.readInt(); // # of sounds
+        outBufferToJSON.readInt(); // File version
+        const numSounds = outBufferToJSON.readInt(); // # of sounds
 
         for (let i = 0; i < numSounds; i++) {
             const sound: Sound = {
@@ -157,10 +155,10 @@ export abstract class SoundsTranslator extends ITranslator {
                 pitch: 0,
                 channel: 0,
                 flags: {
-                    'looping': true,    // 0x00000001=looping
-                    '3dSound': true,   // 0x00000002=3D sound
-                    'stopOutOfRange': true,  // 0x00000004=stop when out of range
-                    'music': true  // 0x00000008=music},
+                    looping: true, // 0x00000001=looping
+                    '3dSound': true, // 0x00000002=3D sound
+                    stopOutOfRange: true, // 0x00000004=stop when out of range
+                    music: true // 0x00000008=music},
                 },
                 fadeRate: {
                     in: 0,
@@ -179,10 +177,10 @@ export abstract class SoundsTranslator extends ITranslator {
 
             const flags = outBufferToJSON.readInt();
             sound.flags = {
-                'looping': !!(flags & 0b1),    // 0x00000001=looping
-                '3dSound': !!(flags & 0b10),   // 0x00000002=3D sound
-                'stopOutOfRange': !!(flags & 0b100),  // 0x00000004=stop when out of range
-                'music': !!(flags & 0b1000)  // 0x00000008=music
+                looping: !!(flags & 0b1), // 0x00000001=looping
+                '3dSound': !!(flags & 0b10), // 0x00000002=3D sound
+                stopOutOfRange: !!(flags & 0b100), // 0x00000004=stop when out of range
+                music: !!(flags & 0b1000) // 0x00000008=music
             };
 
             sound.fadeRate = {

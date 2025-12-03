@@ -21,9 +21,8 @@ export class HexBuffer {
 
     public addString(str: string) {
         const buf = Buffer.from(str, 'utf-8');
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < buf.length; i++) {
-            this._buffer.push('0x' + buf[i].toString(16));
+        for (const byte of buf) {
+            this._buffer.push('0x' + byte.toString(16));
         }
         this.addNullTerminator();
     }
@@ -38,7 +37,7 @@ export class HexBuffer {
     }
 
     public addChars(chars: string) {
-        chars.split('').forEach(char => {
+        chars.split('').forEach((char) => {
             this.addChar(char);
         });
     }
@@ -59,16 +58,16 @@ export class HexBuffer {
         // ieee754.write(buffer, value, buffer offset, little-endian, mantissa length, bytes);
         ieee754.write(buf, float, 0, true, 23, 4);
 
-        buf.forEach((byte) => {
+        for (const byte of buf) {
             this._buffer.push('0x' + byte.toString(16));
-        });
+        }
     }
 
     public addByte(byte) {
         this._buffer.push('0x' + byte.toString(16));
     }
 
-    public addNullTerminator()  {
+    public addNullTerminator() {
         this._buffer.push('0x0');
     }
 
