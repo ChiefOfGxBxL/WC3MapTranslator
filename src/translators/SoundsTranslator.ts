@@ -152,10 +152,10 @@ export abstract class SoundsTranslator extends ITranslator {
                 pitch: 0,
                 channel: 0,
                 flags: {
-                    looping: true, // 0x00000001=looping
-                    '3dSound': true, // 0x00000002=3D sound
-                    stopOutOfRange: true, // 0x00000004=stop when out of range
-                    music: true // 0x00000008=music,
+                    looping: true,
+                    '3dSound': true,
+                    stopOutOfRange: true,
+                    music: true
                 },
                 fadeRate: {
                     in: 0,
@@ -174,10 +174,10 @@ export abstract class SoundsTranslator extends ITranslator {
 
             const flags = outBufferToJSON.readInt();
             sound.flags = {
-                looping: !!(flags & 0b1), // 0x00000001=looping
-                '3dSound': !!(flags & 0b10), // 0x00000002=3D sound
-                stopOutOfRange: !!(flags & 0b100), // 0x00000004=stop when out of range
-                music: !!(flags & 0b1000) // 0x00000008=music
+                looping: !!(flags & 0x1),
+                '3dSound': !!(flags & 0x2),
+                stopOutOfRange: !!(flags & 0x4),
+                music: !!(flags & 0x8)
             };
 
             sound.fadeRate = {
