@@ -1,28 +1,27 @@
 import ieee754 from 'ieee754';
 import IntN from 'intn';
 
+const byteToHex = (byte: number): string => ('0x' + byte.toString(16));
+const charToHex = (character: string): string => ('0x' + character.charCodeAt(0).toString(16));
+
 const intToHex = (intV: number, isShort: boolean): string[] => {
     // Creates a new 32-bit integer from the given number
     const intSize = isShort ? 16 : 32;
     const intNSize = new IntN(intSize);
-    const byteNum = intNSize.fromInt(intV).bytes;
+    const byteNum: number[] = intNSize.fromInt(intV).bytes;
 
     // Map decimal bytes to hex bytes
     // Bytes are already in correct little-endian form
-    return byteNum.map((Byte) => {
-        return '0x' + Byte.toString(16);
-    });
+    return byteNum.map(byteToHex);
 };
 
-const charToHex = (character: string): string => ('0x' + character.charCodeAt(0).toString(16));
-
 export class HexBuffer {
-    private _buffer = [];
+    private _buffer: string[] = [];
 
     public addString(str: string) {
         const buf = Buffer.from(str, 'utf-8');
         for (const byte of buf) {
-            this._buffer.push('0x' + byte.toString(16));
+            this._buffer.push(byteToHex(byte));
         }
         this.addNullTerminator();
     }
@@ -59,12 +58,12 @@ export class HexBuffer {
         ieee754.write(buf, float, 0, true, 23, 4);
 
         for (const byte of buf) {
-            this._buffer.push('0x' + byte.toString(16));
+            this._buffer.push(byteToHex(byte));
         }
     }
 
-    public addByte(byte) {
-        this._buffer.push('0x' + byte.toString(16));
+    public addByte(byte: number) {
+        this._buffer.push(byteToHex(byte));
     }
 
     public addNullTerminator() {
@@ -72,6 +71,6 @@ export class HexBuffer {
     }
 
     public getBuffer(): Buffer {
-        return Buffer.from(this._buffer);
+        return Buffer.from(this._buffer.map((s) => parseInt(s)));
     }
 }

@@ -55,8 +55,7 @@ export class W3Buffer {
         }).join('');
     }
 
-    public readByte() {
-        // TODO what kind of binary? Do we use a BigInt or a node provided type from Buffer?
+    public readByte(): number {
         const byte = this._buffer[this._offset];
         this._offset += 1;
         return byte;

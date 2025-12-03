@@ -36,6 +36,7 @@ export default defineConfig(
             'no-console': 'error',
             'no-empty': 'error',
             'curly': ['error', 'multi-line'],
+            'no-warning-comments': 'warn',
 
             // TSEslint rules: https://typescript-eslint.io/rules/
             '@typescript-eslint/no-inferrable-types': ['off'], // allow "trivial" types for consistency

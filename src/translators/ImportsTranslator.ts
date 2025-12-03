@@ -53,12 +53,12 @@ export abstract class ImportsTranslator extends ITranslator {
 
         for (let i = 0; i < numImports; i++) {
             const typeValue = outBufferToJSON.readByte();
-            const typeEnum = {
-                0: 'standard',
-                5: 'standard',
-                8: 'standard', // * preferred
-                10: 'custom',
-                13: 'custom' // * preferred
+            const typeEnum: Record<number, ImportType> = {
+                0: ImportType.Standard,
+                5: ImportType.Standard,
+                8: ImportType.Standard, // * preferred
+                10: ImportType.Custom,
+                13: ImportType.Custom // * preferred
             };
 
             const importedFile = {

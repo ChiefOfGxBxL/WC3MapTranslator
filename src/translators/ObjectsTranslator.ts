@@ -38,8 +38,8 @@ interface Modification {
 }
 
 interface ObjectModificationTable {
-    original: object;
-    custom: object;
+    original: Record<string, Modification[]>;
+    custom: Record<string, Modification[]>;
 }
 
 export abstract class ObjectsTranslator extends ITranslator {
@@ -59,7 +59,7 @@ export abstract class ObjectsTranslator extends ITranslator {
         3: 'string'
     };
 
-    public static jsonToWar(type: string, json): WarResult {
+    public static jsonToWar(type: string, json: ObjectModificationTable): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -67,7 +67,7 @@ export abstract class ObjectsTranslator extends ITranslator {
          */
         outBufferToWar.addInt(2); // file version
 
-        const generateTableFromJson = (tableType: TableType, tableData) => { // create "original" or "custom" table
+        const generateTableFromJson = (tableType: TableType, tableData: Record<string, Modification[]>) => { // create "original" or "custom" table
             Object.keys(tableData).forEach((defKey) => {
                 const obj = tableData[defKey];
 
@@ -90,7 +90,7 @@ export abstract class ObjectsTranslator extends ITranslator {
                 outBufferToWar.addInt(obj.length);
 
                 obj.forEach((mod: Modification) => {
-                    let modType;
+                    let modType: number = 0;
 
                     // Modification id (e.g. unam = name; reference MetaData lookups)
                     outBufferToWar.addChars(mod.id);
@@ -110,14 +110,9 @@ export abstract class ObjectsTranslator extends ITranslator {
 
                     outBufferToWar.addInt(modType);
 
-                    // Addl integers
-                    // Required for: doodads, abilities, upgrades
+                    // Addl integers required for: doodads, abilities, upgrades
                     if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
-                        // Level or variation
-                        // We need to check if hasOwnProperty because these could be explititly
-                        // set to 0, but JavaScript's truthiness evaluates to false to it was defaulting
-                        outBufferToWar.addInt(mod.level || mod.variation || 0); // defaults to 0
-
+                        outBufferToWar.addInt(mod.level || mod.variation || 0); // Level or variation, defaults to 0
                         outBufferToWar.addInt(mod.column || 0); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
                     }
 
@@ -167,7 +162,7 @@ export abstract class ObjectsTranslator extends ITranslator {
     }
 
     public static warToJson(type: string, buffer: Buffer): JsonResult<ObjectModificationTable> {
-        const result = { original: {}, custom: {} };
+        const result: ObjectModificationTable = { original: {}, custom: {} };
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readInt(); // fileVersion
@@ -176,7 +171,7 @@ export abstract class ObjectsTranslator extends ITranslator {
             const numTableModifications = outBufferToJSON.readInt();
 
             for (let i = 0; i < numTableModifications; i++) {
-                const objectDefinition = []; // object definition will store one or more modification objects
+                const objectDefinition: Modification[] = [];
 
                 const originalId = outBufferToJSON.readChars(4);
                 const customId = outBufferToJSON.readChars(4);
@@ -188,11 +183,11 @@ export abstract class ObjectsTranslator extends ITranslator {
                         type: ModificationType.string,
                         level: 0,
                         column: 0,
-                        value: null
+                        value: ''
                     };
 
                     modification.id = outBufferToJSON.readChars(4);
-                    modification.type = this.varTypes[outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
+                    modification.type = Object.values(ModificationType)[outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
 
                     if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
                         modification.level = outBufferToJSON.readInt();
