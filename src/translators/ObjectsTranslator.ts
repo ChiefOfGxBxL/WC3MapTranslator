@@ -173,8 +173,8 @@ export abstract class ObjectsTranslator extends ITranslator {
             for (let i = 0; i < numTableModifications; i++) {
                 const objectDefinition: Modification[] = [];
 
-                const originalId = outBufferToJSON.readChars(4);
-                const customId = outBufferToJSON.readChars(4);
+                const originalId = outBufferToJSON.readFourCC();
+                const customId = outBufferToJSON.readFourCC();
                 const modificationCount = outBufferToJSON.readInt();
 
                 for (let j = 0; j < modificationCount; j++) {
@@ -186,7 +186,7 @@ export abstract class ObjectsTranslator extends ITranslator {
                         value: ''
                     };
 
-                    modification.id = outBufferToJSON.readChars(4);
+                    modification.id = outBufferToJSON.readFourCC();
                     modification.type = Object.values(ModificationType)[outBufferToJSON.readInt()]; // 'int' | 'real' | 'unreal' | 'string',
 
                     if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
@@ -205,7 +205,7 @@ export abstract class ObjectsTranslator extends ITranslator {
                     if (isOriginalTable) {
                         outBufferToJSON.readInt(); // should be 0 for original objects
                     } else {
-                        outBufferToJSON.readChars(4); // should be object ID for custom objects
+                        outBufferToJSON.readFourCC(); // should be object ID for custom objects
                     }
 
                     objectDefinition.push(modification);
