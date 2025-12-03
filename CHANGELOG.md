@@ -1,3 +1,30 @@
+# ___ (2025-12-__)
+## SUMMARY
+
+The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6).
+
+**🔥 Breaking changes**
+## FEATURES
+## FIXES
+## MAINTENANCE
+ * Upgrade to NodeJS v24 (LTS)
+ * Upgrade `fs-extra` 9.1.0 -> 11.3.2
+ * Upgrade `@types/fs-extra` 9.0.7 -> 11.0.4
+ * Upgrade `@types/node` 14.14.31 -> 24.10.1
+ * Upgrade `round-to` 5.0.0 -> 7.0.0
+ * Remove `diff-buf` (use native `buffer.equals(buf)`)
+ * Remove `@types/round-to` (`round-to` includes its own type definition)
+ * Remove `mocha` (use native Node test runner)
+ * Remove `@types/mocha`
+ * Remove `nyc`
+ * Remove `istanbul`
+ * Remove `@istanbuljs/nyc-config-typescript`
+ * Switch `tslint` (deprecated) to `eslint`
+## TESTING
+ * Fix the test suite, which was broken since upgrading to TypeScript
+ * Add tests for round-tripping `war3map` files to JSON and back (many of which are expected to be broken, due to unsupported fields)
+ * Use native `node --test` functionality in NodeJS 24, removing need for 3rd party test runner `mocha`
+
 # 4.0.4 (2023-08-06)
 ## SUMMARY
 ## FIXES
