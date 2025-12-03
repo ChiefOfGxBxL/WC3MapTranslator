@@ -83,7 +83,7 @@ export abstract class SoundsTranslator extends ITranslator {
 
             // Mystery numbers... their use is unknown by the w3x documentation, but they must be present
             outBufferToWar.addFloat(0);
-            outBufferToWar.addInt(8); // or -1?
+            outBufferToWar.addInt(-1); // was previously 8
 
             // Which channel to use? Use the lookup table for more details (optional)
             /*
