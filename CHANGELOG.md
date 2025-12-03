@@ -1,12 +1,12 @@
 # ___ (2025-12-__)
-## SUMMARY
+### SUMMARY
+**🔥 Breaking changes**
 
 The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6).
 
-**🔥 Breaking changes**
-## FEATURES
-## FIXES
-## MAINTENANCE
+### FEATURES
+### FIXES
+### MAINTENANCE
  * Upgrade to NodeJS v24 (LTS)
  * Upgrade `fs-extra` 9.1.0 -> 11.3.2
  * Upgrade `@types/fs-extra` 9.0.7 -> 11.0.4
@@ -20,33 +20,30 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
  * Remove `istanbul`
  * Remove `@istanbuljs/nyc-config-typescript`
  * Switch `tslint` (deprecated) to `eslint`
-## TESTING
+### TESTING
  * Fix the test suite, which was broken since upgrading to TypeScript
  * Add tests for round-tripping `war3map` files to JSON and back (many of which are expected to be broken, due to unsupported fields)
  * Use native `node --test` functionality in NodeJS 24, removing need for 3rd party test runner `mocha`
 
 # 4.0.4 (2023-08-06)
-## SUMMARY
-## FIXES
+### SUMMARY
+### FIXES
  * Resolve files packaged incorrectly when publishing npm
 
 # 4.0.3 (2023-08-06)
-## SUMMARY
-## FIXES
+### FIXES
  * Fix dependency `ieee754` being listed as devDependency instead of regular dependency, breaking some translators
 
 # 4.0.2 (2023-08-06)
-## SUMMARY
-## FIXES
+### FIXES
  * Fix build issues from previous release
 
 # 4.0.1 (2023-08-06)
-## SUMMARY
-## FIXES
+### FIXES
  * Project properly builds all TS files upon installation, resolving out-of-the-box errors
 
 # 4.0.0 (2021-02-28)
-## SUMMARY
+### SUMMARY
 **🔥 Breaking changes**
 
 This major release significantly overhauls WC3MapTranslator since the release of WarCraft III: Reforged. There are a few breaking changes in this release.
@@ -59,7 +56,7 @@ The `.json` format for terrain gets rid of the bulky `tile` objects and returns 
 
 Another exciting change is a new [WC3MapSpecification](https://github.com/ChiefOfGxBxL/WC3MapSpecification) repository for documenting the war3map specifications. This is a living document, meaning it may be updated in-place as our understanding of the file formats improves!
 
-## FEATURES
+### FEATURES
  * 🔥 Improve usage contract:
    * Translators are now exported by this library (e.g. `import { ObjectTranslator } from 'wc3maptranslator'`)
    * Translators no longer need to be instantiated to be used
@@ -78,12 +75,12 @@ Another exciting change is a new [WC3MapSpecification](https://github.com/ChiefO
    * Translator results from `jsonToWar()` and `warToJson()` are now typed by `WarResult` and `JsonResult`, respectively
    * `JsonResult` is generically typed to describe what it contains (e.g. `Sound[]`)
    * Introduced new `angle` type, which is an alias for `number`; `angle`'s should always be specified in degrees, not radians
-## FIXES
+### FIXES
  * Resolve `[DEP0005] DeprecationWarning: Buffer()` warning in `HexBuffer.ts`
  * Fix scoping issues on `*Translator.ts`, `HexBuffer.ts` and `W3Buffer.ts` where certain fields that should be `private` were marked as `public`
  * Fix InfoTranslator reading random item table ID length as 1 instead of 4
  * Fix potential null-terminator errors related to string or character-array fields
-## MAINTENANCE
+### MAINTENANCE
  * Upgrade to Node 14.x LTS
  * Upgrade to npm 7.x
  * Upgrade `round-to` 4.1.0 -> 5.0.0
@@ -101,19 +98,19 @@ Another exciting change is a new [WC3MapSpecification](https://github.com/ChiefO
     * Refer to `USAGE.md` for how to use the code
  * Add all contributors to `package.json`
  * Resolve all security issues via `npm audit fix` (5 low, 1 high, 1 critical)
-## TESTING
+### TESTING
  * Travis CI will now use Node 14 LTS to build the project
  * `test` directory now contains the WC3 and JSON data files the tests require
  * Implement the StringsTranslator test
  * Resolve all broken unit tests, most of them being reversion tests
 <!--
 # x.y.z (YYYY-MM-DD)
-## SUMMARY
+### SUMMARY
 **🔥 Breaking changes**
-## FEATURES
-## FIXES
-## MAINTENANCE
-## TESTING
+### FEATURES
+### FIXES
+### MAINTENANCE
+### TESTING
 -->
 
 # Previous versions
