@@ -1,19 +1,35 @@
 import { HexBuffer } from '../HexBuffer';
 import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
+interface StringRecord {
+    comment?: string,
+    value: string
+}
+
 export abstract class StringsTranslator extends ITranslator {
-    public static jsonToWar(stringsJson: Record<string, string>): WarResult {
+    public static jsonToWar(stringsJson: Record<string, StringRecord>): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
          * Strings
          */
-        Object.keys(stringsJson).forEach((key) => {
-            outBufferToWar.addChars('STRING ' + key);
+        Object.keys(stringsJson).forEach((stringId) => {
+            const w3String: StringRecord = stringsJson[stringId]
+
+            outBufferToWar.addChars('STRING ' + stringId);
             outBufferToWar.addNewLine();
+            if (w3String.comment) {
+                outBufferToWar.addChars(w3String.comment);
+
+                // Users may not specifically add newline character in their JSON,
+                // but the capture group when parsing the war3 file will have it
+                if (!w3String.comment.endsWith('\r\n')) {
+                    outBufferToWar.addNewLine();
+                }
+            }
             outBufferToWar.addChars('{');
             outBufferToWar.addNewLine();
-            outBufferToWar.addChars(stringsJson[key]);
+            outBufferToWar.addChars(w3String.value);
             outBufferToWar.addNewLine();
             outBufferToWar.addChars('}');
             outBufferToWar.addNewLine();
@@ -26,16 +42,15 @@ export abstract class StringsTranslator extends ITranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer): JsonResult<object> {
-        const wts = buffer.toString().replace(/\r\n/g, '\n'); // may contain Windows linebreaks (\r\n), but below regex just assumes \n
-        const matchStringDefinitionBlock = /STRING ([0-9]+)\n?(?:.*\n)?{\n((?:.|\n)*?)\n}/g; // see: https://regexr.com/3r572
+    private static matchStringDefinitionBlock = /STRING ([0-9]+)\r?\n?(\/\/.*\r?\n?)?{\r?\n((?:.|\r?\n)*?)\r?\n}/g; // see: https://regexr.com/8ii3d 
+    public static warToJson(buffer: Buffer): JsonResult<Record<string, StringRecord>> {
+        const result: Record<string, StringRecord> = {}; // stores the json form of strings file
 
-        const result: Record<string, string> = {}; // stores the json form of strings file
-        let match; // stores individual matches as input is read
-
-        while ((match = matchStringDefinitionBlock.exec(wts)) !== null) {
-            const [, num, body] = match;
-            result[num] = body;
+        let match: RegExpExecArray | null; // stores individual matches as input is read
+        while ((match = this.matchStringDefinitionBlock.exec(buffer.toString('utf8'))) !== null) {
+            const [, num, comment, value] = match;
+            result[num] = { value };
+            if (comment) result[num].comment = comment
         }
 
         return {
