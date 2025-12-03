@@ -21,6 +21,7 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
           "1592": { "value": "|cff3333FFRepick Available|r:" }
         }
       ```
+   * Regions: properly handles null weather effect 0x0 bytes
 ### MAINTENANCE
  * Upgrade to NodeJS v24 (LTS)
  * Upgrade `fs-extra` 9.1.0 -> 11.3.2
