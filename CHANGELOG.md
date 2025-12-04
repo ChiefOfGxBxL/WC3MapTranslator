@@ -2,9 +2,14 @@
 ### SUMMARY
 **🔥 Breaking changes**
 
-The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6).
+This release includes the following breaking changes
+ * 🔥 The `strings.json` file format now maps keys to `{ value: "", comment: "" }` to support string comments (see below for details)
+ * 🔥 The `sounds.json` file has renamed the `eax` field to `effect`
+
+The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6). This allows the codebase to take advantage of new TypeScript features.
 
 ### FEATURES
+ * SoundsTranslator now statically exposes `EffectType` and `Channel`, so you can easily reference values like `Channel.Constructions` (12) or `EffectType.HeroSpeech` ("HeroAcksEAX")
 ### FIXES
  * Fixes round-trip conversions (war3 -> json -> war3) on a number of translators:
    * 🔥 Strings: now supports string comments, thus requiring a new JSON format:
@@ -22,6 +27,8 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
         }
       ```
    * Regions: properly handles null weather effect 0x0 bytes
+   * Cameras: handles new local roll, pitch, yaw fields, and discovers previous magic value for near clipping
+   * Sounds: resolved many issues including magic numbers, default pitch, internal name prefixing `gg_snd_`
 ### MAINTENANCE
  * Upgrade to NodeJS v24 (LTS)
  * Upgrade `fs-extra` 9.1.0 -> 11.3.2

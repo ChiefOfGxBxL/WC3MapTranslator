@@ -2,11 +2,47 @@ import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
+enum EffectType {
+    Default = 'DefaultEAXON',
+    Combat = 'CombatSoundsEAX',
+    Drums = 'KotoDrumsEAX',
+    Spells = 'SpellsEAX',
+    Missiles = 'MissilesEAX',
+    HeroSpeech = 'HeroAcksEAX',
+    Doodads = 'DoodadsEAX'
+}
+
+enum Channel {
+    General = 0,
+    UnitSelection,
+    UnitAcknowledgement,
+    UnitMovement,
+    UnitReady,
+    Combat,
+    Error,
+    Music,
+    UserInterface,
+    LoopingMovement,
+    LoopingAmbient,
+    Animations,
+    Constructions,
+    Birth,
+    Fire,
+    LegacyMidi,
+    CinematicGeneral,
+    CinematicAmbient,
+    CinematicMusic,
+    CinematicDialog,
+    CinematicSFX1,
+    CinematicSFX2,
+    CinematicSFX3
+}
+
 interface Sound {
-    name: string;
     variableName: string;
+    internalName: string;
     path: string;
-    eax: string;
+    effect: EffectType;
     flags: SoundFlags;
     fadeRate: FadeRate;
     volume: number;
@@ -21,10 +57,10 @@ interface FadeRate {
 }
 
 interface SoundFlags {
-    looping: boolean; // 0x00000001=looping
-    '3dSound': boolean; // 0x00000002=3D sound
-    stopOutOfRange: boolean; // 0x00000004=stop when out of range
-    music: boolean; // 0x00000008=music
+    looping: boolean; // 0x1 = looping
+    '3dSound': boolean; // 0x2 = 3D sound
+    stopOutOfRange: boolean; // 0x4 = stop when out of range
+    music: boolean; // 0x8 = music
 }
 
 interface Distance {
@@ -33,7 +69,23 @@ interface Distance {
     cutoff: number;
 }
 
+// Lookup table to match raw `effect` string to EffectType
+// Seems stupid but is necessary because TypeScript string enums
+// don't have reverse lookup
+const effectTypeLookup: Record<string, EffectType> = {
+    [EffectType.Combat]: EffectType.Combat,
+    [EffectType.Default]: EffectType.Default,
+    [EffectType.Doodads]: EffectType.Doodads,
+    [EffectType.Drums]: EffectType.Drums,
+    [EffectType.HeroSpeech]: EffectType.HeroSpeech,
+    [EffectType.Missiles]: EffectType.Missiles,
+    [EffectType.Spells]: EffectType.Spells
+};
+
 export abstract class SoundsTranslator extends ITranslator {
+    public static readonly EffectType = EffectType;
+    public static readonly Channel = Channel;
+
     public static jsonToWar(soundsJson: Sound[]): WarResult {
         const outBufferToWar = new HexBuffer();
         /*
@@ -46,20 +98,10 @@ export abstract class SoundsTranslator extends ITranslator {
          * Body
          */
         soundsJson.forEach((sound) => {
-            outBufferToWar.addString(sound.name); // e.g. gg_snd_HumanGlueScreenLoop1
+            outBufferToWar.addString('gg_snd_' + sound.variableName); // e.g. gg_snd_HumanGlueScreenLoop1
             outBufferToWar.addString(sound.path); // e.g. Sound\Ambient\HumanGlueScreenLoop1.wav
 
-            // EAX effects enum (e.g. missiles, speech, etc)
-            /*
-                default = DefaultEAXON
-                combat = CombatSoundsEAX
-                drums = KotoDrumsEAX
-                spells = SpellsEAX
-                missiles = MissilesEAX
-                hero speech = HeroAcksEAX
-                doodads = DoodadsEAX
-            */
-            outBufferToWar.addString(sound.eax || 'DefaultEAXON'); // defaults to "DefaultEAXON"
+            outBufferToWar.addString(sound.effect || EffectType.Default);
 
             // Flags, if present (optional)
             let flags = 0;
@@ -71,62 +113,70 @@ export abstract class SoundsTranslator extends ITranslator {
             }
             outBufferToWar.addInt(flags);
 
-            // Fade in and out rate (optional)
-            outBufferToWar.addInt(sound.fadeRate ? sound.fadeRate.in || 10 : 10); // default to 10
-            outBufferToWar.addInt(sound.fadeRate ? sound.fadeRate.out || 10 : 10); // default to 10
+            // Fade in and out rate (optional); unmodified rates are displayed as 1 in WorldEditor, but set to 0 internally
+            outBufferToWar.addInt(sound.fadeRate?.in || 0);
+            outBufferToWar.addInt(sound.fadeRate?.out || 0);
 
-            outBufferToWar.addInt(sound.volume || -1); // Volumn (optional) default to -1 (for normal volume)
-            outBufferToWar.addFloat(sound.pitch || 1.0); // Pitch (optional) default to 1.0 for normal pitch
+            outBufferToWar.addInt(sound.volume || 127); // Volume (optional): default to 127 (for normal volume)
 
-            // Mystery numbers... their use is unknown by the w3x documentation, but they must be present
-            outBufferToWar.addFloat(0);
-            outBufferToWar.addInt(-1); // was previously 8
+            // Pitch (optional): default to 1.0 (hard-coded byte sequence) for normal pitch
+            if (sound.pitch && sound.pitch !== 1.0) {
+                outBufferToWar.addFloat(sound.pitch);
+            } else {
+                outBufferToWar.addByte(0x0);
+                outBufferToWar.addByte(0x0);
+                outBufferToWar.addByte(0x80);
+                outBufferToWar.addByte(0x4F);
+            }
 
-            // Which channel to use? Use the lookup table for more details (optional)
-            /*
-                0=General
-                1=Unit Selection
-                2=Unit Acknowledgement
-                3=Unit Movement
-                4=Unit Ready
-                5=Combat
-                6=Error
-                7=Music
-                8=User Interface
-                9=Looping Movement
-                10=Looping Ambient
-                11=Animations
-                12=Constructions
-                13=Birth
-                14=Fire
-            */
-            outBufferToWar.addInt(sound.channel || 0); // default to 0
+            // Mystery numbers... their use is unknown by the w3x documentation, but they must be present.
+            // either 00 00 80 3F or 0B D7 23 3C; previous value of 0
+            if (true) { // WIP: still figuring out what differentiates these magic bytes
+                // 32-bit float = 0.010000001; 32-bit integer = 1008981771; LEB128 = 11
+                outBufferToWar.addByte(0x0B);
+                outBufferToWar.addByte(0xD7);
+                outBufferToWar.addByte(0x23);
+                outBufferToWar.addByte(0x3C);
+            } else {
+                // 32-bit float 00 00 80 3F = 1.0; LEB128 = 0
+                outBufferToWar.addByte(0x0);
+                outBufferToWar.addByte(0x0);
+                outBufferToWar.addByte(0x80);
+                outBufferToWar.addByte(0x3F);
+            }
 
-            // Distance fields
-            outBufferToWar.addFloat(sound.distance.min);
-            outBufferToWar.addFloat(sound.distance.max);
-            outBufferToWar.addFloat(sound.distance.cutoff);
+            outBufferToWar.addInt(1000); // E8 03 00 00; 32 bit int = 1000; previous values of 8 or -1
+
+            outBufferToWar.addInt(sound.channel || Channel.General);
+
+            // Distance fields- defaults are different for each sound
+            outBufferToWar.addInt(sound.distance.min);
+            outBufferToWar.addInt(sound.distance.max);
+            outBufferToWar.addInt(sound.distance.cutoff);
+
+            const MYSTERY_NUM_1 = 1333788672; // (hex) 00 00 80 4F
+            const MYSTERY_NUM_2 = 4294967295; // (hex) FF FF FF FF
 
             // More mystery numbers...
-            outBufferToWar.addFloat(0);
-            outBufferToWar.addFloat(0);
-            outBufferToWar.addFloat(127); // or -1?
-            outBufferToWar.addFloat(0);
-            outBufferToWar.addFloat(0);
-            outBufferToWar.addFloat(0);
+            outBufferToWar.addInt(MYSTERY_NUM_1);
+            outBufferToWar.addInt(MYSTERY_NUM_1);
+            outBufferToWar.addInt(MYSTERY_NUM_2); // was previously 127, possible value of -1
+            outBufferToWar.addInt(MYSTERY_NUM_1);
+            outBufferToWar.addInt(MYSTERY_NUM_1);
+            outBufferToWar.addInt(MYSTERY_NUM_1);
 
-            outBufferToWar.addString(sound.variableName);
+            outBufferToWar.addString('gg_snd_' + sound.variableName);
+            outBufferToWar.addString(sound.internalName); // e.g. FootmanPissed, War2Intro, HeroicVictory, RoosterSound
+            outBufferToWar.addString(sound.path);
 
-            // More mystery values...
-            outBufferToWar.addString('');
-            outBufferToWar.addString(sound.path); // always equal to path?
-            outBufferToWar.addFloat(0);
+            // More unknowns
+            outBufferToWar.addInt(MYSTERY_NUM_2);
             outBufferToWar.addByte(0);
-            outBufferToWar.addFloat(0);
-            outBufferToWar.addFloat(0);
-            outBufferToWar.addFloat(0);
+            outBufferToWar.addInt(MYSTERY_NUM_2);
+            outBufferToWar.addInt(0);
+            outBufferToWar.addInt(0);
             outBufferToWar.addByte(0);
-            outBufferToWar.addFloat(0);
+            outBufferToWar.addInt(1);
         });
 
         return {
@@ -139,15 +189,15 @@ export abstract class SoundsTranslator extends ITranslator {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
-        outBufferToJSON.readInt(); // File version
+        outBufferToJSON.readInt(); // File version = 3
         const numSounds = outBufferToJSON.readInt(); // # of sounds
 
         for (let i = 0; i < numSounds; i++) {
             const sound: Sound = {
-                name: '',
                 variableName: '',
+                internalName: '',
                 path: '',
-                eax: '',
+                effect: EffectType.Default,
                 volume: 0,
                 pitch: 0,
                 channel: 0,
@@ -168,9 +218,10 @@ export abstract class SoundsTranslator extends ITranslator {
                 }
             };
 
-            sound.name = outBufferToJSON.readString();
+            sound.variableName = outBufferToJSON.readString().replace('gg_snd_', '');
             sound.path = outBufferToJSON.readString();
-            sound.eax = outBufferToJSON.readString();
+
+            sound.effect = effectTypeLookup[outBufferToJSON.readString()];
 
             const flags = outBufferToJSON.readInt();
             sound.flags = {
@@ -186,7 +237,10 @@ export abstract class SoundsTranslator extends ITranslator {
             };
 
             sound.volume = outBufferToJSON.readInt();
-            sound.pitch = outBufferToJSON.readFloat();
+
+            // Unmodified pitch in WC3 editor stores weird constant to represent pitch=1.0
+            const pitch = outBufferToJSON.readFloat();
+            sound.pitch = pitch === 4294967296 ? 1.0 : pitch;
 
             // Unknown values
             outBufferToJSON.readFloat();
@@ -195,31 +249,31 @@ export abstract class SoundsTranslator extends ITranslator {
             sound.channel = outBufferToJSON.readInt();
 
             sound.distance = {
-                min: outBufferToJSON.readFloat(),
-                max: outBufferToJSON.readFloat(),
-                cutoff: outBufferToJSON.readFloat()
+                min: outBufferToJSON.readInt(),
+                max: outBufferToJSON.readInt(),
+                cutoff: outBufferToJSON.readInt()
             };
 
             // Unknown values
-            outBufferToJSON.readFloat();
-            outBufferToJSON.readFloat();
-            outBufferToJSON.readFloat(); // 127
-            outBufferToJSON.readFloat();
-            outBufferToJSON.readFloat();
-            outBufferToJSON.readFloat();
+            outBufferToJSON.readInt();
+            outBufferToJSON.readInt();
+            outBufferToJSON.readInt();
+            outBufferToJSON.readInt();
+            outBufferToJSON.readInt();
+            outBufferToJSON.readInt();
 
-            sound.variableName = outBufferToJSON.readString();
+            outBufferToJSON.readString(); // sound.variableName repeated again?
+            sound.internalName = outBufferToJSON.readString();
+            outBufferToJSON.readString(); // sound.path repeated again?
 
             // Unknown values
-            outBufferToJSON.readString();
-            outBufferToJSON.readString(); // same as path?
             outBufferToJSON.readChars(4);
             outBufferToJSON.readChars(1);
             outBufferToJSON.readChars(4);
             outBufferToJSON.readChars(4);
             outBufferToJSON.readChars(4);
             outBufferToJSON.readChars(1);
-            outBufferToJSON.readChars(4);
+            outBufferToJSON.readInt();
 
             result.push(sound);
         }
