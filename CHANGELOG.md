@@ -22,6 +22,7 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
         }
       ```
    * Regions: properly handles null weather effect 0x0 bytes
+   * Cameras: handles new local roll, pitch, yaw fields, and discovers previous magic value for near clipping
 ### MAINTENANCE
  * Upgrade to NodeJS v24 (LTS)
  * Upgrade `fs-extra` 9.1.0 -> 11.3.2
