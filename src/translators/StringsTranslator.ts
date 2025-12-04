@@ -2,8 +2,8 @@ import { HexBuffer } from '../HexBuffer';
 import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
 interface StringRecord {
-    comment?: string,
-    value: string
+    comment?: string;
+    value: string;
 }
 
 export abstract class StringsTranslator extends ITranslator {
@@ -14,7 +14,7 @@ export abstract class StringsTranslator extends ITranslator {
          * Strings
          */
         Object.keys(stringsJson).forEach((stringId) => {
-            const w3String: StringRecord = stringsJson[stringId]
+            const w3String: StringRecord = stringsJson[stringId];
 
             outBufferToWar.addChars('STRING ' + stringId);
             outBufferToWar.addNewLine();
@@ -36,7 +36,7 @@ export abstract class StringsTranslator extends ITranslator {
         };
     }
 
-    private static matchStringDefinitionBlock = /STRING ([0-9]+)\r?\n?(\/\/.*\r?\n?)?{\r?\n((?:.|\r?\n)*?)\r?\n}/g; // see: https://regexr.com/8ii3d 
+    private static matchStringDefinitionBlock = /STRING ([0-9]+)\r?\n?(\/\/.*\r?\n?)?{\r?\n((?:.|\r?\n)*?)\r?\n}/g; // see: https://regexr.com/8ii3d
     public static warToJson(buffer: Buffer): JsonResult<Record<string, StringRecord>> {
         const result: Record<string, StringRecord> = {}; // stores the json form of strings file
 
@@ -44,7 +44,7 @@ export abstract class StringsTranslator extends ITranslator {
         while ((match = this.matchStringDefinitionBlock.exec(buffer.toString('utf8'))) !== null) {
             const [, num, comment, value] = match;
             result[num] = { value };
-            if (comment) result[num].comment = comment
+            if (comment) result[num].comment = comment;
         }
 
         return {

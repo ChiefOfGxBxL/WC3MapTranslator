@@ -11,7 +11,11 @@ interface Camera {
     roll: number;
     fov: angle; // field of view
     farClipping: number;
+    nearClipping: number;
     name: string;
+    localPitch: number;
+    localYaw: number;
+    localRoll: number;
 }
 
 interface CameraTarget {
@@ -42,7 +46,10 @@ export abstract class CamerasTranslator extends ITranslator {
             outBufferToWar.addFloat(camera.roll || 0);
             outBufferToWar.addFloat(camera.fov);
             outBufferToWar.addFloat(camera.farClipping);
-            outBufferToWar.addFloat(100); // (?) unknown - usually set to 100
+            outBufferToWar.addFloat(camera.nearClipping);
+            outBufferToWar.addFloat(camera.localPitch || 0);
+            outBufferToWar.addFloat(camera.localYaw || 0);
+            outBufferToWar.addFloat(camera.localRoll || 0);
 
             // Camera name - must be null-terminated
             outBufferToWar.addString(camera.name);
@@ -74,7 +81,11 @@ export abstract class CamerasTranslator extends ITranslator {
                 roll: 0,
                 fov: 0,
                 farClipping: 0,
-                name: ''
+                nearClipping: 0,
+                name: '',
+                localPitch: 0,
+                localYaw: 0,
+                localRoll: 0
             };
 
             camera.target.x = outBufferToJSON.readFloat();
@@ -86,7 +97,10 @@ export abstract class CamerasTranslator extends ITranslator {
             camera.roll = outBufferToJSON.readFloat();
             camera.fov = outBufferToJSON.readFloat(); // field of view
             camera.farClipping = outBufferToJSON.readFloat();
-            outBufferToJSON.readFloat(); // consume this unknown float field
+            camera.nearClipping = outBufferToJSON.readFloat();
+            camera.localPitch = outBufferToJSON.readFloat();
+            camera.localYaw = outBufferToJSON.readFloat();
+            camera.localRoll = outBufferToJSON.readFloat();
             camera.name = outBufferToJSON.readString();
 
             result.push(camera);

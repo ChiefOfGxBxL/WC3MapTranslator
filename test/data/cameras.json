@@ -4,13 +4,17 @@
         "x": -319.01,
         "y": -90.18
       },
-      "offsetZ": 0,
+      "offsetZ": 1,
       "rotation": 90,
       "aoa": 304,
       "distance": 2657.34,
       "roll": 5,
       "fov": 70,
       "farClipping": 5000,
-      "name": ""
+      "nearClipping": 16,
+      "localPitch": 11.11,
+      "localYaw": 22.22,
+      "localRoll": 33.33,
+      "name": "Camera test"
     }
   ]
