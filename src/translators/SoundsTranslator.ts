@@ -131,7 +131,7 @@ export abstract class SoundsTranslator extends ITranslator {
 
             // Mystery numbers... their use is unknown by the w3x documentation, but they must be present.
             // either 00 00 80 3F or 0B D7 23 3C; previous value of 0
-            if (true) { // WIP: still figuring out what differentiates these magic bytes
+            if (true) { // WIP: still figuring out what differentiates these magic bytes; can be 1, 0.1, 0.01, or 4294967296
                 // 32-bit float = 0.010000001; 32-bit integer = 1008981771; LEB128 = 11
                 outBufferToWar.addByte(0x0B);
                 outBufferToWar.addByte(0xD7);
