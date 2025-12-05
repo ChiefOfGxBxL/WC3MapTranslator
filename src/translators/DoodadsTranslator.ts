@@ -16,18 +16,19 @@ interface Doodad {
 }
 
 interface DoodadFlag {
-    visible: any;
-    solid: any;
+    visible: boolean; // 0x1
+    solid: boolean; // 0x2
+    fixedZ: boolean; // 0x4
 }
 
-enum flag {
-    // 0= invisible and non-solid tree
-    // 1= visible but non-solid tree
-    // 2= normal tree (visible and solid)
-    undefined = 0,
-    visible = 1 || 2,
-    solid = 3
-}
+// enum flag {
+//     // 0= invisible and non-solid tree
+//     // 1= visible but non-solid tree
+//     // 2= normal tree (visible and solid)
+//     undefined = 0,
+//     visible = 1 || 2,
+//     solid = 3
+// }
 
 export abstract class DoodadsTranslator extends ITranslator {
     public static jsonToWar(doodadsJson: Doodad[]): WarResult {
@@ -65,17 +66,15 @@ export abstract class DoodadsTranslator extends ITranslator {
 
             outBufferToWar.addChars(tree.skinId);
 
-            // Tree flags
+            // Flags
             /* | Visible | Solid | Flag value |
                |   no    |  no   |     0      |
                |  yes    |  no   |     1      |
                |  yes    |  yes  |     2      | */
-            let treeFlag = 2; // default: normal tree
-            if (!tree.flags) tree.flags = { visible: true, solid: true }; // defaults if no flags are specified
-            if (!tree.flags.visible && !tree.flags.solid) treeFlag = 0;
-            else if (tree.flags.visible && !tree.flags.solid) treeFlag = 1;
-            else if (tree.flags.visible && tree.flags.solid) treeFlag = 2;
-            // Note: invisible and solid is not an option
+            let treeFlag = 0;
+            if (tree.flags.visible) treeFlag |= 0x1;
+            if (tree.flags.solid) treeFlag |= 0x2;
+            if (tree.flags.fixedZ) treeFlag |= 0x4;
             outBufferToWar.addByte(treeFlag);
 
             outBufferToWar.addByte(tree.life || 100);
@@ -113,7 +112,7 @@ export abstract class DoodadsTranslator extends ITranslator {
                 angle: -1,
                 scale: [0, 0, 0],
                 skinId: '',
-                flags: { visible: flag.visible, solid: flag.solid },
+                flags: { visible: true, solid: true, fixedZ: false },
                 life: -1,
                 id: -1
             };
@@ -132,10 +131,11 @@ export abstract class DoodadsTranslator extends ITranslator {
             doodad.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
             doodad.skinId = outBufferToJSON.readChars(4);
 
-            const flags: flag = outBufferToJSON.readByte();
+            const flags = outBufferToJSON.readByte();
             doodad.flags = {
-                visible: flags === 1 || flags === 2,
-                solid: flags === 2
+                visible: !!(flags & 0x1),
+                solid: !!(flags & 0x2),
+                fixedZ: !!(flags & 0x4)
             };
 
             doodad.life = outBufferToJSON.readByte(); // as a %
