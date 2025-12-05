@@ -40,27 +40,27 @@ export abstract class DoodadsTranslator extends ITranslator {
         /*
          * Body
          */
-        doodadsJson.forEach((tree) => {
-            outBufferToWar.addChars(tree.type);
-            outBufferToWar.addInt(tree.variation || 0); // optional - default value 0
-            outBufferToWar.addFloat(tree.position[0]);
-            outBufferToWar.addFloat(tree.position[1]);
-            outBufferToWar.addFloat(tree.position[2]);
+        doodadsJson.forEach((doodad) => {
+            outBufferToWar.addChars(doodad.type);
+            outBufferToWar.addInt(doodad.variation || 0); // optional - default value 0
+            outBufferToWar.addFloat(doodad.position[0]);
+            outBufferToWar.addFloat(doodad.position[1]);
+            outBufferToWar.addFloat(doodad.position[2]);
 
             // Angle
             // Doodads format is unique because it uses radians for angles, as opposed
             // to angles in any other file which use degrees.
             //    war3map: Expects angle in RADIANS
             //    JSON: Spec defines angle in DEGREES
-            outBufferToWar.addFloat(deg2Rad(tree.angle) || 0); // optional - default value 0
+            outBufferToWar.addFloat(deg2Rad(doodad.angle) || 0); // optional - default value 0
 
             // Scale
-            if (!tree.scale) tree.scale = [1, 1, 1];
-            outBufferToWar.addFloat(tree.scale[0] || 1);
-            outBufferToWar.addFloat(tree.scale[1] || 1);
-            outBufferToWar.addFloat(tree.scale[2] || 1);
+            if (!doodad.scale) doodad.scale = [1, 1, 1];
+            outBufferToWar.addFloat(doodad.scale[0] || 1);
+            outBufferToWar.addFloat(doodad.scale[1] || 1);
+            outBufferToWar.addFloat(doodad.scale[2] || 1);
 
-            outBufferToWar.addChars(tree.skinId);
+            outBufferToWar.addChars(doodad.skinId);
 
             // Flags - not quite a bit-field, so can't assign bit masks
             /* | Visible | Solid | Flag value |
@@ -68,17 +68,17 @@ export abstract class DoodadsTranslator extends ITranslator {
                |  yes    |  no   |     1      |
                |  yes    |  yes  |     2      | */
             let treeFlag = 0;
-            if (tree.flags.visible) {
-                treeFlag = (tree.flags.solid) ? 2 : 1;
+            if (doodad.flags.visible) {
+                treeFlag = (doodad.flags.solid) ? 2 : 1;
             }
-            if (tree.flags.fixedZ) treeFlag += 4;
+            if (doodad.flags.fixedZ) treeFlag += 4;
 
             outBufferToWar.addByte(treeFlag);
 
-            outBufferToWar.addByte(tree.life || 100);
+            outBufferToWar.addByte(doodad.life || 100);
             outBufferToWar.addInt(0); // NOT SUPPORTED: random item table pointer: fixed to 0
             outBufferToWar.addInt(0); // NOT SUPPORTED: number of items dropped for item table
-            outBufferToWar.addInt(tree.id);
+            outBufferToWar.addInt(doodad.id);
         });
 
         /*
