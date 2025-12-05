@@ -1,50 +1,98 @@
 [
-    {
-      "name": "gg_snd_FirstSound",
-      "variableName": "gg_snd_FirstSound",
-      "path": "Units\\Demon\\HeroPitLord\\HPitLordYesAttack1.wav",
-      "eax": "HeroAcksEAX",
-      "volume": -1,
-      "pitch": 0.75,
-      "channel": 0,
-      "flags": {
-        "looping": false,
-        "3dSound": false,
-        "stopOutOfRange": true,
-        "music": false
-      },
-      "fadeRate": {
-        "in": 10,
-        "out": 10
-      },
-      "distance": {
-        "min": 0,
-        "max": 10000,
-        "cutoff": 3000
-      }
+  {
+    "variableName": "VARNAME_FootmanPissed21",
+    "internalName": "FootmanPissed",
+    "path": "Units/Human/Footman/FootmanPissed2.flac",
+    "effect": "DefaultEAXON",
+    "volume": 127,
+    "pitch": 1.5,
+    "channel": 1,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false
     },
-    {
-      "name": "gg_snd_Warning",
-      "variableName": "gg_snd_Warning",
-      "path": "Sound\\Interface\\Warning.wav",
-      "eax": "DefaultEAXON",
-      "volume": -1,
-      "pitch": 1,
-      "channel": 0,
-      "flags": {
-        "looping": false,
-        "3dSound": false,
-        "stopOutOfRange": false,
-        "music": false
-      },
-      "fadeRate": {
-        "in": 10,
-        "out": 10
-      },
-      "distance": {
-        "min": 0,
-        "max": 10000,
-        "cutoff": 3000
-      }
+    "fadeRate": {
+      "in": 5,
+      "out": 4
+    },
+    "distance": {
+      "min": 99995,
+      "max": 100000,
+      "cutoff": 3005
     }
-  ]
+  },
+  {
+    "variableName": "KnightPissed6",
+    "internalName": "KnightPissed",
+    "path": "Units/Human/Knight/KnightPissed6.flac",
+    "effect": "DefaultEAXON",
+    "volume": 127,
+    "pitch": 1,
+    "channel": 1,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false
+    },
+    "fadeRate": {
+      "in": 1,
+      "out": 1
+    },
+    "distance": {
+      "min": 100000,
+      "max": 100001,
+      "cutoff": 0
+    }
+  },
+  {
+    "variableName": "War2IntroMusic",
+    "internalName": "War2Intro",
+    "path": "Sound/Music/mp3Music/War2IntroMusic.flac",
+    "effect": "DefaultEAXON",
+    "volume": 120,
+    "pitch": 1,
+    "channel": -1,
+    "flags": {
+      "looping": false,
+      "3dSound": false,
+      "stopOutOfRange": false,
+      "music": false
+    },
+    "fadeRate": {
+      "in": 1,
+      "out": 1
+    },
+    "distance": {
+      "min": 3000,
+      "max": 0,
+      "cutoff": 100000
+    }
+  },
+  {
+    "variableName": "DaybreakRooster",
+    "internalName": "RoosterSound",
+    "path": "Sound/Time/DaybreakRooster.flac",
+    "effect": "DefaultEAXON",
+    "volume": 36,
+    "pitch": 1,
+    "channel": 10,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": false,
+      "music": false
+    },
+    "fadeRate": {
+      "in": 50,
+      "out": 60
+    },
+    "distance": {
+      "min": 105,
+      "max": 2995,
+      "cutoff": 3005
+    }
+  }
+]
