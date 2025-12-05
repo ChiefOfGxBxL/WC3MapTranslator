@@ -16,19 +16,15 @@ interface Doodad {
 }
 
 interface DoodadFlag {
-    visible: boolean; // 0x1
-    solid: boolean; // 0x2
-    fixedZ: boolean; // 0x4
-}
+    // 0 = invisible, non-solid
+    // 1 = visible, non-solid
+    // 2 = visible, solid (normal)
+    visible: boolean;
+    solid: boolean;
 
-// enum flag {
-//     // 0= invisible and non-solid tree
-//     // 1= visible but non-solid tree
-//     // 2= normal tree (visible and solid)
-//     undefined = 0,
-//     visible = 1 || 2,
-//     solid = 3
-// }
+    // adds 4 to the result
+    fixedZ: boolean;
+}
 
 export abstract class DoodadsTranslator extends ITranslator {
     public static jsonToWar(doodadsJson: Doodad[]): WarResult {
@@ -53,7 +49,7 @@ export abstract class DoodadsTranslator extends ITranslator {
 
             // Angle
             // Doodads format is unique because it uses radians for angles, as opposed
-            // to angles in any other file which use degrees. Hence conversion is needed.
+            // to angles in any other file which use degrees.
             //    war3map: Expects angle in RADIANS
             //    JSON: Spec defines angle in DEGREES
             outBufferToWar.addFloat(deg2Rad(tree.angle) || 0); // optional - default value 0
@@ -66,15 +62,17 @@ export abstract class DoodadsTranslator extends ITranslator {
 
             outBufferToWar.addChars(tree.skinId);
 
-            // Flags
+            // Flags - not quite a bit-field, so can't assign bit masks
             /* | Visible | Solid | Flag value |
                |   no    |  no   |     0      |
                |  yes    |  no   |     1      |
                |  yes    |  yes  |     2      | */
             let treeFlag = 0;
-            if (tree.flags.visible) treeFlag |= 0x1;
-            if (tree.flags.solid) treeFlag |= 0x2;
-            if (tree.flags.fixedZ) treeFlag |= 0x4;
+            if (tree.flags.visible) {
+                treeFlag = (tree.flags.solid) ? 2 : 1;
+            }
+            if (tree.flags.fixedZ) treeFlag += 4;
+
             outBufferToWar.addByte(treeFlag);
 
             outBufferToWar.addByte(tree.life || 100);
@@ -131,12 +129,14 @@ export abstract class DoodadsTranslator extends ITranslator {
             doodad.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
             doodad.skinId = outBufferToJSON.readChars(4);
 
-            const flags = outBufferToJSON.readByte();
-            doodad.flags = {
-                visible: !!(flags & 0x1),
-                solid: !!(flags & 0x2),
-                fixedZ: !!(flags & 0x4)
-            };
+            // Flags has weird logic since it doesn't appear to fully be a bit-field
+            let flags = outBufferToJSON.readByte();
+            if (flags > 4) {
+                flags -= 4;
+                doodad.flags.fixedZ = true
+            }
+            doodad.flags.visible = flags >= 1;
+            doodad.flags.solid = flags === 2;
 
             doodad.life = outBufferToJSON.readByte(); // as a %
 
