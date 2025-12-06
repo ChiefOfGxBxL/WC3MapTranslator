@@ -18,6 +18,7 @@ interface Unit {
     targetAcquisition: number; // (-1 = normal, -2 = camp),
     color: number;
     id: number;
+    waygateRegionId?: number;
 }
 
 interface Hero {
@@ -123,7 +124,7 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addInt(1);
 
             outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
-            outBufferToWar.addInt(0); // outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
+            outBufferToWar.addInt(unit.waygateRegionId !== undefined ? unit.waygateRegionId : -1);
             outBufferToWar.addInt(unit.id); // id
         });
 
@@ -246,7 +247,11 @@ export abstract class UnitsTranslator extends ITranslator {
             }
 
             unit.color = outBufferToJSON.readInt();
-            outBufferToJSON.readInt(); // UNSUPPORTED: waygate (-1 = deactivated, else its the creation number of the target rect as in war3map.w3r)
+
+            // Waygate (-1 = deactivated, else it's the creation number of the target rect as in war3map.w3r)
+            const waygateRegionId = outBufferToJSON.readInt();
+            if (waygateRegionId !== -1) unit.waygateRegionId = waygateRegionId;
+
             unit.id = outBufferToJSON.readInt();
 
             result.push(unit);
