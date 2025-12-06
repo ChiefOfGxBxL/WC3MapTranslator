@@ -3,6 +3,9 @@ import { W3Buffer } from '../W3Buffer';
 import { rad2Deg, deg2Rad } from '../AngleConverter';
 import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
 
+type ItemSet = Record<string, number>;
+
+
 interface Doodad {
     type: string;
     variation: number;
@@ -13,6 +16,10 @@ interface Doodad {
     flags: DoodadFlag;
     life: number;
     id: number;
+    randomItemSetId?: number;
+    customItemSets?: ItemSet[];
+}
+
 }
 
 interface DoodadFlag {
@@ -76,8 +83,25 @@ export abstract class DoodadsTranslator extends ITranslator {
             outBufferToWar.addByte(treeFlag);
 
             outBufferToWar.addByte(doodad.life || 100);
-            outBufferToWar.addInt(0); // NOT SUPPORTED: random item table pointer: fixed to 0
-            outBufferToWar.addInt(0); // NOT SUPPORTED: number of items dropped for item table
+
+            // Item set from map
+            outBufferToWar.addInt(doodad.randomItemSetId && doodad.randomItemSetId >= 0 ? doodad.randomItemSetId : -1); // use -1 to indicate none
+
+            // Custom item set (global item set takes precedence over this if both are set)
+            if (doodad.customItemSets && (!doodad.randomItemSetId || doodad.randomItemSetId === -1)) {
+                outBufferToWar.addInt(doodad.customItemSets.length);
+
+                for (const itemSet of doodad.customItemSets) {
+                    outBufferToWar.addInt(Object.keys(itemSet).length);
+                    Object.entries(itemSet).forEach(([ itemId, dropChance ]) => {
+                        outBufferToWar.addChars(itemId);
+                        outBufferToWar.addInt(dropChance);
+                    });
+                }
+            } else {
+                outBufferToWar.addInt(0);
+            }
+
             outBufferToWar.addInt(doodad.id);
         });
 
@@ -140,17 +164,24 @@ export abstract class DoodadsTranslator extends ITranslator {
 
             doodad.life = outBufferToJSON.readByte(); // as a %
 
-            // UNSUPPORTED: random item set drops when doodad is destroyed/killed
-            // This section just consumes the bytes from the file
-            outBufferToJSON.readInt(); // randomItemSetPtr, points to an item set defined in the map (rather than custom one defined below)
+            // Item sets
+            const randomItemSetPtr = outBufferToJSON.readInt(); // randomItemSetPtr, points to an item set defined in the map (rather than custom one defined below)
             const numberOfItemSets = outBufferToJSON.readInt(); // this should be 0 if randomItemSetPtr is >= 0
 
-            for (let j = 0; j < numberOfItemSets; j++) {
-                // Read the item set
-                const numberOfItems = outBufferToJSON.readInt();
-                for (let k = 0; k < numberOfItems; k++) {
-                    outBufferToJSON.readChars(4); // Item ID
-                    outBufferToJSON.readInt(); // % chance to drop
+            if (randomItemSetPtr >= 0) {
+                doodad.randomItemSetId = randomItemSetPtr;
+            } else if (numberOfItemSets) {
+                doodad.customItemSets = [];
+
+                for (let j = 0; j < numberOfItemSets; j++) {
+                    const itemSet: Record<string, number> = {};
+                    const numberOfItems = outBufferToJSON.readInt();
+                    for (let k = 0; k < numberOfItems; k++) {
+                        const itemId = outBufferToJSON.readChars(4); // Item ID
+                        const dropChance = outBufferToJSON.readInt(); // % chance to drop
+                        itemSet[itemId] = dropChance;
+                    }
+                    doodad.customItemSets.push(itemSet);
                 }
             }
 
