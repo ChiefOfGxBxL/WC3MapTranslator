@@ -88,10 +88,8 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addInt(0); // dropped item sets
 
             // Gold amount
-            // Required if unit is a gold mine
-            // Optional (set to zero) if unit is not a gold mine
-            outBufferToWar.addInt(unit.gold);
-            // outBufferToWar.addInt(unit.type === 'ngol' ? unit.gold : 0);
+            // Required if unit is a gold mine; optional (set to zero) if unit is not a gold mine
+            outBufferToWar.addInt(unit.gold || 0);
 
             outBufferToWar.addFloat(unit.targetAcquisition || 0); // target acquisition
 
@@ -139,7 +137,7 @@ export abstract class UnitsTranslator extends ITranslator {
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readChars(4); // File ID: `W3do`
-        outBufferToJSON.readInt(); // File version = 7
+        outBufferToJSON.readInt(); // File version = 8
         outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
         const numUnits = outBufferToJSON.readInt(); // # of units
 
