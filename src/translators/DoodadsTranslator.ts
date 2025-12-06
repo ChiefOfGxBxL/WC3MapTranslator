@@ -3,34 +3,45 @@ import { W3Buffer } from '../W3Buffer';
 import { rad2Deg, deg2Rad } from '../AngleConverter';
 import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
 
+type ItemSet = Record<string, number>;
+
+interface DoodadJson {
+    regular: Doodad[];
+    special?: SpecialDoodad[];
+}
+
 interface Doodad {
     type: string;
     variation: number;
-    position: number[];
+    position: number[]; // float: [x, y, z]
     angle: angle;
     scale: number[];
     skinId: string;
     flags: DoodadFlag;
     life: number;
     id: number;
+    randomItemSetId?: number;
+    customItemSets?: ItemSet[];
+}
+
+interface SpecialDoodad {
+    type: string;
+    position: number[]; // int: [x, y, z], in w3e tile terms (0,0 is at top left)
 }
 
 interface DoodadFlag {
-    visible: any;
-    solid: any;
-}
+    // 0 = invisible, non-solid
+    // 1 = visible, non-solid
+    // 2 = visible, solid (normal)
+    visible: boolean;
+    solid: boolean;
 
-enum flag {
-    // 0= invisible and non-solid tree
-    // 1= visible but non-solid tree
-    // 2= normal tree (visible and solid)
-    undefined = 0,
-    visible = 1 || 2,
-    solid = 3
+    // adds 4 to the result
+    fixedZ: boolean;
 }
 
 export abstract class DoodadsTranslator extends ITranslator {
-    public static jsonToWar(doodadsJson: Doodad[]): WarResult {
+    public static jsonToWar(doodadsJson: DoodadJson): WarResult {
         const outBufferToWar = new HexBuffer();
         /*
          * Header
@@ -38,57 +49,80 @@ export abstract class DoodadsTranslator extends ITranslator {
         outBufferToWar.addChars('W3do'); // file id
         outBufferToWar.addInt(8); // file version
         outBufferToWar.addInt(11); // subversion 0x0B
-        outBufferToWar.addInt(doodadsJson.length); // num of trees
 
         /*
          * Body
          */
-        doodadsJson.forEach((tree) => {
-            outBufferToWar.addChars(tree.type);
-            outBufferToWar.addInt(tree.variation || 0); // optional - default value 0
-            outBufferToWar.addFloat(tree.position[0]);
-            outBufferToWar.addFloat(tree.position[1]);
-            outBufferToWar.addFloat(tree.position[2]);
+        outBufferToWar.addInt(doodadsJson.regular.length); // num of regular doodads
+        doodadsJson.regular.forEach((doodad) => {
+            outBufferToWar.addChars(doodad.type);
+            outBufferToWar.addInt(doodad.variation || 0); // optional - default value 0
+            outBufferToWar.addFloat(doodad.position[0]);
+            outBufferToWar.addFloat(doodad.position[1]);
+            outBufferToWar.addFloat(doodad.position[2]);
 
             // Angle
             // Doodads format is unique because it uses radians for angles, as opposed
-            // to angles in any other file which use degrees. Hence conversion is needed.
+            // to angles in any other file which use degrees.
             //    war3map: Expects angle in RADIANS
             //    JSON: Spec defines angle in DEGREES
-            outBufferToWar.addFloat(deg2Rad(tree.angle) || 0); // optional - default value 0
+            outBufferToWar.addFloat(deg2Rad(doodad.angle) || 0); // optional - default value 0
 
             // Scale
-            if (!tree.scale) tree.scale = [1, 1, 1];
-            outBufferToWar.addFloat(tree.scale[0] || 1);
-            outBufferToWar.addFloat(tree.scale[1] || 1);
-            outBufferToWar.addFloat(tree.scale[2] || 1);
+            if (!doodad.scale) doodad.scale = [1, 1, 1];
+            outBufferToWar.addFloat(doodad.scale[0] || 1);
+            outBufferToWar.addFloat(doodad.scale[1] || 1);
+            outBufferToWar.addFloat(doodad.scale[2] || 1);
 
-            outBufferToWar.addChars(tree.skinId);
+            outBufferToWar.addChars(doodad.skinId);
 
-            // Tree flags
+            // Flags - not quite a bit-field, so can't assign bit masks
             /* | Visible | Solid | Flag value |
                |   no    |  no   |     0      |
                |  yes    |  no   |     1      |
                |  yes    |  yes  |     2      | */
-            let treeFlag = 2; // default: normal tree
-            if (!tree.flags) tree.flags = { visible: true, solid: true }; // defaults if no flags are specified
-            if (!tree.flags.visible && !tree.flags.solid) treeFlag = 0;
-            else if (tree.flags.visible && !tree.flags.solid) treeFlag = 1;
-            else if (tree.flags.visible && tree.flags.solid) treeFlag = 2;
-            // Note: invisible and solid is not an option
+            let treeFlag = 0;
+            if (doodad.flags.visible) {
+                treeFlag = (doodad.flags.solid) ? 2 : 1;
+            }
+            if (doodad.flags.fixedZ) treeFlag += 4;
+
             outBufferToWar.addByte(treeFlag);
 
-            outBufferToWar.addByte(tree.life || 100);
-            outBufferToWar.addInt(0); // NOT SUPPORTED: random item table pointer: fixed to 0
-            outBufferToWar.addInt(0); // NOT SUPPORTED: number of items dropped for item table
-            outBufferToWar.addInt(tree.id);
+            outBufferToWar.addByte(doodad.life || 100);
+
+            // Item set from map
+            outBufferToWar.addInt(doodad.randomItemSetId && doodad.randomItemSetId >= 0 ? doodad.randomItemSetId : -1); // use -1 to indicate none
+
+            // Custom item set (global item set takes precedence over this if both are set)
+            if (doodad.customItemSets && (!doodad.randomItemSetId || doodad.randomItemSetId === -1)) {
+                outBufferToWar.addInt(doodad.customItemSets.length);
+
+                for (const itemSet of doodad.customItemSets) {
+                    outBufferToWar.addInt(Object.keys(itemSet).length);
+                    Object.entries(itemSet).forEach(([itemId, dropChance]) => {
+                        outBufferToWar.addChars(itemId);
+                        outBufferToWar.addInt(dropChance);
+                    });
+                }
+            } else {
+                outBufferToWar.addInt(0);
+            }
+
+            outBufferToWar.addInt(doodad.id);
         });
 
         /*
          * Footer
          */
         outBufferToWar.addInt(0); // special doodad format number, fixed at 0x00
-        outBufferToWar.addInt(0); // NOT SUPPORTED: number of special doodads
+        outBufferToWar.addInt(doodadsJson.special?.length || 0);
+        doodadsJson.special?.forEach((specialDoodad) => {
+            outBufferToWar.addChars(specialDoodad.type);
+            outBufferToWar.addInt(specialDoodad.position[2]);
+            outBufferToWar.addInt(specialDoodad.position[0]);
+            outBufferToWar.addInt(specialDoodad.position[1]);
+        });
 
         return {
             errors: [],
@@ -96,15 +130,15 @@ export abstract class DoodadsTranslator extends ITranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer): JsonResult<Doodad[]> {
-        const result = [];
+    public static warToJson(buffer: Buffer): JsonResult<DoodadJson> {
+        const result: DoodadJson = { regular: [], special: [] };
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readChars(4); // File ID: `W3do` for doodad file
         outBufferToJSON.readInt(); // File version = 8
         outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
-        const numDoodads = outBufferToJSON.readInt(); // # of doodads
 
+        const numDoodads = outBufferToJSON.readInt(); // # of regular doodads
         for (let i = 0; i < numDoodads; i++) {
             const doodad: Doodad = {
                 type: '',
@@ -113,7 +147,7 @@ export abstract class DoodadsTranslator extends ITranslator {
                 angle: -1,
                 scale: [0, 0, 0],
                 skinId: '',
-                flags: { visible: flag.visible, solid: flag.solid },
+                flags: { visible: true, solid: true, fixedZ: false },
                 life: -1,
                 id: -1
             };
@@ -132,41 +166,56 @@ export abstract class DoodadsTranslator extends ITranslator {
             doodad.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
             doodad.skinId = outBufferToJSON.readChars(4);
 
-            const flags: flag = outBufferToJSON.readByte();
-            doodad.flags = {
-                visible: flags === 1 || flags === 2,
-                solid: flags === 2
-            };
+            // Flags has weird logic since it doesn't appear to fully be a bit-field
+            let flags = outBufferToJSON.readByte();
+            if (flags > 4) {
+                flags -= 4;
+                doodad.flags.fixedZ = true;
+            }
+            doodad.flags.visible = flags >= 1;
+            doodad.flags.solid = flags === 2;
 
             doodad.life = outBufferToJSON.readByte(); // as a %
 
-            // UNSUPPORTED: random item set drops when doodad is destroyed/killed
-            // This section just consumes the bytes from the file
-            outBufferToJSON.readInt(); // randomItemSetPtr, points to an item set defined in the map (rather than custom one defined below)
+            // Item sets
+            const randomItemSetPtr = outBufferToJSON.readInt(); // randomItemSetPtr, points to an item set defined in the map (rather than custom one defined below)
             const numberOfItemSets = outBufferToJSON.readInt(); // this should be 0 if randomItemSetPtr is >= 0
 
-            for (let j = 0; j < numberOfItemSets; j++) {
-                // Read the item set
-                const numberOfItems = outBufferToJSON.readInt();
-                for (let k = 0; k < numberOfItems; k++) {
-                    outBufferToJSON.readChars(4); // Item ID
-                    outBufferToJSON.readInt(); // % chance to drop
+            if (randomItemSetPtr >= 0) {
+                doodad.randomItemSetId = randomItemSetPtr;
+            } else if (numberOfItemSets) {
+                doodad.customItemSets = [];
+
+                for (let j = 0; j < numberOfItemSets; j++) {
+                    const itemSet: Record<string, number> = {};
+                    const numberOfItems = outBufferToJSON.readInt();
+                    for (let k = 0; k < numberOfItems; k++) {
+                        const itemId = outBufferToJSON.readChars(4); // Item ID
+                        const dropChance = outBufferToJSON.readInt(); // % chance to drop
+                        itemSet[itemId] = dropChance;
+                    }
+                    doodad.customItemSets.push(itemSet);
                 }
             }
 
             doodad.id = outBufferToJSON.readInt();
 
-            result.push(doodad);
+            result.regular.push(doodad);
         }
 
-        // UNSUPPORTED: Special doodads
+        // Special doodads
         outBufferToJSON.readInt(); // special doodad format version set to '0'
         const numSpecialDoodads = outBufferToJSON.readInt();
         for (let i = 0; i < numSpecialDoodads; i++) {
-            outBufferToJSON.readChars(4); // doodad ID
-            outBufferToJSON.readInt();
-            outBufferToJSON.readInt();
-            outBufferToJSON.readInt();
+            const id = outBufferToJSON.readChars(4);
+            const posZ = outBufferToJSON.readInt();
+            const posX = outBufferToJSON.readInt();
+            const posY = outBufferToJSON.readInt();
+
+            result.special?.push({
+                type: id,
+                position: [posX, posY, posZ]
+            });
         }
 
         return {
