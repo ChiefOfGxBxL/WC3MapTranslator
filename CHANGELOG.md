@@ -5,6 +5,20 @@
 The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6).
 
 ### FEATURES
+ * 🔥 Doodads
+   * Add support for item tables (both map-defined and custom)
+   * Add support for special doodads
+   * JSON file format change:
+      ```json
+        // doodads.json (BEFORE)
+        [ {}, {}, {} ]
+
+        {
+          // doodads.json (AFTER)
+          "regular": [ {}, {}, {} ],
+          "special": [ {} ]
+        }
+      ```
 ### FIXES
  * Fixes round-trip conversions (war3 -> json -> war3) on a number of translators:
    * 🔥 Strings: now supports string comments, thus requiring a new JSON format:
@@ -23,6 +37,7 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
       ```
    * Regions: properly handles null weather effect 0x0 bytes
    * Cameras: handles new local roll, pitch, yaw fields, and discovers previous magic value for near clipping
+   * Doodads: handles item tables and special doodads
 ### MAINTENANCE
  * Upgrade to NodeJS v24 (LTS)
  * Upgrade `fs-extra` 9.1.0 -> 11.3.2
