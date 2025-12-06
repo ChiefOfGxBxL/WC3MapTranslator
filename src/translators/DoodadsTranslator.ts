@@ -5,11 +5,15 @@ import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
 
 type ItemSet = Record<string, number>;
 
+interface DoodadJson {
+    regular: Doodad[];
+    special?: SpecialDoodad[];
+}
 
 interface Doodad {
     type: string;
     variation: number;
-    position: number[];
+    position: number[]; // float: [x, y, z]
     angle: angle;
     scale: number[];
     skinId: string;
@@ -20,6 +24,9 @@ interface Doodad {
     customItemSets?: ItemSet[];
 }
 
+interface SpecialDoodad {
+    type: string;
+    position: number[]; // int: [x, y, z], in w3e tile terms (0,0 is at top left)
 }
 
 interface DoodadFlag {
@@ -34,7 +41,7 @@ interface DoodadFlag {
 }
 
 export abstract class DoodadsTranslator extends ITranslator {
-    public static jsonToWar(doodadsJson: Doodad[]): WarResult {
+    public static jsonToWar(doodadsJson: DoodadJson): WarResult {
         const outBufferToWar = new HexBuffer();
         /*
          * Header
@@ -42,12 +49,12 @@ export abstract class DoodadsTranslator extends ITranslator {
         outBufferToWar.addChars('W3do'); // file id
         outBufferToWar.addInt(8); // file version
         outBufferToWar.addInt(11); // subversion 0x0B
-        outBufferToWar.addInt(doodadsJson.length); // num of trees
 
         /*
          * Body
          */
-        doodadsJson.forEach((doodad) => {
+        outBufferToWar.addInt(doodadsJson.regular.length); // num of regular doodads
+        doodadsJson.regular.forEach((doodad) => {
             outBufferToWar.addChars(doodad.type);
             outBufferToWar.addInt(doodad.variation || 0); // optional - default value 0
             outBufferToWar.addFloat(doodad.position[0]);
@@ -93,7 +100,7 @@ export abstract class DoodadsTranslator extends ITranslator {
 
                 for (const itemSet of doodad.customItemSets) {
                     outBufferToWar.addInt(Object.keys(itemSet).length);
-                    Object.entries(itemSet).forEach(([ itemId, dropChance ]) => {
+                    Object.entries(itemSet).forEach(([itemId, dropChance]) => {
                         outBufferToWar.addChars(itemId);
                         outBufferToWar.addInt(dropChance);
                     });
@@ -109,7 +116,13 @@ export abstract class DoodadsTranslator extends ITranslator {
          * Footer
          */
         outBufferToWar.addInt(0); // special doodad format number, fixed at 0x00
-        outBufferToWar.addInt(0); // NOT SUPPORTED: number of special doodads
+        outBufferToWar.addInt(doodadsJson.special?.length || 0);
+        doodadsJson.special?.forEach((specialDoodad) => {
+            outBufferToWar.addChars(specialDoodad.type);
+            outBufferToWar.addInt(specialDoodad.position[2]);
+            outBufferToWar.addInt(specialDoodad.position[0]);
+            outBufferToWar.addInt(specialDoodad.position[1]);
+        });
 
         return {
             errors: [],
@@ -117,15 +130,15 @@ export abstract class DoodadsTranslator extends ITranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer): JsonResult<Doodad[]> {
-        const result = [];
+    public static warToJson(buffer: Buffer): JsonResult<DoodadJson> {
+        const result: DoodadJson = { regular: [], special: [] };
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readChars(4); // File ID: `W3do` for doodad file
         outBufferToJSON.readInt(); // File version = 8
         outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
-        const numDoodads = outBufferToJSON.readInt(); // # of doodads
 
+        const numDoodads = outBufferToJSON.readInt(); // # of regular doodads
         for (let i = 0; i < numDoodads; i++) {
             const doodad: Doodad = {
                 type: '',
@@ -157,7 +170,7 @@ export abstract class DoodadsTranslator extends ITranslator {
             let flags = outBufferToJSON.readByte();
             if (flags > 4) {
                 flags -= 4;
-                doodad.flags.fixedZ = true
+                doodad.flags.fixedZ = true;
             }
             doodad.flags.visible = flags >= 1;
             doodad.flags.solid = flags === 2;
@@ -187,17 +200,22 @@ export abstract class DoodadsTranslator extends ITranslator {
 
             doodad.id = outBufferToJSON.readInt();
 
-            result.push(doodad);
+            result.regular.push(doodad);
         }
 
-        // UNSUPPORTED: Special doodads
+        // Special doodads
         outBufferToJSON.readInt(); // special doodad format version set to '0'
         const numSpecialDoodads = outBufferToJSON.readInt();
         for (let i = 0; i < numSpecialDoodads; i++) {
-            outBufferToJSON.readChars(4); // doodad ID
-            outBufferToJSON.readInt();
-            outBufferToJSON.readInt();
-            outBufferToJSON.readInt();
+            const id = outBufferToJSON.readChars(4);
+            const posZ = outBufferToJSON.readInt();
+            const posX = outBufferToJSON.readInt();
+            const posY = outBufferToJSON.readInt();
+
+            result.special?.push({
+                type: id,
+                position: [posX, posY, posZ]
+            });
         }
 
         return {
