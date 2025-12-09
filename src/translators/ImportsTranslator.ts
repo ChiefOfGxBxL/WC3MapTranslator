@@ -2,18 +2,10 @@ import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
-enum ImportType {
-    Standard = 'standard',
-    Custom = 'custom'
-}
-
-interface Import {
-    path: string;
-    type: ImportType;
-}
+const CurrentPathVersion = 21;
 
 export abstract class ImportsTranslator extends ITranslator {
-    public static jsonToWar(imports: Import[]): WarResult {
+    public static jsonToWar(imports: string[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
         /*
@@ -26,16 +18,8 @@ export abstract class ImportsTranslator extends ITranslator {
          * Body
          */
         imports.forEach((importedFile) => {
-            outBufferToWar.addByte(
-                importedFile.type === ImportType.Custom ? 13 : 5
-            );
-
-            // Temporary: always start the file path with war3mapImported\ until other file support is added
-            if (!importedFile.path.startsWith('war3mapImported\\') && importedFile.type === ImportType.Custom) {
-                importedFile.path = 'war3mapImported\\' + importedFile.path;
-            }
-
-            outBufferToWar.addString(importedFile.path);
+            outBufferToWar.addByte(CurrentPathVersion);
+            outBufferToWar.addString(importedFile);
         });
 
         return {
@@ -44,29 +28,17 @@ export abstract class ImportsTranslator extends ITranslator {
         };
     }
 
-    public static warToJson(buffer: Buffer): JsonResult<Import[]> {
+    public static warToJson(buffer: Buffer): JsonResult<string[]> {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readInt(); // File version
-        const numImports = outBufferToJSON.readInt(); // # of imports
 
+        const numImports = outBufferToJSON.readInt();
         for (let i = 0; i < numImports; i++) {
-            const typeValue = outBufferToJSON.readByte();
-            const typeEnum: Record<number, ImportType> = {
-                0: ImportType.Standard,
-                5: ImportType.Standard,
-                8: ImportType.Standard, // * preferred
-                10: ImportType.Custom,
-                13: ImportType.Custom // * preferred
-            };
-
-            const importedFile = {
-                type: typeEnum[typeValue], // 5 or 8= standard path, 10 or 13: custom path
-                path: outBufferToJSON.readString() // e.g. "war3mapImported\mysound.wav"
-            };
-
-            result.push(importedFile);
+            outBufferToJSON.readByte(); // Path version (known values: 0, 5, 8, 10 13, 21)
+            const path = outBufferToJSON.readString();
+            result.push(path);
         }
 
         return {

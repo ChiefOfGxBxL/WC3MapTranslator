@@ -1,386 +1,98 @@
 [
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UnitBalance.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNSpeed.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NeutralUpgradeFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNHellfireAura.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\OrcUpgradeStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\CommonAbilityStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNAMateriel.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\HumanAbilityStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNRedemption.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NeutralUpgradeStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\CampaignAbilityFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\FullScreen.blp"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNPacify.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNRegen.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNDeath.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NightElfUnitStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UnitAbilities.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNChestGold.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\CampaignAbilityStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNInsanity.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNHellfireAura.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\HumanAbilityFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\OrcUpgradeFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNStaticPresence.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\ItemData.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNRegen.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNCameo.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\CommonAbilityFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\ItemStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UnitData.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UpgradeData.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UndeadUnitFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UndeadUpgradeStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UndeadUpgradeFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\CampaignUnitStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNChestGold.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNInsanity.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NightElfUpgradeStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNDeal.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNCameo.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\ItemFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\OrcUnitFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UnitWeapons.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNDamage.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNCannon.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNAbsolution.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNHP.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UnitUI.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\HumanUnitStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\OrcAbilityStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NeutralAbilityFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNStaticPresence.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNHP.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNHiveMind.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NeutralAbilityStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NightElfUpgradeFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNShock.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\ItemAbilityStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\AbilityBuffData.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\CampaignUnitFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBundleOfLove.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNDamage.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNRedemption.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNCannon.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNShock.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNHiveMind.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\OrcAbilityFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\ItemAbilityFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NightElfUnitFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NeutralUnitStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNFerocity.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UndeadAbilityStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNArmor.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\CampaignUpgradeFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\AbilityData.slk"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UndeadAbilityFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NightElfAbilityStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\HumanUpgradeStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNBundleOfLove.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNDeal.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNArmor.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\HumanUpgradeFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\war3mapPreview.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\war3mapMap.blp"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\LoadingScreen.mdx"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNFerocity.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\CampaignUpgradeStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\OrcUnitStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\HumanUnitFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNSpeed.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAbsolution.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNPacify.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAMateriel.tga"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NightElfAbilityFunc.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\UndeadUnitStrings.txt"
-    },
-    {
-      "type": "custom",
-      "path": "war3mapImported\\Units\\NeutralUnitFunc.txt"
-    }
-  ]
+  "war3mapImported\\Units\\UnitBalance.slk",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNSpeed.tga",
+  "war3mapImported\\Units\\NeutralUpgradeFunc.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNHellfireAura.tga",
+  "war3mapImported\\Units\\OrcUpgradeStrings.txt",
+  "war3mapImported\\Units\\CommonAbilityStrings.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNAMateriel.tga",
+  "war3mapImported\\Units\\HumanAbilityStrings.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNRedemption.tga",
+  "war3mapImported\\Units\\NeutralUpgradeStrings.txt",
+  "war3mapImported\\Units\\CampaignAbilityFunc.txt",
+  "war3mapImported\\FullScreen.blp",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNPacify.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNRegen.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNDeath.tga",
+  "war3mapImported\\Units\\NightElfUnitStrings.txt",
+  "war3mapImported\\Units\\UnitAbilities.slk",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNChestGold.tga",
+  "war3mapImported\\Units\\CampaignAbilityStrings.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNInsanity.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNHellfireAura.tga",
+  "war3mapImported\\Units\\HumanAbilityFunc.txt",
+  "war3mapImported\\Units\\OrcUpgradeFunc.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNStaticPresence.tga",
+  "war3mapImported\\Units\\ItemData.slk",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNRegen.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNCameo.tga",
+  "war3mapImported\\Units\\CommonAbilityFunc.txt",
+  "war3mapImported\\Units\\ItemStrings.txt",
+  "war3mapImported\\Units\\UnitData.slk",
+  "war3mapImported\\Units\\UpgradeData.slk",
+  "war3mapImported\\Units\\UndeadUnitFunc.txt",
+  "war3mapImported\\Units\\UndeadUpgradeStrings.txt",
+  "war3mapImported\\Units\\UndeadUpgradeFunc.txt",
+  "war3mapImported\\Units\\CampaignUnitStrings.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNChestGold.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNInsanity.tga",
+  "war3mapImported\\Units\\NightElfUpgradeStrings.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNDeal.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNCameo.tga",
+  "war3mapImported\\Units\\ItemFunc.txt",
+  "war3mapImported\\Units\\OrcUnitFunc.txt",
+  "war3mapImported\\Units\\UnitWeapons.slk",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNDamage.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNCannon.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNAbsolution.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNHP.tga",
+  "war3mapImported\\Units\\UnitUI.slk",
+  "war3mapImported\\Units\\HumanUnitStrings.txt",
+  "war3mapImported\\Units\\OrcAbilityStrings.txt",
+  "war3mapImported\\Units\\NeutralAbilityFunc.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNStaticPresence.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNHP.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNHiveMind.tga",
+  "war3mapImported\\Units\\NeutralAbilityStrings.txt",
+  "war3mapImported\\Units\\NightElfUpgradeFunc.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNShock.tga",
+  "war3mapImported\\Units\\ItemAbilityStrings.txt",
+  "war3mapImported\\Units\\AbilityBuffData.slk",
+  "war3mapImported\\Units\\CampaignUnitFunc.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBundleOfLove.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNDamage.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNRedemption.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNCannon.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNShock.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNHiveMind.tga",
+  "war3mapImported\\Units\\OrcAbilityFunc.txt",
+  "war3mapImported\\Units\\ItemAbilityFunc.txt",
+  "war3mapImported\\Units\\NightElfUnitFunc.txt",
+  "war3mapImported\\Units\\NeutralUnitStrings.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNFerocity.tga",
+  "war3mapImported\\Units\\UndeadAbilityStrings.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNArmor.tga",
+  "war3mapImported\\Units\\CampaignUpgradeFunc.txt",
+  "war3mapImported\\Units\\AbilityData.slk",
+  "war3mapImported\\Units\\UndeadAbilityFunc.txt",
+  "war3mapImported\\Units\\NightElfAbilityStrings.txt",
+  "war3mapImported\\Units\\HumanUpgradeStrings.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNBundleOfLove.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNDeal.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNArmor.tga",
+  "war3mapImported\\Units\\HumanUpgradeFunc.txt",
+  "war3mapImported\\war3mapPreview.tga",
+  "war3mapImported\\war3mapMap.blp",
+  "war3mapImported\\LoadingScreen.mdx",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNFerocity.tga",
+  "war3mapImported\\Units\\CampaignUpgradeStrings.txt",
+  "war3mapImported\\Units\\OrcUnitStrings.txt",
+  "war3mapImported\\Units\\HumanUnitFunc.txt",
+  "war3mapImported\\ReplaceableTextures\\CommandButtons\\BTNSpeed.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAbsolution.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNPacify.tga",
+  "war3mapImported\\ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAMateriel.tga",
+  "war3mapImported\\Units\\NightElfAbilityFunc.txt",
+  "war3mapImported\\Units\\UndeadUnitStrings.txt",
+  "war3mapImported\\Units\\NeutralUnitFunc.txt"
+]
