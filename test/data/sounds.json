@@ -1,98 +1,461 @@
 [
   {
-    "variableName": "VARNAME_FootmanPissed21",
-    "internalName": "FootmanPissed",
-    "path": "Units/Human/Footman/FootmanPissed2.flac",
-    "effect": "DefaultEAXON",
+    "variableName": "SorceressCastAttack1",
+    "internalName": "SlowCaster",
+    "path": "Abilities/Spells/Human/Slow/SorceressCastAttack1.flac",
+    "effect": "SpellsEAX",
     "volume": 127,
-    "pitch": 1.5,
-    "channel": 1,
+    "pitch": 1,
+    "pitchVariance": 4294967296,
+    "priority": 8,
+    "channel": 11,
     "flags": {
       "looping": false,
       "3dSound": true,
       "stopOutOfRange": true,
-      "music": false
+      "music": false,
+      "imported": false
     },
     "fadeRate": {
-      "in": 5,
-      "out": 4
+      "in": 0,
+      "out": 0
     },
     "distance": {
-      "min": 99995,
-      "max": 100000,
-      "cutoff": 3005
+      "min": 1142292480,
+      "max": 1163575296,
+      "cutoff": 1333788672
     }
   },
   {
-    "variableName": "KnightPissed6",
-    "internalName": "KnightPissed",
-    "path": "Units/Human/Knight/KnightPissed6.flac",
+    "variableName": "sample_3s_mp3",
+    "internalName": "",
+    "path": "war3mapImported/sample-3s-mp3.mp3",
     "effect": "DefaultEAXON",
-    "volume": 127,
+    "volume": 99,
     "pitch": 1,
-    "channel": 1,
+    "pitchVariance": 0,
+    "priority": 100,
+    "channel": 0,
     "flags": {
       "looping": false,
-      "3dSound": true,
-      "stopOutOfRange": true,
-      "music": false
+      "3dSound": false,
+      "stopOutOfRange": false,
+      "music": false,
+      "imported": true
     },
     "fadeRate": {
       "in": 1,
       "out": 1
     },
     "distance": {
-      "min": 100000,
-      "max": 100001,
-      "cutoff": 0
+      "min": 0,
+      "max": 1176256512,
+      "cutoff": 1161527296
     }
   },
   {
-    "variableName": "War2IntroMusic",
-    "internalName": "War2Intro",
-    "path": "Sound/Music/mp3Music/War2IntroMusic.flac",
+    "variableName": "Human2",
+    "internalName": "Human2",
+    "path": "Sound/Music/mp3Music/Human2.flac",
+    "effect": "MissilesEAX",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 0.1,
+    "priority": 5,
+    "channel": 11,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1142292480,
+      "max": 1163575296,
+      "cutoff": 1333788672
+    }
+  },
+  {
+    "variableName": "Comradeship",
+    "internalName": "Comradeship",
+    "path": "Sound/Music/mp3Music/Comradeship.flac",
+    "effect": "DefaultEAXON",
+    "volume": 90,
+    "pitch": 1,
+    "pitchVariance": 0.01,
+    "priority": 1000,
+    "channel": 1,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1203982336,
+      "max": 1203982464,
+      "cutoff": 2139095039
+    }
+  },
+  {
+    "variableName": "Tomes",
+    "internalName": "Tome",
+    "path": "Abilities/Spells/Items/AIam/Tomes.flac",
+    "effect": "SpellsEAX",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 4294967296,
+    "priority": 8,
+    "channel": 11,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1142292480,
+      "max": 1163575296,
+      "cutoff": 1333788672
+    }
+  },
+  {
+    "variableName": "WandOfNeutralization",
+    "internalName": "NeutralizationWandHit",
+    "path": "Abilities/Spells/Items/WandOfNeutralization/WandOfNeutralization.flac",
+    "effect": "SpellsEAX",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 4294967296,
+    "priority": 8,
+    "channel": 11,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1142292480,
+      "max": 1163575296,
+      "cutoff": 1333788672
+    }
+  },
+  {
+    "variableName": "OrcBarracksWhat1",
+    "internalName": "OrcBarracksWhat",
+    "path": "Buildings/Orc/OrcBarracks/OrcBarracksWhat1.flac",
+    "effect": "DefaultEAXON",
+    "volume": 90,
+    "pitch": 1,
+    "pitchVariance": 0.01,
+    "priority": 1000,
+    "channel": 1,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1203982336,
+      "max": 1203982464,
+      "cutoff": 2139095039
+    }
+  },
+  {
+    "variableName": "Lever",
+    "internalName": "LeverDeath",
+    "path": "Doodads/Cinematic/DungeonLever/Lever.flac",
+    "effect": "DefaultEAXON",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 0.1,
+    "priority": 110,
+    "channel": 11,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1142292480,
+      "max": 1163575296,
+      "cutoff": 1333788672
+    }
+  },
+  {
+    "variableName": "RacoonWhat1",
+    "internalName": "RaccoonWhat",
+    "path": "Units/Critters/Raccoon/RacoonWhat1.flac",
+    "effect": "DefaultEAXON",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 0.01,
+    "priority": 1000,
+    "channel": 1,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1203982336,
+      "max": 1203982464,
+      "cutoff": 2139095039
+    }
+  },
+  {
+    "variableName": "HuntressBuildingComplete1",
+    "internalName": "JobDoneSoundNightElf",
+    "path": "Sound/Buildings/NightElf/HuntressBuildingComplete1.flac",
+    "effect": "DefaultEAXON",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 1,
+    "priority": 10,
+    "channel": 8,
+    "flags": {
+      "looping": false,
+      "3dSound": false,
+      "stopOutOfRange": false,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1333788672,
+      "max": 0,
+      "cutoff": 1176256512
+    }
+  },
+  {
+    "variableName": "NecromancerResearchComplete1",
+    "internalName": "ResearchCompleteUndead",
+    "path": "Sound/Buildings/Undead/NecromancerResearchComplete1.flac",
+    "effect": "DefaultEAXON",
+    "volume": 105,
+    "pitch": 1,
+    "pitchVariance": 1,
+    "priority": 10,
+    "channel": 8,
+    "flags": {
+      "looping": false,
+      "3dSound": false,
+      "stopOutOfRange": false,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1333788672,
+      "max": 0,
+      "cutoff": 1176256512
+    }
+  },
+  {
+    "variableName": "GenericWarningGoldCollapsed1",
+    "internalName": "NoGoldGeneric",
+    "path": "Sound/Dialogue/GenericWarnings/GenericWarningGoldCollapsed1.flac",
+    "effect": "DefaultEAXON",
+    "volume": 105,
+    "pitch": 1,
+    "pitchVariance": 1,
+    "priority": 10,
+    "channel": 8,
+    "flags": {
+      "looping": false,
+      "3dSound": false,
+      "stopOutOfRange": false,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1333788672,
+      "max": 0,
+      "cutoff": 1176256512
+    }
+  },
+  {
+    "variableName": "N02Archer16",
+    "internalName": "N02Archer16",
+    "path": "Sound/Dialogue/NightElfCampaign/NightElf02/N02Archer16.flac",
     "effect": "DefaultEAXON",
     "volume": 120,
     "pitch": 1,
+    "pitchVariance": 1,
+    "priority": 1000,
     "channel": -1,
     "flags": {
       "looping": false,
       "3dSound": false,
       "stopOutOfRange": false,
-      "music": false
+      "music": false,
+      "imported": false
     },
     "fadeRate": {
-      "in": 1,
-      "out": 1
+      "in": 0,
+      "out": 0
     },
     "distance": {
-      "min": 3000,
-      "max": 0,
-      "cutoff": 100000
+      "min": 1161527296,
+      "max": 1333788672,
+      "cutoff": 1203982336
     }
   },
   {
-    "variableName": "DaybreakRooster",
-    "internalName": "RoosterSound",
-    "path": "Sound/Time/DaybreakRooster.flac",
+    "variableName": "DuskWolf",
+    "internalName": "WolfSound",
+    "path": "Sound/Time/DuskWolf.flac",
     "effect": "DefaultEAXON",
-    "volume": 36,
+    "volume": 40,
     "pitch": 1,
+    "pitchVariance": 1,
+    "priority": 1000,
     "channel": 10,
     "flags": {
       "looping": false,
-      "3dSound": true,
+      "3dSound": false,
       "stopOutOfRange": false,
-      "music": false
+      "music": false,
+      "imported": false
     },
     "fadeRate": {
-      "in": 50,
-      "out": 60
+      "in": 0,
+      "out": 0
     },
     "distance": {
-      "min": 105,
-      "max": 2995,
-      "cutoff": 3005
+      "min": 1120403456,
+      "max": 1161527296,
+      "cutoff": 1333788672
+    }
+  },
+  {
+    "variableName": "AutoCastButtonClick1",
+    "internalName": "AutoCastButtonClick",
+    "path": "Sound/Interface/AutoCastButtonClick1.flac",
+    "effect": "DefaultEAXON",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 1,
+    "priority": 1000,
+    "channel": 8,
+    "flags": {
+      "looping": false,
+      "3dSound": false,
+      "stopOutOfRange": false,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1333788672,
+      "max": 0,
+      "cutoff": 1176256512
+    }
+  },
+  {
+    "variableName": "GoodJob",
+    "internalName": "GoodJob",
+    "path": "Sound/Interface/GoodJob.flac",
+    "effect": "DefaultEAXON",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 1,
+    "priority": 1000,
+    "channel": 8,
+    "flags": {
+      "looping": false,
+      "3dSound": false,
+      "stopOutOfRange": false,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1333788672,
+      "max": 0,
+      "cutoff": 1176256512
+    }
+  },
+  {
+    "variableName": "HumanDissipate1",
+    "internalName": "HumanDissipate",
+    "path": "Sound/Units/Human/HumanDissipate1.flac",
+    "effect": "SpellsEAX",
+    "volume": 127,
+    "pitch": 1,
+    "pitchVariance": 4294967296,
+    "priority": 10,
+    "channel": 11,
+    "flags": {
+      "looping": false,
+      "3dSound": true,
+      "stopOutOfRange": true,
+      "music": false,
+      "imported": false
+    },
+    "fadeRate": {
+      "in": 0,
+      "out": 0
+    },
+    "distance": {
+      "min": 1142292480,
+      "max": 1163575296,
+      "cutoff": 1333788672
     }
   }
 ]

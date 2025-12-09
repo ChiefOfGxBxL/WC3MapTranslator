@@ -49,6 +49,9 @@ interface Sound {
     pitch: number;
     channel: number;
     distance: Distance;
+
+    pitchVariance?: number;
+    priority?: number;
 }
 
 interface FadeRate {
@@ -61,6 +64,7 @@ interface SoundFlags {
     '3dSound': boolean; // 0x2 = 3D sound
     stopOutOfRange: boolean; // 0x4 = stop when out of range
     music: boolean; // 0x8 = music
+    imported: boolean; // 0x10 = imported; NOTE: this has been observed for imported files, but not confirmed
 }
 
 interface Distance {
@@ -82,6 +86,9 @@ const effectTypeLookup: Record<string, EffectType> = {
     [EffectType.Spells]: EffectType.Spells
 };
 
+const MYSTERY_NUM_1 = 1333788672; // (hex) 00 00 80 4F
+const MYSTERY_NUM_2 = -1; // (hex) FF FF FF FF
+
 export abstract class SoundsTranslator extends ITranslator {
     public static readonly EffectType = EffectType;
     public static readonly Channel = Channel;
@@ -98,6 +105,8 @@ export abstract class SoundsTranslator extends ITranslator {
          * Body
          */
         soundsJson.forEach((sound) => {
+            const isImportedSound = sound.path.startsWith('war3mapImported/');
+
             outBufferToWar.addString('gg_snd_' + sound.variableName); // e.g. gg_snd_HumanGlueScreenLoop1
             outBufferToWar.addString(sound.path); // e.g. Sound\Ambient\HumanGlueScreenLoop1.wav
 
@@ -110,6 +119,7 @@ export abstract class SoundsTranslator extends ITranslator {
                 if (sound.flags['3dSound']) flags |= 0x2;
                 if (sound.flags.stopOutOfRange) flags |= 0x4;
                 if (sound.flags.music) flags |= 0x8;
+                if (sound.flags.imported) flags |= 0x10;
             }
             outBufferToWar.addInt(flags);
 
@@ -119,33 +129,23 @@ export abstract class SoundsTranslator extends ITranslator {
 
             outBufferToWar.addInt(sound.volume || 127); // Volume (optional): default to 127 (for normal volume)
 
-            // Pitch (optional): default to 1.0 (hard-coded byte sequence) for normal pitch
-            if (sound.pitch && sound.pitch !== 1.0) {
+            // Pitch (optional)
+            // Default to 1.0 (hard-coded byte sequence) for normal pitch
+            if (isImportedSound || sound.pitch !== 1.0) {
                 outBufferToWar.addFloat(sound.pitch);
             } else {
-                outBufferToWar.addByte(0x0);
-                outBufferToWar.addByte(0x0);
-                outBufferToWar.addByte(0x80);
-                outBufferToWar.addByte(0x4F);
+                outBufferToWar.addInt(MYSTERY_NUM_1); // 00 00 80 4F - unmodified (only for native sounds)
             }
 
-            // Mystery numbers... their use is unknown by the w3x documentation, but they must be present.
-            // either 00 00 80 3F or 0B D7 23 3C; previous value of 0
-            if (true) { // WIP: still figuring out what differentiates these magic bytes; can be 1, 0.1, 0.01, or 4294967296
-                // 32-bit float = 0.010000001; 32-bit integer = 1008981771; LEB128 = 11
-                outBufferToWar.addByte(0x0B);
-                outBufferToWar.addByte(0xD7);
-                outBufferToWar.addByte(0x23);
-                outBufferToWar.addByte(0x3C);
+            // Pitch variance (optional)
+            if (sound.pitchVariance && sound.pitchVariance === 4294967296) {
+                // Special value signifies default/unmodified value
+                outBufferToWar.addInt(MYSTERY_NUM_1); // 00 00 80 4F - unmodified
             } else {
-                // 32-bit float 00 00 80 3F = 1.0; LEB128 = 0
-                outBufferToWar.addByte(0x0);
-                outBufferToWar.addByte(0x0);
-                outBufferToWar.addByte(0x80);
-                outBufferToWar.addByte(0x3F);
+                outBufferToWar.addFloat(sound.pitchVariance || 0);
             }
 
-            outBufferToWar.addInt(1000); // E8 03 00 00; 32 bit int = 1000; previous values of 8 or -1
+            outBufferToWar.addInt(sound.priority || 100);
 
             outBufferToWar.addInt(sound.channel || Channel.General);
 
@@ -154,16 +154,13 @@ export abstract class SoundsTranslator extends ITranslator {
             outBufferToWar.addInt(sound.distance.max);
             outBufferToWar.addInt(sound.distance.cutoff);
 
-            const MYSTERY_NUM_1 = 1333788672; // (hex) 00 00 80 4F
-            const MYSTERY_NUM_2 = 4294967295; // (hex) FF FF FF FF
-
             // More mystery numbers...
-            outBufferToWar.addInt(MYSTERY_NUM_1);
-            outBufferToWar.addInt(MYSTERY_NUM_1);
-            outBufferToWar.addInt(MYSTERY_NUM_2); // was previously 127, possible value of -1
-            outBufferToWar.addInt(MYSTERY_NUM_1);
-            outBufferToWar.addInt(MYSTERY_NUM_1);
-            outBufferToWar.addInt(MYSTERY_NUM_1);
+            outBufferToWar.addInt(isImportedSound ? 0 : MYSTERY_NUM_1);
+            outBufferToWar.addInt(isImportedSound ? 0 : MYSTERY_NUM_1);
+            outBufferToWar.addInt(isImportedSound ? 127 : MYSTERY_NUM_2);
+            outBufferToWar.addInt(isImportedSound ? 0 : MYSTERY_NUM_1);
+            outBufferToWar.addInt(isImportedSound ? 0 : MYSTERY_NUM_1);
+            outBufferToWar.addInt(isImportedSound ? 0 : MYSTERY_NUM_1);
 
             outBufferToWar.addString('gg_snd_' + sound.variableName);
             outBufferToWar.addString(sound.internalName); // e.g. FootmanPissed, War2Intro, HeroicVictory, RoosterSound
@@ -200,12 +197,15 @@ export abstract class SoundsTranslator extends ITranslator {
                 effect: EffectType.Default,
                 volume: 0,
                 pitch: 0,
+                pitchVariance: 0,
+                priority: 100,
                 channel: 0,
                 flags: {
                     looping: true,
                     '3dSound': true,
                     stopOutOfRange: true,
-                    music: true
+                    music: true,
+                    imported: false
                 },
                 fadeRate: {
                     in: 0,
@@ -228,7 +228,8 @@ export abstract class SoundsTranslator extends ITranslator {
                 looping: !!(flags & 0x1),
                 '3dSound': !!(flags & 0x2),
                 stopOutOfRange: !!(flags & 0x4),
-                music: !!(flags & 0x8)
+                music: !!(flags & 0x8),
+                imported: !!(flags & 0x10)
             };
 
             sound.fadeRate = {
@@ -242,9 +243,9 @@ export abstract class SoundsTranslator extends ITranslator {
             const pitch = outBufferToJSON.readFloat();
             sound.pitch = pitch === 4294967296 ? 1.0 : pitch;
 
-            // Unknown values
-            outBufferToJSON.readFloat();
-            outBufferToJSON.readInt();
+            sound.pitchVariance = outBufferToJSON.readFloat(); // 4294967296 = use default value
+
+            sound.priority = outBufferToJSON.readInt();
 
             sound.channel = outBufferToJSON.readInt();
 
@@ -257,7 +258,7 @@ export abstract class SoundsTranslator extends ITranslator {
             // Unknown values
             outBufferToJSON.readInt();
             outBufferToJSON.readInt();
-            outBufferToJSON.readInt();
+            outBufferToJSON.readInt(); // appears to be -1 for native sounds, 127 for imported sounds
             outBufferToJSON.readInt();
             outBufferToJSON.readInt();
             outBufferToJSON.readInt();
