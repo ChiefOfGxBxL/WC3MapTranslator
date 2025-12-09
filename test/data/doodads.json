@@ -1,4 +1,5 @@
-[
+{
+  "regular": [
     {
       "type": "OOgr",
       "variation": 1,
@@ -16,7 +17,8 @@
       "skinId": "OOgr",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 2
@@ -38,7 +40,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": false,
-        "solid": false
+        "solid": false,
+        "fixedZ": false
       },
       "life": 255,
       "id": 18
@@ -60,7 +63,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": false,
-        "solid": false
+        "solid": false,
+        "fixedZ": false
       },
       "life": 255,
       "id": 21
@@ -82,7 +86,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": false,
-        "solid": false
+        "solid": false,
+        "fixedZ": false
       },
       "life": 255,
       "id": 22
@@ -104,7 +109,8 @@
       "skinId": "OOgr",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 3
@@ -126,7 +132,8 @@
       "skinId": "OOgr",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 1
@@ -148,7 +155,8 @@
       "skinId": "OOgr",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 5
@@ -170,7 +178,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 124
@@ -192,7 +201,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 8
@@ -214,7 +224,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 9
@@ -236,7 +247,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 10
@@ -258,7 +270,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 11
@@ -280,7 +293,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 12
@@ -302,7 +316,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 13
@@ -324,7 +339,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 14
@@ -346,7 +362,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 15
@@ -368,7 +385,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 16
@@ -390,7 +408,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 125
@@ -412,7 +431,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 126
@@ -434,7 +454,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 19
@@ -456,7 +477,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 20
@@ -478,7 +500,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": false,
-        "solid": false
+        "solid": false,
+        "fixedZ": false
       },
       "life": 255,
       "id": 17
@@ -500,7 +523,8 @@
       "skinId": "OOgr",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 6
@@ -522,7 +546,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 23
@@ -544,7 +569,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 24
@@ -566,7 +592,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 33
@@ -588,7 +615,8 @@
       "skinId": "OOgr",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 4
@@ -610,7 +638,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 27
@@ -632,7 +661,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 28
@@ -654,7 +684,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 127
@@ -676,7 +707,8 @@
       "skinId": "OOgr",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 0
@@ -698,7 +730,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 31
@@ -720,7 +753,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 32
@@ -742,7 +776,8 @@
       "skinId": "OOgr",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 7
@@ -764,7 +799,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 34
@@ -786,7 +822,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 35
@@ -808,7 +845,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 36
@@ -830,7 +868,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 37
@@ -852,7 +891,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 38
@@ -874,7 +914,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 39
@@ -896,7 +937,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 40
@@ -918,7 +960,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 41
@@ -940,7 +983,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 42
@@ -962,7 +1006,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 43
@@ -984,7 +1029,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 44
@@ -1006,7 +1052,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 45
@@ -1028,7 +1075,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 46
@@ -1050,7 +1098,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 47
@@ -1072,7 +1121,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 48
@@ -1094,7 +1144,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 49
@@ -1116,7 +1167,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 50
@@ -1138,7 +1190,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 51
@@ -1160,7 +1213,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 52
@@ -1182,7 +1236,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 53
@@ -1204,7 +1259,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 54
@@ -1226,7 +1282,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 55
@@ -1248,7 +1305,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 56
@@ -1270,7 +1328,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 57
@@ -1292,7 +1351,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 58
@@ -1314,7 +1374,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 59
@@ -1336,7 +1397,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 60
@@ -1358,7 +1420,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 61
@@ -1380,7 +1443,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 62
@@ -1402,7 +1466,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 63
@@ -1424,7 +1489,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 64
@@ -1446,7 +1512,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 65
@@ -1468,7 +1535,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 66
@@ -1490,7 +1558,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 67
@@ -1512,7 +1581,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 68
@@ -1534,7 +1604,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 69
@@ -1556,7 +1627,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 70
@@ -1578,7 +1650,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 71
@@ -1600,7 +1673,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 72
@@ -1622,7 +1696,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 73
@@ -1644,7 +1719,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 74
@@ -1666,7 +1742,8 @@
       "skinId": "YOfs",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 75
@@ -1688,7 +1765,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 133
@@ -1710,7 +1788,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 132
@@ -1732,7 +1811,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 78
@@ -1754,7 +1834,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 79
@@ -1776,7 +1857,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 131
@@ -1798,7 +1880,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 81
@@ -1820,7 +1903,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 130
@@ -1842,7 +1926,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 83
@@ -1864,7 +1949,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 129
@@ -1886,7 +1972,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 85
@@ -1908,7 +1995,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 128
@@ -1930,7 +2018,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 87
@@ -1952,7 +2041,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 135
@@ -1974,7 +2064,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 89
@@ -1996,7 +2087,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 134
@@ -2018,7 +2110,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 91
@@ -2040,7 +2133,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 92
@@ -2062,7 +2156,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 93
@@ -2084,7 +2179,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 94
@@ -2106,7 +2202,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 95
@@ -2128,7 +2225,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 96
@@ -2150,7 +2248,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 97
@@ -2172,7 +2271,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 98
@@ -2194,7 +2294,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 99
@@ -2216,7 +2317,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 100
@@ -2238,7 +2340,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 101
@@ -2260,7 +2363,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 102
@@ -2282,7 +2386,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 103
@@ -2304,7 +2409,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 104
@@ -2326,7 +2432,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 105
@@ -2348,7 +2455,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 106
@@ -2370,7 +2478,8 @@
       "skinId": "YOob",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 107
@@ -2392,7 +2501,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": false,
-        "solid": false
+        "solid": false,
+        "fixedZ": false
       },
       "life": 255,
       "id": 108
@@ -2414,7 +2524,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": false,
-        "solid": false
+        "solid": false,
+        "fixedZ": false
       },
       "life": 255,
       "id": 109
@@ -2436,7 +2547,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": false,
-        "solid": false
+        "solid": false,
+        "fixedZ": false
       },
       "life": 255,
       "id": 110
@@ -2458,7 +2570,8 @@
       "skinId": "YOks",
       "flags": {
         "visible": false,
-        "solid": false
+        "solid": false,
+        "fixedZ": false
       },
       "life": 255,
       "id": 111
@@ -2480,7 +2593,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 112
@@ -2502,7 +2616,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 113
@@ -2524,7 +2639,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 114
@@ -2546,7 +2662,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 115
@@ -2568,7 +2685,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 116
@@ -2590,7 +2708,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 117
@@ -2612,7 +2731,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 118
@@ -2634,7 +2754,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 119
@@ -2656,7 +2777,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 120
@@ -2678,7 +2800,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 121
@@ -2700,7 +2823,8 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 122
@@ -2722,9 +2846,17 @@
       "skinId": "LWw0",
       "flags": {
         "visible": true,
-        "solid": true
+        "solid": true,
+        "fixedZ": false
       },
       "life": 255,
       "id": 123
     }
+  ],
+  "special": [
+    {
+      "type": "YCu2",
+      "position": [0, 34, 33]
+    }
   ]
+}
