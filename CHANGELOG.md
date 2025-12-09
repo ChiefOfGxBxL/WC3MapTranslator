@@ -2,9 +2,10 @@
 ### SUMMARY
 **🔥 Breaking changes**
 
-This release includes the following breaking changes
+This release includes several breaking changes:
  * 🔥 The `strings.json` file format now maps keys to `{ value: "", comment: "" }` to support string comments (see below for details)
  * 🔥 The `sounds.json` file has renamed the `eax` field to `effect`, and the `flags` adds a new `imported` boolean
+ * 🔥 The `imports.json` file uses an array of strings to list imports (no longer using objects)
 
 The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6). This allows the codebase to take advantage of new TypeScript features.
 
@@ -26,6 +27,8 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
           "special": [ {} ]
         }
       ```
+ * 🔥 Imports
+   * Removes need to prefix path by "war3mapImported/" if missing, since latest WC3 version "Asset Manager" gets rid of custom paths
 ### FIXES
  * Fixes round-trip conversions (war3 -> json -> war3) on a number of translators:
    * 🔥 Strings: now supports string comments, thus requiring a new JSON format:
