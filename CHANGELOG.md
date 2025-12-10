@@ -10,6 +10,7 @@ This release includes several breaking changes:
 The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6). This allows the codebase to take advantage of new TypeScript features.
 
 ### FEATURES
+ * Objects - Add support for latest object files version, v3
  * Sounds
    * Statically exposes `EffectType` and `Channel`, so you can easily reference values like `Channel.Constructions` (12) or `EffectType.HeroSpeech` ("HeroAcksEAX")
    * Add support for two previously-unknown fields: `pitchVariance` and `priority`
