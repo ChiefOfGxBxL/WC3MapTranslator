@@ -54,12 +54,6 @@ interface LoadingScreen {
     subtitle: string;
 }
 
-enum FogType {
-    Linear = 0,
-    Exponential1 = 1,
-    Exponential2 = 2
-}
-
 interface Fog {
     type: FogType;
     startHeight: number;
@@ -130,6 +124,13 @@ interface Force {
     players: number; // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force)
     name: string;
 }
+
+enum FogType {
+    Linear = 0,
+    Exponential1 = 1,
+    Exponential2 = 2
+}
+
 enum GameDataSet {
     Default = 0,
     Custom101 = 1,
@@ -153,6 +154,12 @@ enum SupportedModes {
 }
 
 export abstract class InfoTranslator extends ITranslator {
+    public static readonly FogType = FogType;
+    public static readonly GameDataSet = GameDataSet;
+    public static readonly GameDataVersion = GameDataVersion;
+    public static readonly ScriptLanguage = ScriptLanguage;
+    public static readonly SupportedModes = SupportedModes;
+
     public static jsonToWar(infoJson: Info): WarResult {
         const outBufferToWar = new HexBuffer();
 
