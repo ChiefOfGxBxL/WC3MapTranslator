@@ -84,6 +84,8 @@ interface Info {
     saves: number;
     gameVersion: GameVersion;
     editorVersion: number;
+    gameDataSet: GameDataSet;
+    gameDataVersion: GameDataVersion;
     scriptLanguage: ScriptLanguage;
     supportedModes: SupportedModes;
     map: Map;
@@ -127,6 +129,16 @@ interface Force {
     flags: ForceFlags;
     players: number; // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force)
     name: string;
+}
+enum GameDataSet {
+    Default = 0,
+    Custom101 = 1,
+    MeleeLatestPath = 2
+}
+
+enum GameDataVersion {
+    ROC = 0,
+    TFT = 1
 }
 
 enum ScriptLanguage {
@@ -216,8 +228,8 @@ export abstract class InfoTranslator extends ITranslator {
         outBufferToWar.addString(infoJson.loadingScreen.title);
         outBufferToWar.addString(infoJson.loadingScreen.subtitle);
 
-        // Use game data set (Unsupported)
-        outBufferToWar.addInt(0);
+        // Use game data set
+        outBufferToWar.addInt(infoJson.gameDataSet);
 
         // Prologue
         outBufferToWar.addString(infoJson.prologue.path);
@@ -365,6 +377,8 @@ export abstract class InfoTranslator extends ITranslator {
             ],
             saves: 0,
             editorVersion: 0,
+            gameDataVersion: GameDataVersion.TFT,
+            gameDataSet: GameDataSet.Default,
             scriptLanguage: ScriptLanguage.JASS,
             supportedModes: SupportedModes.Both,
             gameVersion: {
@@ -441,7 +455,7 @@ export abstract class InfoTranslator extends ITranslator {
         result.loadingScreen.title = outBufferToJSON.readString();
         result.loadingScreen.subtitle = outBufferToJSON.readString();
 
-        outBufferToJSON.readInt(); // Game dataset, 0 = standard
+        result.gameDataSet = outBufferToJSON.readInt();
 
         result.prologue = {
             path: outBufferToJSON.readString(),
@@ -465,7 +479,8 @@ export abstract class InfoTranslator extends ITranslator {
 
         result.scriptLanguage = outBufferToJSON.readInt();
         result.supportedModes = outBufferToJSON.readInt();
-        outBufferToJSON.readInt(); // unknown
+        result.gameDataVersion = outBufferToJSON.readInt();
+
 
         // Struct: players
         const numPlayers = outBufferToJSON.readInt();
