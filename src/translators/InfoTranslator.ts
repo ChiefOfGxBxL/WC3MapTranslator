@@ -103,8 +103,8 @@ interface PlayerStartingPosition {
 
 interface Player {
     playerNum: number;
-    type: number; // 1=Human, 2=Computer, 3=Neutral, 4=Rescuable
-    race: number; // 1=Human, 2=Orc, 3=Undead, 4=Night Elf
+    type: PlayerType;
+    race: PlayerRace;
 
     name: string;
     startingPos: PlayerStartingPosition;
@@ -123,6 +123,20 @@ interface Force {
     flags: ForceFlags;
     players: number; // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force)
     name: string;
+}
+
+enum PlayerType {
+    Human = 1,
+    Computer,
+    Neutral,
+    Rescuable
+}
+
+enum PlayerRace {
+    Human = 1,
+    Orc,
+    Undead,
+    NightElf
 }
 
 enum FogType {
@@ -154,6 +168,8 @@ enum SupportedModes {
 }
 
 export abstract class InfoTranslator extends ITranslator {
+    public static readonly PlayerType = PlayerType;
+    public static readonly PlayerRace = PlayerRace;
     public static readonly FogType = FogType;
     public static readonly GameDataSet = GameDataSet;
     public static readonly GameDataVersion = GameDataVersion;
@@ -496,13 +512,13 @@ export abstract class InfoTranslator extends ITranslator {
                 name: '',
                 startingPos: { x: 0, y: 0, fixed: false },
                 playerNum: 0,
-                type: 0,
-                race: 0
+                type: PlayerType.Human,
+                race: PlayerRace.Human
             };
 
             player.playerNum = outBufferToJSON.readInt();
-            player.type = outBufferToJSON.readInt(); // 1=Human, 2=Computer, 3=Neutral, 4=Rescuable
-            player.race = outBufferToJSON.readInt(); // 1=Human, 2=Orc, 3=Undead, 4=Night Elf
+            player.type = outBufferToJSON.readInt();
+            player.race = outBufferToJSON.readInt();
 
             const isPlayerStartPositionFixed: boolean = outBufferToJSON.readInt() === 1; // 00000001 = fixed start position
 
