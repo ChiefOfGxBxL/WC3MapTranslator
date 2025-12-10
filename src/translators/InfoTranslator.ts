@@ -44,6 +44,10 @@ interface MapFlags {
     enableWaterTinting: boolean;        // 0x10000
     useAccurateProbabilityForCalculations: boolean; // 0x20000
     useCustomAbilitySkins: boolean;     // 0x40000
+    disableDenyIcon: boolean; // 0x80000
+    forceDefaultCameraZoom: boolean; // 0x100000
+    forceMaxCameraZoom: boolean; // 0x200000
+    forceMinCameraZoom: boolean; // 0x400000
 }
 
 interface LoadingScreen {
@@ -93,6 +97,9 @@ interface Info {
     water: number[]; // R G B A
     players: Player[];
     forces: Force[];
+    forceDefaultCameraZoom: number;
+    forceMaxCameraZoom: number;
+    forceMinCameraZoom: number;
 }
 
 interface PlayerStartingPosition {
@@ -179,7 +186,7 @@ export abstract class InfoTranslator extends ITranslator {
     public static jsonToWar(infoJson: Info): WarResult {
         const outBufferToWar = new HexBuffer();
 
-        outBufferToWar.addInt(31); // file version, 0x1F
+        outBufferToWar.addInt(33); // file version
         outBufferToWar.addInt(infoJson.saves || 0);
         outBufferToWar.addInt(infoJson.editorVersion || 0);
 
@@ -232,6 +239,10 @@ export abstract class InfoTranslator extends ITranslator {
             if (infoJson.map.flags.enableWaterTinting) flags |= 0x10000;
             if (infoJson.map.flags.useAccurateProbabilityForCalculations) flags |= 0x20000;
             if (infoJson.map.flags.useCustomAbilitySkins) flags |= 0x40000;
+            if (infoJson.map.flags.disableDenyIcon) flags |= 0x80000;
+            if (infoJson.map.flags.forceDefaultCameraZoom) flags |= 0x100000;
+            if (infoJson.map.flags.forceMaxCameraZoom) flags |= 0x200000;
+            if (infoJson.map.flags.forceMinCameraZoom) flags |= 0x400000;
         }
 
         // Unknown, but these seem to always be on, at least for default maps
@@ -370,7 +381,11 @@ export abstract class InfoTranslator extends ITranslator {
                     useItemClassificationSystem: false, // 0x8000: 1=use item classification system
                     enableWaterTinting: false, // 0x10000
                     useAccurateProbabilityForCalculations: false, // 0x20000
-                    useCustomAbilitySkins: false // 0x40000
+                    useCustomAbilitySkins: false, // 0x40000
+                    disableDenyIcon: false, // 0x80000
+                    forceDefaultCameraZoom: false, // 0x100000
+                    forceMaxCameraZoom: false, // 0x200000
+                    forceMinCameraZoom: false // 0x400000
                 }
             },
             loadingScreen: {
@@ -413,7 +428,10 @@ export abstract class InfoTranslator extends ITranslator {
             globalWeather: '',
             customSoundEnvironment: '',
             customLightEnv: '',
-            water: []
+            water: [],
+            forceDefaultCameraZoom: 0,
+            forceMaxCameraZoom: 0,
+            forceMinCameraZoom: 0
         };
         const outBufferToJSON = new W3Buffer(buffer);
 
@@ -467,7 +485,11 @@ export abstract class InfoTranslator extends ITranslator {
             useItemClassificationSystem: !!(flags & 0x8000),
             enableWaterTinting:         !!(flags & 0x10000),
             useAccurateProbabilityForCalculations: !!(flags & 0x20000),
-            useCustomAbilitySkins:      !!(flags & 0x40000)
+            useCustomAbilitySkins:      !!(flags & 0x40000),
+            disableDenyIcon:            !!(flags & 0x80000),
+            forceDefaultCameraZoom:     !!(flags & 0x100000),
+            forceMaxCameraZoom:         !!(flags & 0x200000),
+            forceMinCameraZoom:         !!(flags & 0x400000)
         };
 
         result.map.mainTileType = outBufferToJSON.readChars();
@@ -504,6 +526,9 @@ export abstract class InfoTranslator extends ITranslator {
         result.supportedModes = outBufferToJSON.readInt();
         result.gameDataVersion = outBufferToJSON.readInt();
 
+        result.forceDefaultCameraZoom = outBufferToJSON.readInt();
+        result.forceMaxCameraZoom = outBufferToJSON.readInt();
+        result.forceMinCameraZoom = outBufferToJSON.readInt();
 
         // Struct: players
         const numPlayers = outBufferToJSON.readInt();
