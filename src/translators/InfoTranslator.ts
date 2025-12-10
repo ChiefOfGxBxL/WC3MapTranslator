@@ -299,7 +299,11 @@ export abstract class InfoTranslator extends ITranslator {
 
         outBufferToWar.addInt(infoJson.scriptLanguage);
         outBufferToWar.addInt(infoJson.supportedModes);
-        outBufferToWar.addInt(0); // unknown
+        outBufferToWar.addInt(infoJson.gameDataVersion);
+
+        outBufferToWar.addInt(infoJson.forceDefaultCameraZoom);
+        outBufferToWar.addInt(infoJson.forceMaxCameraZoom);
+        outBufferToWar.addInt(infoJson.forceMinCameraZoom);
 
         // Players
         outBufferToWar.addInt(infoJson.players.length);
