@@ -295,7 +295,7 @@ export abstract class InfoTranslator extends ITranslator {
         outBufferToWar.addByte(infoJson.water[0]);
         outBufferToWar.addByte(infoJson.water[1]);
         outBufferToWar.addByte(infoJson.water[2]);
-        outBufferToWar.addByte(255); // Water alpha - unsupported
+        outBufferToWar.addByte(255); // Water alpha - World Editor removed this field, but the byte is still needed
 
         outBufferToWar.addInt(infoJson.scriptLanguage);
         outBufferToWar.addInt(infoJson.supportedModes);
@@ -409,7 +409,7 @@ export abstract class InfoTranslator extends ITranslator {
                 startHeight: 0,
                 endHeight: 0,
                 density: 0,
-                color: [0, 0, 0, 1]
+                color: [0, 0, 0]
             }, camera: {
                 bounds: [],
                 complements: []
@@ -526,7 +526,8 @@ export abstract class InfoTranslator extends ITranslator {
         result.globalWeather = outBufferToJSON.readChars(4);
         result.customSoundEnvironment = outBufferToJSON.readString();
         result.customLightEnv = outBufferToJSON.readChars();
-        result.water = [outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte()]; // R G B A
+        result.water = [outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte()]; // R G B
+        outBufferToJSON.readByte(); // consume water color alpha byte (World Editor removed field, but byte is still there)
 
         result.scriptLanguage = outBufferToJSON.readInt();
         result.supportedModes = outBufferToJSON.readInt();

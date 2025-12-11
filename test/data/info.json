@@ -23,7 +23,7 @@
         "waterWavesOnRollingShores": true,
         "useTerrainFog": true,
         "useItemClassificationSystem": true,
-        "enableWaterTinting": false,
+        "enableWaterTinting": true,
         "useAccurateProbabilityForCalculations": false,
         "useCustomAbilitySkins": false
       }
@@ -242,9 +242,8 @@
     "customSoundEnvironment": "",
     "customLightEnv": "O",
     "water": [
+      100,
       255,
-      255,
-      255,
-      255
+      100
     ]
   }
