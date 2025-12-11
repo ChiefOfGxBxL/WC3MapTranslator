@@ -21,6 +21,7 @@
         "useCustomUpgrades": false,
         "waterWavesOnCliffShores": true,
         "waterWavesOnRollingShores": true,
+        "useTerrainFog": true,
         "useItemClassificationSystem": true,
         "enableWaterTinting": false,
         "useAccurateProbabilityForCalculations": false,

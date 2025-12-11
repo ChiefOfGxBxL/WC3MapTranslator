@@ -25,20 +25,20 @@ interface Camera {
 }
 
 interface MapFlags {
-    hideMinimapInPreview: boolean;  // 0x0001: 1=hide minimap in preview screens
-    modifyAllyPriorities: boolean;  // 0x0002: 1=modify ally priorities
-    isMeleeMap: boolean;            // 0x0004: 1=melee map
+    hideMinimapInPreview: boolean;      // 0x0001: 1=hide minimap in preview screens
+    modifyAllyPriorities: boolean;      // 0x0002: 1=modify ally priorities
+    isMeleeMap: boolean;                // 0x0004: 1=melee map
     // 0x0008: 1=playable map size was large and has never been reduced to medium (?)
-    maskedPartiallyVisible: boolean; // 0x0010: 1=masked area are partially visible
-    fixedPlayerSetting: boolean;    // 0x0020: 1=fixed player setting for custom forces
-    useCustomForces: boolean;       // 0x0040: 1=use custom forces
-    useCustomTechtree: boolean;     // 0x0080: 1=use custom techtree
-    useCustomAbilities: boolean;    // 0x0100: 1=use custom abilities
-    useCustomUpgrades: boolean;     // 0x0200: 1=use custom upgrades
+    maskedPartiallyVisible: boolean;    // 0x0010: 1=masked area are partially visible
+    fixedPlayerSetting: boolean;        // 0x0020: 1=fixed player setting for custom forces
+    useCustomForces: boolean;           // 0x0040: 1=use custom forces
+    useCustomTechtree: boolean;         // 0x0080: 1=use custom techtree
+    useCustomAbilities: boolean;        // 0x0100: 1=use custom abilities
+    useCustomUpgrades: boolean;         // 0x0200: 1=use custom upgrades
     // 0x0400: 1=map properties menu opened at least once since map creation (?)
-    waterWavesOnCliffShores: boolean; // 0x0800: 1=show water waves on cliff shores
+    waterWavesOnCliffShores: boolean;   // 0x0800: 1=show water waves on cliff shores
     waterWavesOnRollingShores: boolean; // 0x1000: 1=show water waves on rolling shores
-    // 0x2000: 1=unknown
+    useTerrainFog: boolean;             // 0x2000: 1=custom fog checkbox enabled
     // 0x4000: 1=unknown
     useItemClassificationSystem: boolean; // 0x8000: 1=use item classification system
     enableWaterTinting: boolean;        // 0x10000
@@ -233,7 +233,7 @@ export abstract class InfoTranslator extends ITranslator {
             // 0x0400 - unknown;                                                 // map properties menu opened at least once since map creation (?)
             if (infoJson.map.flags.waterWavesOnCliffShores) flags |= 0x0800; // show water waves on cliff shores
             if (infoJson.map.flags.waterWavesOnRollingShores) flags |= 0x1000; // show water waves on rolling shores
-            // 0x2000: 1=unknown
+            if (infoJson.map.flags.useTerrainFog) flags |= 0x2000; // Use Terrain Fog enabled
             // 0x4000: 1=unknown
             if (infoJson.map.flags.useItemClassificationSystem) flags |= 0x8000;
             if (infoJson.map.flags.enableWaterTinting) flags |= 0x10000;
@@ -382,6 +382,7 @@ export abstract class InfoTranslator extends ITranslator {
                     // 0x0400: 1=map properties menu opened at least once since map creation (?)
                     waterWavesOnCliffShores: false, // 0x0800: 1=show water waves on cliff shores
                     waterWavesOnRollingShores: false, // 0x1000: 1=show water waves on rolling shores
+                    useTerrainFog: false, // 0x2000
                     useItemClassificationSystem: false, // 0x8000: 1=use item classification system
                     enableWaterTinting: false, // 0x10000
                     useAccurateProbabilityForCalculations: false, // 0x20000
@@ -484,7 +485,7 @@ export abstract class InfoTranslator extends ITranslator {
             useCustomUpgrades:          !!(flags & 0x0200),
             waterWavesOnCliffShores:    !!(flags & 0x0800),
             waterWavesOnRollingShores:  !!(flags & 0x1000),
-            // skip 0x2000
+            useTerrainFog:              !!(flags & 0x2000),
             // skip 0x4000
             useItemClassificationSystem: !!(flags & 0x8000),
             enableWaterTinting:         !!(flags & 0x10000),
