@@ -25,29 +25,29 @@ interface Camera {
 }
 
 interface MapFlags {
-    hideMinimapInPreview: boolean;      // 0x0001: 1=hide minimap in preview screens
-    modifyAllyPriorities: boolean;      // 0x0002: 1=modify ally priorities
-    isMeleeMap: boolean;                // 0x0004: 1=melee map
-    // 0x0008: 1=playable map size was large and has never been reduced to medium (?)
-    maskedPartiallyVisible: boolean;    // 0x0010: 1=masked area are partially visible
-    fixedPlayerSetting: boolean;        // 0x0020: 1=fixed player setting for custom forces
-    useCustomForces: boolean;           // 0x0040: 1=use custom forces
-    useCustomTechtree: boolean;         // 0x0080: 1=use custom techtree
-    useCustomAbilities: boolean;        // 0x0100: 1=use custom abilities
-    useCustomUpgrades: boolean;         // 0x0200: 1=use custom upgrades
-    // 0x0400: 1=map properties menu opened at least once since map creation (?)
-    waterWavesOnCliffShores: boolean;   // 0x0800: 1=show water waves on cliff shores
-    waterWavesOnRollingShores: boolean; // 0x1000: 1=show water waves on rolling shores
-    useTerrainFog: boolean;             // 0x2000: 1=custom fog checkbox enabled
-    // 0x4000: 1=unknown
+    hideMinimapInPreview: boolean;        // 0x1: 1=hide minimap in preview screens
+    modifyAllyPriorities: boolean;        // 0x2: 1=modify ally priorities
+    isMeleeMap: boolean;                  // 0x4: 1=melee map
+    // unknown                            // 0x8: 1=playable map size was large and has never been reduced to medium (?)
+    maskedPartiallyVisible: boolean;      // 0x10: 1=masked area are partially visible
+    fixedPlayerSetting: boolean;          // 0x20: 1=fixed player setting for custom forces
+    useCustomForces: boolean;             // 0x40: 1=use custom forces
+    useCustomTechtree: boolean;           // 0x80: 1=use custom techtree
+    useCustomAbilities: boolean;          // 0x100: 1=use custom abilities
+    useCustomUpgrades: boolean;           // 0x200: 1=use custom upgrades
+    // unknown                            // 0x400: 1=map properties menu opened at least once since map creation (?)
+    waterWavesOnCliffShores: boolean;     // 0x800: 1=show water waves on cliff shores
+    waterWavesOnRollingShores: boolean;   // 0x1000: 1=show water waves on rolling shores
+    useTerrainFog: boolean;               // 0x2000: 1=custom fog checkbox enabled
+    // unknown                            // 0x4000: 1=unknown
     useItemClassificationSystem: boolean; // 0x8000: 1=use item classification system
-    enableWaterTinting: boolean;        // 0x10000
+    enableWaterTinting: boolean;          // 0x10000
     useAccurateProbabilityForCalculations: boolean; // 0x20000
-    useCustomAbilitySkins: boolean;     // 0x40000
-    disableDenyIcon: boolean; // 0x80000
-    forceDefaultCameraZoom: boolean; // 0x100000
-    forceMaxCameraZoom: boolean; // 0x200000
-    forceMinCameraZoom: boolean; // 0x400000
+    useCustomAbilitySkins: boolean;       // 0x40000
+    disableDenyIcon: boolean;             // 0x80000
+    forceDefaultCameraZoom: boolean;      // 0x100000
+    forceMaxCameraZoom: boolean;          // 0x200000
+    forceMinCameraZoom: boolean;          // 0x400000
 }
 
 interface LoadingScreen {
@@ -94,7 +94,7 @@ interface Info {
     globalWeather: string;
     customSoundEnvironment: string;
     customLightEnv: string;
-    water: number[]; // R G B A
+    water: number[]; // R G B
     players: Player[];
     forces: Force[];
     forceDefaultCameraZoom: number;
@@ -118,12 +118,12 @@ interface Player {
 }
 
 interface ForceFlags {
-    allied: boolean; // 0x00000001: allied (force 1)
-    alliedVictory: boolean; // 0x00000002: allied victory
-    // 0x00000004: share vision (the documentation has this incorrect)
-    shareVision: boolean; // 0x00000008: share vision
-    shareUnitControl: boolean; // 0x00000010: share unit control
-    shareAdvUnitControl: boolean; // 0x00000020: share advanced unit control
+    allied: boolean;              // 0x1: allied (force 1)
+    alliedVictory: boolean;       // 0x2: allied victory
+    // unknown                    // 0x4: share vision (the documentation has this incorrect)
+    shareVision: boolean;         // 0x8: share vision
+    shareUnitControl: boolean;    // 0x10: share unit control
+    shareAdvUnitControl: boolean; // 0x20: share advanced unit control
 }
 
 interface Force {
@@ -220,18 +220,18 @@ export abstract class InfoTranslator extends ITranslator {
          */
         let flags = 0;
         if (infoJson.map.flags) { // can leave out the entire flags object, all flags will default to false
-            if (infoJson.map.flags.hideMinimapInPreview) flags |= 0x0001; // hide minimap in preview screens
-            if (infoJson.map.flags.modifyAllyPriorities) flags |= 0x0002; // modify ally priorities
-            if (infoJson.map.flags.isMeleeMap) flags |= 0x0004; // melee map
-            // 0x0008 - unknown;                                                 // playable map size was large and never reduced to medium (?)
-            if (infoJson.map.flags.maskedPartiallyVisible) flags |= 0x0010; // masked area are partially visible
-            if (infoJson.map.flags.fixedPlayerSetting) flags |= 0x0020; // fixed player setting for custom forces
-            if (infoJson.map.flags.useCustomForces) flags |= 0x0040; // use custom forces
-            if (infoJson.map.flags.useCustomTechtree) flags |= 0x0080; // use custom techtree
-            if (infoJson.map.flags.useCustomAbilities) flags |= 0x0100; // use custom abilities
-            if (infoJson.map.flags.useCustomUpgrades) flags |= 0x0200; // use custom upgrades
+            if (infoJson.map.flags.hideMinimapInPreview) flags |= 0x1; // hide minimap in preview screens
+            if (infoJson.map.flags.modifyAllyPriorities) flags |= 0x2; // modify ally priorities
+            if (infoJson.map.flags.isMeleeMap) flags |= 0x4; // melee map
+            // 0x8 - unknown;                                                 // playable map size was large and never reduced to medium (?)
+            if (infoJson.map.flags.maskedPartiallyVisible) flags |= 0x10; // masked area are partially visible
+            if (infoJson.map.flags.fixedPlayerSetting) flags |= 0x20; // fixed player setting for custom forces
+            if (infoJson.map.flags.useCustomForces) flags |= 0x40; // use custom forces
+            if (infoJson.map.flags.useCustomTechtree) flags |= 0x80; // use custom techtree
+            if (infoJson.map.flags.useCustomAbilities) flags |= 0x100; // use custom abilities
+            if (infoJson.map.flags.useCustomUpgrades) flags |= 0x200; // use custom upgrades
             // 0x0400 - unknown;                                                 // map properties menu opened at least once since map creation (?)
-            if (infoJson.map.flags.waterWavesOnCliffShores) flags |= 0x0800; // show water waves on cliff shores
+            if (infoJson.map.flags.waterWavesOnCliffShores) flags |= 0x800; // show water waves on cliff shores
             if (infoJson.map.flags.waterWavesOnRollingShores) flags |= 0x1000; // show water waves on rolling shores
             if (infoJson.map.flags.useTerrainFog) flags |= 0x2000; // Use Terrain Fog enabled
             // 0x4000: 1=unknown
@@ -248,9 +248,8 @@ export abstract class InfoTranslator extends ITranslator {
         // Unknown, but these seem to always be on, at least for default maps
         flags |= 0x8000;
         flags |= 0x4000;
-        flags |= 0x0400;
-
-        outBufferToWar.addInt(flags); // Add flags
+        flags |= 0x400;
+        outBufferToWar.addInt(flags);
 
         // Map main ground type
         outBufferToWar.addChar(infoJson.map.mainTileType);
@@ -281,7 +280,6 @@ export abstract class InfoTranslator extends ITranslator {
         outBufferToWar.addByte(infoJson.fog.color[2]);
         outBufferToWar.addByte(255); // Fog alpha - World Editor removed this field, but the byte is still needed
 
-        // Misc.
         // If globalWeather is not defined or is set to 'none', use 0 sentinel value, else add char[4]
         if (!infoJson.globalWeather || infoJson.globalWeather.toLowerCase() === 'none') {
             outBufferToWar.addInt(0);
@@ -326,12 +324,12 @@ export abstract class InfoTranslator extends ITranslator {
         infoJson.forces.forEach((force) => {
             // Calculate flags
             let forceFlags = 0;
-            if (force.flags.allied) forceFlags |= 0x0001;
-            if (force.flags.alliedVictory) forceFlags |= 0x0002;
-            // Skip 0x0004
-            if (force.flags.shareVision) forceFlags |= 0x0008;
-            if (force.flags.shareUnitControl) forceFlags |= 0x0010;
-            if (force.flags.shareAdvUnitControl) forceFlags |= 0x0020;
+            if (force.flags.allied) forceFlags |= 0x1;
+            if (force.flags.alliedVictory) forceFlags |= 0x2;
+            // Skip 0x4
+            if (force.flags.shareVision) forceFlags |= 0x8;
+            if (force.flags.shareUnitControl) forceFlags |= 0x10;
+            if (force.flags.shareAdvUnitControl) forceFlags |= 0x20;
 
             outBufferToWar.addInt(forceFlags);
             outBufferToWar.addInt(force.players);
@@ -369,18 +367,18 @@ export abstract class InfoTranslator extends ITranslator {
                 },
                 mainTileType: '',
                 flags: {
-                    hideMinimapInPreview: false, // 0x0001: 1=hide minimap in preview screens
-                    modifyAllyPriorities: true, // 0x0002: 1=modify ally priorities
-                    isMeleeMap: false, // 0x0004: 1=melee map
-                    // 0x0008: 1=playable map size was large and has never been reduced to medium (?)
+                    hideMinimapInPreview: false, // 0x1: 1=hide minimap in preview screens
+                    modifyAllyPriorities: true, // 0x2: 1=modify ally priorities
+                    isMeleeMap: false, // 0x4: 1=melee map
+                    // 0x8: 1=playable map size was large and has never been reduced to medium (?)
                     maskedPartiallyVisible: false, // 0x0010: 1=masked area are partially visible
-                    fixedPlayerSetting: false, // 0x0020: 1=fixed player setting for custom forces
-                    useCustomForces: false, // 0x0040: 1=use custom forces
-                    useCustomTechtree: false, // 0x0080: 1=use custom techtree
-                    useCustomAbilities: false, // 0x0100: 1=use custom abilities
-                    useCustomUpgrades: false, // 0x0200: 1=use custom upgrades
-                    // 0x0400: 1=map properties menu opened at least once since map creation (?)
-                    waterWavesOnCliffShores: false, // 0x0800: 1=show water waves on cliff shores
+                    fixedPlayerSetting: false, // 0x20: 1=fixed player setting for custom forces
+                    useCustomForces: false, // 0x40: 1=use custom forces
+                    useCustomTechtree: false, // 0x80: 1=use custom techtree
+                    useCustomAbilities: false, // 0x100: 1=use custom abilities
+                    useCustomUpgrades: false, // 0x200: 1=use custom upgrades
+                    // 0x400: 1=map properties menu opened at least once since map creation (?)
+                    waterWavesOnCliffShores: false, // 0x800: 1=show water waves on cliff shores
                     waterWavesOnRollingShores: false, // 0x1000: 1=show water waves on rolling shores
                     useTerrainFog: false, // 0x2000
                     useItemClassificationSystem: false, // 0x8000: 1=use item classification system
@@ -399,25 +397,26 @@ export abstract class InfoTranslator extends ITranslator {
                 text: '',
                 title: '',
                 subtitle: ''
-            }, prologue: {
+            },
+            prologue: {
                 path: '',
                 text: '',
                 title: '',
                 subtitle: ''
-            }, fog: {
+            },
+            fog: {
                 type: FogType.Linear,
                 startHeight: 0,
                 endHeight: 0,
                 density: 0,
                 color: [0, 0, 0]
-            }, camera: {
+            },
+            camera: {
                 bounds: [],
                 complements: []
-            }, players: [
-
-            ], forces: [
-
-            ],
+            },
+            players: [],
+            forces: [],
             saves: 0,
             editorVersion: 0,
             gameDataVersion: GameDataVersion.TFT,
@@ -473,28 +472,29 @@ export abstract class InfoTranslator extends ITranslator {
 
         const flags = outBufferToJSON.readInt();
         result.map.flags = {
-            hideMinimapInPreview:       !!(flags & 0x0001),
-            modifyAllyPriorities:       !!(flags & 0x0002),
-            isMeleeMap:                 !!(flags & 0x0004),
-            // skip 0x008
-            maskedPartiallyVisible:     !!(flags & 0x0010),
-            fixedPlayerSetting:         !!(flags & 0x0020),
-            useCustomForces:            !!(flags & 0x0040),
-            useCustomTechtree:          !!(flags & 0x0080),
-            useCustomAbilities:         !!(flags & 0x0100),
-            useCustomUpgrades:          !!(flags & 0x0200),
-            waterWavesOnCliffShores:    !!(flags & 0x0800),
-            waterWavesOnRollingShores:  !!(flags & 0x1000),
-            useTerrainFog:              !!(flags & 0x2000),
+            hideMinimapInPreview:        !!(flags & 0x1),
+            modifyAllyPriorities:        !!(flags & 0x2),
+            isMeleeMap:                  !!(flags & 0x4),
+            // skip 0x8
+            maskedPartiallyVisible:      !!(flags & 0x10),
+            fixedPlayerSetting:          !!(flags & 0x20),
+            useCustomForces:             !!(flags & 0x40),
+            useCustomTechtree:           !!(flags & 0x80),
+            useCustomAbilities:          !!(flags & 0x100),
+            useCustomUpgrades:           !!(flags & 0x200),
+            // skip 0x400
+            waterWavesOnCliffShores:     !!(flags & 0x800),
+            waterWavesOnRollingShores:   !!(flags & 0x1000),
+            useTerrainFog:               !!(flags & 0x2000),
             // skip 0x4000
             useItemClassificationSystem: !!(flags & 0x8000),
-            enableWaterTinting:         !!(flags & 0x10000),
+            enableWaterTinting:          !!(flags & 0x10000),
             useAccurateProbabilityForCalculations: !!(flags & 0x20000),
-            useCustomAbilitySkins:      !!(flags & 0x40000),
-            disableDenyIcon:            !!(flags & 0x80000),
-            forceDefaultCameraZoom:     !!(flags & 0x100000),
-            forceMaxCameraZoom:         !!(flags & 0x200000),
-            forceMinCameraZoom:         !!(flags & 0x400000)
+            useCustomAbilitySkins:       !!(flags & 0x40000),
+            disableDenyIcon:             !!(flags & 0x80000),
+            forceDefaultCameraZoom:      !!(flags & 0x100000),
+            forceMaxCameraZoom:          !!(flags & 0x200000),
+            forceMinCameraZoom:          !!(flags & 0x400000)
         };
 
         result.map.mainTileType = outBufferToJSON.readChars();
@@ -552,7 +552,7 @@ export abstract class InfoTranslator extends ITranslator {
             player.type = outBufferToJSON.readInt();
             player.race = outBufferToJSON.readInt();
 
-            const isPlayerStartPositionFixed: boolean = outBufferToJSON.readInt() === 1; // 00000001 = fixed start position
+            const isPlayerStartPositionFixed: boolean = outBufferToJSON.readInt() === 1; // 1 = fixed start position
 
             player.name = outBufferToJSON.readString();
             player.startingPos = {
@@ -580,12 +580,12 @@ export abstract class InfoTranslator extends ITranslator {
 
             const forceFlag = outBufferToJSON.readInt();
             force.flags = {
-                allied: !!(forceFlag & 0b1), // 0x00000001: allied (force 1)
-                alliedVictory: !!(forceFlag & 0b10), // 0x00000002: allied victory
-                // 0x00000004: share vision (the documentation has this incorrect)
-                shareVision: !!(forceFlag & 0b1000), // 0x00000008: share vision
-                shareUnitControl: !!(forceFlag & 0b10000), // 0x00000010: share unit control
-                shareAdvUnitControl: !!(forceFlag & 0b100000) // 0x00000020: share advanced unit control
+                allied:              !!(forceFlag & 0x1),
+                alliedVictory:       !!(forceFlag & 0x2),
+                // skip 0x4
+                shareVision:         !!(forceFlag & 0x8),
+                shareUnitControl:    !!(forceFlag & 0x10),
+                shareAdvUnitControl: !!(forceFlag & 0x20)
             };
             force.players = outBufferToJSON.readInt(); // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force; but carried over for accurate translation
             force.name = outBufferToJSON.readString();
