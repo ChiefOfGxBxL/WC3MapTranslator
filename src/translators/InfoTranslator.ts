@@ -63,7 +63,7 @@ interface Fog {
     startHeight: number;
     endHeight: number;
     density: number;
-    color: number[]; // R G B A
+    color: number[]; // R G B
 }
 
 interface PlayableMapArea {
@@ -279,7 +279,7 @@ export abstract class InfoTranslator extends ITranslator {
         outBufferToWar.addByte(infoJson.fog.color[0]);
         outBufferToWar.addByte(infoJson.fog.color[1]);
         outBufferToWar.addByte(infoJson.fog.color[2]);
-        outBufferToWar.addByte(255); // Fog alpha - unsupported
+        outBufferToWar.addByte(255); // Fog alpha - World Editor removed this field, but the byte is still needed
 
         // Misc.
         // If globalWeather is not defined or is set to 'none', use 0 sentinel value, else add char[4]
@@ -518,8 +518,9 @@ export abstract class InfoTranslator extends ITranslator {
             startHeight: outBufferToJSON.readFloat(),
             endHeight: outBufferToJSON.readFloat(),
             density: outBufferToJSON.readFloat(),
-            color: [outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte()] // R G B A
+            color: [outBufferToJSON.readByte(), outBufferToJSON.readByte(), outBufferToJSON.readByte()] // R G B
         };
+        outBufferToJSON.readByte(); // consume the fog.color alpha byte (World Editor removed field, but byte is still there)
 
         result.globalWeather = outBufferToJSON.readChars(4);
         result.customSoundEnvironment = outBufferToJSON.readString();
