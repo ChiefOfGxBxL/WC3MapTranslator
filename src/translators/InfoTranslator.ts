@@ -102,6 +102,7 @@ interface Info {
     forceMaxCameraZoom: number;
     forceMinCameraZoom: number;
     upgrades: Upgrade[];
+    techtree: Techtree[];
 }
 
 interface PlayerStartingPosition {
@@ -137,6 +138,11 @@ interface Force {
     flags: ForceFlags;
     players: PlayerArray;
     name: string;
+}
+
+interface Techtree {
+    players: PlayerArray;
+    id: string; // this can be an item, unit or ability
 }
 
 interface Upgrade {
@@ -367,8 +373,12 @@ export abstract class InfoTranslator extends ITranslator {
             outBufferToWar.addInt(upgrade.availability);
         });
 
-        // Tech availability - unsupported
-        outBufferToWar.addInt(0);
+        // Tech availability
+        outBufferToWar.addInt(infoJson.techtree.length);
+        infoJson.techtree.forEach((techtree) => {
+            outBufferToWar.addInt(toPlayerBitfield(techtree.players));
+            outBufferToWar.addChars(techtree.id);
+        });
 
         // Unit table (random) - unsupported
         outBufferToWar.addInt(0);
@@ -446,6 +456,7 @@ export abstract class InfoTranslator extends ITranslator {
             players: [],
             forces: [],
             upgrades: [],
+            techtree: [],
             saves: 0,
             editorVersion: 0,
             gameDataVersion: GameDataVersion.TFT,
@@ -619,11 +630,13 @@ export abstract class InfoTranslator extends ITranslator {
             result.upgrades.push({ id, players, level, availability });
         }
 
-        // UNSUPPORTED: Struct: tech avail.
+        // Struct: tech availability
         const numTech = outBufferToJSON.readInt();
         for (let i = 0; i < numTech; i++) {
-            outBufferToJSON.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
-            outBufferToJSON.readChars(4); // tech id (this can be an item, unit or ability)
+            const players = fromPlayerBitfield(outBufferToJSON.readInt());
+            const id = outBufferToJSON.readChars(4);
+
+            result.techtree.push({ players, id });
         }
 
         // UNSUPPORTED: Struct: random unit table
