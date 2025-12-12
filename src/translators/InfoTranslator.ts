@@ -103,6 +103,7 @@ interface Info {
     forceMinCameraZoom: number;
     upgrades: Upgrade[];
     techtree: Techtree[];
+    randomItemTable: RandomItemTable[];
 }
 
 interface PlayerStartingPosition {
@@ -138,6 +139,17 @@ interface Force {
     flags: ForceFlags;
     players: PlayerArray;
     name: string;
+}
+
+interface RandomItem {
+    chance: number;
+    id: string;
+}
+
+interface RandomItemTable {
+    number: number;
+    name: string;
+    sets: RandomItem[][];
 }
 
 interface Techtree {
@@ -383,8 +395,20 @@ export abstract class InfoTranslator extends ITranslator {
         // Unit table (random) - unsupported
         outBufferToWar.addInt(0);
 
-        // Item table (random) - unsupported
-        outBufferToWar.addInt(0);
+        // Item table (random)
+        outBufferToWar.addInt(infoJson.randomItemTable.length);
+        infoJson.randomItemTable.forEach((itemTable) => {
+            outBufferToWar.addInt(itemTable.number);
+            outBufferToWar.addString(itemTable.name);
+            outBufferToWar.addInt(itemTable.sets.length);
+            itemTable.sets.forEach((itemSet) => {
+                outBufferToWar.addInt(itemSet.length);
+                itemSet.forEach((item) => {
+                    outBufferToWar.addInt(item.chance);
+                    outBufferToWar.addChars(item.id);
+                });
+            });
+        });
 
         return {
             errors: [],
@@ -457,6 +481,7 @@ export abstract class InfoTranslator extends ITranslator {
             forces: [],
             upgrades: [],
             techtree: [],
+            randomItemTable: [],
             saves: 0,
             editorVersion: 0,
             gameDataVersion: GameDataVersion.TFT,
@@ -657,20 +682,28 @@ export abstract class InfoTranslator extends ITranslator {
             }
         }
 
-        // UNSUPPORTED: Struct: random item table
+        // Struct: random item table
         const numItemTable = outBufferToJSON.readInt();
         for (let i = 0; i < numItemTable; i++) {
-            outBufferToJSON.readInt(); // Table number
-            outBufferToJSON.readString(); // Table name
+            const number = outBufferToJSON.readInt();
+            const name = outBufferToJSON.readString();
+            const sets: RandomItem[][] = [];
 
-            const itemSetsCurrentTable = outBufferToJSON.readInt(); // Number "m" of item sets on the current item table
+            const itemSetsCurrentTable = outBufferToJSON.readInt(); // Number of sets in item table
             for (let j = 0; j < itemSetsCurrentTable; j++) {
-                const itemsInItemSet = outBufferToJSON.readInt(); // Number "i" of items on the current item set
+                const itemSet: RandomItem[] = [];
+                const itemsInItemSet = outBufferToJSON.readInt(); // Number of items in set
                 for (let k = 0; k < itemsInItemSet; k++) {
-                    outBufferToJSON.readInt(); // Percentual chance
-                    outBufferToJSON.readChars(4); // Item id (as in ItemData.slk)
+                    const chance = outBufferToJSON.readInt(); // Percentual chance
+                    const itemId = outBufferToJSON.readChars(4); // Item id (as in ItemData.slk)
+
+                    itemSet.push({ chance, id: itemId });
                 }
+
+                sets.push(itemSet);
             }
+
+            result.randomItemTable.push({ name, number, sets });
         }
 
         return {
