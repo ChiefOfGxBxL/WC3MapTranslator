@@ -101,6 +101,7 @@ interface Info {
     forceDefaultCameraZoom: number;
     forceMaxCameraZoom: number;
     forceMinCameraZoom: number;
+    upgrades: Upgrade[];
 }
 
 interface PlayerStartingPosition {
@@ -136,6 +137,19 @@ interface Force {
     flags: ForceFlags;
     players: PlayerArray;
     name: string;
+}
+
+interface Upgrade {
+    players: PlayerArray;
+    id: string;
+    level: number; // 0-based index
+    availability: UpgradeAvailability;
+}
+
+enum UpgradeAvailability {
+    Unavailable = 0,
+    Available,
+    Researched
 }
 
 enum PlayerType {
@@ -188,6 +202,7 @@ export abstract class InfoTranslator extends ITranslator {
     public static readonly GameDataVersion = GameDataVersion;
     public static readonly ScriptLanguage = ScriptLanguage;
     public static readonly SupportedModes = SupportedModes;
+    public static readonly UpgradeAvailability = UpgradeAvailability;
 
     public static jsonToWar(infoJson: Info): WarResult {
         const outBufferToWar = new HexBuffer();
@@ -343,8 +358,14 @@ export abstract class InfoTranslator extends ITranslator {
             outBufferToWar.addString(force.name);
         });
 
-        // Upgrades - unsupported
-        outBufferToWar.addInt(0);
+        // Upgrades
+        outBufferToWar.addInt(infoJson.upgrades.length);
+        infoJson.upgrades.forEach((upgrade) => {
+            outBufferToWar.addInt(toPlayerBitfield(upgrade.players));
+            outBufferToWar.addChars(upgrade.id);
+            outBufferToWar.addInt(upgrade.level);
+            outBufferToWar.addInt(upgrade.availability);
+        });
 
         // Tech availability - unsupported
         outBufferToWar.addInt(0);
@@ -424,6 +445,7 @@ export abstract class InfoTranslator extends ITranslator {
             },
             players: [],
             forces: [],
+            upgrades: [],
             saves: 0,
             editorVersion: 0,
             gameDataVersion: GameDataVersion.TFT,
@@ -586,13 +608,15 @@ export abstract class InfoTranslator extends ITranslator {
             result.forces.push({ name, flags, players });
         }
 
-        // UNSUPPORTED: Struct: upgrade avail.
+        // Struct: upgrade availability
         const numUpgrades = outBufferToJSON.readInt();
         for (let i = 0; i < numUpgrades; i++) {
-            outBufferToJSON.readInt(); // Player Flags (bit "x"=1 if this change applies for player "x")
-            outBufferToJSON.readChars(4); // upgrade id (as in UpgradeData.slk)
-            outBufferToJSON.readInt(); // Level of the upgrade for which the availability is changed (this is actually the level - 1, so 1 => 0)
-            outBufferToJSON.readInt(); // Availability (0 = unavailable, 1 = available, 2 = researched)
+            const players = fromPlayerBitfield(outBufferToJSON.readInt());
+            const id = outBufferToJSON.readChars(4); // see UpgradeData.slk
+            const level = outBufferToJSON.readInt(); // Level of upgrade being modified, 0-based index
+            const availability: UpgradeAvailability = outBufferToJSON.readInt();
+
+            result.upgrades.push({ id, players, level, availability });
         }
 
         // UNSUPPORTED: Struct: tech avail.
