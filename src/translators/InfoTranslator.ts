@@ -730,6 +730,8 @@ export abstract class InfoTranslator extends ITranslator {
 
                 group.rows.push({ chance, entries });
             }
+
+            result.randomGroupTable.push(group);
         }
 
         // Struct: random item table
