@@ -1,6 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { fromPlayerBitfield, toPlayerBitfield, PlayerArray } from '../PlayerBitfield';
 
 interface Map {
     name: string;
@@ -115,6 +116,11 @@ interface Player {
 
     name: string;
     startingPos: PlayerStartingPosition;
+
+    allyLowPriorityFlags: PlayerArray;
+    allyHighPriorityFlags: PlayerArray;
+    enemyLowPriorityFlags: PlayerArray;
+    enemyHighPriorityFlags: PlayerArray;
 }
 
 interface ForceFlags {
@@ -313,10 +319,10 @@ export abstract class InfoTranslator extends ITranslator {
             outBufferToWar.addString(player.name);
             outBufferToWar.addFloat(player.startingPos.x);
             outBufferToWar.addFloat(player.startingPos.y);
-            outBufferToWar.addInt(0); // ally low prio flags - unsupported
-            outBufferToWar.addInt(0); // ally high prio flags - unsupported
-            outBufferToWar.addInt(0); // enemy low prio flags - unsupported
-            outBufferToWar.addInt(0); // enemy high prio flags - unsupported
+            outBufferToWar.addInt(toPlayerBitfield(player.allyLowPriorityFlags));
+            outBufferToWar.addInt(toPlayerBitfield(player.allyHighPriorityFlags));
+            outBufferToWar.addInt(toPlayerBitfield(player.enemyLowPriorityFlags));
+            outBufferToWar.addInt(toPlayerBitfield(player.enemyHighPriorityFlags));
         });
 
         // Forces
@@ -540,33 +546,25 @@ export abstract class InfoTranslator extends ITranslator {
         // Struct: players
         const numPlayers = outBufferToJSON.readInt();
         for (let i = 0; i < numPlayers; i++) {
-            const player: Player = {
-                name: '',
-                startingPos: { x: 0, y: 0, fixed: false },
-                playerNum: 0,
-                type: PlayerType.Human,
-                race: PlayerRace.Human
-            };
+            const playerNum = outBufferToJSON.readInt();
+            const type = outBufferToJSON.readInt();
+            const race = outBufferToJSON.readInt();
 
-            player.playerNum = outBufferToJSON.readInt();
-            player.type = outBufferToJSON.readInt();
-            player.race = outBufferToJSON.readInt();
+            const isFixedStartPosition: boolean = outBufferToJSON.readInt() === 1;
 
-            const isPlayerStartPositionFixed: boolean = outBufferToJSON.readInt() === 1; // 1 = fixed start position
-
-            player.name = outBufferToJSON.readString();
-            player.startingPos = {
+            const name = outBufferToJSON.readString();
+            const startingPos = {
                 x: outBufferToJSON.readFloat(),
                 y: outBufferToJSON.readFloat(),
-                fixed: isPlayerStartPositionFixed
+                fixed: isFixedStartPosition
             };
 
-            outBufferToJSON.readInt(); // ally low priorities flags (bit "x"=1 --> set for player "x")
-            outBufferToJSON.readInt(); // ally high priorities flags (bit "x"=1 --> set for player "x")
-            outBufferToJSON.readInt(); // enemy low priorities flags
-            outBufferToJSON.readInt(); // enemy high priorities flags
+            const allyLowPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt());
+            const allyHighPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt());
+            const enemyLowPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt());
+            const enemyHighPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt());
 
-            result.players.push(player);
+            result.players.push({ name, startingPos, playerNum, type, race, allyLowPriorityFlags, allyHighPriorityFlags, enemyLowPriorityFlags, enemyHighPriorityFlags });
         }
 
         // Struct: forces
