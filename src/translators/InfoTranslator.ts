@@ -121,10 +121,10 @@ interface Player {
     name: string;
     startingPos: PlayerStartingPosition;
 
-    allyLowPriorityFlags: PlayerArray;
-    allyHighPriorityFlags: PlayerArray;
-    enemyLowPriorityFlags: PlayerArray;
-    enemyHighPriorityFlags: PlayerArray;
+    allyLowPriorityFlags?: PlayerArray;
+    allyHighPriorityFlags?: PlayerArray;
+    enemyLowPriorityFlags?: PlayerArray;
+    enemyHighPriorityFlags?: PlayerArray;
 }
 
 interface ForceFlags {
@@ -361,6 +361,8 @@ export abstract class InfoTranslator extends ITranslator {
         outBufferToWar.addInt(infoJson.forceMaxCameraZoom);
         outBufferToWar.addInt(infoJson.forceMinCameraZoom);
 
+        const availablePlayerNums = infoJson.players.map((player) => player.playerNum);
+
         // Players
         outBufferToWar.addInt(infoJson.players.length);
         for (const player of infoJson.players) {
@@ -371,16 +373,18 @@ export abstract class InfoTranslator extends ITranslator {
             outBufferToWar.addString(player.name);
             outBufferToWar.addFloat(player.startingPos.x);
             outBufferToWar.addFloat(player.startingPos.y);
-            outBufferToWar.addInt(toPlayerBitfield(player.allyLowPriorityFlags));
-            outBufferToWar.addInt(toPlayerBitfield(player.allyHighPriorityFlags));
-            outBufferToWar.addInt(toPlayerBitfield(player.enemyLowPriorityFlags));
-            outBufferToWar.addInt(toPlayerBitfield(player.enemyHighPriorityFlags));
+            outBufferToWar.addInt(toPlayerBitfield(player.allyLowPriorityFlags || [], availablePlayerNums));
+            outBufferToWar.addInt(toPlayerBitfield(player.allyHighPriorityFlags || [], availablePlayerNums));
+            outBufferToWar.addInt(toPlayerBitfield(player.enemyLowPriorityFlags || [], availablePlayerNums));
+            outBufferToWar.addInt(toPlayerBitfield(player.enemyHighPriorityFlags || [], availablePlayerNums));
         }
 
         // Forces
         outBufferToWar.addInt(infoJson.forces.length);
         // TODO: if forces is [], write special value of `force.players = -1`
-        for (const force of infoJson.forces) {
+        for (let i = 0; i < infoJson.forces.length; i++) {
+            const force = infoJson.forces[i];
+
             // Calculate flags
             let forceFlags = 0;
             if (force.flags.allied) forceFlags |= 0x1;
@@ -391,14 +395,30 @@ export abstract class InfoTranslator extends ITranslator {
             if (force.flags.shareAdvUnitControl) forceFlags |= 0x20;
 
             outBufferToWar.addInt(forceFlags);
-            outBufferToWar.addInt(toPlayerBitfield(force.players));
+
+            // Players on force
+            // The first force always contains "1" bits for all the players that don't exist (special case)
+            // E.g. in a 4-player map w/ [Red, Blue, Teal, Purple], force 1 will "contain" Yellow, Orange, etc.
+            let forcePlayerBitfield = toPlayerBitfield(force.players, availablePlayerNums);
+            if (i === 0) {
+                // `Set.difference` would be easier but not working, even with ESNext, so remove each existing player via filtering
+                const nonExistentPlayerNums = new Set(
+                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+                        .filter((playerNum) => !availablePlayerNums.includes(playerNum))
+                );
+                for (const nonExistentPlayerNum of nonExistentPlayerNums) {
+                    forcePlayerBitfield |= (0b1 << nonExistentPlayerNum);
+                }
+            }
+            outBufferToWar.addInt(forcePlayerBitfield);
+
             outBufferToWar.addString(force.name);
         }
 
         // Upgrades
         outBufferToWar.addInt(infoJson.upgrades.length);
         for (const upgrade of infoJson.upgrades) {
-            outBufferToWar.addInt(toPlayerBitfield(upgrade.players));
+            outBufferToWar.addInt(toPlayerBitfield(upgrade.players, availablePlayerNums));
             outBufferToWar.addChars(upgrade.id);
             outBufferToWar.addInt(upgrade.level);
             outBufferToWar.addInt(upgrade.availability);
@@ -407,7 +427,7 @@ export abstract class InfoTranslator extends ITranslator {
         // Tech availability
         outBufferToWar.addInt(infoJson.techtree.length);
         for (const techtree of infoJson.techtree) {
-            outBufferToWar.addInt(toPlayerBitfield(techtree.players));
+            outBufferToWar.addInt(toPlayerBitfield(techtree.players, availablePlayerNums));
             outBufferToWar.addChars(techtree.id);
         }
 
@@ -657,16 +677,19 @@ export abstract class InfoTranslator extends ITranslator {
                 fixed: isFixedStartPosition
             };
 
-            const allyLowPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt());
-            const allyHighPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt());
-            const enemyLowPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt());
-            const enemyHighPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt());
+            const allyLowPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt(), undefined);
+            const allyHighPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt(), undefined);
+            const enemyLowPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt(), undefined);
+            const enemyHighPriorityFlags = fromPlayerBitfield(outBufferToJSON.readInt(), undefined);
 
             result.players.push({ name, startingPos, playerNum, type, race, allyLowPriorityFlags, allyHighPriorityFlags, enemyLowPriorityFlags, enemyHighPriorityFlags });
         }
 
+        const availablePlayerNums = result.players.map((player) => player.playerNum);
+
         // Struct: forces
         const numForces = outBufferToJSON.readInt();
+        // TODO: handle case when custom forces is off (players = -1)
         for (let i = 0; i < numForces; i++) {
             const forceFlag = outBufferToJSON.readInt();
             const flags: ForceFlags = {
@@ -677,7 +700,7 @@ export abstract class InfoTranslator extends ITranslator {
                 shareUnitControl:    !!(forceFlag & 0x10),
                 shareAdvUnitControl: !!(forceFlag & 0x20)
             };
-            const players = fromPlayerBitfield(outBufferToJSON.readInt());
+            const players = fromPlayerBitfield(outBufferToJSON.readInt(), availablePlayerNums);
             const name = outBufferToJSON.readString();
 
             result.forces.push({ name, flags, players });
@@ -686,7 +709,7 @@ export abstract class InfoTranslator extends ITranslator {
         // Struct: upgrade availability
         const numUpgrades = outBufferToJSON.readInt();
         for (let i = 0; i < numUpgrades; i++) {
-            const players = fromPlayerBitfield(outBufferToJSON.readInt());
+            const players = fromPlayerBitfield(outBufferToJSON.readInt(), availablePlayerNums);
             const id = outBufferToJSON.readChars(4); // see UpgradeData.slk
             const level = outBufferToJSON.readInt(); // Level of upgrade being modified, 0-based index
             const availability: UpgradeAvailability = outBufferToJSON.readInt();
@@ -697,7 +720,7 @@ export abstract class InfoTranslator extends ITranslator {
         // Struct: tech availability
         const numTech = outBufferToJSON.readInt();
         for (let i = 0; i < numTech; i++) {
-            const players = fromPlayerBitfield(outBufferToJSON.readInt());
+            const players = fromPlayerBitfield(outBufferToJSON.readInt(), availablePlayerNums);
             const id = outBufferToJSON.readChars(4);
 
             result.techtree.push({ players, id });
