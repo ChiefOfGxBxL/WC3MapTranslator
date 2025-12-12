@@ -144,20 +144,20 @@ export abstract class ObjectsTranslator extends ITranslator {
             outBufferToWar.addInt(0);
             outBufferToWar.addInt(object.modifications.length);
 
-            object.modifications.forEach((mod: Modification) => {
+            for (const mod of object.modifications) {
                 writeModification(
                     mod,
                     object.customId ? TableType.custom : TableType.original,
                     object.originalId
                 );
-            });
+            }
         };
 
         const writeTable = (tableType: TableType) => {
             const tableData = json[tableType === TableType.original ? 'original' : 'custom'];
 
             outBufferToWar.addInt(Object.keys(tableData).length);
-            Object.keys(tableData).forEach((objectId) => {
+            for (const objectId of Object.keys(tableData)) {
                 let originalId = '';
                 let customId = '';
 
@@ -172,7 +172,7 @@ export abstract class ObjectsTranslator extends ITranslator {
                     customId,
                     modifications: tableData[objectId]
                 });
-            });
+            }
         };
 
         writeTable(TableType.original);
