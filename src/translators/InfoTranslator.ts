@@ -103,6 +103,7 @@ interface Info {
     forceMinCameraZoom: number;
     upgrades: Upgrade[];
     techtree: Techtree[];
+    randomGroupTable: RandomGroupTable[];
     randomItemTable: RandomItemTable[];
 }
 
@@ -150,6 +151,18 @@ interface RandomItemTable {
     number: number;
     name: string;
     sets: RandomItem[][];
+}
+
+interface RandomGroupRow {
+    chance: number;
+    entries: string[];
+}
+
+interface RandomGroupTable {
+    number: number;
+    name: string;
+    positions: RandomGroupType[];
+    rows: RandomGroupRow[];
 }
 
 interface Techtree {
@@ -210,6 +223,12 @@ enum SupportedModes {
     SD = 1,
     HD = 2,
     Both = 3
+}
+
+enum RandomGroupType {
+    Unit = 0,
+    Building = 1,
+    Item = 2
 }
 
 export abstract class InfoTranslator extends ITranslator {
@@ -392,8 +411,26 @@ export abstract class InfoTranslator extends ITranslator {
             outBufferToWar.addChars(techtree.id);
         });
 
-        // Unit table (random) - unsupported
-        outBufferToWar.addInt(0);
+        // Random groups
+        outBufferToWar.addInt(infoJson.randomGroupTable.length);
+        infoJson.randomGroupTable.forEach((groupTable) => {
+            outBufferToWar.addInt(groupTable.number);
+            outBufferToWar.addString(groupTable.name);
+            outBufferToWar.addInt(groupTable.positions.length);
+
+            groupTable.positions.forEach((position) => {
+                outBufferToWar.addInt(position);
+            });
+
+            outBufferToWar.addInt(groupTable.rows.length);
+
+            groupTable.rows.forEach((row) => {
+                outBufferToWar.addInt(row.chance);
+                row.entries.forEach((entry) => {
+                    outBufferToWar.addChars(entry);
+                });
+            });
+        });
 
         // Item table (random)
         outBufferToWar.addInt(infoJson.randomItemTable.length);
@@ -481,6 +518,7 @@ export abstract class InfoTranslator extends ITranslator {
             forces: [],
             upgrades: [],
             techtree: [],
+            randomGroupTable: [],
             randomItemTable: [],
             saves: 0,
             editorVersion: 0,
@@ -664,21 +702,32 @@ export abstract class InfoTranslator extends ITranslator {
             result.techtree.push({ players, id });
         }
 
-        // UNSUPPORTED: Struct: random unit table
-        const numUnitTable = outBufferToJSON.readInt();
-        for (let i = 0; i < numUnitTable; i++) {
-            outBufferToJSON.readInt(); // Group number
-            outBufferToJSON.readString(); // Group name
+        // Struct: random group table
+        const numGroupTables = outBufferToJSON.readInt();
+        for (let i = 0; i < numGroupTables; i++) {
+            const group: RandomGroupTable = {
+                number: outBufferToJSON.readInt(),
+                name: outBufferToJSON.readString(),
+                positions: [],
+                rows: []
+            };
 
-            const numPositions = outBufferToJSON.readInt(); // Number "m" of positions
-            for (let j = 0; j < numPositions; j++) {
-                outBufferToJSON.readInt(); // unit table (=0), a building table (=1) or an item table (=2)
+            const numPositions = outBufferToJSON.readInt();
+            for (let i = 0; i < numPositions; i++) {
+                const positionType: RandomGroupType = outBufferToJSON.readInt();
+                group.positions.push(positionType);
+            }
 
-                const numLinesInTable = outBufferToJSON.readInt();
-                for (let k = 0; k < numLinesInTable; k++) {
-                    outBufferToJSON.readInt(); // Chance of the unit/item (percentage)
-                    outBufferToJSON.readChars(4); // unit/item id's for this line specified
+            const numRows = outBufferToJSON.readInt();
+            for (let j = 0; j < numRows; j++) {
+                const chance = outBufferToJSON.readInt();
+
+                const entries = [];
+                for (let i = 0; i < numPositions; i++) {
+                    entries.push(outBufferToJSON.readChars(4)); // id of unit/building/item
                 }
+
+                group.rows.push({ chance, entries });
             }
         }
 
