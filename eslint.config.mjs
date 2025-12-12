@@ -2,6 +2,7 @@
 
 import eslint from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
+import github from 'eslint-plugin-github'
 import { defineConfig, globalIgnores } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
@@ -28,7 +29,9 @@ export default defineConfig(
 
     {
         plugins: {
-            '@stylistic': stylistic
+            '@stylistic': stylistic,
+            // @ts-ignore
+            'github': github
         },
         rules: {
             // ESLint rules: https://eslint.org/docs/latest/rules
@@ -41,10 +44,14 @@ export default defineConfig(
             // TSEslint rules: https://typescript-eslint.io/rules/
             '@typescript-eslint/no-inferrable-types': ['off'], // allow "trivial" types for consistency
             '@typescript-eslint/no-require-imports': 'error',
+            '@typescript-eslint/prefer-for-of': 'error',
 
             // Stylistic rules: https://eslint.style/rules
             '@stylistic/no-multi-spaces': ['off'],
-            '@stylistic/key-spacing': ['off']
+            '@stylistic/key-spacing': ['off'],
+
+            // GitHub rules: https://github.com/github/eslint-plugin-github/tree/main?tab=readme-ov-file#rules
+            'github/array-foreach': 'error'
         }
     }
 );

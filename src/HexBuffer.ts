@@ -36,15 +36,15 @@ export class HexBuffer {
     }
 
     public addChars(chars: string) {
-        chars.split('').forEach((char) => {
+        for (const char of chars.split('')) {
             this.addChar(char);
-        });
+        }
     }
 
     public addInt(int: number, isShort: boolean = false) {
-        intToHex(int, isShort).forEach((Byte) => {
-            this._buffer.push(Byte);
-        });
+        for (const byte of intToHex(int, isShort)) {
+            this._buffer.push(byte);
+        }
     }
 
     public addShort(short: number) {

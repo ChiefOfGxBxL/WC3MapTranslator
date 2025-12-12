@@ -59,17 +59,17 @@ export abstract class TerrainTranslator extends ITranslator {
          * Tiles
          */
         outBufferToWar.addInt(terrainJson.tilePalette.length);
-        terrainJson.tilePalette.forEach((tile) => {
+        for (const tile of terrainJson.tilePalette) {
             outBufferToWar.addChars(tile);
-        });
+        }
 
         /*
          * Cliffs
          */
         outBufferToWar.addInt(terrainJson.cliffTilePalette.length);
-        terrainJson.cliffTilePalette.forEach((cliffTile) => {
+        for (const cliffTile of terrainJson.cliffTilePalette) {
             outBufferToWar.addChars(cliffTile);
-        });
+        }
 
         /*
          * Map size data
