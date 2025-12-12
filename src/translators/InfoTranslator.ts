@@ -363,7 +363,7 @@ export abstract class InfoTranslator extends ITranslator {
 
         // Players
         outBufferToWar.addInt(infoJson.players.length);
-        infoJson.players.forEach((player) => {
+        for (const player of infoJson.players) {
             outBufferToWar.addInt(player.playerNum);
             outBufferToWar.addInt(player.type);
             outBufferToWar.addInt(player.race);
@@ -375,12 +375,12 @@ export abstract class InfoTranslator extends ITranslator {
             outBufferToWar.addInt(toPlayerBitfield(player.allyHighPriorityFlags));
             outBufferToWar.addInt(toPlayerBitfield(player.enemyLowPriorityFlags));
             outBufferToWar.addInt(toPlayerBitfield(player.enemyHighPriorityFlags));
-        });
+        }
 
         // Forces
         outBufferToWar.addInt(infoJson.forces.length);
         // TODO: if forces is [], write special value of `force.players = -1`
-        infoJson.forces.forEach((force) => {
+        for (const force of infoJson.forces) {
             // Calculate flags
             let forceFlags = 0;
             if (force.flags.allied) forceFlags |= 0x1;
@@ -393,59 +393,60 @@ export abstract class InfoTranslator extends ITranslator {
             outBufferToWar.addInt(forceFlags);
             outBufferToWar.addInt(toPlayerBitfield(force.players));
             outBufferToWar.addString(force.name);
-        });
+        }
 
         // Upgrades
         outBufferToWar.addInt(infoJson.upgrades.length);
-        infoJson.upgrades.forEach((upgrade) => {
+        for (const upgrade of infoJson.upgrades) {
             outBufferToWar.addInt(toPlayerBitfield(upgrade.players));
             outBufferToWar.addChars(upgrade.id);
             outBufferToWar.addInt(upgrade.level);
             outBufferToWar.addInt(upgrade.availability);
-        });
+        }
 
         // Tech availability
         outBufferToWar.addInt(infoJson.techtree.length);
-        infoJson.techtree.forEach((techtree) => {
+        for (const techtree of infoJson.techtree) {
             outBufferToWar.addInt(toPlayerBitfield(techtree.players));
             outBufferToWar.addChars(techtree.id);
-        });
+        }
 
         // Random groups
         outBufferToWar.addInt(infoJson.randomGroupTable.length);
-        infoJson.randomGroupTable.forEach((groupTable) => {
+        for (const groupTable of infoJson.randomGroupTable) {
             outBufferToWar.addInt(groupTable.number);
             outBufferToWar.addString(groupTable.name);
             outBufferToWar.addInt(groupTable.positions.length);
 
-            groupTable.positions.forEach((position) => {
+            for (const position of groupTable.positions) {
                 outBufferToWar.addInt(position);
-            });
+            }
 
             outBufferToWar.addInt(groupTable.rows.length);
 
-            groupTable.rows.forEach((row) => {
+            for (const row of groupTable.rows) {
                 outBufferToWar.addInt(row.chance);
-                row.entries.forEach((entry) => {
+                for (const entry of row.entries) {
                     outBufferToWar.addChars(entry);
-                });
-            });
-        });
+                }
+            }
+        }
 
         // Item table (random)
         outBufferToWar.addInt(infoJson.randomItemTable.length);
-        infoJson.randomItemTable.forEach((itemTable) => {
+        for (const itemTable of infoJson.randomItemTable) {
             outBufferToWar.addInt(itemTable.number);
             outBufferToWar.addString(itemTable.name);
+
             outBufferToWar.addInt(itemTable.sets.length);
-            itemTable.sets.forEach((itemSet) => {
+            for (const itemSet of itemTable.sets) {
                 outBufferToWar.addInt(itemSet.length);
-                itemSet.forEach((item) => {
+                for (const item of itemSet) {
                     outBufferToWar.addInt(item.chance);
                     outBufferToWar.addChars(item.id);
-                });
-            });
-        });
+                }
+            }
+        }
 
         return {
             errors: [],
