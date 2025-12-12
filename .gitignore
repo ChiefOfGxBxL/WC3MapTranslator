@@ -14,9 +14,9 @@ dist
 #
 # TypeScript
 #
-**/*d.ts
+**/*.d.ts
 !global.d.ts
-**/*d.ts.map
+**/*.d.ts.map
 **/*js.map
 **/*.js
 .tsbuildinfo
