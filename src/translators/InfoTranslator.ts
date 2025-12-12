@@ -134,7 +134,7 @@ interface ForceFlags {
 
 interface Force {
     flags: ForceFlags;
-    players: number; // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force)
+    players: PlayerArray;
     name: string;
 }
 
@@ -327,6 +327,7 @@ export abstract class InfoTranslator extends ITranslator {
 
         // Forces
         outBufferToWar.addInt(infoJson.forces.length);
+        // TODO: if forces is [], write special value of `force.players = -1`
         infoJson.forces.forEach((force) => {
             // Calculate flags
             let forceFlags = 0;
@@ -338,7 +339,7 @@ export abstract class InfoTranslator extends ITranslator {
             if (force.flags.shareAdvUnitControl) forceFlags |= 0x20;
 
             outBufferToWar.addInt(forceFlags);
-            outBufferToWar.addInt(force.players);
+            outBufferToWar.addInt(toPlayerBitfield(force.players));
             outBufferToWar.addString(force.name);
         });
 
@@ -570,14 +571,8 @@ export abstract class InfoTranslator extends ITranslator {
         // Struct: forces
         const numForces = outBufferToJSON.readInt();
         for (let i = 0; i < numForces; i++) {
-            const force: Force = {
-                flags: { allied: false, alliedVictory: true, shareVision: true, shareUnitControl: false, shareAdvUnitControl: false },
-                players: 0,
-                name: ''
-            };
-
             const forceFlag = outBufferToJSON.readInt();
-            force.flags = {
+            const flags: ForceFlags = {
                 allied:              !!(forceFlag & 0x1),
                 alliedVictory:       !!(forceFlag & 0x2),
                 // skip 0x4
@@ -585,10 +580,10 @@ export abstract class InfoTranslator extends ITranslator {
                 shareUnitControl:    !!(forceFlag & 0x10),
                 shareAdvUnitControl: !!(forceFlag & 0x20)
             };
-            force.players = outBufferToJSON.readInt(); // UNSUPPORTED: (bit "x"=1 --> player "x" is in this force; but carried over for accurate translation
-            force.name = outBufferToJSON.readString();
+            const players = fromPlayerBitfield(outBufferToJSON.readInt());
+            const name = outBufferToJSON.readString();
 
-            result.forces.push(force);
+            result.forces.push({ name, flags, players });
         }
 
         // UNSUPPORTED: Struct: upgrade avail.
