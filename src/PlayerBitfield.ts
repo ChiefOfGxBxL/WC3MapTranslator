@@ -25,8 +25,6 @@ export enum Player {
     Snow = 'snow',
     Emerald = 'emerald',
     Peanut = 'peanut'
-
-    // TODO: neutral hostile, passive, victim, 4th one
 }
 
 const AllPlayerValues = Object.values(Player);
