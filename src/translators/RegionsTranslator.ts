@@ -31,7 +31,7 @@ export abstract class RegionsTranslator extends ITranslator {
         /*
          * Body
          */
-        regionsJson.forEach((region) => {
+        for (const region of regionsJson) {
             // Position
             // Note that the .w3x guide has these coords wrong - the guide swaps bottom and right, but this is incorrect; bottom should be written before right
             outBufferToWar.addFloat(region.position.left);
@@ -65,7 +65,7 @@ export abstract class RegionsTranslator extends ITranslator {
             // End of structure - for some reason the .w3r needs this here;
             // Value is set to 0xff based on observing the .w3r file, but not sure if it could be something else
             outBufferToWar.addByte(0xff);
-        });
+        }
 
         return {
             errors: [],

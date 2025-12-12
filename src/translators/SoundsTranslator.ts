@@ -104,7 +104,7 @@ export abstract class SoundsTranslator extends ITranslator {
         /*
          * Body
          */
-        soundsJson.forEach((sound) => {
+        for (const sound of soundsJson) {
             const isImportedSound = sound.path.startsWith('war3mapImported/');
 
             outBufferToWar.addString('gg_snd_' + sound.variableName); // e.g. gg_snd_HumanGlueScreenLoop1
@@ -174,7 +174,7 @@ export abstract class SoundsTranslator extends ITranslator {
             outBufferToWar.addInt(0);
             outBufferToWar.addByte(0);
             outBufferToWar.addInt(1);
-        });
+        }
 
         return {
             errors: [],

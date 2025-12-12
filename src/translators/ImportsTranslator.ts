@@ -17,10 +17,10 @@ export abstract class ImportsTranslator extends ITranslator {
         /*
          * Body
          */
-        imports.forEach((importedFile) => {
+        for (const importedFile of imports) {
             outBufferToWar.addByte(CurrentPathVersion);
             outBufferToWar.addString(importedFile);
-        });
+        }
 
         return {
             errors: [],

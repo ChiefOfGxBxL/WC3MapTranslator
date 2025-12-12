@@ -53,7 +53,7 @@ suite('Reversions', () => {
     });
 
     suite('Reversion: json -> war -> json', () => {
-        tests.forEach(({ name, jsonFile, translator, objectType }) => {
+        for (const { name, jsonFile, translator, objectType } of tests) {
             test(`should revert ${name}`, () => {
                 const originalJson = readJsonTestFile(jsonFile);
 
@@ -68,11 +68,11 @@ suite('Reversions', () => {
                 writeJsonTestFile(jsonFile, translatedJson);
                 assert.deepStrictEqual(originalJson, translatedJson);
             });
-        });
+        }
     });
 
     suite('Reversion: war -> json -> war', () => {
-        tests.forEach(({ name, warFile, translator, objectType }) => {
+        for (const { name, warFile, translator, objectType } of tests) {
             test(`should revert ${name}`, () => {
                 const originalBuffer = readWar3MapBuffer(warFile);
 
@@ -87,6 +87,6 @@ suite('Reversions', () => {
                 writeWar3TestFile(warFile, translatedBuffer);
                 assert.ok(originalBuffer.equals(translatedBuffer));
             });
-        });
+        }
     });
 });
