@@ -4,10 +4,10 @@ import { fromPlayerBitfield, toPlayerBitfield, PlayerArray, Player } from '../sr
 
 suite('PlayerBitfield', () => {
     test('should convert to bitfield', () => {
-        const tests: { input: PlayerArray, expectedOutput: number }[] = [
+        const tests: { input: PlayerArray; expectedOutput: number }[] = [
             { input: [], expectedOutput: 0 },
             { input: [Player.Red, Player.Teal], expectedOutput: 5 },
-            { input: [Player.Red, Player.Blue, Player.Teal], expectedOutput: 7 },
+            { input: [Player.Red, Player.Blue, Player.Teal], expectedOutput: 7 }
         ];
 
         for (const { input, expectedOutput } of tests) {
@@ -16,10 +16,10 @@ suite('PlayerBitfield', () => {
     });
 
     test('should convert from bitfield', () => {
-        const tests: { input: number, expectedOutput: PlayerArray }[] = [
+        const tests: { input: number; expectedOutput: PlayerArray }[] = [
             { input: 0, expectedOutput: [] },
             { input: 5, expectedOutput: [Player.Red, Player.Teal] },
-            { input: 7, expectedOutput: [Player.Red, Player.Blue, Player.Teal] },
+            { input: 7, expectedOutput: [Player.Red, Player.Blue, Player.Teal] }
         ];
 
         for (const { input, expectedOutput } of tests) {
