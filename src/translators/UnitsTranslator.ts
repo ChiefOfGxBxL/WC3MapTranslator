@@ -183,7 +183,11 @@ export abstract class UnitsTranslator extends ITranslator {
             // Starting location "unit" always has a value of 0 gold
             outBufferToWar.addInt(unit.type === 'sloc' ? 0 : (unit.gold || 12500))
 
-            outBufferToWar.addFloat(unit.targetAcquisition || TargetAcquisition.Normal);
+            // Target acquisition - careful because "0" is a valid value but is falsy
+            outBufferToWar.addFloat((unit.targetAcquisition || unit.targetAcquisition === 0)
+                ? unit.targetAcquisition
+                : TargetAcquisition.Normal
+            );
 
             // Unit hero attributes
             if (!unit.hero) unit.hero = { level: 1, str: 0, agi: 0, int: 0 };
