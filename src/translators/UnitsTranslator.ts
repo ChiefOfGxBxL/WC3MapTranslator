@@ -1,6 +1,52 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
+enum TargetAcquisition {
+    Normal = -1,
+    Camp = -2
+}
+
+enum PlayerNumber {
+    Red,
+    Blue,
+    Teal,
+    Purple,
+    Yellow,
+    Orange,
+    Green,
+    Pink,
+    Gray,
+    LightBlue,
+    DarkGreen,
+    Brown,
+    Maroon,
+    Navy,
+    Turquoise,
+    Violet,
+    Wheat,
+    Peach,
+    Mint,
+    Lavender,
+    Coal,
+    Snow,
+    Emerald,
+    Peanut,
+    NeutralHostile,
+    NeutralXXX, // TODO: victim or extra?
+    NeutralYYY, // TDOO: victim or extra?
+    NeutralPassive
+}
+
+enum ItemClass {
+    Any,
+    Permanent,
+    Charged,
+    PowerUp,
+    Artifact,
+    Purchasable,
+    Campaign,
+    Miscellaneous
+}
 
 interface Unit {
     type: string;
@@ -11,11 +57,11 @@ interface Unit {
     hero: Hero;
     inventory: Inventory[];
     abilities: Abilities[];
-    player: number;
+    player: PlayerNumber;
     hitpoints: number;
     mana: number;
     gold: number;
-    targetAcquisition: number; // (-1 = normal, -2 = camp),
+    targetAcquisition?: TargetAcquisition;
     color: number;
     id: number;
     waygateRegionId?: number;
@@ -40,6 +86,10 @@ interface Abilities {
 }
 
 export abstract class UnitsTranslator extends ITranslator {
+    public static readonly TargetAcquisition = TargetAcquisition;
+    public static readonly PlayerNumber = PlayerNumber;
+    public static readonly ItemClass = ItemClass;
+
     public static jsonToWar(unitsJson: Unit[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -155,7 +205,7 @@ export abstract class UnitsTranslator extends ITranslator {
                 hitpoints: -1,
                 mana: -1,
                 gold: 0,
-                targetAcquisition: -1,
+                targetAcquisition: TargetAcquisition.Normal,
                 color: -1,
                 id: -1
             };
