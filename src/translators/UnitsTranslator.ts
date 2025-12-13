@@ -132,7 +132,7 @@ export abstract class UnitsTranslator extends ITranslator {
             // Required if unit is a gold mine; if unit is not a gold mine, set to default 12500
             outBufferToWar.addInt(unit.gold || 12500);
 
-            outBufferToWar.addFloat(unit.targetAcquisition || 0); // target acquisition
+            outBufferToWar.addFloat(unit.targetAcquisition || TargetAcquisition.Normal);
 
             // Unit hero attributes
             // Can be left unspecified, but values can never be below 1
@@ -222,6 +222,8 @@ export abstract class UnitsTranslator extends ITranslator {
 
             const gold = outBufferToJSON.readInt();
             if (gold !== 12500) unit.gold = gold; // TODO: what about gold mines with default amount of gold?
+
+            unit.targetAcquisition = outBufferToJSON.readFloat();
 
             unit.hero = {
                 level: outBufferToJSON.readInt(), // non-hero units = 1
