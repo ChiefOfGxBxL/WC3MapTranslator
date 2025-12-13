@@ -1,4 +1,4 @@
-import { angle } from "./CommonInterfaces";
+import { angle } from './CommonInterfaces';
 
 export function deg2Rad(angleInDegrees: angle): number {
     return angleInDegrees * Math.PI / 180;

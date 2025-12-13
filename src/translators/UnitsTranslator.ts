@@ -64,15 +64,15 @@ interface RandomEntityGlobal {
 type UnitSet = Record<string, number>;
 type RandomEntity = RandomEntityAny | RandomEntityGlobal | UnitSet;
 
-function isRandomEntityAny (randomEntity: RandomEntity): randomEntity is RandomEntityAny {
+function isRandomEntityAny(randomEntity: RandomEntity): randomEntity is RandomEntityAny {
     return (randomEntity as RandomEntityAny).level !== undefined && (randomEntity as RandomEntityAny).class !== undefined;
 }
 
-function isRandomEntityGlobal (randomEntity: RandomEntity): randomEntity is RandomEntityGlobal {
+function isRandomEntityGlobal(randomEntity: RandomEntity): randomEntity is RandomEntityGlobal {
     return (randomEntity as RandomEntityGlobal).group !== undefined && (randomEntity as RandomEntityGlobal).position !== undefined;
 }
 
-function isRandomEntityUnitSet (randomEntity: RandomEntity): randomEntity is UnitSet {
+function isRandomEntityUnitSet(randomEntity: RandomEntity): randomEntity is UnitSet {
     return Object.keys((randomEntity as UnitSet)).length !== 0;
 }
 
@@ -169,10 +169,10 @@ export abstract class UnitsTranslator extends ITranslator {
 
                 for (const itemSet of unit.customItemSets) {
                     outBufferToWar.addInt(Object.keys(itemSet).length);
-                    Object.entries(itemSet).forEach(([itemId, dropChance]) => {
+                    for (const [itemId, dropChance] of Object.entries(itemSet)) {
                         outBufferToWar.addChars(itemId);
                         outBufferToWar.addInt(dropChance);
-                    });
+                    }
                 }
             } else {
                 outBufferToWar.addInt(0); // dropped item sets
@@ -181,7 +181,7 @@ export abstract class UnitsTranslator extends ITranslator {
             // Gold amount
             // Required if unit is a gold mine; if unit is not a gold mine, set to default 12500, except for special units
             const unitsWithZeroGold = ['sloc', 'iDNR']; // starting location, random item
-            outBufferToWar.addInt(unitsWithZeroGold.includes(unit.type) ? 0 : (unit.gold || 12500))
+            outBufferToWar.addInt(unitsWithZeroGold.includes(unit.type) ? 0 : (unit.gold || 12500));
 
             // Target acquisition - careful because "0" is a valid value but is falsy
             outBufferToWar.addFloat((unit.targetAcquisition || unit.targetAcquisition === 0)
@@ -229,10 +229,11 @@ export abstract class UnitsTranslator extends ITranslator {
                 } else if (isRandomEntityUnitSet(unit.randomEntity)) {
                     outBufferToWar.addInt(2);
                     outBufferToWar.addInt(Object.keys(unit.randomEntity).length); // number of units in random table
-                    Object.entries(unit.randomEntity).forEach(([id, chance]) => {
+
+                    for (const [id, chance] of Object.entries(unit.randomEntity)) {
                         outBufferToWar.addChars(id);
                         outBufferToWar.addInt(chance);
-                    });
+                    }
                 }
             }
 
@@ -270,7 +271,7 @@ export abstract class UnitsTranslator extends ITranslator {
 
             const variation = outBufferToJSON.readInt();
             if (variation !== 0) unit.variation = variation;
-            
+
             unit.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
             unit.rotation = rad2Deg(outBufferToJSON.readFloat());
 
@@ -318,7 +319,7 @@ export abstract class UnitsTranslator extends ITranslator {
             const gold = outBufferToJSON.readInt();
             if (unit.type === 'ngol') unit.gold = gold;
 
-            const targetAcquisition = outBufferToJSON.readFloat()
+            const targetAcquisition = outBufferToJSON.readFloat();
             if (targetAcquisition !== TargetAcquisition.Normal) unit.targetAcquisition = targetAcquisition;
 
             unit.hero = {
@@ -329,22 +330,26 @@ export abstract class UnitsTranslator extends ITranslator {
             };
 
             const numItemsInventory = outBufferToJSON.readInt();
-            if (numItemsInventory) unit.inventory = [];
-            for (let j = 0; j < numItemsInventory; j++) {
-                unit.inventory && unit.inventory.push({
-                    slot: outBufferToJSON.readInt() + 1, // the int is 0-based, but json format wants 1-6
-                    type: outBufferToJSON.readChars(4) // Item ID
-                });
+            if (numItemsInventory) {
+                unit.inventory = [];
+                for (let j = 0; j < numItemsInventory; j++) {
+                    unit.inventory.push({
+                        slot: outBufferToJSON.readInt() + 1, // the int is 0-based, but json format wants 1-6
+                        type: outBufferToJSON.readChars(4) // Item ID
+                    });
+                }
             }
 
             const numModifiedAbil = outBufferToJSON.readInt();
-            if (numModifiedAbil) unit.abilities = [];
-            for (let j = 0; j < numModifiedAbil; j++) {
-                unit.abilities && unit.abilities.push({
-                    ability: outBufferToJSON.readChars(4), // Ability ID
-                    active: !!outBufferToJSON.readInt(), // autocast active? 0=no, 1=active
-                    level: outBufferToJSON.readInt()
-                });
+            if (numModifiedAbil) {
+                unit.abilities = [];
+                for (let j = 0; j < numModifiedAbil; j++) {
+                    unit.abilities.push({
+                        ability: outBufferToJSON.readChars(4), // Ability ID
+                        active: !!outBufferToJSON.readInt(), // autocast active? 0=no, 1=active
+                        level: outBufferToJSON.readInt()
+                    });
+                }
             }
 
             const randFlag = outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items; 0 for non-random units/items)
