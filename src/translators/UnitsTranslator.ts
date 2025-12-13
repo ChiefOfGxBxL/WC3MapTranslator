@@ -166,7 +166,7 @@ export abstract class UnitsTranslator extends ITranslator {
 
             outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
             outBufferToWar.addInt(unit.waygateRegionId !== undefined ? unit.waygateRegionId : -1);
-            outBufferToWar.addInt(unit.id); // id
+            outBufferToWar.addInt(unit.id);
         }
 
         return {
