@@ -54,7 +54,6 @@ interface Unit {
     skinId?: string;
     position: number[];
     rotation?: angle;
-    scale?: number[];
     hero?: Hero;
     inventory: Inventory[];
     abilities: Abilities[];
@@ -115,10 +114,10 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addFloat(unit.position[2]); // position z
             outBufferToWar.addFloat(unit.rotation || 0); // rotation angle
 
-            if (!unit.scale) unit.scale = [1, 1, 1];
-            outBufferToWar.addFloat(unit.scale[0]); // scale x
-            outBufferToWar.addFloat(unit.scale[1]); // scale y
-            outBufferToWar.addFloat(unit.scale[2]); // scale z
+            // Scale x, y, z: has no effect
+            outBufferToWar.addFloat(1);
+            outBufferToWar.addFloat(1);
+            outBufferToWar.addFloat(1);
 
             outBufferToWar.addChars(unit.skinId || unit.type);
 
@@ -211,7 +210,6 @@ export abstract class UnitsTranslator extends ITranslator {
                 variation: -1,
                 position: [0, 0, 0],
                 rotation: 0,
-                scale: [0, 0, 0],
                 hero: { level: 1, str: 1, agi: 1, int: 1 },
                 inventory: [],
                 abilities: [],
@@ -224,7 +222,11 @@ export abstract class UnitsTranslator extends ITranslator {
             unit.variation = outBufferToJSON.readInt();
             unit.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
             unit.rotation = outBufferToJSON.readFloat();
-            unit.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
+
+            // Scale x, y, z: has no effect
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
 
             // Skin ID
             const unitId = outBufferToJSON.readChars(4);
