@@ -179,9 +179,9 @@ export abstract class UnitsTranslator extends ITranslator {
             }
 
             // Gold amount
-            // Required if unit is a gold mine; if unit is not a gold mine, set to default 12500
-            // Starting location "unit" always has a value of 0 gold
-            outBufferToWar.addInt(unit.type === 'sloc' ? 0 : (unit.gold || 12500))
+            // Required if unit is a gold mine; if unit is not a gold mine, set to default 12500, except for special units
+            const unitsWithZeroGold = ['sloc', 'iDNR']; // starting location, random item
+            outBufferToWar.addInt(unitsWithZeroGold.includes(unit.type) ? 0 : (unit.gold || 12500))
 
             // Target acquisition - careful because "0" is a valid value but is falsy
             outBufferToWar.addFloat((unit.targetAcquisition || unit.targetAcquisition === 0)
