@@ -122,8 +122,7 @@ export abstract class UnitsTranslator extends ITranslator {
 
             outBufferToWar.addChars(unit.skinId || unit.type);
 
-            // Unit flags
-            outBufferToWar.addByte(0); // UNSUPPORTED: flags
+            outBufferToWar.addByte(2); // Flags: presumably always "2", possibly related to doodad flags where 2 signifies "solid/visible"
 
             outBufferToWar.addInt(0); // unknown
 
@@ -229,8 +228,7 @@ export abstract class UnitsTranslator extends ITranslator {
             const unitId = outBufferToJSON.readChars(4);
             if (unitId !== unit.type) unit.type = unitId;
 
-            // UNSUPPORTED: flags
-            outBufferToJSON.readByte(); // flags
+            outBufferToJSON.readByte(); // Flags
 
             outBufferToJSON.readInt(); // Unknown
 
