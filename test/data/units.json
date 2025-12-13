@@ -417,7 +417,8 @@
       "gold": 12500,
       "targetAcquisition": -1,
       "color": -1,
-      "id": 5
+      "id": 5,
+      "randomItemSetId": 0
     },
     {
       "type": "hkni",
@@ -447,6 +448,12 @@
       "gold": 12500,
       "targetAcquisition": -1,
       "color": -1,
-      "id": 6
+      "id": 6,
+      "customItemSets": [
+        {
+          "clfm": 50,
+          "clsd": 50
+        }
+      ]
     }
   ]
