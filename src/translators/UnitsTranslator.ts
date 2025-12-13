@@ -50,7 +50,7 @@ enum ItemClass {
 
 interface Unit {
     type: string;
-    variation: number;
+    skinId?: string;
     position: number[];
     rotation: angle;
     scale: number[];
@@ -116,6 +116,8 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addFloat(unit.scale[0]); // scale x
             outBufferToWar.addFloat(unit.scale[1]); // scale y
             outBufferToWar.addFloat(unit.scale[2]); // scale z
+
+            outBufferToWar.addChars(unit.skinId || unit.type);
 
             // Unit flags
             outBufferToWar.addByte(0); // UNSUPPORTED: flags
@@ -206,6 +208,9 @@ export abstract class UnitsTranslator extends ITranslator {
             unit.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
             unit.rotation = outBufferToJSON.readFloat();
             unit.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
+
+            const unitId = outBufferToJSON.readChars(4);
+            if (unitId !== unit.type) unit.type = unitId;
 
             // UNSUPPORTED: flags
             outBufferToJSON.readByte(); // flags
