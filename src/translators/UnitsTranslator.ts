@@ -58,8 +58,8 @@ interface Unit {
     inventory: Inventory[];
     abilities: Abilities[];
     player: PlayerNumber;
-    hitpoints: number;
-    mana: number;
+    hitpoints?: number; // % of max
+    mana?: number; // absolute value of max
     gold: number;
     targetAcquisition?: TargetAcquisition;
     color: number;
@@ -125,17 +125,8 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addInt(unit.player); // player #
             outBufferToWar.addByte(0); // (byte unknown - 0)
             outBufferToWar.addByte(0); // (byte unknown - 0)
-            outBufferToWar.addInt(unit.hitpoints); // hitpoints
-            outBufferToWar.addInt(unit.mana || 0); // mana
-
-            // if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
-            outBufferToWar.addInt(-1);
-            // }
-            // else {
-            //    outBuffer.addInt(unit.droppedItemSets.length); // # item sets
-            // }
-            // UNSUPPORTED: dropped items
-            outBufferToWar.addInt(0); // dropped item sets
+            outBufferToWar.addInt(unit.hitpoints || -1); // hitpoints, -1 = unmodified
+            outBufferToWar.addInt(unit.mana || -1); // mana, -1 = unmodified
 
             // Gold amount
             // Required if unit is a gold mine; optional (set to zero) if unit is not a gold mine
@@ -202,7 +193,7 @@ export abstract class UnitsTranslator extends ITranslator {
                 inventory: [],
                 abilities: [],
                 player: 0,
-                hitpoints: -1,
+                hitpoints: -1, // TODO: any optional values in interface should be removed from this obj
                 mana: -1,
                 gold: 0,
                 targetAcquisition: TargetAcquisition.Normal,
