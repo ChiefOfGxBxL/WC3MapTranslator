@@ -261,7 +261,7 @@ export abstract class UnitsTranslator extends ITranslator {
             }
 
             const gold = outBufferToJSON.readInt();
-            if (gold !== 12500) unit.gold = gold; // TODO: what about gold mines with default amount of gold?
+            if (unit.type === 'ngol') unit.gold = gold;
 
             unit.targetAcquisition = outBufferToJSON.readFloat();
 
