@@ -60,7 +60,7 @@ interface Unit {
     player: PlayerNumber;
     hitpoints?: number; // % of max
     mana?: number; // absolute value of max
-    gold: number;
+    gold?: number;
     targetAcquisition?: TargetAcquisition;
     color: number;
     id: number;
@@ -129,8 +129,8 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addInt(unit.mana || -1); // mana, -1 = unmodified
 
             // Gold amount
-            // Required if unit is a gold mine; optional (set to zero) if unit is not a gold mine
-            outBufferToWar.addInt(unit.gold || 0);
+            // Required if unit is a gold mine; if unit is not a gold mine, set to default 12500
+            outBufferToWar.addInt(unit.gold || 12500);
 
             outBufferToWar.addFloat(unit.targetAcquisition || 0); // target acquisition
 
@@ -220,18 +220,8 @@ export abstract class UnitsTranslator extends ITranslator {
             unit.hitpoints = outBufferToJSON.readInt(); // -1 = use default
             unit.mana = outBufferToJSON.readInt(); // -1 = use default, 0 = unit doesn't have mana
 
-            outBufferToJSON.readInt(); // droppedItemSetPtr
-            const numDroppedItemSets = outBufferToJSON.readInt();
-            for (let j = 0; j < numDroppedItemSets; j++) {
-                const numDroppableItems = outBufferToJSON.readInt();
-                for (let k = 0; k < numDroppableItems; k++) {
-                    outBufferToJSON.readChars(4); // Item ID
-                    outBufferToJSON.readInt(); // % chance to drop
-                }
-            }
-
-            unit.gold = outBufferToJSON.readInt();
-            unit.targetAcquisition = outBufferToJSON.readFloat(); // (-1 = normal, -2 = camp)
+            const gold = outBufferToJSON.readInt();
+            if (gold !== 12500) unit.gold = gold; // TODO: what about gold mines with default amount of gold?
 
             unit.hero = {
                 level: outBufferToJSON.readInt(), // non-hero units = 1
