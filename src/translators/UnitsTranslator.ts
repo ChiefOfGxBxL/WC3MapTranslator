@@ -63,7 +63,7 @@ interface Unit {
     mana?: number; // absolute value of max
     gold?: number;
     targetAcquisition?: TargetAcquisition;
-    color: number;
+    color?: number;
     id: number;
     randomItemSetId?: number;
     customItemSets?: UnitSet[];
@@ -216,11 +216,7 @@ export abstract class UnitsTranslator extends ITranslator {
                 inventory: [],
                 abilities: [],
                 player: 0,
-                hitpoints: -1, // TODO: any optional values in interface should be removed from this obj
-                mana: -1,
-                gold: 0,
                 targetAcquisition: TargetAcquisition.Normal,
-                color: -1,
                 id: -1
             };
 
