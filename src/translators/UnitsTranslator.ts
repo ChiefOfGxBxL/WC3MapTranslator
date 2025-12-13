@@ -113,9 +113,9 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addFloat(unit.rotation || 0); // rotation angle
 
             if (!unit.scale) unit.scale = [1, 1, 1];
-            outBufferToWar.addFloat(unit.scale[0] || 1); // scale x
-            outBufferToWar.addFloat(unit.scale[1] || 1); // scale y
-            outBufferToWar.addFloat(unit.scale[2] || 1); // scale z
+            outBufferToWar.addFloat(unit.scale[0]); // scale x
+            outBufferToWar.addFloat(unit.scale[1]); // scale y
+            outBufferToWar.addFloat(unit.scale[2]); // scale z
 
             // Unit flags
             outBufferToWar.addByte(0); // UNSUPPORTED: flags
