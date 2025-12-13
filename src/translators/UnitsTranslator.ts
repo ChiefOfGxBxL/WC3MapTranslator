@@ -4,6 +4,7 @@ import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
 import { deg2Rad, rad2Deg } from '../AngleConverter';
 
 enum TargetAcquisition {
+    // There also exists value 0, observed for: sloc, iDNR
     Normal = -1,
     Camp = -2
 }
