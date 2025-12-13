@@ -6,10 +6,15 @@ This release includes several breaking changes:
  * 🔥 The `strings.json` file format now maps keys to `{ value: "", comment: "" }` to support string comments (see below for details)
  * 🔥 The `sounds.json` file has renamed the `eax` field to `effect`, and the `flags` adds a new `imported` boolean
  * 🔥 The `imports.json` file uses an array of strings to list imports (no longer using objects)
+ * 🔥 The `units.json` file now expresses angles in degrees (not radians, as before)
 
 The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6). This allows the codebase to take advantage of new TypeScript features.
 
 ### FEATURES
+ * Units
+    * Add support for random units/items/buildings
+    * Add support for dropped item sets
+    * Add waygate capability
  * Objects - Add support for latest object files version, v3
  * Sounds
    * Statically exposes `EffectType` and `Channel`, so you can easily reference values like `Channel.Constructions` (12) or `EffectType.HeroSpeech` ("HeroAcksEAX")
@@ -66,7 +71,7 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
  * Switch `tslint` (deprecated) to `eslint`
 ### TESTING
  * Fix the test suite, which was broken since upgrading to TypeScript
- * Add tests for round-tripping `war3map` files to JSON and back (many of which are expected to be broken, due to unsupported fields)
+ * Add tests for round-tripping `war3map` files to JSON and back
  * Use native `node --test` functionality in NodeJS 24, removing need for 3rd party test runner `mocha`
 
 # 4.0.4 (2023-08-06)
