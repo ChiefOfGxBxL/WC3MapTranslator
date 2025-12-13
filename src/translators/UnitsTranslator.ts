@@ -54,8 +54,8 @@ interface Unit {
     skinId?: string;
     position: number[];
     rotation: angle;
-    scale: number[];
-    hero: Hero;
+    scale?: number[];
+    hero?: Hero;
     inventory: Inventory[];
     abilities: Abilities[];
     player: PlayerNumber;
