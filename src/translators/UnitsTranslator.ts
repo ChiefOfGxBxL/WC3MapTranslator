@@ -50,6 +50,7 @@ enum ItemClass {
 
 interface Unit {
     type: string;
+    variation?: number;
     skinId?: string;
     position: number[];
     rotation: angle;
