@@ -161,9 +161,9 @@ export abstract class UnitsTranslator extends ITranslator {
             // Can be left unspecified, but values can never be below 1
             if (!unit.hero) unit.hero = { level: 1, str: 1, agi: 1, int: 1 };
             outBufferToWar.addInt(unit.hero.level);
-            outBufferToWar.addInt(unit.hero.str);
-            outBufferToWar.addInt(unit.hero.agi);
-            outBufferToWar.addInt(unit.hero.int);
+            // outBufferToWar.addInt(unit.hero.str);
+            // outBufferToWar.addInt(unit.hero.agi);
+            // outBufferToWar.addInt(unit.hero.int);
 
             // Inventory - - -
             if (!unit.inventory) unit.inventory = [];
@@ -273,9 +273,9 @@ export abstract class UnitsTranslator extends ITranslator {
 
             unit.hero = {
                 level: outBufferToJSON.readInt(), // non-hero units = 1
-                str: outBufferToJSON.readInt(),
-                agi: outBufferToJSON.readInt(),
-                int: outBufferToJSON.readInt()
+                str: 1, // outBufferToJSON.readInt(),
+                agi: 1, // outBufferToJSON.readInt(),
+                int: 1, // outBufferToJSON.readInt()
             };
 
             const numItemsInventory = outBufferToJSON.readInt();
