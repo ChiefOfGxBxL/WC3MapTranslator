@@ -135,6 +135,14 @@ suite('HexBuffer', () => {
         assert.equal(hexBuffer.getBuffer()[3], 0x00);
     });
 
+    test('should addInt24', () => {
+        hexBuffer.addInt24(1512463);
+        assert.equal(hexBuffer.getBuffer().length, 3);
+        assert.equal(hexBuffer.getBuffer()[0], 0x0f);
+        assert.equal(hexBuffer.getBuffer()[1], 0x14);
+        assert.equal(hexBuffer.getBuffer()[2], 0x17);
+    });
+
     test('should addShort', () => {
         hexBuffer.addShort(14);
         assert.equal(hexBuffer.getBuffer().length, 2); // 2 bytes in length

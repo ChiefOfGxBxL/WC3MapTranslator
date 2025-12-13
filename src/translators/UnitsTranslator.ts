@@ -1,23 +1,101 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
+import { deg2Rad, rad2Deg } from '../AngleConverter';
+
+enum TargetAcquisition {
+    // There also exists value 0, observed for: sloc, iDNR
+    Normal = -1,
+    Camp = -2
+}
+
+enum PlayerNumber {
+    Red,
+    Blue,
+    Teal,
+    Purple,
+    Yellow,
+    Orange,
+    Green,
+    Pink,
+    Gray,
+    LightBlue,
+    DarkGreen,
+    Brown,
+    Maroon,
+    Navy,
+    Turquoise,
+    Violet,
+    Wheat,
+    Peach,
+    Mint,
+    Lavender,
+    Coal,
+    Snow,
+    Emerald,
+    Peanut,
+    NeutralHostile,
+    NeutralXXX, // TODO: victim or extra?
+    NeutralYYY, // TDOO: victim or extra?
+    NeutralPassive
+}
+
+enum ItemClass {
+    Any,
+    Permanent,
+    Charged,
+    PowerUp,
+    Artifact,
+    Purchasable,
+    Campaign,
+    Miscellaneous
+}
+
+interface RandomEntityAny {
+    level: number;
+    class: ItemClass;
+}
+
+interface RandomEntityGlobal {
+    group: number;
+    position: number;
+}
+
+type UnitSet = Record<string, number>;
+type RandomEntity = RandomEntityAny | RandomEntityGlobal | UnitSet;
+
+function isRandomEntityAny(randomEntity: RandomEntity): randomEntity is RandomEntityAny {
+    return (randomEntity as RandomEntityAny).level !== undefined && (randomEntity as RandomEntityAny).class !== undefined;
+}
+
+function isRandomEntityGlobal(randomEntity: RandomEntity): randomEntity is RandomEntityGlobal {
+    return (randomEntity as RandomEntityGlobal).group !== undefined && (randomEntity as RandomEntityGlobal).position !== undefined;
+}
+
+function isRandomEntityUnitSet(randomEntity: RandomEntity): randomEntity is UnitSet {
+    return Object.keys((randomEntity as UnitSet)).length !== 0;
+}
 
 interface Unit {
     type: string;
-    variation: number;
+    variation?: number;
+    skinId?: string;
     position: number[];
-    rotation: angle;
-    scale: number[];
-    hero: Hero;
-    inventory: Inventory[];
-    abilities: Abilities[];
-    player: number;
-    hitpoints: number;
-    mana: number;
-    gold: number;
-    targetAcquisition: number; // (-1 = normal, -2 = camp),
-    color: number;
+    rotation?: angle;
+    hero?: Hero;
+    inventory?: Inventory[];
+    abilities?: Abilities[];
+    player: PlayerNumber;
+    hitpoints?: number; // % of max
+    mana?: number; // absolute value of max
+    gold?: number;
+    targetAcquisition?: TargetAcquisition;
+    color?: number;
     id: number;
+    randomItemSetId?: number;
+    customItemSets?: UnitSet[];
+    waygateRegionId?: number;
+    randomEntity?: RandomEntity;
 }
 
 interface Hero {
@@ -39,6 +117,10 @@ interface Abilities {
 }
 
 export abstract class UnitsTranslator extends ITranslator {
+    public static readonly TargetAcquisition = TargetAcquisition;
+    public static readonly PlayerNumber = PlayerNumber;
+    public static readonly ItemClass = ItemClass;
+
     public static jsonToWar(unitsJson: Unit[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -48,83 +130,118 @@ export abstract class UnitsTranslator extends ITranslator {
         outBufferToWar.addChars('W3do');
         outBufferToWar.addInt(8);
         outBufferToWar.addInt(11);
-        outBufferToWar.addInt(unitsJson.length); // number of units
 
         /*
          * Body
          */
+        outBufferToWar.addInt(unitsJson.length); // number of units
         for (const unit of unitsJson) {
             outBufferToWar.addChars(unit.type); // type
             outBufferToWar.addInt(unit.variation || 0); // variation
             outBufferToWar.addFloat(unit.position[0]); // position x
             outBufferToWar.addFloat(unit.position[1]); // position y
             outBufferToWar.addFloat(unit.position[2]); // position z
-            outBufferToWar.addFloat(unit.rotation || 0); // rotation angle
+            outBufferToWar.addFloat(deg2Rad(unit.rotation || 0)); // rotation angle
 
-            if (!unit.scale) unit.scale = [1, 1, 1];
-            outBufferToWar.addFloat(unit.scale[0] || 1); // scale x
-            outBufferToWar.addFloat(unit.scale[1] || 1); // scale y
-            outBufferToWar.addFloat(unit.scale[2] || 1); // scale z
+            // Scale x, y, z: has no effect
+            outBufferToWar.addFloat(1);
+            outBufferToWar.addFloat(1);
+            outBufferToWar.addFloat(1);
 
-            // Unit flags
-            outBufferToWar.addByte(0); // UNSUPPORTED: flags
+            outBufferToWar.addChars(unit.skinId || unit.type);
 
-            outBufferToWar.addInt(0); // unknown
+            outBufferToWar.addByte(2); // Flags: presumably always "2", possibly related to doodad flags where 2 signifies "solid/visible"
 
             outBufferToWar.addInt(unit.player); // player #
-            outBufferToWar.addByte(0); // (byte unknown - 0)
-            outBufferToWar.addByte(0); // (byte unknown - 0)
-            outBufferToWar.addInt(unit.hitpoints); // hitpoints
-            outBufferToWar.addInt(unit.mana || 0); // mana
 
-            // if(unit.droppedItemSets.length === 0) { // needs to be -1 if no item sets
-            outBufferToWar.addInt(-1);
-            // }
-            // else {
-            //    outBuffer.addInt(unit.droppedItemSets.length); // # item sets
-            // }
-            // UNSUPPORTED: dropped items
-            outBufferToWar.addInt(0); // dropped item sets
+            outBufferToWar.addByte(0); // (byte unknown - 0)
+            outBufferToWar.addByte(0); // (byte unknown - 0)
+
+            outBufferToWar.addInt(unit.hitpoints || -1); // hitpoints, -1 = unmodified
+            outBufferToWar.addInt(unit.mana || -1); // mana, -1 = unmodified
+
+            // random item set: global
+            outBufferToWar.addInt(unit.randomItemSetId && unit.randomItemSetId >= 0 ? unit.randomItemSetId : -1); // use -1 to indicate none
+
+            // random item set: custom
+            if (unit.customItemSets && (!unit.randomItemSetId || unit.randomItemSetId === -1)) {
+                outBufferToWar.addInt(unit.customItemSets.length);
+
+                for (const itemSet of unit.customItemSets) {
+                    outBufferToWar.addInt(Object.keys(itemSet).length);
+                    for (const [itemId, dropChance] of Object.entries(itemSet)) {
+                        outBufferToWar.addChars(itemId);
+                        outBufferToWar.addInt(dropChance);
+                    }
+                }
+            } else {
+                outBufferToWar.addInt(0); // dropped item sets
+            }
 
             // Gold amount
-            // Required if unit is a gold mine
-            // Optional (set to zero) if unit is not a gold mine
-            outBufferToWar.addInt(unit.gold);
-            // outBufferToWar.addInt(unit.type === 'ngol' ? unit.gold : 0);
+            // Required if unit is a gold mine; if unit is not a gold mine, set to default 12500, except for special units
+            const unitsWithZeroGold = ['sloc', 'iDNR']; // starting location, random item
+            outBufferToWar.addInt(unitsWithZeroGold.includes(unit.type) ? 0 : (unit.gold || 12500));
 
-            outBufferToWar.addFloat(unit.targetAcquisition || 0); // target acquisition
+            // Target acquisition - careful because "0" is a valid value but is falsy
+            outBufferToWar.addFloat((unit.targetAcquisition || unit.targetAcquisition === 0)
+                ? unit.targetAcquisition
+                : TargetAcquisition.Normal
+            );
 
             // Unit hero attributes
-            // Can be left unspecified, but values can never be below 1
-            if (!unit.hero) unit.hero = { level: 1, str: 1, agi: 1, int: 1 };
+            if (!unit.hero) unit.hero = { level: 1, str: 0, agi: 0, int: 0 };
             outBufferToWar.addInt(unit.hero.level);
             outBufferToWar.addInt(unit.hero.str);
             outBufferToWar.addInt(unit.hero.agi);
             outBufferToWar.addInt(unit.hero.int);
 
             // Inventory - - -
-            if (!unit.inventory) unit.inventory = [];
-            outBufferToWar.addInt(unit.inventory.length); // # items in inventory
-            for (const item of unit.inventory) {
-                outBufferToWar.addInt(item.slot - 1); // zero-index item slot
-                outBufferToWar.addChars(item.type);
+            outBufferToWar.addInt(unit.inventory?.length || 0); // # items in inventory
+            if (unit.inventory?.length) {
+                for (const item of unit.inventory) {
+                    outBufferToWar.addInt(item.slot - 1); // zero-index item slot
+                    outBufferToWar.addChars(item.type);
+                }
             }
 
             // Modified abilities - - -
-            if (!unit.abilities) unit.abilities = [];
-            outBufferToWar.addInt(unit.abilities.length); // # modified abilities
-            for (const ability of unit.abilities) {
-                outBufferToWar.addChars(ability.ability); // ability string
-                outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
-                outBufferToWar.addInt(ability.level);
+            outBufferToWar.addInt(unit.abilities?.length || 0); // # modified abilities
+            if (unit.abilities?.length) {
+                for (const ability of unit.abilities) {
+                    outBufferToWar.addChars(ability.ability); // ability string
+                    outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
+                    outBufferToWar.addInt(ability.level);
+                }
             }
 
-            outBufferToWar.addInt(0);
-            outBufferToWar.addInt(1);
+            // Random flag
+            if (!['uDNR', 'iDNR'].includes(unit.type)) {
+                outBufferToWar.addInt(0);
+                outBufferToWar.addInt(1);
+            } else if (unit.randomEntity) {
+                if (isRandomEntityAny(unit.randomEntity)) {
+                    outBufferToWar.addInt(0);
+                    outBufferToWar.addInt24(unit.randomEntity.level);
+                    outBufferToWar.addByte(unit.type === 'iDNR' ? unit.randomEntity.class : 0);
+                } else if (isRandomEntityGlobal(unit.randomEntity)) {
+                    outBufferToWar.addInt(1);
+                    outBufferToWar.addInt(unit.randomEntity.group);
+                    outBufferToWar.addInt(unit.randomEntity.position);
+                } else if (isRandomEntityUnitSet(unit.randomEntity)) {
+                    outBufferToWar.addInt(2);
+                    outBufferToWar.addInt(Object.keys(unit.randomEntity).length); // number of units in random table
 
-            outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
-            outBufferToWar.addInt(0); // outBuffer.addInt(unit.waygate); // UNSUPPORTED - waygate
-            outBufferToWar.addInt(unit.id); // id
+                    for (const [id, chance] of Object.entries(unit.randomEntity)) {
+                        outBufferToWar.addChars(id);
+                        outBufferToWar.addInt(chance);
+                    }
+                }
+            }
+
+            outBufferToWar.addInt(unit.color || -1); // custom color, -1 defaults to owning player
+            outBufferToWar.addInt(unit.waygateRegionId !== undefined ? unit.waygateRegionId : -1);
+            outBufferToWar.addInt(unit.id);
         }
 
         return {
@@ -138,60 +255,74 @@ export abstract class UnitsTranslator extends ITranslator {
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readChars(4); // File ID: `W3do`
-        outBufferToJSON.readInt(); // File version = 7
+        outBufferToJSON.readInt(); // File version = 8
         outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
-        const numUnits = outBufferToJSON.readInt(); // # of units
 
+        const numUnits = outBufferToJSON.readInt(); // # of units
         for (let i = 0; i < numUnits; i++) {
             const unit: Unit = {
                 type: '',
-                variation: -1,
                 position: [0, 0, 0],
                 rotation: 0,
-                scale: [0, 0, 0],
                 hero: { level: 1, str: 1, agi: 1, int: 1 },
-                inventory: [],
-                abilities: [],
                 player: 0,
-                hitpoints: -1,
-                mana: -1,
-                gold: 0,
-                targetAcquisition: -1,
-                color: -1,
                 id: -1
             };
 
             unit.type = outBufferToJSON.readChars(4); // (iDNR = random item, uDNR = random unit)
-            unit.variation = outBufferToJSON.readInt();
+
+            const variation = outBufferToJSON.readInt();
+            if (variation !== 0) unit.variation = variation;
+
             unit.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
-            unit.rotation = outBufferToJSON.readFloat();
-            unit.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
+            unit.rotation = rad2Deg(outBufferToJSON.readFloat());
 
-            // UNSUPPORTED: flags
-            outBufferToJSON.readByte(); // flags
+            // Scale x, y, z: has no effect
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
+            outBufferToJSON.readFloat();
 
-            outBufferToJSON.readInt(); // Unknown
+            // Skin ID
+            const unitId = outBufferToJSON.readChars(4);
+            if (unitId !== unit.type) unit.type = unitId;
 
-            unit.player = outBufferToJSON.readInt(); // (player1 = 0, 16=neutral passive); note: wc3 patch now has 24 max players
+            outBufferToJSON.readByte(); // Flags
+
+            unit.player = outBufferToJSON.readInt(); // (0 = red, 1 = blue, ...)
 
             outBufferToJSON.readByte(); // unknown
             outBufferToJSON.readByte(); // unknown
 
-            unit.hitpoints = outBufferToJSON.readInt(); // -1 = use default
-            unit.mana = outBufferToJSON.readInt(); // -1 = use default, 0 = unit doesn't have mana
+            const hitpoints = outBufferToJSON.readInt();
+            const mana = outBufferToJSON.readInt();
+            if (hitpoints !== -1) unit.hitpoints = hitpoints; // -1 = use default, % of max
+            if (mana !== -1) unit.mana = mana; // -1 = use default, absolute value, 0 = unit doesn't have mana
 
-            outBufferToJSON.readInt(); // droppedItemSetPtr
-            const numDroppedItemSets = outBufferToJSON.readInt();
-            for (let j = 0; j < numDroppedItemSets; j++) {
-                const numDroppableItems = outBufferToJSON.readInt();
-                for (let k = 0; k < numDroppableItems; k++) {
-                    outBufferToJSON.readChars(4); // Item ID
-                    outBufferToJSON.readInt(); // % chance to drop
+            // Item sets
+            const randomItemSetPtr = outBufferToJSON.readInt();
+            const numberOfItemSets = outBufferToJSON.readInt();
+            if (randomItemSetPtr >= 0) {
+                unit.randomItemSetId = randomItemSetPtr;
+            } else if (numberOfItemSets) {
+                unit.customItemSets = [];
+
+                for (let j = 0; j < numberOfItemSets; j++) {
+                    const itemSet: Record<string, number> = {};
+                    const numberOfItems = outBufferToJSON.readInt();
+                    for (let k = 0; k < numberOfItems; k++) {
+                        const itemId = outBufferToJSON.readChars(4); // Item ID
+                        const dropChance = outBufferToJSON.readInt(); // % chance to drop
+                        itemSet[itemId] = dropChance;
+                    }
+                    unit.customItemSets.push(itemSet);
                 }
             }
 
-            unit.gold = outBufferToJSON.readInt();
-            unit.targetAcquisition = outBufferToJSON.readFloat(); // (-1 = normal, -2 = camp)
+            const gold = outBufferToJSON.readInt();
+            if (unit.type === 'ngol') unit.gold = gold;
+
+            const targetAcquisition = outBufferToJSON.readFloat();
+            if (targetAcquisition !== TargetAcquisition.Normal) unit.targetAcquisition = targetAcquisition;
 
             unit.hero = {
                 level: outBufferToJSON.readInt(), // non-hero units = 1
@@ -201,52 +332,66 @@ export abstract class UnitsTranslator extends ITranslator {
             };
 
             const numItemsInventory = outBufferToJSON.readInt();
-            for (let j = 0; j < numItemsInventory; j++) {
-                unit.inventory.push({
-                    slot: outBufferToJSON.readInt() + 1, // the int is 0-based, but json format wants 1-6
-                    type: outBufferToJSON.readChars(4) // Item ID
-                });
-            }
-
-            const numModifiedAbil = outBufferToJSON.readInt();
-            for (let j = 0; j < numModifiedAbil; j++) {
-                unit.abilities.push({
-                    ability: outBufferToJSON.readChars(4), // Ability ID
-                    active: !!outBufferToJSON.readInt(), // autocast active? 0=no, 1=active
-                    level: outBufferToJSON.readInt()
-                });
-            }
-
-            const randFlag = outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
-            if (randFlag === 0) {
-                // 0 = Any neutral passive building/item, in this case we have
-                //   byte[3]: level of the random unit/item,-1 = any (this is actually interpreted as a 24-bit number)
-                //   byte: item class of the random item, 0 = any, 1 = permanent ... (this is 0 for units)
-                //   r is also 0 for non random units/items so we have these 4 bytes anyway (even if the id wasnt uDNR or iDNR)
-                outBufferToJSON.readByte();
-                outBufferToJSON.readByte();
-                outBufferToJSON.readByte();
-                outBufferToJSON.readByte();
-            } else if (randFlag === 1) {
-                // 1 = random unit from random group (defined in the w3i), in this case we have
-                //   int: unit group number (which group from the global table)
-                //   int: position number (which column of this group)
-                //   the column should of course have the item flag set (in the w3i) if this is a random item
-                outBufferToJSON.readInt();
-                outBufferToJSON.readInt();
-            } else if (randFlag === 2) {
-                // 2 = random unit from custom table, in this case we have
-                //   int: number "n" of different available units
-                //   then we have n times a random unit structure
-                const numDiffAvailUnits = outBufferToJSON.readInt();
-                for (let k = 0; k < numDiffAvailUnits; k++) {
-                    outBufferToJSON.readChars(4); // Unit ID
-                    outBufferToJSON.readInt(); // % chance
+            if (numItemsInventory) {
+                unit.inventory = [];
+                for (let j = 0; j < numItemsInventory; j++) {
+                    unit.inventory.push({
+                        slot: outBufferToJSON.readInt() + 1, // the int is 0-based, but json format wants 1-6
+                        type: outBufferToJSON.readChars(4) // Item ID
+                    });
                 }
             }
 
-            unit.color = outBufferToJSON.readInt();
-            outBufferToJSON.readInt(); // UNSUPPORTED: waygate (-1 = deactivated, else its the creation number of the target rect as in war3map.w3r)
+            const numModifiedAbil = outBufferToJSON.readInt();
+            if (numModifiedAbil) {
+                unit.abilities = [];
+                for (let j = 0; j < numModifiedAbil; j++) {
+                    unit.abilities.push({
+                        ability: outBufferToJSON.readChars(4), // Ability ID
+                        active: !!outBufferToJSON.readInt(), // autocast active? 0=no, 1=active
+                        level: outBufferToJSON.readInt()
+                    });
+                }
+            }
+
+            const randFlag = outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items; 0 for non-random units/items)
+            if (randFlag === 0) { // Any neutral passive building/item
+                const level = outBufferToJSON.readInt24(); // byte[3] / 24-bit number: level of the random unit/item, -1 = any
+                const itemClass = outBufferToJSON.readByte(); // uDNR: 0; iDNR: item class of the random item, 0 = any, 1 = permanent
+
+                if (unit.type === 'uDNR' || unit.type === 'iDNR') {
+                    unit.randomEntity = {
+                        level,
+                        class: itemClass
+                    };
+                }
+            } else if (randFlag === 1) { // From random group (defined in the w3i)
+                const group = outBufferToJSON.readInt(); // Unit group number (which group from the global table)
+                const position = outBufferToJSON.readInt(); // Position number (which column of this group; for random item, have item flag set in w3i)
+
+                unit.randomEntity = {
+                    group,
+                    position
+                };
+            } else if (randFlag === 2) { // Use custom table
+                const numDiffAvailUnits = outBufferToJSON.readInt();
+
+                unit.randomEntity = {};
+                for (let k = 0; k < numDiffAvailUnits; k++) {
+                    const id = outBufferToJSON.readChars(4); // Unit ID
+                    const chance = outBufferToJSON.readInt(); // % chance
+
+                    unit.randomEntity[id] = chance;
+                }
+            }
+
+            const color = outBufferToJSON.readInt();
+            if (color !== -1) unit.color = color;
+
+            // Waygate (-1 = deactivated, else it's the creation number of the target rect as in war3map.w3r)
+            const waygateRegionId = outBufferToJSON.readInt();
+            if (waygateRegionId !== -1) unit.waygateRegionId = waygateRegionId;
+
             unit.id = outBufferToJSON.readInt();
 
             result.push(unit);

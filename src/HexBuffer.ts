@@ -4,11 +4,9 @@ import IntN from 'intn';
 const byteToHex = (byte: number): string => ('0x' + byte.toString(16));
 const charToHex = (character: string): string => ('0x' + character.charCodeAt(0).toString(16));
 
-const intToHex = (intV: number, isShort: boolean): string[] => {
-    // Creates a new 32-bit integer from the given number
-    const intSize = isShort ? 16 : 32;
-    const intNSize = new IntN(intSize);
-    const byteNum: number[] = intNSize.fromInt(intV).bytes;
+const intToHex = (intV: number, size: number = 32): string[] => {
+    const sizedInt = new IntN(size);
+    const byteNum: number[] = sizedInt.fromInt(intV).bytes;
 
     // Map decimal bytes to hex bytes
     // Bytes are already in correct little-endian form
@@ -41,14 +39,22 @@ export class HexBuffer {
         }
     }
 
-    public addInt(int: number, isShort: boolean = false) {
-        for (const byte of intToHex(int, isShort)) {
+    private addSizedInt(int: number, size: number = 32) {
+        for (const byte of intToHex(int, size)) {
             this._buffer.push(byte);
         }
     }
 
+    public addInt(int: number) {
+        this.addSizedInt(int, 32);
+    }
+
+    public addInt24(int: number) {
+        this.addSizedInt(int, 24);
+    }
+
     public addShort(short: number) {
-        this.addInt(short, true);
+        this.addSizedInt(short, 16);
     }
 
     public addFloat(float: number) {
