@@ -53,7 +53,7 @@ interface Unit {
     variation?: number;
     skinId?: string;
     position: number[];
-    rotation: angle;
+    rotation?: angle;
     scale?: number[];
     hero?: Hero;
     inventory: Inventory[];
