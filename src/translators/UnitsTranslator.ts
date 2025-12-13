@@ -99,11 +99,11 @@ export abstract class UnitsTranslator extends ITranslator {
         outBufferToWar.addChars('W3do');
         outBufferToWar.addInt(8);
         outBufferToWar.addInt(11);
-        outBufferToWar.addInt(unitsJson.length); // number of units
 
         /*
          * Body
          */
+        outBufferToWar.addInt(unitsJson.length); // number of units
         for (const unit of unitsJson) {
             outBufferToWar.addChars(unit.type); // type
             outBufferToWar.addInt(unit.variation || 0); // variation
