@@ -197,20 +197,22 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addInt(unit.hero.int);
 
             // Inventory - - -
-            if (!unit.inventory) unit.inventory = [];
-            outBufferToWar.addInt(unit.inventory.length); // # items in inventory
-            for (const item of unit.inventory) {
-                outBufferToWar.addInt(item.slot - 1); // zero-index item slot
-                outBufferToWar.addChars(item.type);
+            outBufferToWar.addInt(unit.inventory?.length || 0); // # items in inventory
+            if (unit.inventory?.length) {
+                for (const item of unit.inventory) {
+                    outBufferToWar.addInt(item.slot - 1); // zero-index item slot
+                    outBufferToWar.addChars(item.type);
+                }
             }
 
             // Modified abilities - - -
-            if (!unit.abilities) unit.abilities = [];
-            outBufferToWar.addInt(unit.abilities.length); // # modified abilities
-            for (const ability of unit.abilities) {
-                outBufferToWar.addChars(ability.ability); // ability string
-                outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
-                outBufferToWar.addInt(ability.level);
+            outBufferToWar.addInt(unit.abilities?.length || 0); // # modified abilities
+            if (unit.abilities?.length) {
+                for (const ability of unit.abilities) {
+                    outBufferToWar.addChars(ability.ability); // ability string
+                    outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
+                    outBufferToWar.addInt(ability.level);
+                }
             }
 
             // Random flag
