@@ -64,6 +64,8 @@ interface Unit {
     targetAcquisition?: TargetAcquisition;
     color: number;
     id: number;
+    randomItemSetId?: number;
+    customItemSets?: UnitSet[];
     waygateRegionId?: number;
 }
 
@@ -129,6 +131,24 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addByte(0); // (byte unknown - 0)
             outBufferToWar.addInt(unit.hitpoints || -1); // hitpoints, -1 = unmodified
             outBufferToWar.addInt(unit.mana || -1); // mana, -1 = unmodified
+
+            // random item set: global
+            outBufferToWar.addInt(unit.randomItemSetId && unit.randomItemSetId >= 0 ? unit.randomItemSetId : -1); // use -1 to indicate none
+
+            // random item set: custom
+            if (unit.customItemSets && (!unit.randomItemSetId || unit.randomItemSetId === -1)) {
+                outBufferToWar.addInt(unit.customItemSets.length);
+
+                for (const itemSet of unit.customItemSets) {
+                    outBufferToWar.addInt(Object.keys(itemSet).length);
+                    Object.entries(itemSet).forEach(([itemId, dropChance]) => {
+                        outBufferToWar.addChars(itemId);
+                        outBufferToWar.addInt(dropChance);
+                    });
+                }
+            } else {
+                outBufferToWar.addInt(0); // dropped item sets
+            }
 
             // Gold amount
             // Required if unit is a gold mine; if unit is not a gold mine, set to default 12500
@@ -224,6 +244,26 @@ export abstract class UnitsTranslator extends ITranslator {
 
             unit.hitpoints = outBufferToJSON.readInt(); // -1 = use default
             unit.mana = outBufferToJSON.readInt(); // -1 = use default, 0 = unit doesn't have mana
+
+            // Item sets
+            const randomItemSetPtr = outBufferToJSON.readInt();
+            const numberOfItemSets = outBufferToJSON.readInt();
+            if (randomItemSetPtr >= 0) {
+                unit.randomItemSetId = randomItemSetPtr;
+            } else if (numberOfItemSets) {
+                unit.customItemSets = [];
+
+                for (let j = 0; j < numberOfItemSets; j++) {
+                    const itemSet: Record<string, number> = {};
+                    const numberOfItems = outBufferToJSON.readInt();
+                    for (let k = 0; k < numberOfItems; k++) {
+                        const itemId = outBufferToJSON.readChars(4); // Item ID
+                        const dropChance = outBufferToJSON.readInt(); // % chance to drop
+                        itemSet[itemId] = dropChance;
+                    }
+                    unit.customItemSets.push(itemSet);
+                }
+            }
 
             const gold = outBufferToJSON.readInt();
             if (gold !== 12500) unit.gold = gold; // TODO: what about gold mines with default amount of gold?
