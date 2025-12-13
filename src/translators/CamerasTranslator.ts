@@ -36,7 +36,7 @@ export abstract class CamerasTranslator extends ITranslator {
         /*
          * Body
          */
-        cameras.forEach((camera) => {
+        for (const camera of cameras) {
             outBufferToWar.addFloat(camera.target.x);
             outBufferToWar.addFloat(camera.target.y);
             outBufferToWar.addFloat(camera.offsetZ);
@@ -53,7 +53,7 @@ export abstract class CamerasTranslator extends ITranslator {
 
             // Camera name - must be null-terminated
             outBufferToWar.addString(camera.name);
-        });
+        }
 
         return {
             errors: [],

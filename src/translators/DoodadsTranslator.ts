@@ -54,7 +54,7 @@ export abstract class DoodadsTranslator extends ITranslator {
          * Body
          */
         outBufferToWar.addInt(doodadsJson.regular.length); // num of regular doodads
-        doodadsJson.regular.forEach((doodad) => {
+        for (const doodad of doodadsJson.regular) {
             outBufferToWar.addChars(doodad.type);
             outBufferToWar.addInt(doodad.variation || 0); // optional - default value 0
             outBufferToWar.addFloat(doodad.position[0]);
@@ -100,29 +100,29 @@ export abstract class DoodadsTranslator extends ITranslator {
 
                 for (const itemSet of doodad.customItemSets) {
                     outBufferToWar.addInt(Object.keys(itemSet).length);
-                    Object.entries(itemSet).forEach(([itemId, dropChance]) => {
+                    for (const [itemId, dropChance] of Object.entries(itemSet)) {
                         outBufferToWar.addChars(itemId);
                         outBufferToWar.addInt(dropChance);
-                    });
+                    }
                 }
             } else {
                 outBufferToWar.addInt(0);
             }
 
             outBufferToWar.addInt(doodad.id);
-        });
+        }
 
         /*
          * Footer
          */
         outBufferToWar.addInt(0); // special doodad format number, fixed at 0x00
         outBufferToWar.addInt(doodadsJson.special?.length || 0);
-        doodadsJson.special?.forEach((specialDoodad) => {
+        for (const specialDoodad of doodadsJson.special || []) {
             outBufferToWar.addChars(specialDoodad.type);
             outBufferToWar.addInt(specialDoodad.position[2]);
             outBufferToWar.addInt(specialDoodad.position[0]);
             outBufferToWar.addInt(specialDoodad.position[1]);
-        });
+        }
 
         return {
             errors: [],

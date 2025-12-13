@@ -54,7 +54,7 @@ export abstract class UnitsTranslator extends ITranslator {
         /*
          * Body
          */
-        unitsJson.forEach((unit) => {
+        for (const unit of unitsJson) {
             outBufferToWar.addChars(unit.type); // type
             outBufferToWar.addInt(unit.variation || 0); // variation
             outBufferToWar.addFloat(unit.position[0]); // position x
@@ -104,19 +104,19 @@ export abstract class UnitsTranslator extends ITranslator {
             // Inventory - - -
             if (!unit.inventory) unit.inventory = [];
             outBufferToWar.addInt(unit.inventory.length); // # items in inventory
-            unit.inventory.forEach((item) => {
+            for (const item of unit.inventory) {
                 outBufferToWar.addInt(item.slot - 1); // zero-index item slot
                 outBufferToWar.addChars(item.type);
-            });
+            }
 
             // Modified abilities - - -
             if (!unit.abilities) unit.abilities = [];
             outBufferToWar.addInt(unit.abilities.length); // # modified abilities
-            unit.abilities.forEach((ability) => {
+            for (const ability of unit.abilities) {
                 outBufferToWar.addChars(ability.ability); // ability string
                 outBufferToWar.addInt(+ability.active); // 0 = not active, 1 = active
                 outBufferToWar.addInt(ability.level);
-            });
+            }
 
             outBufferToWar.addInt(0);
             outBufferToWar.addInt(1);
@@ -124,7 +124,7 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
             outBufferToWar.addInt(unit.waygateRegionId !== undefined ? unit.waygateRegionId : -1);
             outBufferToWar.addInt(unit.id); // id
-        });
+        }
 
         return {
             errors: [],

@@ -13,7 +13,7 @@ export abstract class StringsTranslator extends ITranslator {
         /*
          * Strings
          */
-        Object.keys(stringsJson).forEach((stringId) => {
+        for (const stringId of Object.keys(stringsJson)) {
             const w3String: StringRecord = stringsJson[stringId];
 
             outBufferToWar.addChars('STRING ' + stringId);
@@ -28,7 +28,7 @@ export abstract class StringsTranslator extends ITranslator {
             outBufferToWar.addChars('}');
             outBufferToWar.addNewLine();
             outBufferToWar.addNewLine();
-        });
+        }
 
         return {
             errors: [],
