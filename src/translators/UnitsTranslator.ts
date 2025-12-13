@@ -124,11 +124,11 @@ export abstract class UnitsTranslator extends ITranslator {
 
             outBufferToWar.addByte(2); // Flags: presumably always "2", possibly related to doodad flags where 2 signifies "solid/visible"
 
-            outBufferToWar.addInt(0); // unknown
-
             outBufferToWar.addInt(unit.player); // player #
+
             outBufferToWar.addByte(0); // (byte unknown - 0)
             outBufferToWar.addByte(0); // (byte unknown - 0)
+
             outBufferToWar.addInt(unit.hitpoints || -1); // hitpoints, -1 = unmodified
             outBufferToWar.addInt(unit.mana || -1); // mana, -1 = unmodified
 
@@ -202,8 +202,8 @@ export abstract class UnitsTranslator extends ITranslator {
         outBufferToJSON.readChars(4); // File ID: `W3do`
         outBufferToJSON.readInt(); // File version = 8
         outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
-        const numUnits = outBufferToJSON.readInt(); // # of units
 
+        const numUnits = outBufferToJSON.readInt(); // # of units
         for (let i = 0; i < numUnits; i++) {
             const unit: Unit = {
                 type: '',
@@ -225,20 +225,19 @@ export abstract class UnitsTranslator extends ITranslator {
             unit.rotation = outBufferToJSON.readFloat();
             unit.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
 
+            // Skin ID
             const unitId = outBufferToJSON.readChars(4);
             if (unitId !== unit.type) unit.type = unitId;
 
             outBufferToJSON.readByte(); // Flags
 
-            outBufferToJSON.readInt(); // Unknown
-
-            unit.player = outBufferToJSON.readInt(); // (player1 = 0, 16=neutral passive); note: wc3 patch now has 24 max players
+            unit.player = outBufferToJSON.readInt(); // (0 = red, 1 = blue, ...)
 
             outBufferToJSON.readByte(); // unknown
             outBufferToJSON.readByte(); // unknown
 
-            unit.hitpoints = outBufferToJSON.readInt(); // -1 = use default
-            unit.mana = outBufferToJSON.readInt(); // -1 = use default, 0 = unit doesn't have mana
+            unit.hitpoints = outBufferToJSON.readInt(); // -1 = use default, % of max
+            unit.mana = outBufferToJSON.readInt(); // -1 = use default, absolute value, 0 = unit doesn't have mana
 
             // Item sets
             const randomItemSetPtr = outBufferToJSON.readInt();
