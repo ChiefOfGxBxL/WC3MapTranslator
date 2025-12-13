@@ -82,8 +82,8 @@ interface Unit {
     position: number[];
     rotation?: angle;
     hero?: Hero;
-    inventory: Inventory[];
-    abilities: Abilities[];
+    inventory?: Inventory[];
+    abilities?: Abilities[];
     player: PlayerNumber;
     hitpoints?: number; // % of max
     mana?: number; // absolute value of max
@@ -185,8 +185,7 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addFloat(unit.targetAcquisition || TargetAcquisition.Normal);
 
             // Unit hero attributes
-            // Can be left unspecified, but values can never be below 1
-            if (!unit.hero) unit.hero = { level: 1, str: 1, agi: 1, int: 1 };
+            if (!unit.hero) unit.hero = { level: 1, str: 0, agi: 0, int: 0 };
             outBufferToWar.addInt(unit.hero.level);
             outBufferToWar.addInt(unit.hero.str);
             outBufferToWar.addInt(unit.hero.agi);
@@ -232,7 +231,7 @@ export abstract class UnitsTranslator extends ITranslator {
                 }
             }
 
-            outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
+            outBufferToWar.addInt(unit.color || -1); // custom color, -1 defaults to owning player
             outBufferToWar.addInt(unit.waygateRegionId !== undefined ? unit.waygateRegionId : -1);
             outBufferToWar.addInt(unit.id);
         }
@@ -255,19 +254,18 @@ export abstract class UnitsTranslator extends ITranslator {
         for (let i = 0; i < numUnits; i++) {
             const unit: Unit = {
                 type: '',
-                variation: -1,
                 position: [0, 0, 0],
                 rotation: 0,
                 hero: { level: 1, str: 1, agi: 1, int: 1 },
-                inventory: [],
-                abilities: [],
                 player: 0,
-                targetAcquisition: TargetAcquisition.Normal,
                 id: -1
             };
 
             unit.type = outBufferToJSON.readChars(4); // (iDNR = random item, uDNR = random unit)
-            unit.variation = outBufferToJSON.readInt();
+
+            const variation = outBufferToJSON.readInt();
+            if (variation !== 0) unit.variation = variation;
+            
             unit.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
             unit.rotation = rad2Deg(outBufferToJSON.readFloat());
 
@@ -287,8 +285,10 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToJSON.readByte(); // unknown
             outBufferToJSON.readByte(); // unknown
 
-            unit.hitpoints = outBufferToJSON.readInt(); // -1 = use default, % of max
-            unit.mana = outBufferToJSON.readInt(); // -1 = use default, absolute value, 0 = unit doesn't have mana
+            const hitpoints = outBufferToJSON.readInt();
+            const mana = outBufferToJSON.readInt();
+            if (hitpoints !== -1) unit.hitpoints = hitpoints; // -1 = use default, % of max
+            if (mana !== -1) unit.mana = mana; // -1 = use default, absolute value, 0 = unit doesn't have mana
 
             // Item sets
             const randomItemSetPtr = outBufferToJSON.readInt();
@@ -313,7 +313,8 @@ export abstract class UnitsTranslator extends ITranslator {
             const gold = outBufferToJSON.readInt();
             if (unit.type === 'ngol') unit.gold = gold;
 
-            unit.targetAcquisition = outBufferToJSON.readFloat();
+            const targetAcquisition = outBufferToJSON.readFloat()
+            if (targetAcquisition !== TargetAcquisition.Normal) unit.targetAcquisition = targetAcquisition;
 
             unit.hero = {
                 level: outBufferToJSON.readInt(), // non-hero units = 1
@@ -323,16 +324,18 @@ export abstract class UnitsTranslator extends ITranslator {
             };
 
             const numItemsInventory = outBufferToJSON.readInt();
+            if (numItemsInventory) unit.inventory = [];
             for (let j = 0; j < numItemsInventory; j++) {
-                unit.inventory.push({
+                unit.inventory && unit.inventory.push({
                     slot: outBufferToJSON.readInt() + 1, // the int is 0-based, but json format wants 1-6
                     type: outBufferToJSON.readChars(4) // Item ID
                 });
             }
 
             const numModifiedAbil = outBufferToJSON.readInt();
+            if (numModifiedAbil) unit.abilities = [];
             for (let j = 0; j < numModifiedAbil; j++) {
-                unit.abilities.push({
+                unit.abilities && unit.abilities.push({
                     ability: outBufferToJSON.readChars(4), // Ability ID
                     active: !!outBufferToJSON.readInt(), // autocast active? 0=no, 1=active
                     level: outBufferToJSON.readInt()
@@ -370,7 +373,8 @@ export abstract class UnitsTranslator extends ITranslator {
                 }
             }
 
-            unit.color = outBufferToJSON.readInt();
+            const color = outBufferToJSON.readInt();
+            if (color !== -1) unit.color = color;
 
             // Waygate (-1 = deactivated, else it's the creation number of the target rect as in war3map.w3r)
             const waygateRegionId = outBufferToJSON.readInt();
