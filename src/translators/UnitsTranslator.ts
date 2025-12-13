@@ -1,6 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
+import { deg2Rad, rad2Deg } from '../AngleConverter';
 
 enum TargetAcquisition {
     Normal = -1,
@@ -139,7 +140,7 @@ export abstract class UnitsTranslator extends ITranslator {
             outBufferToWar.addFloat(unit.position[0]); // position x
             outBufferToWar.addFloat(unit.position[1]); // position y
             outBufferToWar.addFloat(unit.position[2]); // position z
-            outBufferToWar.addFloat(unit.rotation || 0); // rotation angle
+            outBufferToWar.addFloat(deg2Rad(unit.rotation || 0)); // rotation angle
 
             // Scale x, y, z: has no effect
             outBufferToWar.addFloat(1);
@@ -268,7 +269,7 @@ export abstract class UnitsTranslator extends ITranslator {
             unit.type = outBufferToJSON.readChars(4); // (iDNR = random item, uDNR = random unit)
             unit.variation = outBufferToJSON.readInt();
             unit.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
-            unit.rotation = outBufferToJSON.readFloat();
+            unit.rotation = rad2Deg(outBufferToJSON.readFloat());
 
             // Scale x, y, z: has no effect
             outBufferToJSON.readFloat();
