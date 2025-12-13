@@ -7,6 +7,7 @@ import { W3Buffer } from '../src/W3Buffer';
 // char(4), int, float, string(7 Ws), byte
 const buffData = Buffer.from([
     0x01, 0x00, 0x00, 0x00, // int: 1
+    0x0f, 0x14, 0x17, // int24: 1512463
     0x81, 0x70, // short: 28801
     0x00, 0x00, 0x9b, 0xc5, // float: -4960
     0x57, 0x57, 0x57, 0x57, 0x57, 0x57, 0x57, 0x00, // string: "WWWWWWW"
@@ -20,6 +21,10 @@ const w3buffer = new W3Buffer(buffData);
 suite('W3Buffer', () => {
     test('should readInt', () => {
         assert.equal(w3buffer.readInt(), 1);
+    });
+
+    test('should readInt24', () => {
+        assert.equal(w3buffer.readInt24(), 1512463);
     });
 
     test('should readShort', () => {

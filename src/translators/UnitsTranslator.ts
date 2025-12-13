@@ -1,6 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
+
 enum TargetAcquisition {
     Normal = -1,
     Camp = -2
@@ -48,6 +49,31 @@ enum ItemClass {
     Miscellaneous
 }
 
+interface RandomEntityAny {
+    level: number;
+    class: ItemClass;
+}
+
+interface RandomEntityGlobal {
+    group: number;
+    position: number;
+}
+
+type UnitSet = Record<string, number>;
+type RandomEntity = RandomEntityAny | RandomEntityGlobal | UnitSet;
+
+function isRandomEntityAny (randomEntity: RandomEntity): randomEntity is RandomEntityAny {
+    return (randomEntity as RandomEntityAny).level !== undefined && (randomEntity as RandomEntityAny).class !== undefined;
+}
+
+function isRandomEntityGlobal (randomEntity: RandomEntity): randomEntity is RandomEntityGlobal {
+    return (randomEntity as RandomEntityGlobal).group !== undefined && (randomEntity as RandomEntityGlobal).position !== undefined;
+}
+
+function isRandomEntityUnitSet (randomEntity: RandomEntity): randomEntity is UnitSet {
+    return Object.keys((randomEntity as UnitSet)).length !== 0;
+}
+
 interface Unit {
     type: string;
     variation?: number;
@@ -67,6 +93,7 @@ interface Unit {
     randomItemSetId?: number;
     customItemSets?: UnitSet[];
     waygateRegionId?: number;
+    randomEntity?: RandomEntity;
 }
 
 interface Hero {
@@ -181,8 +208,28 @@ export abstract class UnitsTranslator extends ITranslator {
                 outBufferToWar.addInt(ability.level);
             }
 
-            outBufferToWar.addInt(0);
-            outBufferToWar.addInt(1);
+            // Random flag
+            if (!['uDNR', 'iDNR'].includes(unit.type)) {
+                outBufferToWar.addInt(0);
+                outBufferToWar.addInt(1);
+            } else if (unit.randomEntity) {
+                if (isRandomEntityAny(unit.randomEntity)) {
+                    outBufferToWar.addInt(0);
+                    outBufferToWar.addInt24(unit.randomEntity.level);
+                    outBufferToWar.addByte(unit.type === 'iDNR' ? unit.randomEntity.class : 0);
+                } else if (isRandomEntityGlobal(unit.randomEntity)) {
+                    outBufferToWar.addInt(1);
+                    outBufferToWar.addInt(unit.randomEntity.group);
+                    outBufferToWar.addInt(unit.randomEntity.position);
+                } else if (isRandomEntityUnitSet(unit.randomEntity)) {
+                    outBufferToWar.addInt(2);
+                    outBufferToWar.addInt(Object.keys(unit.randomEntity).length); // number of units in random table
+                    Object.entries(unit.randomEntity).forEach(([id, chance]) => {
+                        outBufferToWar.addChars(id);
+                        outBufferToWar.addInt(chance);
+                    });
+                }
+            }
 
             outBufferToWar.addInt(unit.color || unit.player); // custom color, defaults to owning player
             outBufferToWar.addInt(unit.waygateRegionId !== undefined ? unit.waygateRegionId : -1);
@@ -291,31 +338,34 @@ export abstract class UnitsTranslator extends ITranslator {
                 });
             }
 
-            const randFlag = outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items)
-            if (randFlag === 0) {
-                // 0 = Any neutral passive building/item, in this case we have
-                //   byte[3]: level of the random unit/item,-1 = any (this is actually interpreted as a 24-bit number)
-                //   byte: item class of the random item, 0 = any, 1 = permanent ... (this is 0 for units)
-                //   r is also 0 for non random units/items so we have these 4 bytes anyway (even if the id wasnt uDNR or iDNR)
-                outBufferToJSON.readByte();
-                outBufferToJSON.readByte();
-                outBufferToJSON.readByte();
-                outBufferToJSON.readByte();
-            } else if (randFlag === 1) {
-                // 1 = random unit from random group (defined in the w3i), in this case we have
-                //   int: unit group number (which group from the global table)
-                //   int: position number (which column of this group)
-                //   the column should of course have the item flag set (in the w3i) if this is a random item
-                outBufferToJSON.readInt();
-                outBufferToJSON.readInt();
-            } else if (randFlag === 2) {
-                // 2 = random unit from custom table, in this case we have
-                //   int: number "n" of different available units
-                //   then we have n times a random unit structure
+            const randFlag = outBufferToJSON.readInt(); // random unit/item flag "r" (for uDNR units and iDNR items; 0 for non-random units/items)
+            if (randFlag === 0) { // Any neutral passive building/item
+                const level = outBufferToJSON.readInt24(); // byte[3] / 24-bit number: level of the random unit/item, -1 = any
+                const itemClass = outBufferToJSON.readByte(); // uDNR: 0; iDNR: item class of the random item, 0 = any, 1 = permanent
+
+                if (unit.type === 'uDNR' || unit.type === 'iDNR') {
+                    unit.randomEntity = {
+                        level,
+                        class: itemClass
+                    };
+                }
+            } else if (randFlag === 1) { // From random group (defined in the w3i)
+                const group = outBufferToJSON.readInt(); // Unit group number (which group from the global table)
+                const position = outBufferToJSON.readInt(); // Position number (which column of this group; for random item, have item flag set in w3i)
+
+                unit.randomEntity = {
+                    group,
+                    position
+                };
+            } else if (randFlag === 2) { // Use custom table
                 const numDiffAvailUnits = outBufferToJSON.readInt();
+
+                unit.randomEntity = {};
                 for (let k = 0; k < numDiffAvailUnits; k++) {
-                    outBufferToJSON.readChars(4); // Unit ID
-                    outBufferToJSON.readInt(); // % chance
+                    const id = outBufferToJSON.readChars(4); // Unit ID
+                    const chance = outBufferToJSON.readInt(); // % chance
+
+                    unit.randomEntity[id] = chance;
                 }
             }
 

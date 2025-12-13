@@ -14,6 +14,12 @@ export class W3Buffer {
         return int;
     }
 
+    public readInt24(): number {
+        const int: number = this._buffer.readIntLE(this._offset, 3);
+        this._offset += 3;
+        return int;
+    }
+
     public readShort(): number {
         const int: number = this._buffer.readInt16LE(this._offset);
         this._offset += 2;
