@@ -15,6 +15,9 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
     * Add support for random units/items/buildings
     * Add support for dropped item sets
     * Add waygate capability
+ * Terrain
+    * Update to latest version, v12, which supports up to 64 tiles
+    * Statically exposes `Tileset` enum
  * Objects - Add support for latest object files version, v3
  * Sounds
    * Statically exposes `EffectType` and `Channel`, so you can easily reference values like `Channel.Constructions` (12) or `EffectType.HeroSpeech` ("HeroAcksEAX")
