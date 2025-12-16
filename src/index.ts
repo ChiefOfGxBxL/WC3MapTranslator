@@ -73,6 +73,7 @@ program
     .option('-l, --list', 'List available translators', false)
     .option('-t, --translator <translator>', 'Specify which translator to use (if unable to auto-detect based on file name)')
     .option('-o, --obj-type <obj-type>', 'Specify which type of object is being translated (if using ObjectsTranslator and unable to detecth based on file name)')
+    .option('-s, --silent', 'If true, will not print success message details (errors are still printed)', false)
     .addOption(new Option('-m, --method <method>', 'Which direction to translate in (if unable to auto-detect based on file name)').choices(['warToJson', 'jsonToWar']))
     .configureOutput({
         outputError(str, write) {
@@ -170,11 +171,13 @@ program
 
         fs.writeFileSync(resolvedOutputFile, method === 'jsonToWar' ? ((result as WarResult).buffer) : JSON.stringify((result as JsonResult).json, null, 2));
 
-        console.info(chalk.white.bold('⚔ WC3MapTranslator'), chalk.white.bgGreen.bold(' SUCCESS '));
-        console.info(chalk.white.bold('  Input:'), inputFileName, chalk.gray(resolvedInputFile));
-        console.info(chalk.white.bold('  Output:'), outputFileName, chalk.gray(resolvedOutputFile), !outputFile ? chalk.gray(`(Defaulted to ${outputFileName})`) : '');
-        console.info(chalk.white.bold('  Translator:'), `${(<any>fileMapper.translator).name}`, !options.translator ? chalk.gray('(Auto-detected based on file name)') : '');
-        console.info(chalk.white.bold('  Method:'), `${method}`, !options.method ? chalk.gray('(Auto-detected based on file name)') : '');
+        if (!options.silent) {
+            console.info(chalk.white.bold('⚔ WC3MapTranslator'), chalk.white.bgGreen.bold(' SUCCESS '));
+            console.info(chalk.white.bold('  Input:'), inputFileName, chalk.gray(resolvedInputFile));
+            console.info(chalk.white.bold('  Output:'), outputFileName, chalk.gray(resolvedOutputFile), !outputFile ? chalk.gray(`(Defaulted to ${outputFileName})`) : '');
+            console.info(chalk.white.bold('  Translator:'), `${(<any>fileMapper.translator).name}`, !options.translator ? chalk.gray('(Auto-detected based on file name)') : '');
+            console.info(chalk.white.bold('  Method:'), `${method}`, !options.method ? chalk.gray('(Auto-detected based on file name)') : '');
+        }
     });
 
 program.parse();
