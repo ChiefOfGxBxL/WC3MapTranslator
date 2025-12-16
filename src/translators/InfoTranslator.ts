@@ -231,7 +231,7 @@ enum RandomGroupType {
     Item = 2
 }
 
-export abstract class InfoTranslator extends ITranslator {
+export default abstract class InfoTranslator extends ITranslator {
     public static readonly PlayerType = PlayerType;
     public static readonly PlayerRace = PlayerRace;
     public static readonly FogType = FogType;

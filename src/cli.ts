@@ -4,10 +4,10 @@ import chalk from 'chalk';
 import { Option, program } from 'commander';
 import * as fs from 'fs-extra';
 import path from 'node:path';
-import { translatorMappings } from '.';
 import { version } from '../package.json';
 import { JsonResult, WarResult } from './CommonInterfaces';
-import { ObjectsTranslator } from './translators';
+import { ObjectsTranslator } from './index';
+import translatorMappings from './TranslatorMappings';
 
 const recognizedTranslators = translatorMappings.map((mapping) => mapping.name).filter((o) => o);
 const recognizedObjectTypes = translatorMappings.map((mapping) => mapping.objectType).filter((o) => o);

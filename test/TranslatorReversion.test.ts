@@ -4,7 +4,7 @@ import path from 'node:path';
 import { before, suite, test } from 'node:test';
 
 import * as Translator from '../src';
-import { translatorMappings } from '../src';
+import translatorMappings from '../src/TranslatorMappings';
 
 const war3mapDir = path.resolve('test/data');
 const outputDir = path.resolve('test/.output');

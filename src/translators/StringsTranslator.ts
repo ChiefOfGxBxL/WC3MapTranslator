@@ -6,7 +6,7 @@ interface StringRecord {
     value: string;
 }
 
-export abstract class StringsTranslator extends ITranslator {
+export default abstract class StringsTranslator extends ITranslator {
     public static jsonToWar(stringsJson: Record<string, StringRecord>): WarResult {
         const outBufferToWar = new HexBuffer();
 

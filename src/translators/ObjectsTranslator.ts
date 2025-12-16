@@ -48,7 +48,7 @@ interface ObjectModificationTable {
     custom: Record<string, Modification[]>;
 }
 
-export abstract class ObjectsTranslator extends ITranslator {
+export default abstract class ObjectsTranslator extends ITranslator {
     // Expose the ObjectType enum as part of this abstract class
     // The enum could be "export"ed , but it wouldn't be accessible
     // via `ObjectsTranslator.ObjectType`, which is preferable.
