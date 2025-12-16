@@ -56,7 +56,7 @@ WC3MapTranslator is a TypeScript module to convert between JSON and WarCraft III
 npm install wc3maptranslator
 ```
 
-**Requires Node ≥ 14**  
+**Requires Node ≥ 24**  
 
 ## Usage
 ```ts
