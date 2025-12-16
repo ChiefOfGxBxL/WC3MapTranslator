@@ -148,9 +148,11 @@ program
         }
 
         // If no output file path is provided, look up the default mapping,
+        // and resolve to the directory of the input path
         let outputFileName = outputFile;
         if (!outputFileName) {
-            outputFileName = method === 'jsonToWar' ? fileMapper.warFile : fileMapper.jsonFile
+            outputFileName = method === 'jsonToWar' ? fileMapper.warFile : fileMapper.jsonFile;
+            outputFileName = path.resolve(path.dirname(inputFile), outputFileName);
         }
 
         // Raise an error if the output file already exists, and the force overwrite flag isn't activated
