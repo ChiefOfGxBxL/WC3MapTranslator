@@ -37,6 +37,7 @@ import chalk from 'chalk';
 import * as fs from 'fs-extra';
 import { program, Option } from 'commander';
 import { ITranslator, WarResult, JsonResult } from './CommonInterfaces';
+import { version } from '../package.json';
 
 const recognizedFileMappings: { name: string; translator: ITranslator; jsonFile: string; warFile: string; objType?: string }[] = [
     { name: 'cameras', translator: CamerasTranslator, jsonFile: 'cameras.json', warFile: 'war3map.w3c' },
@@ -63,7 +64,7 @@ const recognizedObjectTypes = recognizedFileMappings.map((mapping) => mapping.ob
 program
     .name('wc3maptranslator')
     .description('Translate between war3map and json formats for WarCraft III .w3x maps')
-    // .version(process.env.npm_package_version);
+    .version(version);
 
 program
     .argument('[input-file]', 'The file to be translated')
