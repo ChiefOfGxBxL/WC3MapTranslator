@@ -71,9 +71,9 @@ program
     .argument('[output-file]', 'The output file to save the translated data to')
     .option('-f, --force', 'Force overwrite any existing output file', false)
     .option('-l, --list', 'List available translators', false)
-    .option('-t, --translator <translator>', 'Specify which translator to use')
-    .option('-o, --obj-type <obj-type>', 'If using ObjectsTranslator, specify which type of object is being translated')
-    .addOption(new Option('-m, --method <method>', 'Which direction to translate in').choices(['warToJson', 'jsonToWar']))
+    .option('-t, --translator <translator>', 'Specify which translator to use (if unable to auto-detect based on file name)')
+    .option('-o, --obj-type <obj-type>', 'Specify which type of object is being translated (if using ObjectsTranslator and unable to detecth based on file name)')
+    .addOption(new Option('-m, --method <method>', 'Which direction to translate in (if unable to auto-detect based on file name)').choices(['warToJson', 'jsonToWar']))
     .configureOutput({
         outputError(str, write) {
             write(`${chalk.white.bold('⚔ WC3MapTranslator')} ${chalk.white.bgRed.bold(' ERROR ')}\n${chalk.gray(str)}\n${chalk.gray('Need help? Use -h or --help')}`);
