@@ -18,7 +18,7 @@ interface Rect {
     top: number;
 }
 
-export abstract class RegionsTranslator extends ITranslator {
+export default abstract class RegionsTranslator extends ITranslator {
     public static jsonToWar(regionsJson: Region[]): WarResult {
         const outBufferToWar = new HexBuffer();
 

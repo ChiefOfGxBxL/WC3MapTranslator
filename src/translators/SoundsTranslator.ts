@@ -88,7 +88,7 @@ const effectTypeLookup: Record<string, EffectType> = {
 const MYSTERY_NUM_1 = 1333788672; // (hex) 00 00 80 4F
 const MYSTERY_NUM_2 = -1; // (hex) FF FF FF FF
 
-export abstract class SoundsTranslator extends ITranslator {
+export default abstract class SoundsTranslator extends ITranslator {
     public static readonly EffectType = EffectType;
     public static readonly Channel = Channel;
 

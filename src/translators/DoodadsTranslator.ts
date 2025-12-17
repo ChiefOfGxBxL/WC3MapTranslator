@@ -40,7 +40,7 @@ interface DoodadFlag {
     fixedZ: boolean;
 }
 
-export abstract class DoodadsTranslator extends ITranslator {
+export default abstract class DoodadsTranslator extends ITranslator {
     public static jsonToWar(doodadsJson: DoodadJson): WarResult {
         const outBufferToWar = new HexBuffer();
         /*
