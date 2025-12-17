@@ -115,9 +115,16 @@ program
             if (!options.force && fs.existsSync(outputFilePath)) {
                 if (isInputDirectory) {
                     // In directory mode, skip file instead of exiting application so other files can still be processed
+                    console.info(
+                        chalk.white.bold('⚔ WC3MapTranslator'),
+                        chalk.white.bgYellow.bold(' SKIP '),
+                        nameOfFileToTranslate, '→',
+                        defaultOutputFileName,
+                        chalk.gray(`(already exists, use --force (-f) to overwrite)`)
+                    );
                     continue;
                 } else {
-                    return program.error(`An output file already exists by the provided path (${outputFilePath}).\nIf you want to force override it, use the -f or --force flag.`);
+                    return program.error(`An output file already exists by the provided path (${outputFilePath}).\nIf you want to force overwrite it, use the --force (-f) flag.`);
                 }
             }
 
@@ -136,10 +143,14 @@ program
             );
 
             if (!options.silent) {
-                console.info(chalk.white.bold('⚔ WC3MapTranslator'), chalk.white.bgGreen.bold(' SUCCESS '));
-                console.info(chalk.white.bold('  Input:'), nameOfFileToTranslate, chalk.gray(resolvedInputFile));
-                console.info(chalk.white.bold('  Output:'), defaultOutputFileName, chalk.gray(outputFilePath), !outputPath ? chalk.gray(`(Defaulted to ${outputFilePath})`) : '');
-                console.info(chalk.white.bold('  Translator:'), `${(<any>fileMapper.translator).name}`);
+                console.info(
+                    chalk.white.bold('⚔ WC3MapTranslator'),
+                    chalk.white.bgGreen.bold(' SUCCESS '),
+                    nameOfFileToTranslate, // resolvedInputFile
+                    '→',
+                    defaultOutputFileName, // outputFilePath
+                    chalk.gray(`(using ${(<any>fileMapper.translator).name})`)
+                );
             }
         }
     });
