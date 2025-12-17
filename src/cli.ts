@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint-disable no-console */
+
 import chalk from 'chalk';
 import { program } from 'commander';
 import * as fs from 'fs-extra';
@@ -39,16 +41,16 @@ program
     })
     .action((inputPath, outputPath, options) => {
         // Check that input file or directory exists
-        const resolvedInputFile = path.resolve(inputPath)
+        const resolvedInputFile = path.resolve(inputPath);
         if (!fs.existsSync(resolvedInputFile)) {
             return program.error(`The input provided (${resolvedInputFile}) does not exist!\nPlease provide a valid file or directory to translate.`);
         }
 
         if (options.list) {
-            console.info(chalk.white('Available translators:'))
+            console.info(chalk.white('Available translators:'));
             console.table(translatorMappings.map((entry) => ({
                 Name: entry.name,
-                Translator: (<any>entry.translator).name,
+                Translator: (entry.translator as any).name, // eslint-disable-line @typescript-eslint/no-explicit-any
                 'JSON File (default)': entry.jsonFile,
                 'War File (default)': entry.warFile,
                 'Object Type': entry.objectType
@@ -63,21 +65,20 @@ program
          * Options validation
          */
         if (isInputDirectory && outputPath && !isOutputDirectory) {
-            return program.error('If input directory is specified, output must be a directory too (or output directory might not exist).')
+            return program.error('If input directory is specified, output must be a directory too (or output directory might not exist).');
         }
 
         if (isInputDirectory && !options.toWar && !options.toJson) {
-            return program.error('Either --toWar (-w) or --toJson (-j) must be specified when input is a directory.')
+            return program.error('Either --toWar (-w) or --toJson (-j) must be specified when input is a directory.');
         }
 
         if (options.toWar && options.toJson) {
-            return program.error('Cannot use --toWar (-w) and --toJson (-j) at the same time. Choose one flag.')
+            return program.error('Cannot use --toWar (-w) and --toJson (-j) at the same time. Choose one flag.');
         }
 
         if ((options.toWar || options.toJson) && !isInputDirectory) {
-            return program.error('Cannot use --toWar (-w) or --toJson (-j) when input is not a directory.')
+            return program.error('Cannot use --toWar (-w) or --toJson (-j) when input is not a directory.');
         }
-
 
         /*
          * Process input
@@ -99,7 +100,7 @@ program
 
             const method = isInputDirectory
                 ? (options.toWar ? Method.jsonToWar : Method.warToJson) // directory mode, so must specify
-                : (nameOfFileToTranslate === fileMapper!.jsonFile ? Method.jsonToWar : Method.warToJson); // auto-detected based on file name
+                : (nameOfFileToTranslate === fileMapper.jsonFile ? Method.jsonToWar : Method.warToJson); // auto-detected based on file name
 
             // If no output file path is provided, look up the default mapping,
             // and resolve to the directory of the input path
@@ -149,7 +150,7 @@ program
                     nameOfFileToTranslate, // resolvedInputFile
                     '→',
                     defaultOutputFileName, // outputFilePath
-                    chalk.gray(`(using ${(<any>fileMapper.translator).name})`)
+                    chalk.gray(`(using ${(fileMapper.translator as any).name})`) // eslint-disable-line @typescript-eslint/no-explicit-any
                 );
             }
         }
