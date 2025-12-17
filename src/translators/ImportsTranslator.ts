@@ -4,7 +4,7 @@ import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
 
 const CurrentPathVersion = 21;
 
-export abstract class ImportsTranslator extends ITranslator {
+export default abstract class ImportsTranslator extends ITranslator {
     public static jsonToWar(imports: string[]): WarResult {
         const outBufferToWar = new HexBuffer();
 

@@ -64,7 +64,7 @@ function chunkArray<T>(array: T[], size: number): T[][] {
     return rows;
 }
 
-export abstract class TerrainTranslator extends ITranslator {
+export default abstract class TerrainTranslator extends ITranslator {
     public static readonly Tileset = Tileset;
 
     public static jsonToWar(terrainJson: Terrain): WarResult {

@@ -116,7 +116,7 @@ interface Abilities {
     level: number;
 }
 
-export abstract class UnitsTranslator extends ITranslator {
+export default abstract class UnitsTranslator extends ITranslator {
     public static readonly TargetAcquisition = TargetAcquisition;
     public static readonly PlayerNumber = PlayerNumber;
     public static readonly ItemClass = ItemClass;

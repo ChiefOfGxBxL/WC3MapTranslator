@@ -23,7 +23,7 @@ interface CameraTarget {
     y: number;
 }
 
-export abstract class CamerasTranslator extends ITranslator {
+export default abstract class CamerasTranslator extends ITranslator {
     public static jsonToWar(cameras: Camera[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
