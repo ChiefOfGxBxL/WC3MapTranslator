@@ -144,7 +144,7 @@ fs.writeFileSync('war3map.w3c', translatedResult.buffer);
 | Units - Objects         | ✅ | ✅ | war3map.w3u     |
 | Items - Objects         | ✅ | ✅ | war3map.w3t     |
 | Abilities - Objects     | ✅ | ✅ | war3map.w3a     |
-| Destructables - Objects | ✅ | ✅ | war3map.w3b     |
+| Destructables - Objects | ✅ | ✅ | war3map.w3b / war3mapSkin.w3b     |
 | Doodads - Objects       | ✅ | ✅ | war3map.w3d     |
 | Upgrades - Objects      | ✅ | ✅ | war3map.w3q     |
 | Buffs - Objects         | ✅ | ✅ | war3map.w3h     |
