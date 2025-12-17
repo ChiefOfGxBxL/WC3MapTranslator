@@ -105,11 +105,11 @@ program
             // and resolve to the directory of the input path
             let outputFilePath = '';
             let defaultOutputFileName = '';
-            if (!outputPath) {
-                const mappedFileName = method === Method.jsonToWar ? fileMapper.warFile : fileMapper.jsonFile;
-                defaultOutputFileName = mappedFileName;
-                outputFilePath = path.resolve(isInputDirectory ? inputPath : path.dirname(inputPath), mappedFileName);
-            }
+            const mappedFileName = method === Method.jsonToWar ? fileMapper.warFile : fileMapper.jsonFile;
+            defaultOutputFileName = mappedFileName;
+            outputFilePath = isOutputDirectory
+                ? path.resolve(outputPath, mappedFileName)
+                : path.resolve(isInputDirectory ? inputPath : path.dirname(inputPath), mappedFileName);
 
             // Raise an error if the output file already exists and the force-overwrite flag isn't activated
             if (!options.force && fs.existsSync(outputFilePath)) {
