@@ -117,7 +117,8 @@ program
                 continue;
             }
 
-            const fileMapper = translatorMappings.find((mapper) => [mapper.jsonFile, mapper.warFile].includes(nameOfFileToTranslate));
+            let fileMapper = translatorMappings.find((mapper) => [mapper.jsonFile, mapper.warFile].includes(nameOfFileToTranslate));
+            if (nameOfFileToTranslate.endsWith('war3mapSkin.w3b')) fileMapper = translatorMappings.find((mapper) => mapper.objectType === ObjectsTranslator.ObjectType.Destructables);
             if (!fileMapper) {
                 return program.error('The provided input file is not a standard name for either a war3map file or JSON file.\nPlease use a standard file name as shown in the --list (-l) command.');
             }
@@ -129,9 +130,7 @@ program
             // If no output file path is provided, look up the default mapping,
             // and resolve to the directory of the input path
             let outputFilePath = '';
-            let defaultOutputFileName = '';
             const mappedFileName = method === Method.jsonToWar ? fileMapper.warFile : fileMapper.jsonFile;
-            defaultOutputFileName = mappedFileName;
             outputFilePath = isOutputDirectory
                 ? path.resolve(outputPath, mappedFileName)
                 : path.resolve(isInputDirectory ? inputPath : path.dirname(inputPath), mappedFileName);
@@ -143,7 +142,7 @@ program
 
             let skinInputFileData = undefined;
             if (isDestructableTranslator && method === Method.warToJson) {
-                let skinDestructableFilePath = path.resolve(path.dirname(inputPath), 'war3mapSkin.w3b');
+                const skinDestructableFilePath = path.resolve(path.dirname(inputPath), 'war3mapSkin.w3b');
                 if (fs.existsSync(skinDestructableFilePath)) {
                     skinInputFileData = fs.readFileSync(skinDestructableFilePath);
                 }
@@ -167,7 +166,7 @@ program
                 writeFile(
                     nameOfFileToTranslate,
                     path.resolve(path.dirname(outputFilePath), 'war3mapSkin.w3b'),
-                    (result as WarResult).bufferSkin!,
+                    (result as WarResult).bufferSkin!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
                     fileMapper.translator
                 );
             }

@@ -15,6 +15,7 @@ const readJsonTestFile = (filename: string) => fs.readJsonSync(path.join(war3map
 const writeJsonTestFile = (filename: string, json: object) => fs.writeJsonSync(path.join(outputDir, filename), json, { spaces: 2 });
 
 const tests = translatorMappings;
+const Destructables = Translator.ObjectsTranslator.ObjectType.Destructables;
 
 // Ensures that when a JSON file is converted to war3map and back again,
 // the two JSON files are the same; converting between the two data formats
@@ -33,9 +34,10 @@ suite('Reversions', () => {
                 const translatedBuffer = translator === Translator.ObjectsTranslator
                     ? translator.jsonToWar(objectType, originalJson).buffer
                     : translator.jsonToWar(originalJson).buffer;
+                const translatedSkinBuffer = objectType === Destructables ? translator.jsonToWar(objectType, originalJson).bufferSkin : undefined;
 
                 const translatedJson = translator === Translator.ObjectsTranslator
-                    ? translator.warToJson(objectType, translatedBuffer).json
+                    ? translator.warToJson(objectType, translatedBuffer, translatedSkinBuffer).json
                     : translator.warToJson(translatedBuffer).json;
 
                 writeJsonTestFile(jsonFile, translatedJson);
@@ -48,17 +50,23 @@ suite('Reversions', () => {
         for (const { displayName, warFile, translator, objectType } of tests) {
             test(`should revert ${displayName}`, () => {
                 const originalBuffer = readWar3MapBuffer(warFile);
+                const skinBuffer = objectType === Destructables ? readWar3MapBuffer('war3mapSkin.w3b') : undefined;
 
                 const translatedJson = translator === Translator.ObjectsTranslator
-                    ? translator.warToJson(objectType, originalBuffer).json
+                    ? translator.warToJson(objectType, originalBuffer, skinBuffer).json
                     : translator.warToJson(originalBuffer).json;
 
                 const translatedBuffer = translator === Translator.ObjectsTranslator
                     ? translator.jsonToWar(objectType, translatedJson).buffer
                     : translator.jsonToWar(translatedJson).buffer;
+                const translatedSkinBuffer = objectType === Destructables ? translator.jsonToWar(objectType, translatedJson).bufferSkin : undefined;
 
                 writeWar3TestFile(warFile, translatedBuffer);
                 assert.ok(originalBuffer.equals(translatedBuffer));
+                if (translatedSkinBuffer) {
+                    writeWar3TestFile('war3mapSkin.w3b', translatedSkinBuffer);
+                    assert.ok(skinBuffer?.equals(translatedSkinBuffer));
+                }
             });
         }
     });
