@@ -7,7 +7,7 @@ export abstract class ITranslator {
     abstract jsonToWar(...args: any[]): WarResult;
     abstract warToJson(...args: any[]): JsonResult;
     // abstract jsonToWar (type: string, data: any): WarResult;
-    // abstract warToJson (type: string, buffer: Buffer): JsonResult;
+    // abstract warToJson (type: string, buffer: Buffer, bufferSkin?: Buffer): JsonResult;
 }
 
 // TranslationError is reserved for future use in case

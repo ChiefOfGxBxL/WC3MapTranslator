@@ -243,47 +243,42 @@ export default abstract class ObjectsTranslator extends ITranslator {
         };
     }
 
-    public static warToJson(type: string, buffer: Buffer): JsonResult<ObjectModificationTable> {
-        const result: ObjectModificationTable = { original: {}, custom: {} };
-        const outBufferToJSON = new W3Buffer(buffer);
-
-        outBufferToJSON.readInt(); // fileVersion
-
-        const readModification = (): Modification => {
-            const id = outBufferToJSON.readFourCC();
-            const valueType = Object.values(ModificationType)[outBufferToJSON.readInt()];
+    public static warToJson(type: string, buffer: Buffer, bufferSkin?: Buffer): JsonResult<ObjectModificationTable> {
+        const readModification = (buffer: W3Buffer): Modification => {
+            const id = buffer.readFourCC();
+            const valueType = Object.values(ModificationType)[buffer.readInt()];
 
             let level = 0;
             let column = 0;
             if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
-                level = outBufferToJSON.readInt();
-                column = outBufferToJSON.readInt();
+                level = buffer.readInt();
+                column = buffer.readInt();
             }
 
             let value = null;
             if (valueType === 'int') {
-                value = outBufferToJSON.readInt();
+                value = buffer.readInt();
             } else if (valueType === 'real' || valueType === 'unreal') {
-                value = outBufferToJSON.readFloat();
+                value = buffer.readFloat();
             } else { // valueType === 'string'
-                value = outBufferToJSON.readString();
+                value = buffer.readString();
             }
 
-            outBufferToJSON.readFourCC(); // original fields end with object ID, custom fields end with (00 00 00 00)
+            buffer.readFourCC(); // original fields end with object ID, custom fields end with (00 00 00 00)
 
             return { id, type: valueType, level, column, value };
         };
 
-        const readObject = (): ObjectDefinition => {
-            const originalId = outBufferToJSON.readFourCC();
-            const customId = outBufferToJSON.readFourCC();
-            outBufferToJSON.readInt();
-            outBufferToJSON.readInt();
-            const modificationCount = outBufferToJSON.readInt();
+        const readObject = (buffer: W3Buffer): ObjectDefinition => {
+            const originalId = buffer.readFourCC();
+            const customId = buffer.readFourCC();
+            buffer.readInt();
+            buffer.readInt();
+            const modificationCount = buffer.readInt();
 
             const modifications: Modification[] = [];
             for (let j = 0; j < modificationCount; j++) {
-                modifications.push(readModification());
+                modifications.push(readModification(buffer));
             }
 
             return {
@@ -293,19 +288,32 @@ export default abstract class ObjectsTranslator extends ITranslator {
             };
         };
 
-        const readTable = (isOriginalTable: boolean) => {
-            const numTableModifications = outBufferToJSON.readInt();
+        const readTable = (tableType: TableType, buffer: W3Buffer) => {
+            const numTableModifications = buffer.readInt();
+            const isOriginalTable = tableType === TableType.original;
 
             for (let i = 0; i < numTableModifications; i++) {
-                const modifiedObject = readObject();
+                const modifiedObject = readObject(buffer);
 
                 const idInTable = isOriginalTable ? modifiedObject.originalId : `${modifiedObject.customId}:${modifiedObject.originalId}`;
-                result[isOriginalTable ? 'original' : 'custom'][idInTable] = modifiedObject.modifications;
+
+                // Add modifications to array (rather than setting to array) so
+                // destructable skins file doesn't overwrite regular modifications
+                if (!(idInTable in result[tableType])) result[tableType][idInTable] = [];
+                result[tableType][idInTable].push(...modifiedObject.modifications);
             }
         };
 
-        readTable(true);
-        readTable(false);
+        const result: ObjectModificationTable = { original: {}, custom: {} };
+
+        for (const buf of [buffer, bufferSkin]) {
+            if (!buf) continue; // bufferSkin may be undefined
+
+            const outBufferToJSON = new W3Buffer(buf);
+            outBufferToJSON.readInt(); // fileVersion
+            readTable(TableType.original, outBufferToJSON);
+            readTable(TableType.custom, outBufferToJSON);
+        }
 
         return {
             errors: [],

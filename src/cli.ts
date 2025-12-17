@@ -7,7 +7,7 @@ import { program } from 'commander';
 import * as fs from 'fs-extra';
 import path from 'node:path';
 import { version } from '../package.json';
-import { JsonResult, WarResult } from './CommonInterfaces';
+import { JsonResult, WarResult, ITranslator } from './CommonInterfaces';
 import { ObjectsTranslator } from './index';
 import translatorMappings from './TranslatorMappings';
 
@@ -80,6 +80,30 @@ program
             return program.error('Cannot use --toWar (-w) or --toJson (-j) when input is not a directory.');
         }
 
+        const writeFile = (inputFile: string, outputFile: string, data: string | Buffer, translator: ITranslator) => {
+            // Raise an error if the output file already exists and the force-overwrite flag isn't activated
+            if (!options.force && fs.existsSync(outputFile)) {
+                console.info(
+                    chalk.white.bold('⚔ WC3MapTranslator'),
+                    chalk.white.bgYellow.bold(' SKIP '),
+                    inputFile, '→',
+                    path.basename(outputFile),
+                    chalk.gray(`(already exists, use --force (-f) to overwrite)`)
+                );
+            } else if (!options.silent) {
+                fs.writeFileSync(outputFile, data);
+
+                console.info(
+                    chalk.white.bold('⚔ WC3MapTranslator'),
+                    chalk.white.bgGreen.bold(' SUCCESS '),
+                    inputFile,
+                    '→',
+                    path.basename(outputFile),
+                    chalk.gray(`(using ${(translator as any).name})`) // eslint-disable-line @typescript-eslint/no-explicit-any
+                );
+            }
+        };
+
         /*
          * Process input
          */
@@ -112,45 +136,39 @@ program
                 ? path.resolve(outputPath, mappedFileName)
                 : path.resolve(isInputDirectory ? inputPath : path.dirname(inputPath), mappedFileName);
 
-            // Raise an error if the output file already exists and the force-overwrite flag isn't activated
-            if (!options.force && fs.existsSync(outputFilePath)) {
-                if (isInputDirectory) {
-                    // In directory mode, skip file instead of exiting application so other files can still be processed
-                    console.info(
-                        chalk.white.bold('⚔ WC3MapTranslator'),
-                        chalk.white.bgYellow.bold(' SKIP '),
-                        nameOfFileToTranslate, '→',
-                        defaultOutputFileName,
-                        chalk.gray(`(already exists, use --force (-f) to overwrite)`)
-                    );
-                    continue;
-                } else {
-                    return program.error(`An output file already exists by the provided path (${outputFilePath}).\nIf you want to force overwrite it, use the --force (-f) flag.`);
+            // Perform the translation and save the file
+            const isDestructableTranslator = fileMapper.translator === ObjectsTranslator && fileMapper.objectType === ObjectsTranslator.ObjectType.Destructables;
+            const inputFileData = method === Method.jsonToWar ? fs.readJSONSync(inputFile) : fs.readFileSync(inputFile);
+            const translatorMethod = method === Method.jsonToWar ? fileMapper.translator.jsonToWar : fileMapper.translator.warToJson;
+
+            let skinInputFileData = undefined;
+            if (isDestructableTranslator && method === Method.warToJson) {
+                let skinDestructableFilePath = path.resolve(path.dirname(inputPath), 'war3mapSkin.w3b');
+                if (fs.existsSync(skinDestructableFilePath)) {
+                    skinInputFileData = fs.readFileSync(skinDestructableFilePath);
                 }
             }
 
-            // Perform the translation and save the file
-            const inputFileData = method === Method.jsonToWar ? fs.readJSONSync(inputFile) : fs.readFileSync(inputFile);
-            const translatorMethod = method === Method.jsonToWar ? fileMapper.translator.jsonToWar : fileMapper.translator.warToJson;
             const result = fileMapper.translator === ObjectsTranslator
-                ? translatorMethod(fileMapper.objectType, inputFileData)
+                ? translatorMethod(fileMapper.objectType, inputFileData, skinInputFileData)
                 : translatorMethod(inputFileData);
 
-            fs.writeFileSync(
+            writeFile(
+                nameOfFileToTranslate,
                 outputFilePath,
                 method === Method.jsonToWar
                     ? ((result as WarResult).buffer)
-                    : JSON.stringify((result as JsonResult).json, null, 2)
+                    : JSON.stringify((result as JsonResult).json, null, 2),
+                fileMapper.translator
             );
 
-            if (!options.silent) {
-                console.info(
-                    chalk.white.bold('⚔ WC3MapTranslator'),
-                    chalk.white.bgGreen.bold(' SUCCESS '),
-                    nameOfFileToTranslate, // resolvedInputFile
-                    '→',
-                    defaultOutputFileName, // outputFilePath
-                    chalk.gray(`(using ${(fileMapper.translator as any).name})`) // eslint-disable-line @typescript-eslint/no-explicit-any
+            // Possible "Skin" file for destructables, json -> war3map
+            if (isDestructableTranslator && method === Method.jsonToWar && (result as WarResult).bufferSkin) {
+                writeFile(
+                    nameOfFileToTranslate,
+                    path.resolve(path.dirname(outputFilePath), 'war3mapSkin.w3b'),
+                    (result as WarResult).bufferSkin!,
+                    fileMapper.translator
                 );
             }
         }
