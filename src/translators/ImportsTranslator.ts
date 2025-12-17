@@ -12,11 +12,11 @@ export abstract class ImportsTranslator extends ITranslator {
          * Header
          */
         outBufferToWar.addInt(1); // file version
-        outBufferToWar.addInt(imports.length); // number of imports
 
         /*
          * Body
          */
+        outBufferToWar.addInt(imports.length); // number of imports
         for (const importedFile of imports) {
             outBufferToWar.addByte(CurrentPathVersion);
             outBufferToWar.addString(importedFile);

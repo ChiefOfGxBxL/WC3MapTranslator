@@ -42,14 +42,13 @@ interface Sound {
     variableName: string;
     internalName: string;
     path: string;
-    effect: EffectType;
+    effect?: EffectType;
     flags: SoundFlags;
     fadeRate: FadeRate;
-    volume: number;
+    volume?: number;
     pitch: number;
-    channel: number;
+    channel?: number;
     distance: Distance;
-
     pitchVariance?: number;
     priority?: number;
 }
@@ -99,11 +98,11 @@ export abstract class SoundsTranslator extends ITranslator {
          * Header
          */
         outBufferToWar.addInt(3); // file version
-        outBufferToWar.addInt(soundsJson.length); // number of sounds
 
         /*
          * Body
          */
+        outBufferToWar.addInt(soundsJson.length); // number of sounds
         for (const sound of soundsJson) {
             const isImportedSound = sound.path.startsWith('war3mapImported/');
 
@@ -194,12 +193,10 @@ export abstract class SoundsTranslator extends ITranslator {
                 variableName: '',
                 internalName: '',
                 path: '',
-                effect: EffectType.Default,
                 volume: 0,
                 pitch: 0,
                 pitchVariance: 0,
                 priority: 100,
-                channel: 0,
                 flags: {
                     looping: true,
                     '3dSound': true,

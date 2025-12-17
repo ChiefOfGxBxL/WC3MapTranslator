@@ -12,13 +12,13 @@ interface DoodadJson {
 
 interface Doodad {
     type: string;
-    variation: number;
+    variation?: number;
     position: number[]; // float: [x, y, z]
     angle: angle;
     scale: number[];
-    skinId: string;
-    flags: DoodadFlag;
-    life: number;
+    skinId?: string;
+    flags?: DoodadFlag;
+    life?: number;
     id: number;
     randomItemSetId?: number;
     customItemSets?: ItemSet[];
@@ -56,7 +56,7 @@ export abstract class DoodadsTranslator extends ITranslator {
         outBufferToWar.addInt(doodadsJson.regular.length); // num of regular doodads
         for (const doodad of doodadsJson.regular) {
             outBufferToWar.addChars(doodad.type);
-            outBufferToWar.addInt(doodad.variation || 0); // optional - default value 0
+            outBufferToWar.addInt(doodad.variation || 0);
             outBufferToWar.addFloat(doodad.position[0]);
             outBufferToWar.addFloat(doodad.position[1]);
             outBufferToWar.addFloat(doodad.position[2]);
@@ -66,7 +66,7 @@ export abstract class DoodadsTranslator extends ITranslator {
             // to angles in any other file which use degrees.
             //    war3map: Expects angle in RADIANS
             //    JSON: Spec defines angle in DEGREES
-            outBufferToWar.addFloat(deg2Rad(doodad.angle) || 0); // optional - default value 0
+            outBufferToWar.addFloat(deg2Rad(doodad.angle) || 0);
 
             // Scale
             if (!doodad.scale) doodad.scale = [1, 1, 1];
@@ -74,7 +74,7 @@ export abstract class DoodadsTranslator extends ITranslator {
             outBufferToWar.addFloat(doodad.scale[1] || 1);
             outBufferToWar.addFloat(doodad.scale[2] || 1);
 
-            outBufferToWar.addChars(doodad.skinId);
+            outBufferToWar.addChars(doodad.skinId || doodad.type);
 
             // Flags - not quite a bit-field, so can't assign bit masks
             /* | Visible | Solid | Flag value |
@@ -82,12 +82,12 @@ export abstract class DoodadsTranslator extends ITranslator {
                |  yes    |  no   |     1      |
                |  yes    |  yes  |     2      | */
             let treeFlag = 0;
-            if (doodad.flags.visible) {
+            if (doodad.flags?.visible) {
                 treeFlag = (doodad.flags.solid) ? 2 : 1;
             }
-            if (doodad.flags.fixedZ) treeFlag += 4;
+            if (doodad.flags?.fixedZ) treeFlag += 4;
 
-            outBufferToWar.addByte(treeFlag);
+            outBufferToWar.addByte(treeFlag || 2);
 
             outBufferToWar.addByte(doodad.life || 100);
 
@@ -142,17 +142,14 @@ export abstract class DoodadsTranslator extends ITranslator {
         for (let i = 0; i < numDoodads; i++) {
             const doodad: Doodad = {
                 type: '',
-                variation: 0,
                 position: [0, 0, 0],
                 angle: -1,
                 scale: [0, 0, 0],
-                skinId: '',
-                flags: { visible: true, solid: true, fixedZ: false },
-                life: -1,
                 id: -1
             };
 
             doodad.type = outBufferToJSON.readChars(4);
+
             doodad.variation = outBufferToJSON.readInt();
             doodad.position = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z coords
 
@@ -164,9 +161,12 @@ export abstract class DoodadsTranslator extends ITranslator {
             doodad.angle = rad2Deg(outBufferToJSON.readFloat());
 
             doodad.scale = [outBufferToJSON.readFloat(), outBufferToJSON.readFloat(), outBufferToJSON.readFloat()]; // X Y Z scaling
-            doodad.skinId = outBufferToJSON.readChars(4);
+
+            const skinId = outBufferToJSON.readChars(4);
+            if (skinId !== doodad.type) doodad.skinId = skinId;
 
             // Flags has weird logic since it doesn't appear to fully be a bit-field
+            doodad.flags = { visible: false, solid: false, fixedZ: false };
             let flags = outBufferToJSON.readByte();
             if (flags > 4) {
                 flags -= 4;
@@ -175,7 +175,9 @@ export abstract class DoodadsTranslator extends ITranslator {
             doodad.flags.visible = flags >= 1;
             doodad.flags.solid = flags === 2;
 
-            doodad.life = outBufferToJSON.readByte(); // as a %
+            // Life, as % of max
+            const life = outBufferToJSON.readByte();
+            if (life !== 100) doodad.life = life;
 
             // Item sets
             const randomItemSetPtr = outBufferToJSON.readInt(); // randomItemSetPtr, points to an item set defined in the map (rather than custom one defined below)

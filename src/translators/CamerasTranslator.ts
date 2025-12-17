@@ -5,17 +5,17 @@ import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
 interface Camera {
     target: CameraTarget;
     offsetZ: number;
-    rotation: angle;
+    rotation?: angle;
     aoa: angle; // angle of attack
     distance: number;
-    roll: number;
+    roll?: number;
     fov: angle; // field of view
     farClipping: number;
-    nearClipping: number;
+    nearClipping?: number;
     name: string;
-    localPitch: number;
-    localYaw: number;
-    localRoll: number;
+    localPitch?: number;
+    localYaw?: number;
+    localRoll?: number;
 }
 
 interface CameraTarget {
@@ -31,27 +31,25 @@ export abstract class CamerasTranslator extends ITranslator {
          * Header
          */
         outBufferToWar.addInt(0); // file version
-        outBufferToWar.addInt(cameras.length); // number of cameras
 
         /*
          * Body
          */
+        outBufferToWar.addInt(cameras.length);
         for (const camera of cameras) {
             outBufferToWar.addFloat(camera.target.x);
             outBufferToWar.addFloat(camera.target.y);
             outBufferToWar.addFloat(camera.offsetZ);
-            outBufferToWar.addFloat(camera.rotation || 0); // optional
+            outBufferToWar.addFloat(camera.rotation || 0);
             outBufferToWar.addFloat(camera.aoa);
             outBufferToWar.addFloat(camera.distance);
             outBufferToWar.addFloat(camera.roll || 0);
             outBufferToWar.addFloat(camera.fov);
             outBufferToWar.addFloat(camera.farClipping);
-            outBufferToWar.addFloat(camera.nearClipping);
+            outBufferToWar.addFloat(camera.nearClipping || 100);
             outBufferToWar.addFloat(camera.localPitch || 0);
             outBufferToWar.addFloat(camera.localYaw || 0);
             outBufferToWar.addFloat(camera.localRoll || 0);
-
-            // Camera name - must be null-terminated
             outBufferToWar.addString(camera.name);
         }
 
@@ -66,8 +64,8 @@ export abstract class CamerasTranslator extends ITranslator {
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readInt(); // File version
-        const numCameras = outBufferToJSON.readInt(); // # of cameras
 
+        const numCameras = outBufferToJSON.readInt();
         for (let i = 0; i < numCameras; i++) {
             const camera: Camera = {
                 target: {
