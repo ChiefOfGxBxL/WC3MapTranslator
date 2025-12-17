@@ -17,7 +17,7 @@ interface Doodad {
     angle: angle;
     scale: number[];
     skinId?: string;
-    flags?: DoodadFlag;
+    flags: DoodadFlag;
     life?: number;
     id: number;
     randomItemSetId?: number;
@@ -82,12 +82,12 @@ export default abstract class DoodadsTranslator extends ITranslator {
                |  yes    |  no   |     1      |
                |  yes    |  yes  |     2      | */
             let treeFlag = 0;
-            if (doodad.flags?.visible) {
+            if (doodad.flags.visible) {
                 treeFlag = (doodad.flags.solid) ? 2 : 1;
             }
-            if (doodad.flags?.fixedZ) treeFlag += 4;
+            if (doodad.flags.fixedZ) treeFlag += 4;
 
-            outBufferToWar.addByte(treeFlag || 2);
+            outBufferToWar.addByte(treeFlag);
 
             outBufferToWar.addByte(doodad.life || 100);
 
@@ -145,6 +145,7 @@ export default abstract class DoodadsTranslator extends ITranslator {
                 position: [0, 0, 0],
                 angle: -1,
                 scale: [0, 0, 0],
+                flags: { visible: true, solid: true, fixedZ: false },
                 id: -1
             };
 
@@ -166,7 +167,6 @@ export default abstract class DoodadsTranslator extends ITranslator {
             if (skinId !== doodad.type) doodad.skinId = skinId;
 
             // Flags has weird logic since it doesn't appear to fully be a bit-field
-            doodad.flags = { visible: false, solid: false, fixedZ: false };
             let flags = outBufferToJSON.readByte();
             if (flags > 4) {
                 flags -= 4;
