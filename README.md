@@ -78,7 +78,7 @@ wc3maptranslator --list
 wc3maptranslator --help
 
 # Useful flags
---force / -f Overwrite existing files (by default, a warning or error will be thrown)
+--force / -f Overwrite existing files (by default, translation is skipped if it would overwrite an existing file)
 --silent / -s Silence success output messages (errors will still be shown)
 ```
 
