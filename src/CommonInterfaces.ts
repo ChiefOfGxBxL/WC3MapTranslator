@@ -20,6 +20,7 @@ export interface TranslationError {
 
 export interface WarResult {
     buffer: Buffer;
+    bufferSkin?: Buffer;
     errors: TranslationError[];
 }
 

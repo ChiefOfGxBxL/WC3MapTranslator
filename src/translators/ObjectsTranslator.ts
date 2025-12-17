@@ -43,9 +43,11 @@ interface ObjectDefinition {
     modifications: Modification[];
 }
 
+type ModificationTableRecords = Record<string, Modification[]>;
+
 interface ObjectModificationTable {
-    original: Record<string, Modification[]>;
-    custom: Record<string, Modification[]>;
+    original: ModificationTableRecords;
+    custom: ModificationTableRecords;
 }
 
 const varTypes = {
@@ -59,6 +61,20 @@ const varTypes = {
     3: 'string'
 };
 
+// Destructables now have two files, `war3map.w3b` and `war3mapSkin.w3b`.
+// Fields in the `units/destructablemetadata.slk` file with `netsafe` = 1
+// are placed in the new `war3mapSkin.w3b` file.
+const destructableSkinFields = [
+    'bnam', 'bsuf', 'bfil', 'blit',
+    'btxi', 'btxf', 'buch', 'bvar',
+    'bfxr', 'bsel', 'bmis', 'bmas',
+    'bcpr', 'bmap', 'bmar', 'bptx',
+    'bptd', 'bdsn', 'bsnd', 'bshd',
+    'bsmm', 'bmmr', 'bmmg', 'bmmb',
+    'bumm', 'bvcr', 'bvcg', 'bvcb',
+    'bgsc', 'bgpm'
+];
+
 export default abstract class ObjectsTranslator extends ITranslator {
     // Expose the ObjectType enum as part of this abstract class
     // The enum could be "export"ed , but it wouldn't be accessible
@@ -67,15 +83,17 @@ export default abstract class ObjectsTranslator extends ITranslator {
 
     public static jsonToWar(type: string, json: ObjectModificationTable): WarResult {
         const outBufferToWar = new HexBuffer();
+        const outBufferSkin = new HexBuffer();
 
         /*
          * Header
          */
         outBufferToWar.addInt(3); // file version
+        outBufferSkin.addInt(3); // file version
 
-        const writeModification = (modification: Modification, tableType: TableType, objectId: string) => {
+        const writeModification = (modification: Modification, tableType: TableType, objectId: string, buffer: HexBuffer) => {
             // Modification id (e.g. unam = name; reference MetaData lookups)
-            outBufferToWar.addChars(modification.id);
+            buffer.addChars(modification.id);
 
             // Determine what type of field the mod is (int, real, unreal, string)
             let modType: number = 0;
@@ -91,72 +109,73 @@ export default abstract class ObjectsTranslator extends ITranslator {
                 }
             }
 
-            outBufferToWar.addInt(modType);
+            buffer.addInt(modType);
 
             // Addl integers required for: doodads, abilities, upgrades
             if (type === ObjectType.Doodads || type === ObjectType.Abilities || type === ObjectType.Upgrades) {
-                outBufferToWar.addInt(modification.level || modification.variation || 0);
-                outBufferToWar.addInt(modification.column || 0); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
+                buffer.addInt(modification.level || modification.variation || 0);
+                buffer.addInt(modification.column || 0); // E.g DataA1 is 1 because of col A; refer to the xyzData.slk files for Data fields
             }
 
             // Write mod value
             if (modType === varTypes.int && typeof modification.value === 'number') {
-                outBufferToWar.addInt(modification.value);
+                buffer.addInt(modification.value);
             } else if ((modType === varTypes.real || modType === varTypes.unreal) && typeof modification.value === 'number') {
                 // Follow-up: check if unreal values are same hex format as real
-                outBufferToWar.addFloat(modification.value);
+                buffer.addFloat(modification.value);
             } else if (modType === varTypes.string && typeof modification.value === 'string') {
                 // Note that World Editor normally creates a TRIGSTR_000 for these string
                 // values - WC3MapTranslator just writes the string directly to file
-                outBufferToWar.addString(modification.value);
+                buffer.addString(modification.value);
             }
 
             // End of struct
             if (tableType === TableType.original) {
                 // Original objects are ended with their base id (e.g. hfoo)
-                outBufferToWar.addChars(objectId);
+                buffer.addChars(objectId);
             } else {
                 // Custom objects are ended with 0000 bytes
-                outBufferToWar.addByte(0);
-                outBufferToWar.addByte(0);
-                outBufferToWar.addByte(0);
-                outBufferToWar.addByte(0);
+                buffer.addByte(0);
+                buffer.addByte(0);
+                buffer.addByte(0);
+                buffer.addByte(0);
             }
         };
 
-        const writeObject = (object: ObjectDefinition) => {
+        const writeObject = (object: ObjectDefinition, buffer: HexBuffer) => {
             if (object.customId) {
                 // e.g. "h000:hfoo"
-                outBufferToWar.addChars(object.originalId);
-                outBufferToWar.addChars(object.customId);
+                buffer.addChars(object.originalId);
+                buffer.addChars(object.customId);
             } else {
-                outBufferToWar.addChars(object.originalId);
+                buffer.addChars(object.originalId);
 
                 // no new Id is assigned
-                outBufferToWar.addByte(0);
-                outBufferToWar.addByte(0);
-                outBufferToWar.addByte(0);
-                outBufferToWar.addByte(0);
+                buffer.addByte(0);
+                buffer.addByte(0);
+                buffer.addByte(0);
+                buffer.addByte(0);
             }
 
             // Number of modifications made to this object
-            outBufferToWar.addInt(1);
-            outBufferToWar.addInt(0);
-            outBufferToWar.addInt(object.modifications.length);
+            buffer.addInt(1);
+            buffer.addInt(0);
+            buffer.addInt(object.modifications.length);
 
             for (const mod of object.modifications) {
                 writeModification(
                     mod,
                     object.customId ? TableType.custom : TableType.original,
-                    object.originalId
+                    object.originalId,
+                    buffer
                 );
             }
         };
 
-        const writeTable = (tableType: TableType) => {
-            const tableData = json[tableType === TableType.original ? 'original' : 'custom'];
+        const writeTable = (tableType: TableType, buffer: HexBuffer, data: ObjectModificationTable) => {
+            const tableData = data[tableType];
 
-            outBufferToWar.addInt(Object.keys(tableData).length);
+            buffer.addInt(Object.keys(tableData).length);
             for (const objectId of Object.keys(tableData)) {
                 let originalId = '';
                 let customId = '';
@@ -171,16 +190,56 @@ export default abstract class ObjectsTranslator extends ITranslator {
                     originalId,
                     customId,
                     modifications: tableData[objectId]
-                });
+                }, buffer);
             }
         };
 
-        writeTable(TableType.original);
-        writeTable(TableType.custom);
+        const splitObjectModificationTable = (input: ObjectModificationTable) => {
+            const original: ModificationTableRecords = {};
+            const originalSkin: ModificationTableRecords = {};
+            const custom: ModificationTableRecords = {};
+            const customSkin: ModificationTableRecords = {};
+
+            for (const table of [input.original, input.custom]) {
+                const isCustom = table === input.custom;
+
+                for (const objectId of Object.keys(table)) {
+                    const regularFields = table[objectId].filter((d) => !destructableSkinFields.includes(d.id));
+                    const skinFields = table[objectId].filter((d) => destructableSkinFields.includes(d.id));
+
+                    if (regularFields.length) (isCustom ? custom : original)[objectId] = regularFields;
+                    if (skinFields.length) (isCustom ? customSkin : originalSkin)[objectId] = skinFields;
+                }
+            }
+
+            return { original, custom, originalSkin, customSkin };
+        };
+
+        let usingSkinFile = false;
+        if (type === ObjectType.Destructables) {
+            const { original, custom, originalSkin, customSkin } = splitObjectModificationTable(json);
+
+            // Regular
+            const jsonRegular: ObjectModificationTable = { original, custom };
+            writeTable(TableType.original, outBufferToWar, jsonRegular);
+            writeTable(TableType.custom, outBufferToWar, jsonRegular);
+
+            // Skin
+            if (type === ObjectType.Destructables) {
+                const jsonSkin: ObjectModificationTable = { original: originalSkin, custom: customSkin };
+                usingSkinFile = Object.keys(jsonSkin.original).length > 0 || Object.keys(jsonSkin.custom).length > 0;
+                writeTable(TableType.original, outBufferSkin, jsonSkin);
+                writeTable(TableType.custom, outBufferSkin, jsonSkin);
+            }
+        } else {
+            writeTable(TableType.original, outBufferToWar, json);
+            writeTable(TableType.custom, outBufferToWar, json);
+        }
 
         return {
             errors: [],
-            buffer: outBufferToWar.getBuffer()
+            buffer: outBufferToWar.getBuffer(),
+            bufferSkin: (type === ObjectType.Destructables && usingSkinFile) ? outBufferSkin.getBuffer() : undefined
         };
     }
 
