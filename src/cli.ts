@@ -63,7 +63,7 @@ program
          * Options validation
          */
         if (isInputDirectory && outputPath && !isOutputDirectory) {
-            return program.error('If input directory is specified, output must be a directory too.')
+            return program.error('If input directory is specified, output must be a directory too (or output directory might not exist).')
         }
 
         if (isInputDirectory && !options.toWar && !options.toJson) {
