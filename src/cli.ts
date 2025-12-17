@@ -97,10 +97,9 @@ program
                 return program.error('The provided input file is not a standard name for either a war3map file or JSON file.\nPlease use a standard file name as shown in the --list (-l) command.');
             }
 
-            // Determine which method to use: .warToJson, or .jsonToWar (--toWar, --toJson, or lookup based on filename)
             const method = isInputDirectory
-                ? (options.toWar ? Method.jsonToWar : Method.warToJson)
-                : (nameOfFileToTranslate === fileMapper!.jsonFile ? Method.jsonToWar : Method.warToJson);
+                ? (options.toWar ? Method.jsonToWar : Method.warToJson) // directory mode, so must specify
+                : (nameOfFileToTranslate === fileMapper!.jsonFile ? Method.jsonToWar : Method.warToJson); // auto-detected based on file name
 
             // If no output file path is provided, look up the default mapping,
             // and resolve to the directory of the input path
