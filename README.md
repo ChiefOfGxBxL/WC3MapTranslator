@@ -195,5 +195,7 @@ A code review is required on your PR to be accepted into `master`. A project mem
 
 Your pull request may update `package.json` to include your username under the `contributors` field.
 
+If you are updating the CLI, remember to run `npm link` during local development prior to testing out changes, so the `wc3maptranslator` command reflects your latest changes.
+
 ## Special Thanks
 We owe a lot of thanks to *Chocobo* on [TheHelper](http://www.thehelper.net/) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).
