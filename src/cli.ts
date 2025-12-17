@@ -83,7 +83,7 @@ program
          * Process input
          */
         const fileNamesToTranslate = isInputDirectory
-            ? (options.toWar ? knownJsonFiles : knownWarFiles) // TODO
+            ? (options.toWar ? knownJsonFiles : knownWarFiles)
             : [path.parse(inputPath).base];
 
         for (const nameOfFileToTranslate of fileNamesToTranslate) {
