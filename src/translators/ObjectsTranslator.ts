@@ -48,22 +48,22 @@ interface ObjectModificationTable {
     custom: Record<string, Modification[]>;
 }
 
+const varTypes = {
+    int: 0,
+    real: 1,
+    unreal: 2,
+    string: 3,
+    0: 'int',
+    1: 'real',
+    2: 'unreal',
+    3: 'string'
+};
+
 export default abstract class ObjectsTranslator extends ITranslator {
     // Expose the ObjectType enum as part of this abstract class
     // The enum could be "export"ed , but it wouldn't be accessible
     // via `ObjectsTranslator.ObjectType`, which is preferable.
     public static readonly ObjectType = ObjectType;
-
-    private static varTypes = {
-        int: 0,
-        real: 1,
-        unreal: 2,
-        string: 3,
-        0: 'int',
-        1: 'real',
-        2: 'unreal',
-        3: 'string'
-    };
 
     public static jsonToWar(type: string, json: ObjectModificationTable): WarResult {
         const outBufferToWar = new HexBuffer();
@@ -80,12 +80,12 @@ export default abstract class ObjectsTranslator extends ITranslator {
             // Determine what type of field the mod is (int, real, unreal, string)
             let modType: number = 0;
             if (modification.type) { // if a type is specified, use it
-                modType = this.varTypes[modification.type];
+                modType = varTypes[modification.type];
             } else { // otherwise we try to infer between int/string (note there is no way to detect unreal or float this way, so user must specify those explicitly)
                 if (typeof modification.value === 'number') {
-                    modType = this.varTypes.int;
+                    modType = varTypes.int;
                 } else if (typeof modification.value === 'string') {
-                    modType = this.varTypes.string;
+                    modType = varTypes.string;
                 } else {
                     // ERROR: no type specified and cannot infer type!
                 }
@@ -100,12 +100,12 @@ export default abstract class ObjectsTranslator extends ITranslator {
             }
 
             // Write mod value
-            if (modType === this.varTypes.int && typeof modification.value === 'number') {
+            if (modType === varTypes.int && typeof modification.value === 'number') {
                 outBufferToWar.addInt(modification.value);
-            } else if ((modType === this.varTypes.real || modType === this.varTypes.unreal) && typeof modification.value === 'number') {
+            } else if ((modType === varTypes.real || modType === varTypes.unreal) && typeof modification.value === 'number') {
                 // Follow-up: check if unreal values are same hex format as real
                 outBufferToWar.addFloat(modification.value);
-            } else if (modType === this.varTypes.string && typeof modification.value === 'string') {
+            } else if (modType === varTypes.string && typeof modification.value === 'string') {
                 // Note that World Editor normally creates a TRIGSTR_000 for these string
                 // values - WC3MapTranslator just writes the string directly to file
                 outBufferToWar.addString(modification.value);
