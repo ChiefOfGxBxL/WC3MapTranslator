@@ -47,18 +47,42 @@
 <hr/>
 
 ## Overview
-WC3MapTranslator is a TypeScript module to convert between JSON and WarCraft III (.w3x) `war3map` formats. This makes the map data readable and easily modifiable, a perfect format for storing WC3 maps in Git repositories and inspecting diffs!
+WC3MapTranslator is a TypeScript module and CLI to convert between JSON and WarCraft III (.w3x) `war3map` formats. This makes the map data readable and easily modifiable, a perfect format for storing WC3 maps in Git repositories and inspecting diffs!
 
 ![TranslationExample](https://user-images.githubusercontent.com/4079034/71315302-4947fb00-2427-11ea-8f50-edf05d6e5c6a.png)
 
 ## Install
-```ts
-npm install wc3maptranslator
+```sh
+# Global install recommended for CLI usage; for local install drop the -g flag
+npm install -g wc3maptranslator
 ```
 
 **Requires Node ≥ 24**  
 
-## Usage
+## Usage (CLI)
+```sh
+# wc3maptranslator <input> [output]
+
+# Usage (individual files, same directory)
+wc3maptranslator terrain.json  # outputs war3map.w3e in CWD
+wc3maptranslator war3map.w3i  # outputs info.json in CWD
+
+# Usage (translate an entire folder)
+wc3maptranslator ./path/to/war3mapFiles --toJson
+wc3maptranslator ./path/to/jsonFiles --toWar
+
+# See list of available translators and standard file names
+wc3maptranslator --list
+
+# See help
+wc3maptranslator --help
+
+# Useful flags
+--force / -f Overwrite existing files (by default, a warning or error will be thrown)
+--silent / -s Silence success output messages (errors will still be shown)
+```
+
+## Usage (programmatic)
 ```ts
 import {
   CamerasTranslator,
