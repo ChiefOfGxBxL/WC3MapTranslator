@@ -1,31 +1,49 @@
 {
-    "original": {
-      "LTrc": [
-        {
-          "id": "bsmm",
-          "type": "int",
-          "level": 0,
-          "column": 0,
-          "value": 0
-        }
-      ]
-    },
-    "custom": {
-      "B000:LTrc": [
-        {
-          "id": "bnam",
-          "type": "string",
-          "level": 0,
-          "column": 0,
-          "value": "TRIGSTR_1679"
-        },
-        {
-          "id": "bgsc",
-          "type": "real",
-          "level": 0,
-          "column": 0,
-          "value": 133
-        }
-      ]
-    }
-  }
+  "original": {
+    "ITw3": [
+      {
+        "id": "bonw",
+        "type": "int",
+        "level": 0,
+        "column": 0,
+        "value": 0
+      },
+      {
+        "id": "bgse",
+        "type": "int",
+        "level": 0,
+        "column": 0,
+        "value": 1
+      },
+      {
+        "id": "bflh",
+        "type": "unreal",
+        "level": 0,
+        "column": 0,
+        "value": 100
+      },
+      {
+        "id": "bhps",
+        "type": "unreal",
+        "level": 0,
+        "column": 0,
+        "value": 180
+      },
+      {
+        "id": "bvcr",
+        "type": "int",
+        "level": 0,
+        "column": 0,
+        "value": 100
+      },
+      {
+        "id": "bmar",
+        "type": "unreal",
+        "level": 0,
+        "column": 0,
+        "value": 60
+      }
+    ]
+  },
+  "custom": {}
+}
