@@ -140,7 +140,6 @@ program
                 console.info(chalk.white.bold('  Input:'), nameOfFileToTranslate, chalk.gray(resolvedInputFile));
                 console.info(chalk.white.bold('  Output:'), defaultOutputFileName, chalk.gray(outputFilePath), !outputPath ? chalk.gray(`(Defaulted to ${outputFilePath})`) : '');
                 console.info(chalk.white.bold('  Translator:'), `${(<any>fileMapper.translator).name}`);
-                console.info(chalk.white.bold('  Method:'), `${Method[method]}`, (!options.toWar && !options.toJson) ? chalk.gray('(Auto-detected based on file name)') : '');
             }
         }
     });
