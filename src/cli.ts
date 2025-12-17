@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk';
-import { Option, program } from 'commander';
+import { program } from 'commander';
 import * as fs from 'fs-extra';
 import path from 'node:path';
 import { version } from '../package.json';
@@ -9,8 +9,15 @@ import { JsonResult, WarResult } from './CommonInterfaces';
 import { ObjectsTranslator } from './index';
 import translatorMappings from './TranslatorMappings';
 
-const recognizedTranslators = translatorMappings.map((mapping) => mapping.name).filter((o) => o);
-const recognizedObjectTypes = translatorMappings.map((mapping) => mapping.objectType).filter((o) => o);
+const knownWarFiles = translatorMappings.map((mapping) => mapping.warFile);
+const knownJsonFiles = translatorMappings.map((mapping) => mapping.jsonFile);
+
+const isDirectory = (path: string) => fs.existsSync(path) && fs.statSync(path).isDirectory();
+
+enum Method {
+    warToJson = 1,
+    jsonToWar = 2
+}
 
 program
     .name('wc3maptranslator')
@@ -18,20 +25,25 @@ program
     .version(version);
 
 program
-    .argument('[input-file]', 'The file to be translated')
-    .argument('[output-file]', 'The output file to save the translated data to')
-    .option('-f, --force', 'Force overwrite any existing output file', false)
-    .option('-l, --list', 'List available translators', false)
-    .option('-t, --translator <translator>', 'Specify which translator to use (if unable to auto-detect based on file name)')
-    .option('-o, --obj-type <obj-type>', 'Specify which type of object is being translated (if using ObjectsTranslator and unable to detecth based on file name)')
-    .option('-s, --silent', 'If true, will not print success message details (errors are still printed)', false)
-    .addOption(new Option('-m, --method <method>', 'Which direction to translate in (if unable to auto-detect based on file name)').choices(['warToJson', 'jsonToWar']))
+    .argument('<input>', 'The input file or directory to be translated')
+    .argument('[output]', 'The output file or directory to save the translated data to')
+    .option('-l, --list', 'list available translators', false)
+    .option('-f, --force', 'force overwrite any existing output file', false)
+    .option('-s, --silent', 'if specified, do not print success message details (errors are still printed)', false)
+    .option('-w, --toWar', 'translate the provided input into a WC3 binary file')
+    .option('-j, --toJson', 'translate the provided input into a JSON file')
     .configureOutput({
         outputError(str, write) {
-            write(`${chalk.white.bold('⚔ WC3MapTranslator')} ${chalk.white.bgRed.bold(' ERROR ')}\n${chalk.gray(str)}\n${chalk.gray('Need help? Use -h or --help')}`);
+            write(`${chalk.white.bold('⚔ WC3MapTranslator')} ${chalk.white.bgRed.bold(' ERROR ')}\n${chalk.gray(str)}\n${chalk.gray('Need help? Use -h or --help')}\n`);
         }
     })
-    .action((inputFile, outputFile, options) => {
+    .action((inputPath, outputPath, options) => {
+        // Check that input file or directory exists
+        const resolvedInputFile = path.resolve(inputPath)
+        if (!fs.existsSync(resolvedInputFile)) {
+            return program.error(`The input provided (${resolvedInputFile}) does not exist!\nPlease provide a valid file or directory to translate.`);
+        }
+
         if (options.list) {
             console.info(chalk.white('Available translators:'))
             console.table(translatorMappings.map((entry) => ({
@@ -44,90 +56,93 @@ program
             return;
         }
 
-        if (!inputFile) {
-            return program.error('No input file was provided to translate.\nPlease provide a valid input file to translate.');
+        const isInputDirectory = isDirectory(inputPath);
+        const isOutputDirectory = outputPath && isDirectory(outputPath);
+
+        /*
+         * Options validation
+         */
+        if (isInputDirectory && outputPath && !isOutputDirectory) {
+            return program.error('If input directory is specified, output must be a directory too.')
         }
 
-        if (options.translator && !recognizedTranslators.includes(options.translator)) {
-            return program.error('Unknown translator provided. Refer to --list for available translators.');
+        if (isInputDirectory && !options.toWar && !options.toJson) {
+            return program.error('Either --toWar (-w) or --toJson (-j) must be specified when input is a directory.')
         }
 
-        if (options.translator === 'objects' && !options.objType) {
-            return program.error('When using the ObjectsTranslator, the object type must be specified using -o or --obj-type.');
+        if (options.toWar && options.toJson) {
+            return program.error('Cannot use --toWar (-w) and --toJson (-j) at the same time. Choose one flag.')
         }
 
-        if (options.translator === 'objects' && !recognizedObjectTypes.includes(options.objType)) {
-            return program.error('Unknown object type provided. Refer to --list for available object types.');
+        if ((options.toWar || options.toJson) && !isInputDirectory) {
+            return program.error('Cannot use --toWar (-w) or --toJson (-j) when input is not a directory.')
         }
 
-        if (options.objType && options.translator !== 'objects') {
-            return program.error('The object type flag can only be specified when using the ObjectsTranslator. Remove -o or --obj-type to continue.');
-        }
 
-        let fileMapper = null;
-        let method = ''; // jsonToWar or warToJson
+        /*
+         * Process input
+         */
+        const fileNamesToTranslate = isInputDirectory
+            ? (options.toWar ? knownJsonFiles : knownWarFiles) // TODO
+            : [path.parse(inputPath).base];
 
-        // Check that input file exists
-        const inputFileName = path.parse(inputFile).base
-        const resolvedInputFile = path.resolve(inputFile)
-        if (!fs.existsSync(resolvedInputFile)) {
-            return program.error(`The input file provided (${resolvedInputFile}) does not exist!\nPlease provide a valid input file to translate.`);
-        }
-
-        // Determine which mapper to use
-        //  (1) User specified via translator parameter
-        //  (2) Auto-detect
-        if (options.translator) {
-            let mapperCandidates = translatorMappings.filter((mapper) => mapper.name === options.translator);
-            if (options.translator === 'objects') mapperCandidates = mapperCandidates.filter((mapper) => mapper.objectType === options.objType);
-            fileMapper = mapperCandidates[0];
-        } else {
-            fileMapper = translatorMappings.find((mapper) => mapper.jsonFile === inputFileName || mapper.warFile === inputFileName);
-            if (!fileMapper) {
-                return program.error('The program could not determine how to translate the input file based on its name.\nPlease specify which translator to use via -t or --translator, or use a standard file name.');
+        for (const nameOfFileToTranslate of fileNamesToTranslate) {
+            const inputFile = isInputDirectory ? path.resolve(inputPath, nameOfFileToTranslate) : resolvedInputFile;
+            if (isInputDirectory && !fs.existsSync(inputFile)) {
+                continue;
             }
-        }
 
-        // Determine which method to use
-        if (inputFileName === fileMapper.jsonFile) {
-            method = 'jsonToWar';
-        } else if (inputFileName === fileMapper.warFile) {
-            method = 'warToJson';
-        } else if (options.method) {
-            method = options.method;
-        } else {
-            return program.error('The program could not determine which direction to translate.\nPlease specify which method to use via -m or --method, or use a standard file name.');
-        }
+            const fileMapper = translatorMappings.find((mapper) => [mapper.jsonFile, mapper.warFile].includes(nameOfFileToTranslate));
+            if (!fileMapper) {
+                return program.error('The provided input file is not a standard name for either a war3map file or JSON file.\nPlease use a standard file name as shown in the --list (-l) command.');
+            }
 
-        // If no output file path is provided, look up the default mapping,
-        // and resolve to the directory of the input path
-        let outputFileName = outputFile;
-        if (!outputFileName) {
-            outputFileName = method === 'jsonToWar' ? fileMapper.warFile : fileMapper.jsonFile;
-            outputFileName = path.resolve(path.dirname(inputFile), outputFileName);
-        }
+            // Determine which method to use: .warToJson, or .jsonToWar (--toWar, --toJson, or lookup based on filename)
+            const method = isInputDirectory
+                ? (options.toWar ? Method.jsonToWar : Method.warToJson)
+                : (nameOfFileToTranslate === fileMapper!.jsonFile ? Method.jsonToWar : Method.warToJson);
 
-        // Raise an error if the output file already exists, and the force overwrite flag isn't activated
-        const resolvedOutputFile = path.resolve(outputFileName);
-        if (fs.existsSync(resolvedOutputFile) && !options.force) {
-            return program.error(`An output file already exists by the provided path (${resolvedOutputFile}).\nIf you want to force override it, use the -f or --force flag.`);
-        }
+            // If no output file path is provided, look up the default mapping,
+            // and resolve to the directory of the input path
+            let outputFilePath = '';
+            let defaultOutputFileName = '';
+            if (!outputPath) {
+                const mappedFileName = method === Method.jsonToWar ? fileMapper.warFile : fileMapper.jsonFile;
+                defaultOutputFileName = mappedFileName;
+                outputFilePath = path.resolve(isInputDirectory ? inputPath : path.dirname(inputPath), mappedFileName);
+            }
 
-        // Perform the translation and save the file
-        const inputFileData = method === 'jsonToWar' ? fs.readJSONSync(resolvedInputFile) : fs.readFileSync(resolvedInputFile);
-        const translatorMethod = method === 'jsonToWar' ? fileMapper.translator.jsonToWar : fileMapper.translator.warToJson;
-        const result = fileMapper.translator === ObjectsTranslator
-            ? translatorMethod(fileMapper.objectType, inputFileData)
-            : translatorMethod(inputFileData);
+            // Raise an error if the output file already exists and the force-overwrite flag isn't activated
+            if (!options.force && fs.existsSync(outputFilePath)) {
+                if (isInputDirectory) {
+                    // In directory mode, skip file instead of exiting application so other files can still be processed
+                    continue;
+                } else {
+                    return program.error(`An output file already exists by the provided path (${outputFilePath}).\nIf you want to force override it, use the -f or --force flag.`);
+                }
+            }
 
-        fs.writeFileSync(resolvedOutputFile, method === 'jsonToWar' ? ((result as WarResult).buffer) : JSON.stringify((result as JsonResult).json, null, 2));
+            // Perform the translation and save the file
+            const inputFileData = method === Method.jsonToWar ? fs.readJSONSync(inputFile) : fs.readFileSync(inputFile);
+            const translatorMethod = method === Method.jsonToWar ? fileMapper.translator.jsonToWar : fileMapper.translator.warToJson;
+            const result = fileMapper.translator === ObjectsTranslator
+                ? translatorMethod(fileMapper.objectType, inputFileData)
+                : translatorMethod(inputFileData);
 
-        if (!options.silent) {
-            console.info(chalk.white.bold('⚔ WC3MapTranslator'), chalk.white.bgGreen.bold(' SUCCESS '));
-            console.info(chalk.white.bold('  Input:'), inputFileName, chalk.gray(resolvedInputFile));
-            console.info(chalk.white.bold('  Output:'), outputFileName, chalk.gray(resolvedOutputFile), !outputFile ? chalk.gray(`(Defaulted to ${outputFileName})`) : '');
-            console.info(chalk.white.bold('  Translator:'), `${(<any>fileMapper.translator).name}`, !options.translator ? chalk.gray('(Auto-detected based on file name)') : '');
-            console.info(chalk.white.bold('  Method:'), `${method}`, !options.method ? chalk.gray('(Auto-detected based on file name)') : '');
+            fs.writeFileSync(
+                outputFilePath,
+                method === Method.jsonToWar
+                    ? ((result as WarResult).buffer)
+                    : JSON.stringify((result as JsonResult).json, null, 2)
+            );
+
+            if (!options.silent) {
+                console.info(chalk.white.bold('⚔ WC3MapTranslator'), chalk.white.bgGreen.bold(' SUCCESS '));
+                console.info(chalk.white.bold('  Input:'), nameOfFileToTranslate, chalk.gray(resolvedInputFile));
+                console.info(chalk.white.bold('  Output:'), defaultOutputFileName, chalk.gray(outputFilePath), !outputPath ? chalk.gray(`(Defaulted to ${outputFilePath})`) : '');
+                console.info(chalk.white.bold('  Translator:'), `${(<any>fileMapper.translator).name}`);
+                console.info(chalk.white.bold('  Method:'), `${Method[method]}`, (!options.toWar && !options.toJson) ? chalk.gray('(Auto-detected based on file name)') : '');
+            }
         }
     });
 
