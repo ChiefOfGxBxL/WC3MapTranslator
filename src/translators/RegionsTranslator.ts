@@ -64,7 +64,6 @@ export default abstract class RegionsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -110,7 +109,6 @@ export default abstract class RegionsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

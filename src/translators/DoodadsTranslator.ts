@@ -125,7 +125,6 @@ export default abstract class DoodadsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -221,7 +220,6 @@ export default abstract class DoodadsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

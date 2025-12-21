@@ -469,7 +469,6 @@ export default abstract class InfoTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -782,7 +781,6 @@ export default abstract class InfoTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

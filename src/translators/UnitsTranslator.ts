@@ -245,7 +245,6 @@ export default abstract class UnitsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -398,7 +397,6 @@ export default abstract class UnitsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

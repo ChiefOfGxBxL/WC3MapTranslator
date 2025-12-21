@@ -157,7 +157,6 @@ export default abstract class TerrainTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -286,7 +285,6 @@ export default abstract class TerrainTranslator extends ITranslator {
         result.layerHeight = flatten(chunkArray(arr_layerHeight, result.map.width + 1).reverse());
 
         return {
-            errors: [],
             json: result
         };
     }

@@ -54,7 +54,6 @@ export default abstract class CamerasTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -105,7 +104,6 @@ export default abstract class CamerasTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

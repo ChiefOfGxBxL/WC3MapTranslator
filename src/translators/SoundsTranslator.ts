@@ -176,7 +176,6 @@ export default abstract class SoundsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -277,7 +276,6 @@ export default abstract class SoundsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

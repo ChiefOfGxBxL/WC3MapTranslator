@@ -239,7 +239,6 @@ export default abstract class ObjectsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer(),
             bufferSkin: (type === ObjectType.Destructables && usingSkinFile) ? outBufferSkin.getBuffer() : undefined
         };
@@ -318,7 +317,6 @@ export default abstract class ObjectsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

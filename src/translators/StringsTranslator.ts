@@ -33,7 +33,6 @@ export default abstract class StringsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -49,7 +48,6 @@ export default abstract class StringsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }
