@@ -7,7 +7,7 @@ import { program } from 'commander';
 import * as fs from 'fs-extra';
 import path from 'node:path';
 import { version } from '../package.json';
-import { JsonResult, WarResult, ITranslator } from './CommonInterfaces';
+import { JsonResult, WarResult, ITranslator, VersionError } from './CommonInterfaces';
 import { ObjectsTranslator } from './index';
 import translatorMappings from './TranslatorMappings';
 
@@ -148,27 +148,47 @@ program
                 }
             }
 
-            const result = fileMapper.translator === ObjectsTranslator
-                ? translatorMethod(fileMapper.objectType, inputFileData, skinInputFileData)
-                : translatorMethod(inputFileData);
+            try {
+                const result = fileMapper.translator === ObjectsTranslator
+                    ? translatorMethod(fileMapper.objectType, inputFileData, skinInputFileData)
+                    : translatorMethod(inputFileData);
 
-            writeFile(
-                nameOfFileToTranslate,
-                outputFilePath,
-                method === Method.jsonToWar
-                    ? ((result as WarResult).buffer)
-                    : JSON.stringify((result as JsonResult).json, null, 2),
-                fileMapper.translator
-            );
-
-            // Possible "Skin" file for destructables, json -> war3map
-            if (isDestructableTranslator && method === Method.jsonToWar && (result as WarResult).bufferSkin) {
                 writeFile(
                     nameOfFileToTranslate,
-                    path.resolve(path.dirname(outputFilePath), 'war3mapSkin.w3b'),
-                    (result as WarResult).bufferSkin!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+                    outputFilePath,
+                    method === Method.jsonToWar
+                        ? ((result as WarResult).buffer)
+                        : JSON.stringify((result as JsonResult).json, null, 2),
                     fileMapper.translator
                 );
+
+                // Possible "Skin" file for destructables, json -> war3map
+                if (isDestructableTranslator && method === Method.jsonToWar && (result as WarResult).bufferSkin) {
+                    writeFile(
+                        nameOfFileToTranslate,
+                        path.resolve(path.dirname(outputFilePath), 'war3mapSkin.w3b'),
+                        (result as WarResult).bufferSkin!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+                        fileMapper.translator
+                    );
+                }
+            } catch (e) {
+                if (e instanceof VersionError) {
+                    console.info(
+                        chalk.white.bold('⚔ WC3MapTranslator'),
+                        chalk.white.bgRed.bold(' ERROR '),
+                        nameOfFileToTranslate,
+                        '→',
+                        path.basename(outputFilePath),
+                        chalk.gray((`(using ${(fileMapper.translator as any).name})`)) // eslint-disable-line @typescript-eslint/no-explicit-any
+                    );
+                    console.error(chalk.gray(`  ${e.message}`));
+                    console.error(chalk.gray(`  Expected version: ${e.expectedVersion}`));
+                    console.error(chalk.gray(`  Actual version: ${e.foundVersion}`));
+                } else if (e instanceof Error) {
+                    program.error(e.message);
+                } else {
+                    throw new Error('Unknown error occurred');
+                }
             }
         }
     });

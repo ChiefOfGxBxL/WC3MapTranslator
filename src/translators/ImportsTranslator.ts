@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
 
 const CurrentPathVersion = 21;
 
@@ -32,7 +32,7 @@ export default abstract class ImportsTranslator extends ITranslator {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
-        outBufferToJSON.readInt(); // File version
+        expectVersion(1, outBufferToJSON.readInt()); // File version
 
         const numImports = outBufferToJSON.readInt();
         for (let i = 0; i < numImports; i++) {

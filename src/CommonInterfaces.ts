@@ -28,3 +28,13 @@ export interface JsonResult<T = object> {
     json: T;
     errors: TranslationError[];
 }
+
+export class VersionError extends Error {
+    constructor(public expectedVersion: number, public foundVersion: number) {
+        super('WC3MapTranslator cannot currently parse this version of a war3map file');
+    }
+}
+
+export function expectVersion(expected: number, actual: number) {
+    if (actual !== expected) throw new VersionError(expected, actual);
+}

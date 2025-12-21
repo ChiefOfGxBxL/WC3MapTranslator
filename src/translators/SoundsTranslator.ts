@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
 
 enum EffectType {
     Default = 'DefaultEAXON',
@@ -185,9 +185,9 @@ export default abstract class SoundsTranslator extends ITranslator {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
-        outBufferToJSON.readInt(); // File version = 3
-        const numSounds = outBufferToJSON.readInt(); // # of sounds
+        expectVersion(3, outBufferToJSON.readInt()); // File version = 3
 
+        const numSounds = outBufferToJSON.readInt(); // # of sounds
         for (let i = 0; i < numSounds; i++) {
             const sound: Sound = {
                 variableName: '',
