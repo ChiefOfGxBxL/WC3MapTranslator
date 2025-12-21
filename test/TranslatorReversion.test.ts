@@ -27,9 +27,8 @@ const buffersEqualAllowingFloatRoundingIssues = (buffer1: Buffer, buffer2: Buffe
             const float2 = buffer2.readFloatLE(i);
             const diff = Math.abs(float1 - float2);
 
-            if (diff > allowableMargin) {
-                return false;
-            }
+            if (diff > allowableMargin) return false;
+            if (Math.abs(float1) < 1e-5) return false; // if small valid integers are parsed as floats, they are extremely small, e.g. 1e-45
 
             i += 4; // float within rounding issue; continue past it
         }
