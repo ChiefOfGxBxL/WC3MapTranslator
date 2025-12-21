@@ -24,6 +24,8 @@ enum ObjectType {
     Upgrades = 'upgrades'
 };
 
+type ObjectTypeVal = `${ObjectType}`;
+
 interface Modification {
     id: string;
     type: ModificationType;
@@ -81,7 +83,7 @@ export default abstract class ObjectsTranslator extends ITranslator {
     // via `ObjectsTranslator.ObjectType`, which is preferable.
     public static readonly ObjectType = ObjectType;
 
-    public static jsonToWar(type: string, json: ObjectModificationTable): WarResult {
+    public static jsonToWar(type: ObjectTypeVal, json: ObjectModificationTable): WarResult {
         const outBufferToWar = new HexBuffer();
         const outBufferSkin = new HexBuffer();
 
@@ -243,7 +245,7 @@ export default abstract class ObjectsTranslator extends ITranslator {
         };
     }
 
-    public static warToJson(type: string, buffer: Buffer, bufferSkin?: Buffer): JsonResult<ObjectModificationTable> {
+    public static warToJson(type: ObjectTypeVal, buffer: Buffer, bufferSkin?: Buffer): JsonResult<ObjectModificationTable> {
         const readModification = (buffer: W3Buffer): Modification => {
             const id = buffer.readFourCC();
             const valueType = Object.values(ModificationType)[buffer.readInt()];
