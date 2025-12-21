@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
 
 enum EffectType {
     Default = 'DefaultEAXON',
@@ -42,14 +42,13 @@ interface Sound {
     variableName: string;
     internalName: string;
     path: string;
-    effect: EffectType;
+    effect?: EffectType;
     flags: SoundFlags;
     fadeRate: FadeRate;
-    volume: number;
+    volume?: number;
     pitch: number;
-    channel: number;
+    channel?: number;
     distance: Distance;
-
     pitchVariance?: number;
     priority?: number;
 }
@@ -89,7 +88,7 @@ const effectTypeLookup: Record<string, EffectType> = {
 const MYSTERY_NUM_1 = 1333788672; // (hex) 00 00 80 4F
 const MYSTERY_NUM_2 = -1; // (hex) FF FF FF FF
 
-export abstract class SoundsTranslator extends ITranslator {
+export default abstract class SoundsTranslator extends ITranslator {
     public static readonly EffectType = EffectType;
     public static readonly Channel = Channel;
 
@@ -99,11 +98,11 @@ export abstract class SoundsTranslator extends ITranslator {
          * Header
          */
         outBufferToWar.addInt(3); // file version
-        outBufferToWar.addInt(soundsJson.length); // number of sounds
 
         /*
          * Body
          */
+        outBufferToWar.addInt(soundsJson.length); // number of sounds
         for (const sound of soundsJson) {
             const isImportedSound = sound.path.startsWith('war3mapImported/');
 
@@ -177,7 +176,6 @@ export abstract class SoundsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -186,20 +184,18 @@ export abstract class SoundsTranslator extends ITranslator {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
 
-        outBufferToJSON.readInt(); // File version = 3
-        const numSounds = outBufferToJSON.readInt(); // # of sounds
+        expectVersion(3, outBufferToJSON.readInt()); // File version = 3
 
+        const numSounds = outBufferToJSON.readInt(); // # of sounds
         for (let i = 0; i < numSounds; i++) {
             const sound: Sound = {
                 variableName: '',
                 internalName: '',
                 path: '',
-                effect: EffectType.Default,
                 volume: 0,
                 pitch: 0,
                 pitchVariance: 0,
                 priority: 100,
-                channel: 0,
                 flags: {
                     looping: true,
                     '3dSound': true,
@@ -280,7 +276,6 @@ export abstract class SoundsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

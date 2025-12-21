@@ -1,6 +1,27 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
+
+enum Tileset {
+    Ashenvale = 'A',
+    Barrens = 'B',
+    BlackCitadel = 'K',
+    Cityscape = 'Y',
+    Dalaran = 'X',
+    DalaranRuins = 'J',
+    Dungeon = 'D',
+    Felwood = 'C',
+    IcecrownGlacier = 'I',
+    LordaeronFall = 'F',
+    LordaeronSummer = 'L',
+    LordaeronWinter = 'W',
+    Northrend = 'N',
+    Outland = 'O',
+    SunkenRuins = 'Z',
+    Underground = 'G',
+    Village = 'V',
+    VillageFall = 'Q'
+}
 
 interface Terrain {
     tileset: string;
@@ -43,7 +64,9 @@ function chunkArray<T>(array: T[], size: number): T[][] {
     return rows;
 }
 
-export abstract class TerrainTranslator extends ITranslator {
+export default abstract class TerrainTranslator extends ITranslator {
+    public static readonly Tileset = Tileset;
+
     public static jsonToWar(terrainJson: Terrain): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -51,7 +74,8 @@ export abstract class TerrainTranslator extends ITranslator {
          * Header
          */
         outBufferToWar.addChars('W3E!'); // file id
-        outBufferToWar.addInt(11); // file version
+        outBufferToWar.addInt(12); // file version
+
         outBufferToWar.addChar(terrainJson.tileset); // base tileset
         outBufferToWar.addInt(+terrainJson.customTileset); // 1 = using custom tileset, 0 = not
 
@@ -112,7 +136,6 @@ export abstract class TerrainTranslator extends ITranslator {
 
         for (let i = 0; i < rows.groundHeight.length; i++) {
             for (let j = 0; j < rows.groundHeight[i].length; j++) {
-                // these bit operations are based off documentation from https://github.com/stijnherfst/HiveWE/wiki/war3map.w3e-Terrain
                 const groundHeight = rows.groundHeight[i][j];
                 const waterHeight = rows.waterHeight[i][j];
                 const boundaryFlag = rows.boundaryFlag[i][j];
@@ -127,14 +150,13 @@ export abstract class TerrainTranslator extends ITranslator {
 
                 outBufferToWar.addShort(groundHeight);
                 outBufferToWar.addShort(waterHeight | hasBoundaryFlag);
-                outBufferToWar.addByte(flags | groundTexture);
+                outBufferToWar.addShort(flags | groundTexture);
                 outBufferToWar.addByte(groundVariation | cliffVariation);
                 outBufferToWar.addByte(cliffTexture | layerHeight);
             }
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -142,7 +164,7 @@ export abstract class TerrainTranslator extends ITranslator {
     public static warToJson(buffer: Buffer): JsonResult<Terrain> {
         const outBufferToJSON = new W3Buffer(buffer);
         const result: Terrain = {
-            tileset: '',
+            tileset: Tileset.LordaeronSummer,
             customTileset: false,
             tilePalette: [],
             cliffTilePalette: [],
@@ -169,7 +191,8 @@ export abstract class TerrainTranslator extends ITranslator {
          * Header
          */
         outBufferToJSON.readChars(4); // w3eHeader: W3E!
-        outBufferToJSON.readInt(); // version: 0B 00 00 00
+        expectVersion(12, outBufferToJSON.readInt()); // version: 0C 00 00 00
+
         const tileset = outBufferToJSON.readChars(1); // tileset
         const customTileset = (outBufferToJSON.readInt() === 1);
 
@@ -184,7 +207,6 @@ export abstract class TerrainTranslator extends ITranslator {
         for (let i = 0; i < numTilePalettes; i++) {
             tilePalettes.push(outBufferToJSON.readChars(4));
         }
-
         result.tilePalette = tilePalettes;
 
         /**
@@ -193,14 +215,12 @@ export abstract class TerrainTranslator extends ITranslator {
         const numCliffTilePalettes = outBufferToJSON.readInt();
         const cliffPalettes = [];
         for (let i = 0; i < numCliffTilePalettes; i++) {
-            const cliffPalette = outBufferToJSON.readChars(4);
-            cliffPalettes.push(cliffPalette);
+            cliffPalettes.push(outBufferToJSON.readChars(4));
         }
-
         result.cliffTilePalette = cliffPalettes;
 
         /**
-         * map dimensions
+         * Map dimensions
          */
         const width = outBufferToJSON.readInt() - 1;
         const height = outBufferToJSON.readInt() - 1;
@@ -209,7 +229,7 @@ export abstract class TerrainTranslator extends ITranslator {
         result.map = { width, height, offset: { x: offsetX, y: offsetY } };
 
         /**
-         * map tiles
+         * Map tiles
          */
         const arr_groundHeight: number[] = [];
         const arr_waterHeight: number[] = [];
@@ -223,20 +243,22 @@ export abstract class TerrainTranslator extends ITranslator {
 
         while (!outBufferToJSON.isExhausted()) {
             const groundHeight = outBufferToJSON.readShort();
-            const waterHeightAndBoundary = outBufferToJSON.readShort();
-            const flagsAndGroundTexture = outBufferToJSON.readByte();
-            const groundAndCliffVariation = outBufferToJSON.readByte();
-            const cliffTextureAndLayerHeight = outBufferToJSON.readByte();
 
-            // parse out different bits (based on documentation from https://github.com/stijnherfst/HiveWE/wiki/war3map.w3e-Terrain)
+            const waterHeightAndBoundary = outBufferToJSON.readShort();
             const waterHeight = waterHeightAndBoundary & 32767;
             const boundaryFlag = (waterHeightAndBoundary & 0x4000) === 0x4000;
-            const flags = flagsAndGroundTexture & 240;
-            const groundTexture = flagsAndGroundTexture & 15;
-            const groundVariation = groundAndCliffVariation & 248;
-            const cliffVariation = groundAndCliffVariation & 7;
-            const cliffTexture = cliffTextureAndLayerHeight & 240;
-            const layerHeight = cliffTextureAndLayerHeight & 15;
+
+            const flagsAndGroundTexture = outBufferToJSON.readShort();
+            const flags =         flagsAndGroundTexture & 0b1111_1111_1100_0000; // upper 10 bits
+            const groundTexture = flagsAndGroundTexture & 0b0000_0000_0011_1111; // lower 6 bits
+
+            const groundAndCliffVariation = outBufferToJSON.readByte();
+            const groundVariation = groundAndCliffVariation & 0b11111000; // upper 5 bits
+            const cliffVariation =  groundAndCliffVariation & 0b00000111; // lower 3 bits
+
+            const cliffTextureAndLayerHeight = outBufferToJSON.readByte();
+            const cliffTexture = cliffTextureAndLayerHeight & 0b11110000; // upper 4 bits
+            const layerHeight =  cliffTextureAndLayerHeight & 0b00001111; // lower 4 bits
 
             arr_groundHeight.push(groundHeight);
             arr_waterHeight.push(waterHeight);
@@ -263,7 +285,6 @@ export abstract class TerrainTranslator extends ITranslator {
         result.layerHeight = flatten(chunkArray(arr_layerHeight, result.map.width + 1).reverse());
 
         return {
-            errors: [],
             json: result
         };
     }

@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, angle, ITranslator, expectVersion } from '../CommonInterfaces';
 import { deg2Rad, rad2Deg } from '../AngleConverter';
 
 enum TargetAcquisition {
@@ -116,7 +116,7 @@ interface Abilities {
     level: number;
 }
 
-export abstract class UnitsTranslator extends ITranslator {
+export default abstract class UnitsTranslator extends ITranslator {
     public static readonly TargetAcquisition = TargetAcquisition;
     public static readonly PlayerNumber = PlayerNumber;
     public static readonly ItemClass = ItemClass;
@@ -245,7 +245,6 @@ export abstract class UnitsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -255,8 +254,8 @@ export abstract class UnitsTranslator extends ITranslator {
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readChars(4); // File ID: `W3do`
-        outBufferToJSON.readInt(); // File version = 8
-        outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
+        expectVersion(8, outBufferToJSON.readInt()); // File version = 8
+        expectVersion(11, outBufferToJSON.readInt()); // Sub-version: 0B 00 00 00
 
         const numUnits = outBufferToJSON.readInt(); // # of units
         for (let i = 0; i < numUnits; i++) {
@@ -398,7 +397,6 @@ export abstract class UnitsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

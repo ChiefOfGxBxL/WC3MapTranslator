@@ -1,6 +1,6 @@
 {
     "name": "wc3maptranslator",
-    "version": "4.0.4",
+    "version": "5.0.0",
     "description": "Module to translate between `war3map` and `json` formats for WarCraft III .w3x maps",
     "keywords": [
         "wc3",
@@ -14,6 +14,7 @@
         "w3x"
     ],
     "main": "dist/src/index.js",
+    "bin": "dist/src/cli.js",
     "types": "dist/src/index.d.ts",
     "files": [
         "dist/src/**"
@@ -49,22 +50,24 @@
     },
     "homepage": "https://github.com/ChiefOfGxBxL/WC3MapTranslator#readme",
     "dependencies": {
+        "chalk": "^5.6.2",
+        "commander": "^14.0.2",
         "ieee754": "^1.2.1",
         "intn": "^1.0.0",
         "round-to": "^7.0.0"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.1",
+        "@eslint/js": "^9.39.2",
         "@stylistic/eslint-plugin": "^5.6.1",
         "@types/fs-extra": "^11.0.4",
-        "@types/node": "^24.10.1",
+        "@types/node": "^24.10.4",
         "coveralls": "^3.1.0",
-        "eslint": "^9.39.1",
+        "eslint": "^9.39.2",
         "eslint-plugin-github": "^6.0.0",
-        "fs-extra": "^11.3.2",
+        "fs-extra": "^11.3.3",
         "source-map-support": "^0.5.19",
         "ts-node": "^9.1.1",
         "typescript": "^4.2.2",
-        "typescript-eslint": "^8.48.1"
+        "typescript-eslint": "^8.50.0"
     }
 }

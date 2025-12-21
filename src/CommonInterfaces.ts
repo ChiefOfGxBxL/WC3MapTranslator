@@ -7,23 +7,24 @@ export abstract class ITranslator {
     abstract jsonToWar(...args: any[]): WarResult;
     abstract warToJson(...args: any[]): JsonResult;
     // abstract jsonToWar (type: string, data: any): WarResult;
-    // abstract warToJson (type: string, buffer: Buffer): JsonResult;
-}
-
-// TranslationError is reserved for future use in case
-// additional constraints are added to translated output,
-// like if WC3 has maximum string lengths, or if certain
-// values must be in a specific range
-export interface TranslationError {
-    message: string;
+    // abstract warToJson (type: string, buffer: Buffer, bufferSkin?: Buffer): JsonResult;
 }
 
 export interface WarResult {
     buffer: Buffer;
-    errors: TranslationError[];
+    bufferSkin?: Buffer;
 }
 
 export interface JsonResult<T = object> {
     json: T;
-    errors: TranslationError[];
+}
+
+export class VersionError extends Error {
+    constructor(public expectedVersion: number, public foundVersion: number) {
+        super('WC3MapTranslator cannot currently parse this version of a war3map file');
+    }
+}
+
+export function expectVersion(expected: number, actual: number) {
+    if (actual !== expected) throw new VersionError(expected, actual);
 }

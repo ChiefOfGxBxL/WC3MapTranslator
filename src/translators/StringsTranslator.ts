@@ -6,7 +6,9 @@ interface StringRecord {
     value: string;
 }
 
-export abstract class StringsTranslator extends ITranslator {
+const matchStringDefinitionBlock = /STRING ([0-9]+)\r?\n?(\/\/.*\r?\n?)?{\r?\n((?:.|\r?\n)*?)\r?\n}/g; // see: https://regexr.com/8ii3d
+
+export default abstract class StringsTranslator extends ITranslator {
     public static jsonToWar(stringsJson: Record<string, StringRecord>): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -31,24 +33,21 @@ export abstract class StringsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
 
-    private static matchStringDefinitionBlock = /STRING ([0-9]+)\r?\n?(\/\/.*\r?\n?)?{\r?\n((?:.|\r?\n)*?)\r?\n}/g; // see: https://regexr.com/8ii3d
     public static warToJson(buffer: Buffer): JsonResult<Record<string, StringRecord>> {
         const result: Record<string, StringRecord> = {}; // stores the json form of strings file
 
         let match: RegExpExecArray | null; // stores individual matches as input is read
-        while ((match = this.matchStringDefinitionBlock.exec(buffer.toString('utf8'))) !== null) {
+        while ((match = matchStringDefinitionBlock.exec(buffer.toString('utf8'))) !== null) {
             const [, num, comment, value] = match;
             result[num] = { value };
             if (comment) result[num].comment = comment;
         }
 
         return {
-            errors: [],
             json: result
         };
     }

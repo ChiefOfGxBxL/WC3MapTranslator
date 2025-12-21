@@ -1,13 +1,13 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
 
 interface Region {
     position: Rect;
     name: string;
     id: number;
-    weatherEffect: string;
-    ambientSound: string;
+    weatherEffect?: string;
+    ambientSound?: string;
     color: number[];
 }
 
@@ -18,7 +18,7 @@ interface Rect {
     top: number;
 }
 
-export abstract class RegionsTranslator extends ITranslator {
+export default abstract class RegionsTranslator extends ITranslator {
     public static jsonToWar(regionsJson: Region[]): WarResult {
         const outBufferToWar = new HexBuffer();
 
@@ -26,14 +26,12 @@ export abstract class RegionsTranslator extends ITranslator {
          * Header
          */
         outBufferToWar.addInt(5); // file version
-        outBufferToWar.addInt(regionsJson.length); // number of regions
 
         /*
          * Body
          */
+        outBufferToWar.addInt(regionsJson.length);
         for (const region of regionsJson) {
-            // Position
-            // Note that the .w3x guide has these coords wrong - the guide swaps bottom and right, but this is incorrect; bottom should be written before right
             outBufferToWar.addFloat(region.position.left);
             outBufferToWar.addFloat(region.position.bottom);
             outBufferToWar.addFloat(region.position.right);
@@ -44,9 +42,8 @@ export abstract class RegionsTranslator extends ITranslator {
 
             // Weather effect name - lookup necessary: char[4]
             if (region.weatherEffect) {
-                outBufferToWar.addChars(region.weatherEffect); // Weather effect is optional - defaults to 0000 for "none"
+                outBufferToWar.addChars(region.weatherEffect);
             } else {
-                // We can't put a string "0000", because ASCII 0's differ from 0x0 bytes
                 outBufferToWar.addByte(0);
                 outBufferToWar.addByte(0);
                 outBufferToWar.addByte(0);
@@ -62,13 +59,11 @@ export abstract class RegionsTranslator extends ITranslator {
             outBufferToWar.addByte(region.color[1]); // green
             outBufferToWar.addByte(region.color[0]); // red
 
-            // End of structure - for some reason the .w3r needs this here;
             // Value is set to 0xff based on observing the .w3r file, but not sure if it could be something else
             outBufferToWar.addByte(0xff);
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -76,10 +71,9 @@ export abstract class RegionsTranslator extends ITranslator {
     public static warToJson(buffer: Buffer): JsonResult<Region[]> {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
+        expectVersion(5, outBufferToJSON.readInt()); // File version
 
-        outBufferToJSON.readInt(); // File version
         const numRegions = outBufferToJSON.readInt(); // # of regions
-
         for (let i = 0; i < numRegions; i++) {
             const region: Region = {
                 name: '',
@@ -104,9 +98,9 @@ export abstract class RegionsTranslator extends ITranslator {
             region.weatherEffect = outBufferToJSON.readChars(4, true);
             region.ambientSound = outBufferToJSON.readString();
             region.color = [
-                outBufferToJSON.readByte(), // red
+                outBufferToJSON.readByte(), // blue
                 outBufferToJSON.readByte(), // green
-                outBufferToJSON.readByte() // blue
+                outBufferToJSON.readByte() // red
             ];
             region.color.reverse(); // json wants it in RGB, but .w3r file stores it as BB GG RR
             outBufferToJSON.readByte(); // end of region structure
@@ -115,7 +109,6 @@ export abstract class RegionsTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }

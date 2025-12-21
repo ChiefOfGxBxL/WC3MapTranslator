@@ -47,18 +47,42 @@
 <hr/>
 
 ## Overview
-WC3MapTranslator is a TypeScript module to convert between JSON and WarCraft III (.w3x) `war3map` formats. This makes the map data readable and easily modifiable, a perfect format for storing WC3 maps in Git repositories and inspecting diffs!
+WC3MapTranslator is a TypeScript module and CLI to convert between JSON and WarCraft III (.w3x) `war3map` formats. This makes the map data readable and easily modifiable, a perfect format for storing WC3 maps in Git repositories and inspecting diffs!
 
 ![TranslationExample](https://user-images.githubusercontent.com/4079034/71315302-4947fb00-2427-11ea-8f50-edf05d6e5c6a.png)
 
 ## Install
-```ts
-npm install wc3maptranslator
+```sh
+# Global install recommended for CLI usage; for local install drop the -g flag
+npm install -g wc3maptranslator
 ```
 
-**Requires Node ≥ 14**  
+**Requires Node ≥ 24**  
 
-## Usage
+## Usage (CLI)
+```sh
+# wc3maptranslator <input> [output]
+
+# Usage (individual files, same directory)
+wc3maptranslator terrain.json  # outputs war3map.w3e in CWD
+wc3maptranslator war3map.w3i  # outputs info.json in CWD
+
+# Usage (translate an entire folder)
+wc3maptranslator ./path/to/war3mapFiles --toJson
+wc3maptranslator ./path/to/jsonFiles --toWar
+
+# See list of available translators and standard file names
+wc3maptranslator --list
+
+# See help
+wc3maptranslator --help
+
+# Useful flags
+--force / -f Overwrite existing files (by default, translation is skipped if it would overwrite an existing file)
+--silent / -s Silence success output messages (errors will still be shown)
+```
+
+## Usage (programmatic)
 ```ts
 import {
   CamerasTranslator,
@@ -120,7 +144,7 @@ fs.writeFileSync('war3map.w3c', translatedResult.buffer);
 | Units - Objects         | ✅ | ✅ | war3map.w3u     |
 | Items - Objects         | ✅ | ✅ | war3map.w3t     |
 | Abilities - Objects     | ✅ | ✅ | war3map.w3a     |
-| Destructables - Objects | ✅ | ✅ | war3map.w3b     |
+| Destructables - Objects | ✅ | ✅ | war3map.w3b / war3mapSkin.w3b     |
 | Doodads - Objects       | ✅ | ✅ | war3map.w3d     |
 | Upgrades - Objects      | ✅ | ✅ | war3map.w3q     |
 | Buffs - Objects         | ✅ | ✅ | war3map.w3h     |
@@ -170,6 +194,8 @@ We encourage contributions! Generally, the process of making a change is:
 A code review is required on your PR to be accepted into `master`. A project member will get back to you within one week. If you haven't heard from someone regarding your PR, feel free to ping @chiefofgxbxl.
 
 Your pull request may update `package.json` to include your username under the `contributors` field.
+
+If you are updating the CLI, remember to run `npm link` during local development prior to testing out changes, so the `wc3maptranslator` command reflects your latest changes.
 
 ## Special Thanks
 We owe a lot of thanks to *Chocobo* on [TheHelper](http://www.thehelper.net/) for the detailed documentation of the files found in a .w3x archive. Two tutorials are [here (1)](http://www.thehelper.net/threads/guide-explanation-of-w3m-and-w3x-files.35292/) and [here (2)](http://world-editor-tutorials.thehelper.net/cat_usersubmit.php?view=42787).

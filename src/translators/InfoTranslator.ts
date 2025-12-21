@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
 import { fromPlayerBitfield, toPlayerBitfield, PlayerArray } from '../PlayerBitfield';
 
 interface Map {
@@ -231,7 +231,7 @@ enum RandomGroupType {
     Item = 2
 }
 
-export abstract class InfoTranslator extends ITranslator {
+export default abstract class InfoTranslator extends ITranslator {
     public static readonly PlayerType = PlayerType;
     public static readonly PlayerRace = PlayerRace;
     public static readonly FogType = FogType;
@@ -469,7 +469,6 @@ export abstract class InfoTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             buffer: outBufferToWar.getBuffer()
         };
     }
@@ -563,7 +562,7 @@ export abstract class InfoTranslator extends ITranslator {
         };
         const outBufferToJSON = new W3Buffer(buffer);
 
-        outBufferToJSON.readInt(); // File version
+        expectVersion(33, outBufferToJSON.readInt()); // File version
 
         result.saves = outBufferToJSON.readInt();
         result.editorVersion = outBufferToJSON.readInt();
@@ -782,7 +781,6 @@ export abstract class InfoTranslator extends ITranslator {
         }
 
         return {
-            errors: [],
             json: result
         };
     }
