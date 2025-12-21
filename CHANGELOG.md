@@ -1,12 +1,22 @@
-# ___ (2025-12-__)
+# 5.0.0 (2025-12-21)
 ### SUMMARY
 **🔥 Breaking changes**
 
+This major release includes a number of exciting changes and updates. There are many breaking changes in this release, so it's recommended to sync your files in World Editor, and then re-export them prior to using any translators.
+
+One of the best changes in this release is the new **command-line interface (CLI) tool**! Up until now, WC3MapTranslator was strictly limited to programmatic usage in Node.js. This meant that developers needed to be familiar with Node.js development and have basic comfort in developing in TypeScript. Now when you install the package, you get access to the `wc3maptranslator` CLI tool, allowing you to directly translate between JSON and war3map formats from your command-line, all without having to write a single line of code. Usage is as easy as running `wc3maptranslator doodads.json` or `wc3maptranslator war3map.w3c`! You can also translate an entire directory of files at once, which synergizes well with World Editor's ability to save maps as a directory. Check out the `README.md` or run `wc3maptranslator --help` for details.
+
+All translators have been updated to their latest WC3 formats, and have added support for many previously-unsupported features, including random item tables, random groups, forces, upgrades, techtrees, etc. The translators also expose various static enums, so developers don't need to remember or lookup specific values for certain fields.
+
+Behind-the-scenes updates have made the codebase stronger, namely the fixing and upgrading of the test suite to catch more errors by adding another set of round-trip tests, and allowing for minor floating-point rounding issues.
+
 This release includes several breaking changes:
+ * 🔥 General - Translation results no longer include an `errors[]` array, which was unused; instead, expect exceptions to be thrown
  * 🔥 The `strings.json` file format now maps keys to `{ value: "", comment: "" }` to support string comments (see below for details)
  * 🔥 The `sounds.json` file has renamed the `eax` field to `effect`, and the `flags` adds a new `imported` boolean
  * 🔥 The `imports.json` file uses an array of strings to list imports (no longer using objects)
  * 🔥 The `units.json` file now expresses angles in degrees (not radians, as before)
+ * 🔥 The `doodads.json` file is now an object containing `{ regular: [], special: [] }`, from an array of doodads
 
 The compiled target version is now `es2015`, up from `es5` (Node has supported the vast majority of `es2015` features since around v6). This allows the codebase to take advantage of new TypeScript features.
 
@@ -15,9 +25,21 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
     * Add support for random units/items/buildings
     * Add support for dropped item sets
     * Add waygate capability
+    * Statically exposes `TargetAcquisition`, `PlayerNumber`, and `ItemClass` enums
+ * Info
+    * Upgrades to latest version, v33, which supports: game data set, game data version, force camera default/min/max
+    * Add support for forces
+    * Add support for upgrades
+    * Add support for techtree
+    * Add support for random groups and random item tables
+    * Add support for ally and enemy low/high priority flags
+    * Statically expose enums: `PlayerType`, `PlayerRace`, `FogType`, `GameDataSet`, `GameDataVersion`, `ScriptLanguage`, `SupportedModes`, `UpgradeAvailability`
  * Terrain
     * Update to latest version, v12, which supports up to 64 tiles
     * Statically exposes `Tileset` enum
+ * Strings
+    * Add support for string comments
+    * JSON file format change: `{ value: "", comment: "" }`, from an array of string values
  * Objects - Add support for latest object files version, v3
  * Sounds
    * Statically exposes `EffectType` and `Channel`, so you can easily reference values like `Channel.Constructions` (12) or `EffectType.HeroSpeech` ("HeroAcksEAX")
@@ -25,35 +47,12 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
  * 🔥 Doodads
    * Add support for item tables (both map-defined and custom)
    * Add support for special doodads
-   * JSON file format change:
-      ```js
-        // doodads.json (BEFORE)
-        [ {}, {}, {} ]
-
-        {
-          // doodads.json (AFTER)
-          "regular": [ {}, {}, {} ],
-          "special": [ {} ]
-        }
-      ```
+   * JSON file format change: `{ regular: [], special: [] }`, from an array of regular doodads
  * 🔥 Imports
    * Removes need to prefix path by "war3mapImported/" if missing, since latest WC3 version "Asset Manager" gets rid of custom paths
 ### FIXES
  * Fixes round-trip conversions (war3 -> json -> war3) on a number of translators:
-   * 🔥 Strings: now supports string comments, thus requiring a new JSON format:
-      ```js
-        {
-          // strings.json (BEFORE)
-          "1591": "|cffFF3333Victory Count|r:",
-          "1592": "|cff3333FFRepick Available|r:"
-        }
-
-        {
-          // strings.json (AFTER)
-          "1591": { "value": "CustomUnit1", "comment": "// Units: H000 (CustomUnit1), Name (Name)" },
-          "1592": { "value": "|cff3333FFRepick Available|r:" }
-        }
-      ```
+   * Strings: now supports string comments, thus requiring a new JSON format
    * Regions: properly handles null weather effect 0x0 bytes
    * Cameras: handles new local roll, pitch, yaw fields, and discovers previous magic value for near clipping
    * Sounds: resolved many issues including magic numbers, default pitch, internal name prefixing `gg_snd_`
@@ -62,7 +61,7 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
  * Upgrade to NodeJS v24 (LTS)
  * Upgrade `fs-extra` 9.1.0 -> 11.3.2
  * Upgrade `@types/fs-extra` 9.0.7 -> 11.0.4
- * Upgrade `@types/node` 14.14.31 -> 24.10.1
+ * Upgrade `@types/node` 14.14.31 -> 24.10.4
  * Upgrade `round-to` 5.0.0 -> 7.0.0
  * Remove `diff-buf` (use native `buffer.equals(buf)`)
  * Remove `@types/round-to` (`round-to` includes its own type definition)
@@ -78,7 +77,6 @@ The compiled target version is now `es2015`, up from `es5` (Node has supported t
  * Use native `node --test` functionality in NodeJS 24, removing need for 3rd party test runner `mocha`
 
 # 4.0.4 (2023-08-06)
-### SUMMARY
 ### FIXES
  * Resolve files packaged incorrectly when publishing npm
 
