@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
 
 interface Region {
     position: Rect;
@@ -72,10 +72,9 @@ export default abstract class RegionsTranslator extends ITranslator {
     public static warToJson(buffer: Buffer): JsonResult<Region[]> {
         const result = [];
         const outBufferToJSON = new W3Buffer(buffer);
+        expectVersion(5, outBufferToJSON.readInt()); // File version
 
-        outBufferToJSON.readInt(); // File version
         const numRegions = outBufferToJSON.readInt(); // # of regions
-
         for (let i = 0; i < numRegions; i++) {
             const region: Region = {
                 name: '',

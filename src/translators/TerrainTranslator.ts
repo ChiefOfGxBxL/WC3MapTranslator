@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
 
 enum Tileset {
     Ashenvale = 'A',
@@ -192,7 +192,7 @@ export default abstract class TerrainTranslator extends ITranslator {
          * Header
          */
         outBufferToJSON.readChars(4); // w3eHeader: W3E!
-        outBufferToJSON.readInt(); // version: 0C 00 00 00
+        expectVersion(12, outBufferToJSON.readInt()); // version: 0C 00 00 00
 
         const tileset = outBufferToJSON.readChars(1); // tileset
         const customTileset = (outBufferToJSON.readInt() === 1);

@@ -1,6 +1,6 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
-import { WarResult, JsonResult, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, ITranslator, expectVersion } from '../CommonInterfaces';
 
 enum TableType {
     original = 'original',
@@ -310,7 +310,7 @@ export default abstract class ObjectsTranslator extends ITranslator {
             if (!buf) continue; // bufferSkin may be undefined
 
             const outBufferToJSON = new W3Buffer(buf);
-            outBufferToJSON.readInt(); // fileVersion
+            expectVersion(3, outBufferToJSON.readInt()); // fileVersion
             readTable(TableType.original, outBufferToJSON);
             readTable(TableType.custom, outBufferToJSON);
         }

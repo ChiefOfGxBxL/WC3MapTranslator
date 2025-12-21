@@ -1,7 +1,7 @@
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { rad2Deg, deg2Rad } from '../AngleConverter';
-import { WarResult, JsonResult, angle, ITranslator } from '../CommonInterfaces';
+import { WarResult, JsonResult, angle, ITranslator, expectVersion } from '../CommonInterfaces';
 
 type ItemSet = Record<string, number>;
 
@@ -135,8 +135,8 @@ export default abstract class DoodadsTranslator extends ITranslator {
         const outBufferToJSON = new W3Buffer(buffer);
 
         outBufferToJSON.readChars(4); // File ID: `W3do` for doodad file
-        outBufferToJSON.readInt(); // File version = 8
-        outBufferToJSON.readInt(); // Sub-version: 0B 00 00 00
+        expectVersion(8, outBufferToJSON.readInt()); // File version = 8
+        expectVersion(11, outBufferToJSON.readInt()); // Sub-version: 0B 00 00 00
 
         const numDoodads = outBufferToJSON.readInt(); // # of regular doodads
         for (let i = 0; i < numDoodads; i++) {
