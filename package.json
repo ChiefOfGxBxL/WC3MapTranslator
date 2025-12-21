@@ -14,7 +14,9 @@
         "w3x"
     ],
     "main": "dist/src/index.js",
-    "bin": "dist/src/cli.js",
+    "bin": {
+        "wc3maptranslator": "dist/src/cli.js"
+    },
     "types": "dist/src/index.d.ts",
     "files": [
         "dist/src/**"
