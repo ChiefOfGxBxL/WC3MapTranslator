@@ -6,7 +6,7 @@ import chalk from 'chalk';
 import { program } from 'commander';
 import * as fs from 'fs-extra';
 import path from 'node:path';
-import { version } from '../package.json';
+import { version } from '../../package.json';
 import { JsonResult, WarResult, ITranslator, VersionError } from './CommonInterfaces';
 import { ObjectsTranslator } from './index';
 import translatorMappings from './TranslatorMappings';
