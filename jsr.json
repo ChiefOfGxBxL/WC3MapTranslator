@@ -1,0 +1,6 @@
+{
+  "name": "@chiefofgxbxl/wc3maptranslator",
+  "version": "5.0.1",
+  "license": "MIT",
+  "exports": "./src/index.ts"
+}

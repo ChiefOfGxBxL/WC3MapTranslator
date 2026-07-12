@@ -1,3 +1,10 @@
+# 5.0.1 (2026-07-12)
+### SUMMARY
+This release resolves two errors.
+
+### FIXES
+ * Resolve errors when trying to use the CLI: cannot find `fs-extra`, and bad version import
+
 # 5.0.0 (2025-12-21)
 ### SUMMARY
 **🔥 Breaking changes**
